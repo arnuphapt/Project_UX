@@ -1,3 +1,3 @@
-npm install
-npm install next-auth
-npm install firebase
+#npm install
+#npm install next-auth
+#npm install firebase
