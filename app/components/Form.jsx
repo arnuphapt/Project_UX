@@ -8,8 +8,9 @@ import app from '../Shared/firebaseConfig'
 import { doc, getFirestore, setDoc } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-
+import Data from './../Data'
 function Form() {
+    const [techList,setTechList]=useState([]);
     const {data:session}=useSession();
     const [title,setTitle]=useState();
     const [desc,setDesc]=useState();
@@ -39,6 +40,7 @@ function Form() {
                     desc:desc,
                     link:link,
                     image:url,
+                    techList:techList,
                     userName:session.user.name,
                     email:session.user.email,
                     userImage:session.user.image,
@@ -57,7 +59,19 @@ function Form() {
     }
 
    
-   
+    const onTechSelect=(name,isChecked)=>{
+        if(isChecked)
+        {
+            setTechList(techList=>
+                [...techList,name]);
+        }
+        else{
+            let techListItem=
+            techList.filter(item=>item!==name)
+                setTechList(techListItem);
+        }
+    }
+
   return (
     <div className=' bg-white p-16 rounded-2xl '>
         <div className='flex justify-end mb-6'>
@@ -77,23 +91,44 @@ function Form() {
             <UploadImage setFile={(file)=>setFile(file)} />
           
        <div className="col-span-2">
-       <div className='w-[100%]'>
+       <UserTag user={session?.user} />
+
+    <div className='w-[100%]'>
+
         <input type="text" placeholder='Add your title'
             onChange={(e)=>setTitle(e.target.value)}
         className='text-[35px] outline-none font-bold w-full
-        border-b-[2px] border-gray-400 placeholder-gray-400'/>
-        <h2 className='text-[12px] mb-8 w-full  text-gray-400'>Name your work</h2>
-        <UserTag user={session?.user} />
-        <textarea type="text"
+        border-b-[2px] border-gray-400 placeholder-gray-400 mt-8'/>
+           <h2 className='text-[12px] w-full  text-gray-400'>Name your work</h2>
+
+
+         <input type="text"
           onChange={(e)=>setDesc(e.target.value)}
-            placeholder='Description' 
-        className=' outline-none  w-full mt-8 pb-4 text-[14px]
+           placeholder='Description' 
+        className=' outline-none  w-full  pb-4 mt-[90px]
         border-b-[2px] border-gray-400 placeholder-gray-400'/>
+        
           <input type="text"
           onChange={(e)=>setLink(e.target.value)}
            placeholder='Add a Destination Link' 
         className=' outline-none  w-full  pb-4 mt-[90px]
         border-b-[2px] border-gray-400 placeholder-gray-400'/>
+
+
+        <h2 className="mb-3 font-bold">Select Technology</h2>
+      <div className="grid grid-cols-2 mb-4 md:grid-cols-3  ">
+        {Data.Technology.map((item,index) => (
+          <div key={index} className="flex gap-2 items-center">
+            <input id="technology"
+            onClick={(e)=>onTechSelect(item.name,e.target.checked)}
+             type="checkbox" 
+             className="w-4 h-4" />
+            <label>{item.name}</label>
+          </div>
+        ))}
+      </div>
+
+
     </div>
        </div>
         
