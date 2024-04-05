@@ -1,40 +1,28 @@
 const Technology=[
     {
         id:1,
-        name:'React',
+        name:'Wireframe',
         icon:''
     },
     {
         id:2,
-        name:'React Native'
+        name:'Ux'
     },
     {
         id:3,
-        name:'Firebase'
+        name:'Ui'
     },
     {
         id:4,
-        name:'Angular'
+        name:'Canva'
     },
     {
         id:5,
-        name:'Tailwind Css'
+        name:' Wix'
     },
     {
         id:6,
-        name:'Next Js'
-    },
-    {
-        id:7,
-        name:'Expo'
-    },
-    {
-        id:8,
-        name:'Python'
-    },
-    {
-        id:9,
-        name:'Other'
+        name:'Figma'
     },
 
 ]
