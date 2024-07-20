@@ -7,9 +7,10 @@ function UserInfo({userInfo}) {
     console.log(userInfo);
     const router=useRouter();
     const {data:session}=useSession()
-    const onLogoutClick=()=>{
-      signOut();
-      router.push("/")
+    const handleLogout = () => {
+      if (window.confirm("Are you sure you want to log out?")) {
+        signOut();
+      }
     }
   return (
     <div className='flex flex-col items-center'>
@@ -24,10 +25,10 @@ function UserInfo({userInfo}) {
         <h2 className='text-gray-400'>{userInfo.email}</h2>
         <div className='flex gap-4'>
         <button className='bg-gray-200
-         p-2 px-3 font-semibold mt-5 rounded-full'>Share</button>
+         p-2 px-3 font-semibold mt-5 rounded-full'>Edit</button>
         {session?.user.email== userInfo.email? <button className='bg-gray-200
          p-2 px-3 font-semibold mt-5 rounded-full'
-         onClick={()=>onLogoutClick()}>Logout</button>:null}
+         onClick={()=>handleLogout()}>Logout</button>:null}
       </div>
     </div>
   )

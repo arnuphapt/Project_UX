@@ -13,23 +13,25 @@ export default function Home() {
     getAllPins();
   }, [])
   const getAllPins = async () => {
-    setListOfPins([])
-    const q = query(collection(db,
-      'pinterest-post')
-    );
+    const q = query(collection(db, 'pinterest-post'));
     const querySnapshot = await getDocs(q);
+  
+    // Collect all pins in an array
+    const pins = [];
     querySnapshot.forEach((doc) => {
-
-
-      setListOfPins((listOfPins) =>
-        [...listOfPins, doc.data()]);
+      pins.push(doc.data());
     });
+  
+    // Update the state once with all collected pins
+    setListOfPins(pins);
   }
+  
 
   return (
     <>
       <div className="p-4">
-        <PinList listOfPins={listOfPins} />
+      <PinList listOfPins={listOfPins}  />
+
       </div>
     </>
   )

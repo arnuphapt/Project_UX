@@ -8,7 +8,8 @@ import app from '../Shared/firebaseConfig'
 import { doc, getFirestore, setDoc } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import Data from './../Data'
+import Data from './Data'
+
 function Form() {
   const [techList, setTechList] = useState([]);
   const { data: session } = useSession();
