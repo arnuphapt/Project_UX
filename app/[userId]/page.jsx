@@ -3,7 +3,7 @@ import React, { useEffect,useState } from 'react'
 import app from '../Shared/firebaseConfig';
 import UserInfo from './../components/UserInfo'
 import { collection, getDocs,getDoc,doc, getFirestore, query, where } from 'firebase/firestore'
-import PinList from './../components/Pins/PinList'
+import Pin from './../components/Pins/Pin'
 function Profile({params}) {
   const db=getFirestore(app);
   const [userInfo,setUserInfo]=useState();
@@ -52,7 +52,7 @@ function Profile({params}) {
      <div>
       <UserInfo userInfo={userInfo} />
      
-      <PinList listOfPins={listOfPins}  />
+      <Pin listOfPins={listOfPins}  />
       </div> :null}
     </div>
   )

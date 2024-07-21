@@ -13,20 +13,24 @@ import Data from './Data'
 function Form() {
   const [techList, setTechList] = useState([]);
   const { data: session } = useSession();
-  const [title, setTitle] = useState();
-  const [desc, setDesc] = useState();
-  const [link, setLink] = useState();
-  const [file, setFile] = useState();
+  const [title, setTitle] = useState('');
+  const [desc, setDesc] = useState('');
+  const [link, setLink] = useState('');
+  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const router = useRouter();
   const storage = getStorage(app)
   const db = getFirestore(app);
   const postId = Date.now().toString();
+
   const onSave = () => {
-    setLoading(true)
+    if (!title || !desc || !link || !file) {
+      setError('All fields are required and a file must be uploaded.');
+      return;
+    }
+    setLoading(true);
     uploadFile();
-
-
   }
 
   const uploadFile = () => {
@@ -51,7 +55,7 @@ function Form() {
         await setDoc(doc(db, 'pinterest-post', postId),
           postData).then(resp => {
             console.log("Saved")
-            setLoading(true);
+            setLoading(false);
             router.push("/" + session.user.email)
           })
 
@@ -59,13 +63,11 @@ function Form() {
     })
   }
 
-
   const onTechSelect = (name, isChecked) => {
     if (isChecked) {
       setTechList(techList =>
         [...techList, name]);
-    }
-    else {
+    } else {
       let techListItem =
         techList.filter(item => item !== name)
       setTechList(techListItem);
@@ -73,48 +75,36 @@ function Form() {
   }
 
   return (
-    <div className=' bg-white p-16 rounded-2xl '>
+    <div className='bg-white p-16 rounded-2xl'>
       <div className='flex justify-end mb-6'>
         <button onClick={() => onSave()}
-          className='bg-blue-500 p-2
-            text-white font-semibold px-3 
-            rounded-lg'>
+          className='bg-blue-500 p-2 text-white font-semibold px-3 rounded-lg'>
           {loading ? <Image src="/loading-indicator.png"
             width={30}
             height={30}
             alt='loading'
             className='animate-spin' /> :
-            <span>Upload</span>}</button>
+            <span>Upload</span>}
+        </button>
       </div>
+      {error && <p className="text-red-500">{error}</p>}
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-10'>
-
         <UploadImage setFile={(file) => setFile(file)} />
-
         <div className="col-span-2">
           <UserTag user={session?.user} />
-
           <div className='w-[100%]'>
-
             <input type="text" placeholder='Add your title'
               onChange={(e) => setTitle(e.target.value)}
-              className='text-[35px] outline-none font-bold w-full
-        border-b-[2px] border-gray-400 placeholder-gray-400 mt-8'/>
-            <h2 className='text-[12px] w-full  text-gray-400'>Name your work</h2>
-
-
+              className='text-[35px] outline-none font-bold w-full border-b-[2px] border-gray-400 placeholder-gray-400 mt-8'/>
+            <h2 className='text-[12px] w-full text-gray-400'>Name your work</h2>
             <input type="text"
               onChange={(e) => setDesc(e.target.value)}
               placeholder='Description'
-              className=' outline-none  w-full  pb-4 mt-[50px]
-        border-b-[2px] border-gray-400 placeholder-gray-400'/>
-
+              className='outline-none w-full pb-4 mt-[50px] border-b-[2px] border-gray-400 placeholder-gray-400'/>
             <input type="text"
               onChange={(e) => setLink(e.target.value)}
               placeholder='Destination Link'
-              className=' outline-none  w-full  pb-4 mt-[50px]
-        border-b-[2px] border-gray-400 placeholder-gray-400'/>
-
-
+              className='outline-none w-full pb-4 mt-[50px] border-b-[2px] border-gray-400 placeholder-gray-400'/>
             <div className="grid grid-cols-2 mb-4 md:grid-cols-3 border-b-[2px] border-gray-400 pb-8 mt-[50px]">
               {Data.Technology.map((item, index) => (
                 <div key={index} className="flex gap-2 items-center">
@@ -126,14 +116,11 @@ function Form() {
                 </div>
               ))}
             </div>
-
-
           </div>
         </div>
-
       </div>
     </div>
   )
 }
 
-export default Form
+export default Form;

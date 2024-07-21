@@ -25,13 +25,12 @@ export default function Home() {
     // Update the state once with all collected pins
     setListOfPins(pins);
   }
-  
+
 
   return (
     <>
       <div className="p-4">
       <PinList listOfPins={listOfPins}  />
-
       </div>
     </>
   )

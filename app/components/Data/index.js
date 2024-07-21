@@ -2,7 +2,6 @@ const Technology=[
     {
         id:1,
         name:'Wireframe',
-        icon:''
     },
     {
         id:2,
