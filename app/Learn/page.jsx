@@ -14,8 +14,8 @@ export default function learn() {
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
           <img src="https://cdn.sanity.io/images/599r6htc/localized/80e3e2472a0120ed87663cf758f1cbfe9be2be47-2400x1256.png?w=720&q=75&fit=max&auto=format" alt="Design basics" className="w-full h-64 mb-4" />
           <h3 className="text-lg font-semibold mb-2">Design basics</h3>
-          <p className="text-gray-600 mb-4">นี่เป็นบทสรุปของการออกแบบพื้นฐาน Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
-          <Link href="/design">
+          <p className="text-gray-600 mb-4">เริ่มต้นการออกแบบโดยการเรียนรู้พื้นฐา</p>
+          <Link href="Learn/design">
             <span className="text-blue-500 font-semibold cursor-pointer">ดูรายละเอียดเพิ่มเติม</span>
           </Link>
         </div>
