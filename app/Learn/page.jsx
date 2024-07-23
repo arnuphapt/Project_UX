@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-const page = () => {
+export default function learn() {
   return (
     <div className="max-w-7xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">เนื้อหาเพิ่มเติม</h1>
@@ -36,4 +36,4 @@ const page = () => {
   );
 }
 
-export default page;
+
