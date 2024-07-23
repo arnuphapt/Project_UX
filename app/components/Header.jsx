@@ -52,6 +52,10 @@ function Header() {
       <button className='bg-black 
         text-white p-2 px-4 rounded-full'
         onClick={() => router.push('/')}>Home</button>
+        {/* Learn */}
+      <button className='bg-black 
+        text-white p-2 px-4 rounded-full'
+        onClick={() => router.push('/Learn')}>Learn</button>
         
       {/* Search */}
       <div className='bg-[#e9e9e9] p-3
