@@ -4,12 +4,25 @@ import { HiArrowUpCircle } from 'react-icons/hi2';
 function UploadImage({ setFile, currentImageUrl }) {
   const [selectedFile, setSelectedFile] = useState();
   const [imageUrl, setImageUrl] = useState(currentImageUrl);
+  const [error, setError] = useState('');
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+
+    if (file && file.size > 5 * 1024 * 1024) {
+      setError('File size exceeds 5 MB.');
+      return;
+    }
+
+    if (file && !file.type.startsWith('image/')) {
+      setError('Only image files are allowed.');
+      return;
+    }
+
     setSelectedFile(file);
     setFile(file);
     setImageUrl(URL.createObjectURL(file));
+    setError('');
   };
 
   const handleRemoveImage = () => {
@@ -49,10 +62,12 @@ function UploadImage({ setFile, currentImageUrl }) {
         <input
           id="dropzone-file"
           type="file"
+          accept="image/*"
           className="hidden"
           onChange={handleFileChange}
         />
       </label>
+      {error && <p className='text-red-500'>{error}</p>}
     </div>
   );
 }

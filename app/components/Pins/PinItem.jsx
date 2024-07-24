@@ -1,10 +1,10 @@
-import Image from 'next/image'
-import React from 'react'
-import UserTag from '../UserTag'
-import { useRouter } from 'next/navigation'
+import Image from 'next/image';
+import React from 'react';
+import UserTag from '../UserTag';
+import { useRouter } from 'next/navigation';
+import Timestamp from '../Timestamp'; // Adjust the import path if needed
 
 function PinItem({ pin }) {
-  
   const router = useRouter();
   const user = {
     name: pin?.userName,
@@ -30,8 +30,14 @@ function PinItem({ pin }) {
           <span>Views: {pin.viewCount}</span>
         </div>
       )}
+      {/* Display the timestamp here */}
+      {pin.timestamp && (
+        <div className="mt-2 text-sm text-gray-600">
+          ส่งเมื่อ <Timestamp date={pin.timestamp} />
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default PinItem
+export default PinItem;

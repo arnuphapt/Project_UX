@@ -4,7 +4,6 @@ import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
 import app from './Shared/firebaseConfig';
 import { useEffect, useState } from 'react';
 import PinList from './components/Pins/PinList';
-
 export default function Home() {
   const db = getFirestore(app);
   const [listOfPins, setListOfPins] = useState([]);
@@ -31,6 +30,7 @@ export default function Home() {
     <>
       <div className="p-4">
       <PinList listOfPins={listOfPins}  />
+      
       </div>
     </>
   )

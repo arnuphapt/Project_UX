@@ -36,7 +36,7 @@ function Form() {
   const uploadFile = () => {
     const storageRef = ref(storage, 'pinterest/' + file.name);
     uploadBytes(storageRef, file).then((snapshot) => {
-      console.log("File Uploaded")
+      console.log("File Uploaded");
     }).then(resp => {
       getDownloadURL(storageRef).then(async (url) => {
         console.log("DownloadUrl", url);
@@ -49,19 +49,19 @@ function Form() {
           userName: session.user.name,
           email: session.user.email,
           userImage: session.user.image,
-          id: postId
-        }
-
-        await setDoc(doc(db, 'pinterest-post', postId),
-          postData).then(resp => {
-            console.log("Saved")
-            setLoading(false);
-            router.push("/" + session.user.email)
-          })
-
-      })
-    })
-  }
+          id: postId,
+          timestamp: new Date() 
+        };
+  
+        await setDoc(doc(db, 'pinterest-post', postId), postData).then(resp => {
+          console.log("Saved");
+          setLoading(false);
+          router.push("/" + session.user.email);
+        });
+      });
+    });
+  };
+  
 
   const onTechSelect = (name, isChecked) => {
     if (isChecked) {
@@ -93,18 +93,18 @@ function Form() {
         <div className="col-span-2">
           <UserTag user={session?.user} />
           <div className='w-[100%]'>
-            <input type="text" placeholder='Add your title'
+            <input type="text" placeholder='Add a title'
               onChange={(e) => setTitle(e.target.value)}
               className='text-[35px] outline-none font-bold w-full border-b-[2px] border-gray-400 placeholder-gray-400 mt-8'/>
             <h2 className='text-[12px] w-full text-gray-400'>Name your work</h2>
             <input type="text"
               onChange={(e) => setDesc(e.target.value)}
               placeholder='Description'
-              className='outline-none w-full pb-4 mt-[50px] border-b-[2px] border-gray-400 placeholder-gray-400'/>
+              className='text-[20px] outline-none w-full pb-4 mt-[50px] border-b-[2px] border-gray-400 placeholder-gray-400'/>
             <input type="text"
               onChange={(e) => setLink(e.target.value)}
               placeholder='Destination Link'
-              className='outline-none w-full pb-4 mt-[50px] border-b-[2px] border-gray-400 placeholder-gray-400'/>
+              className='text-[20px] outline-none w-full pb-4 mt-[50px] border-b-[2px] border-gray-400 placeholder-gray-400'/>
             <div className="grid grid-cols-2 mb-4 md:grid-cols-3 border-b-[2px] border-gray-400 pb-8 mt-[50px]">
               {Data.Technology.map((item, index) => (
                 <div key={index} className="flex gap-2 items-center">
