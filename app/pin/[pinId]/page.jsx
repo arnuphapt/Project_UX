@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import PinImage from './../../components/PinDetail/PinImage'
 import PinInfo from './../../components/PinDetail/PinInfo'
 import { doc, getDoc, updateDoc, getFirestore } from 'firebase/firestore'
 import app from '@/app/Shared/firebaseConfig'
@@ -44,13 +43,12 @@ function PinDetail({ params }) {
     <>
       {pinDetail ? 
         <div className='bg-white p-3 md:p-12 rounded-2xl md:px-24 lg:px-36'>
-          <HiArrowSmallLeft 
-            className='text-[60px] font-bold ml-[-50px] cursor-pointer hover:bg-gray-200 rounded-full p-2'
+          <div className='shadow-2xl rounded-2xl p-3 md:p-7 lg:p-12 xl:pd-16'>
+            <div className="">
+            <HiArrowSmallLeft 
+            className='text-[60px] font-bold ml-[-30px] cursor-pointer hover:bg-gray-200 rounded-full p-2'
             onClick={() => router.back()} 
           />
-          <div className='grid grid-cols-1 lg:grid-cols-2 md:gap-10 shadow-2xl rounded-2xl p-3 md:p-7 lg:p-12 xl:pd-16'>
-            <PinImage pinDetail={pinDetail} />
-            <div className="">
               <PinInfo pinDetail={pinDetail} />
             </div>
           </div>

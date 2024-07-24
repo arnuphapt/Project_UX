@@ -16,13 +16,15 @@ function PinItem({ pin }) {
       className="cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out bg-sky-50 p-2 rounded-3xl hover:bg-sky-200"
       onClick={() => router.push("/pin/" + pin.id)}
     >
-      <Image
-        src={pin.image}
-        alt={pin.title}
-        width={500}
-        height={500}
-        className="rounded-3xl cursor-pointer relative z-0"
-      />
+      <div className="relative w-full h-40 overflow-hidden rounded-3xl">
+        <Image
+          src={pin.image}
+          alt={pin.title}
+          layout="fill" // Fill the container
+          objectFit="cover" // Cover the container while preserving aspect ratio
+          className="rounded-3xl"
+        />
+      </div>
       <h2 className="font-bold text-[18px] mb-1 mt-2 line-clamp-2">{pin.title}</h2>
       <UserTag user={user} />
       {pin.viewCount !== undefined && (

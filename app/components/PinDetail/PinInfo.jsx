@@ -8,6 +8,8 @@ import { useSession } from 'next-auth/react';
 import EditForm from '../editing';
 import CommentSection from '../comment';
 import LikeButton from '../LikeButton';
+import PinImage from './PinImage';
+import UploadImage from '../UploadImage'; // Make sure this import is correct
 
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
@@ -137,14 +139,25 @@ function PinInfo({ pinDetail }) {
 
       await updateDoc(postRef, updatedData);
       setIsEditing(false);
-      window.location.reload(true); // Force reload from the server
+      router.push(router.asPath); // Refresh the page
     } catch (error) {
       console.error("Error updating document: ", error);
     }
   };
 
   return (
-    <div>
+    <div className='grid grid-cols-2'>
+      <div>
+        {isEditing ? (
+              <div className='w-[600px] h-[600px]'>
+
+          <UploadImage setFile={setFile} currentImageUrl={editedPin.image} />
+          </div>
+
+        ) : (
+          <PinImage pinDetail={pinDetail} />
+        )}
+      </div>
       {isEditing ? (
         <EditForm
           editedPin={editedPin}
@@ -157,67 +170,69 @@ function PinInfo({ pinDetail }) {
         />
       ) : (
         <>
-          <h2 className='text-[30px] font-bold mb-8'>{pinDetail.title}</h2>
+          <div>
+            <h2 className='text-[30px] font-bold mb-8'>{pinDetail.title}</h2>
 
-          <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
-          <p className='text-gray-500 mb-5'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p> {/* Add this line */}
+            <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
+            <p className='text-gray-500 mb-5'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
 
-          <h2 className='mt-10'>{pinDetail.desc}</h2>
+            <h2 className='text-[20px] mt-10'>{pinDetail.desc}</h2>
 
-          {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
-            <div className='mt-10 flex flex-wrap gap-2'>
-              {pinDetail.techList.map((tech, index) => (
-                <span
-                  key={index}
-                  className='px-3 py-1 bg-[#e9e9e9] rounded-full text-[20px] hover:scale-105 transition-all'
+            {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
+              <div className='mt-10 flex flex-wrap gap-2'>
+                {pinDetail.techList.map((tech, index) => (
+                  <span
+                    key={index}
+                    className='px-3 py-1 bg-[#e9e9e9] rounded-full text-[15px] hover:scale-105 transition-all'
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <button
+              className='p-2 bg-[#e9e9e9] px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
+              onClick={() => window.open(pinDetail.link)}
+            >
+              Open Url
+            </button>
+
+            {session?.user.email === pinDetail.email && (
+              <>
+                <button
+                  className='p-2 bg-red-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
+                  onClick={handleDelete}
                 >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          )}
+                  Delete
+                </button>
+                <button
+                  className='p-2 bg-blue-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
+                  onClick={() => setIsEditing(true)}
+                >
+                  Edit
+                </button>
+              </>
+            )}
 
-          <button
-            className='p-2 bg-[#e9e9e9] px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
-            onClick={() => window.open(pinDetail.link)}
-          >
-            Open Url
-          </button>
+            {/* Like Button */}
+            <LikeButton
+              hasLiked={hasLiked}
+              onLikeToggle={handleLikeToggle}
+              likesCount={likes.length}
+            />
 
-          {session?.user.email === pinDetail.email && (
-            <>
-              <button
-                className='p-2 bg-red-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-              <button
-                className='p-2 bg-blue-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
-                onClick={() => setIsEditing(true)}
-              >
-                Edit
-              </button>
-            </>
-          )}
-
-          {/* Like Button */}
-          <LikeButton
-            hasLiked={hasLiked}
-            onLikeToggle={handleLikeToggle}
-            likesCount={likes.length}
-          />
-
-          {/* Comment Section */}
-          <CommentSection
-            comments={comments}
-            handleCommentSubmit={handleCommentSubmit}
-            newComment={newComment}
-            setNewComment={setNewComment}
-            handleCommentDelete={handleCommentDelete}
-            handleCommentEdit={handleCommentEdit}
-            userEmail={session?.user?.email}
-          />
+            {/* Comment Section */}
+            <CommentSection
+              comments={comments}
+              handleCommentSubmit={handleCommentSubmit}
+              newComment={newComment}
+              setNewComment={setNewComment}
+              handleCommentDelete={handleCommentDelete}
+              handleCommentEdit={handleCommentEdit}
+              userEmail={session?.user?.email}
+            />
+          </div>
         </>
       )}
     </div>
