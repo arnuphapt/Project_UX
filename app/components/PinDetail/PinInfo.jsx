@@ -5,31 +5,26 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import app from '../../Shared/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import EditForm from '../editing';
 import CommentSection from '../comment';
 import LikeButton from '../LikeButton';
 import PinImage from './PinImage';
-import UploadImage from '../UploadImage'; // Make sure this import is correct
+import EditPinForm from '../Editform'; // Import the new EditPinForm component
+import UploadImage from '../UploadImage'; // Import UploadImage component
 
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
   const db = getFirestore(app);
-  const storage = getStorage(app);
   const router = useRouter();
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedPin, setEditedPin] = useState({
-    title: pinDetail.title,
-    desc: pinDetail.desc,
-    link: pinDetail.link,
-    techList: pinDetail.techList,
-    image: pinDetail.image || ''
-  });
-  const [selectedTechList, setSelectedTechList] = useState(pinDetail.techList || []);
   const [file, setFile] = useState(null);
+  const [image, setImage] = useState(pinDetail.image || ''); // State for new image
+  const [imageUrl, setImageUrl] = useState(pinDetail.image || ''); // URL for preview
+  // Check if the current user is the owner of the post
+  const isPostOwner = session?.user?.email === pinDetail.email;
 
   useEffect(() => {
     // Get comments from Firestore
@@ -54,6 +49,8 @@ function PinInfo({ pinDetail }) {
   }, [db, pinDetail.id, session?.user?.email]);
 
   const handleDelete = async () => {
+    if (!isPostOwner) return;
+
     const confirmed = window.confirm("Are you sure you want to delete this post?");
     if (confirmed) {
       try {
@@ -118,66 +115,49 @@ function PinInfo({ pinDetail }) {
     }
   };
 
-  const handleEditSubmit = async (event) => {
-    event.preventDefault();
-    const postRef = doc(db, 'pinterest-post', pinDetail.id);
+  const handleEditToggle = () => {
+    if (!isPostOwner) return;
+    setIsEditing(prev => !prev);
+  };
 
+  const handleSaveChanges = async (updatedData) => {
     try {
-      let updatedData = {
-        title: editedPin.title,
-        desc: editedPin.desc,
-        link: editedPin.link,
-        techList: selectedTechList,
-      };
-
-      if (file) {
-        const storageRef = ref(storage, 'pinterest/' + file.name);
-        await uploadBytes(storageRef, file);
-        const imageUrl = await getDownloadURL(storageRef);
-        updatedData = { ...updatedData, image: imageUrl };
-      }
-
-      await updateDoc(postRef, updatedData);
+      await updateDoc(doc(db, 'pinterest-post', pinDetail.id), {
+        ...updatedData,
+        // Handle image updates here if needed
+      });
       setIsEditing(false);
-      router.push(router.asPath); // Refresh the page
     } catch (error) {
-      console.error("Error updating document: ", error);
+      console.error("Error updating post: ", error);
     }
   };
 
   return (
     <div className='grid grid-cols-2'>
-      <div>
+         <div>
         {isEditing ? (
               <div className='w-[600px] h-[600px]'>
 
-          <UploadImage setFile={setFile} currentImageUrl={editedPin.image} />
+          <UploadImage setFile={setFile} currentImageUrl={imageUrl} />
           </div>
 
         ) : (
           <PinImage pinDetail={pinDetail} />
         )}
       </div>
-      {isEditing ? (
-        <EditForm
-          editedPin={editedPin}
-          setEditedPin={setEditedPin}
-          selectedTechList={selectedTechList}
-          setSelectedTechList={setSelectedTechList}
-          setFile={setFile}
-          handleEditSubmit={handleEditSubmit}
-          setIsEditing={setIsEditing}
-        />
-      ) : (
-        <>
-          <div>
+      <div>
+        {isEditing ? (
+          <EditPinForm
+            pinDetail={pinDetail}
+            onSave={handleSaveChanges}
+            onCancel={handleEditToggle}
+          />
+        ) : (
+          <>
             <h2 className='text-[30px] font-bold mb-8'>{pinDetail.title}</h2>
-
             <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
             <p className='text-gray-500 mb-5'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
-
-            <h2 className='text-[20px] mt-10'>{pinDetail.desc}</h2>
-
+            <p className='text-[20px] mt-10'>{pinDetail.desc}</p>
             {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
               <div className='mt-10 flex flex-wrap gap-2'>
                 {pinDetail.techList.map((tech, index) => (
@@ -190,15 +170,13 @@ function PinInfo({ pinDetail }) {
                 ))}
               </div>
             )}
-
             <button
               className='p-2 bg-[#e9e9e9] px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
               onClick={() => window.open(pinDetail.link)}
             >
               Open Url
             </button>
-
-            {session?.user.email === pinDetail.email && (
+            {isPostOwner && (
               <>
                 <button
                   className='p-2 bg-red-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
@@ -208,21 +186,17 @@ function PinInfo({ pinDetail }) {
                 </button>
                 <button
                   className='p-2 bg-blue-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
-                  onClick={() => setIsEditing(true)}
+                  onClick={handleEditToggle}
                 >
                   Edit
                 </button>
               </>
             )}
-
-            {/* Like Button */}
             <LikeButton
               hasLiked={hasLiked}
               onLikeToggle={handleLikeToggle}
               likesCount={likes.length}
             />
-
-            {/* Comment Section */}
             <CommentSection
               comments={comments}
               handleCommentSubmit={handleCommentSubmit}
@@ -232,9 +206,9 @@ function PinInfo({ pinDetail }) {
               handleCommentEdit={handleCommentEdit}
               userEmail={session?.user?.email}
             />
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
