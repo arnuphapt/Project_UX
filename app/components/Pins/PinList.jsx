@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PinItem from './PinItem';
-import SearchBar from '../SearchBar';
-import FilterBar from '../FilterBar';
+import SearchBar from '../Searchbar';
+import FilterBar from '../Filterbar';
 
 function PinList({ listOfPins }) {
     const [selectedTech, setSelectedTech] = useState('All');
