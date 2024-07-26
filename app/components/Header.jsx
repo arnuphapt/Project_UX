@@ -1,5 +1,5 @@
 "use client"
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import React, { useEffect } from 'react'
 import { HiSearch } from "react-icons/hi";
 import { useSession, signIn, signOut } from "next-auth/react"

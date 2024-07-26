@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import LikeButton from './LikeButton'; // Import the LikeButton component
 
