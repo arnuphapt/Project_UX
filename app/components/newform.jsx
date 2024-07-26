@@ -4,7 +4,7 @@ import app from "../Shared/firebaseConfig";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, 
     ref, uploadBytes } from "firebase/storage";
-function Form() {
+function newForm() {
   const [inputs, setInputs] = useState({});
   const [file, setFile] = useState();
   const [submit, setSubmit] = useState(false);
@@ -136,4 +136,4 @@ rounded-md text-white"
   );
 }
 
-export default Form;
+export default newForm;

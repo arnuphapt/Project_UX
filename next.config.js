@@ -13,6 +13,12 @@ module.exports = {
           port: '',
           pathname: '/**',
         },
+        {
+          protocol: 'https',
+          hostname: 'https://web-classroom.netlify.app',
+          port: '',
+          pathname: '/**',
+        },
       ],
     },
 }

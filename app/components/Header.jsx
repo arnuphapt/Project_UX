@@ -34,7 +34,13 @@ function Header() {
       signIn();
     }
   }
-
+  const onCreateClicknew = () => {
+    if (session) {
+      router.push('/pin-builder2');
+    } else {
+      signIn();
+    }
+  }
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to log out?")) {
       signOut();
@@ -75,6 +81,9 @@ function Header() {
       {/* Create */}
       <button className='font-semibold mx-2 p-2 px-4 rounded-full bg-blue-800 text-white'
         onClick={() => onCreateClick()}>Create</button>
+              {/* Create */}
+      <button className='font-semibold mx-2 p-2 px-4 rounded-full bg-blue-800 text-white'
+        onClick={() => onCreateClicknew()}>Createnew</button>
       {/* User profile */}
       {session?.user ? <Image
         src={session.user.image}
