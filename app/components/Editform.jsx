@@ -43,7 +43,7 @@ const EditPinForm = ({ pinDetail, onSave, onCancel }) => {
       <textarea
         value={desc}
         onChange={(e) => setDesc(e.target.value)}
-        className='text-[20px] outline-none w-full pb-4 mt-[50px] border-b-[2px] border-gray-400 placeholder-gray-400'
+        className='text-[20px] outline-none w-full mt-[50px] border-b-[2px] border-gray-400 placeholder-gray-400'
       />
       <input
         type="text"

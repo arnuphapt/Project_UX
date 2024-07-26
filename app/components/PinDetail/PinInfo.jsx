@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import UserTag from '../UserTag';
 import { getFirestore, doc, deleteDoc, collection, addDoc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import app from '../../Shared/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import CommentSection from '../comment';
 import LikeButton from '../LikeButton';
 import PinImage from './PinImage';
-import EditPinForm from '../Editform'; // Import the new EditPinForm component
-import UploadImage from '../UploadImage'; // Import UploadImage component
+import EditPinForm from '../Editform';
+import UploadImage from '../UploadImage';
 
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
@@ -21,20 +20,17 @@ function PinInfo({ pinDetail }) {
   const [hasLiked, setHasLiked] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [file, setFile] = useState(null);
-  const [image, setImage] = useState(pinDetail.image || ''); // State for new image
-  const [imageUrl, setImageUrl] = useState(pinDetail.image || ''); // URL for preview
-  // Check if the current user is the owner of the post
+  const [imageUrl, setImageUrl] = useState(pinDetail.image || '');
+
   const isPostOwner = session?.user?.email === pinDetail.email;
 
   useEffect(() => {
-    // Get comments from Firestore
     const commentsRef = collection(db, 'pinterest-post', pinDetail.id, 'comments');
     const unsubscribeComments = onSnapshot(commentsRef, (snapshot) => {
       const commentsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setComments(commentsList);
     });
 
-    // Get likes from Firestore
     const postRef = doc(db, 'pinterest-post', pinDetail.id);
     const unsubscribePost = onSnapshot(postRef, (doc) => {
       const data = doc.data();
@@ -93,9 +89,7 @@ function PinInfo({ pinDetail }) {
 
   const handleCommentEdit = async (commentId, newText) => {
     try {
-      await updateDoc(doc(db, 'pinterest-post', pinDetail.id, 'comments', commentId), {
-        text: newText
-      });
+      await updateDoc(doc(db, 'pinterest-post', pinDetail.id, 'comments', commentId), { text: newText });
     } catch (error) {
       console.error("Error editing comment: ", error);
     }
@@ -124,7 +118,7 @@ function PinInfo({ pinDetail }) {
     try {
       await updateDoc(doc(db, 'pinterest-post', pinDetail.id), {
         ...updatedData,
-        // Handle image updates here if needed
+        image: imageUrl
       });
       setIsEditing(false);
     } catch (error) {
@@ -132,18 +126,25 @@ function PinInfo({ pinDetail }) {
     }
   };
 
+  const handleImageUpload = async (uploadedImageUrl) => {
+    setImageUrl(uploadedImageUrl);
+  };
+
   return (
     <div className='grid grid-cols-2'>
-         <div>
+      <div>
         {isEditing ? (
-              <div className='w-[600px] h-[600px]'>
-
-          <UploadImage setFile={setFile} currentImageUrl={imageUrl} />
+          <div className='w-[600px] h-[600px]'>
+            <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
           </div>
-
         ) : (
           <PinImage pinDetail={pinDetail} />
         )}
+                    <LikeButton
+              hasLiked={hasLiked}
+              onLikeToggle={handleLikeToggle}
+              likesCount={likes.length}
+            />
       </div>
       <div>
         {isEditing ? (
@@ -192,12 +193,9 @@ function PinInfo({ pinDetail }) {
                 </button>
               </>
             )}
-            <LikeButton
-              hasLiked={hasLiked}
-              onLikeToggle={handleLikeToggle}
-              likesCount={likes.length}
-            />
+
             <CommentSection
+            
               comments={comments}
               handleCommentSubmit={handleCommentSubmit}
               newComment={newComment}
