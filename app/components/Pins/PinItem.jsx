@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import React from 'react';
 import UserTag from '../UserTag';
 import { useRouter } from 'next/navigation';
@@ -19,10 +19,12 @@ function PinItem({ pin }) {
         <Image
           src={pin.image}
           alt={pin.title}
-          layout="fill" // Fill the container
-          objectFit="cover" // Cover the container while preserving aspect ratio
           className="rounded-3xl"
-        />
+          fill
+          sizes="100vw"
+          style={{
+            objectFit: "cover"
+          }} />
       </div>
       <h2 className="font-bold text-[18px] mb-1 mt-2 line-clamp-2">{pin.title}</h2>
       <UserTag user={user} />

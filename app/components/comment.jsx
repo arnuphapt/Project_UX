@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import LikeButton from './LikeButton'; // Import the LikeButton component
 
@@ -87,7 +87,10 @@ function CommentSection({
                   width={40}
                   height={40}
                   className='rounded-full'
-                />
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto"
+                  }} />
               )}
               <div className='flex flex-col w-full'>
                 {editingCommentId === comment.id ? (

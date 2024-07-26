@@ -7,7 +7,7 @@ import UserTag from './UserTag'
 import app from '../Shared/firebaseConfig'
 import { doc, getFirestore, setDoc } from 'firebase/firestore'
 import { useRouter } from 'next/navigation'
-import Image from "next/legacy/image"
+import Image from "next/image"
 import Data from './Data'
 import { HiArrowSmallLeft } from "react-icons/hi2";
 
@@ -76,7 +76,6 @@ function Form() {
   }
 
   return (
-
     <div className='bg-white p-16 rounded-2xl'>
     <div className='flex justify-between mb-6'>
       <HiArrowSmallLeft
@@ -84,11 +83,16 @@ function Form() {
         onClick={() => router.back()} />
       <button onClick={() => onSave()}
         className='bg-blue-500 p-2 text-white font-semibold px-3 rounded-lg'>
-        {loading ? <Image src="/loading-indicator.png"
+        {loading ? <Image
+          src="/loading-indicator.png"
           width={30}
           height={30}
           alt='loading'
-          className='animate-spin' /> :
+          className='animate-spin'
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }} /> :
           <span>Upload</span>}
       </button>
     </div>
@@ -125,8 +129,7 @@ function Form() {
       </div>
     </div>
   </div>
-  
-  )
+  );
 }
 
 export default Form;
