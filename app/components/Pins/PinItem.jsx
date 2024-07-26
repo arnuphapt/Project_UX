@@ -31,8 +31,12 @@ function PinItem({ pin }) {
           <span>Views: {pin.viewCount}</span>
         </div>
       )}
-      {/* Display the timestamp here */}
-
+      {/* Display the likes count */}
+      {pin.likes !== undefined && (
+        <div className="mt-2 text-sm text-gray-600">
+          <span>Likes: {pin.likes.length}</span>
+        </div>
+      )}
     </div>
   );
 }

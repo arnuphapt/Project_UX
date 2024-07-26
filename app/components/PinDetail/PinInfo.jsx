@@ -9,7 +9,7 @@ import PinImage from './PinImage';
 import EditPinForm from '../Editform';
 import UploadImage from '../UploadImage';
 import DeleteButton from '../DeleteButton'; // Import the DeleteButton component
-import { HiArrowSmallLeft } from "react-icons/hi2";
+import { IoIosMore } from "react-icons/io";
 
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
@@ -133,7 +133,7 @@ function PinInfo({ pinDetail }) {
       <div>
         {isEditing ? (
           <div className='w-[600px] h-[600px]'>
-            <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
+             <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
           </div>
         ) : (
           <PinImage pinDetail={pinDetail} />
@@ -149,7 +149,7 @@ function PinInfo({ pinDetail }) {
         ) : (
           <>
             <div className='flex justify-between'><h2 className='text-[30px] font-bold mb-8'>{pinDetail.title}</h2>  
-            <HiArrowSmallLeft
+            <IoIosMore 
               className='text-[60px] font-bold ml-[-30px] cursor-pointer hover:bg-gray-200 rounded-full p-2'
               onClick={() => router.push('/')}
             /></div>
