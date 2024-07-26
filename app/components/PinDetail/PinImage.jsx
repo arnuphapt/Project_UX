@@ -1,6 +1,5 @@
 import React from 'react'
 import Image from 'next/image'
-import UserInfo from './UserInfo';
 
 const PLACEHOLDER = './Images/placeholder.jpg';
 
