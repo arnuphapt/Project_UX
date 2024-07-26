@@ -61,8 +61,8 @@ export default function Home() {
   return (
     <>
       <div className="p-4">
-      <PinList posts={posts}  />
-      {posts? <Posts listOfPins={listOfPins}/>:null}
+      <PinList listOfPins={listOfPins}  />
+      {posts? <Posts posts={posts}/>:null}
 
       </div>
     </>

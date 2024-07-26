@@ -4,12 +4,12 @@ import SearchBar from '../Searchbar';
 import FilterBar from '../Filterbar';
 import Sorting from '../Sorting';
 
-function PinList({ posts }) {
+function PinList({ listOfPins }) {
     const [selectedTech, setSelectedTech] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('default'); // State for sorting criteria
 
-    const filteredPins = posts.filter(pin => {
+    const filteredPins = listOfPins.filter(pin => {
         const matchesTech = selectedTech.length === 0 || selectedTech.some(tech => pin.techList.includes(tech));
         const matchesSearchQuery = pin.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             pin.techList.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()));

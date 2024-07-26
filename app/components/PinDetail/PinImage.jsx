@@ -1,17 +1,15 @@
-import Image from 'next/image';
 import React from 'react';
 const PLACEHOLDER = '/Images/placeholder.jpg';
 
 function PinImage({ pinDetail }) {
-  const imageUrl = pinDetail.image || PLACEHOLDER;
 
   return (
     <div>
-      <Image
-        src={imageUrl}
+      <img
+        src={pinDetail.image?pinDetail.image:PLACEHOLDER}
         alt={pinDetail.title}
-        width={600}
-        height={600}
+        width={500}
+        height={500}
         className='rounded-2xl'
         style={{
           maxWidth: "100%",
