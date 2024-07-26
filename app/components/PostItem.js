@@ -8,8 +8,8 @@ function PostItem({ post, modal = false }) {
     <div className="cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out bg-sky-50 p-2 rounded-3xl hover:bg-sky-200">
       <div className="relative w-full h-40 overflow-hidden rounded-3xl">
         <Image
-          src={post.image || PLACEHOLDER}
-          alt={post.title || 'banner'}
+        src={post.image?post.image:PLACEHOLDER}
+        alt={post.title || 'banner'}
           className="rounded-3xl"
           fill
           sizes="100vw"
