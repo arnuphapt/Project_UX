@@ -1,7 +1,7 @@
-import Image from "next/image";
 import React from 'react';
 import UserTag from '../UserTag';
 import { useRouter } from 'next/navigation';
+const PLACEHOLDER = '/Images/placeholder.jpg';
 
 function PinItem({ pin }) {
   const router = useRouter();
@@ -16,9 +16,9 @@ function PinItem({ pin }) {
       onClick={() => router.push("/pin/" + pin.id)}
     >
       <div className="relative w-full h-40 overflow-hidden rounded-3xl">
-        <Image
-          src={pin.image}
-          alt={pin.title}
+        <img
+        src={pin.image?pin.image:PLACEHOLDER}
+        alt={pin.title}
           className="rounded-3xl"
           fill
           sizes="100vw"
