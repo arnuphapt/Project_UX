@@ -5,10 +5,11 @@ import app from '../../Shared/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import CommentSection from '../comment';
-import LikeButton from '../LikeButton';
 import PinImage from './PinImage';
 import EditPinForm from '../Editform';
 import UploadImage from '../UploadImage';
+import DeleteButton from '../DeleteButton'; // Import the DeleteButton component
+import { HiArrowSmallLeft } from "react-icons/hi2";
 
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
@@ -47,14 +48,11 @@ function PinInfo({ pinDetail }) {
   const handleDelete = async () => {
     if (!isPostOwner) return;
 
-    const confirmed = window.confirm("Are you sure you want to delete this post?");
-    if (confirmed) {
-      try {
-        await deleteDoc(doc(db, 'pinterest-post', pinDetail.id));
-        router.push('/');
-      } catch (error) {
-        console.error("Error deleting document: ", error);
-      }
+    try {
+      await deleteDoc(doc(db, 'pinterest-post', pinDetail.id));
+      router.push('/');
+    } catch (error) {
+      console.error("Error deleting document: ", error);
     }
   };
 
@@ -140,11 +138,6 @@ function PinInfo({ pinDetail }) {
         ) : (
           <PinImage pinDetail={pinDetail} />
         )}
-                    <LikeButton
-              hasLiked={hasLiked}
-              onLikeToggle={handleLikeToggle}
-              likesCount={likes.length}
-            />
       </div>
       <div>
         {isEditing ? (
@@ -155,7 +148,11 @@ function PinInfo({ pinDetail }) {
           />
         ) : (
           <>
-            <h2 className='text-[30px] font-bold mb-8'>{pinDetail.title}</h2>
+            <div className='flex justify-between'><h2 className='text-[30px] font-bold mb-8'>{pinDetail.title}</h2>  
+            <HiArrowSmallLeft
+              className='text-[60px] font-bold ml-[-30px] cursor-pointer hover:bg-gray-200 rounded-full p-2'
+              onClick={() => router.push('/')}
+            /></div>
             <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
             <p className='text-gray-500 mb-5'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
             <p className='text-[20px] mt-10'>{pinDetail.desc}</p>
@@ -179,12 +176,7 @@ function PinInfo({ pinDetail }) {
             </button>
             {isPostOwner && (
               <>
-                <button
-                  className='p-2 bg-red-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
-                  onClick={handleDelete}
-                >
-                  Delete
-                </button>
+                <DeleteButton onDelete={handleDelete} /> {/* Use DeleteButton component */}
                 <button
                   className='p-2 bg-blue-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
                   onClick={handleEditToggle}
@@ -193,9 +185,7 @@ function PinInfo({ pinDetail }) {
                 </button>
               </>
             )}
-
             <CommentSection
-            
               comments={comments}
               handleCommentSubmit={handleCommentSubmit}
               newComment={newComment}
@@ -203,6 +193,9 @@ function PinInfo({ pinDetail }) {
               handleCommentDelete={handleCommentDelete}
               handleCommentEdit={handleCommentEdit}
               userEmail={session?.user?.email}
+              hasLiked={hasLiked}
+              onLikeToggle={handleLikeToggle}
+              likesCount={likes.length}
             />
           </>
         )}

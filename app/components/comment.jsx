@@ -1,8 +1,20 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
+import LikeButton from './LikeButton'; // Import the LikeButton component
 
-function CommentSection({ comments, handleCommentSubmit, newComment, setNewComment, handleCommentDelete, handleCommentEdit, userEmail }) {
+function CommentSection({
+  comments,
+  handleCommentSubmit,
+  newComment,
+  setNewComment,
+  handleCommentDelete,
+  handleCommentEdit,
+  userEmail,
+  hasLiked,       // Receive `hasLiked` prop
+  onLikeToggle,   // Receive `onLikeToggle` prop
+  likesCount,     // Receive `likesCount` prop
+}) {
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState('');
   const [areCommentsVisible, setAreCommentsVisible] = useState(true);
@@ -27,32 +39,42 @@ function CommentSection({ comments, handleCommentSubmit, newComment, setNewComme
 
   return (
     <div className='mt-8 relative'>
-      <form onSubmit={handleCommentSubmit} className='mb-6'>
-        <div className='relative'>
+      <form onSubmit={handleCommentSubmit} className='mb-6 flex items-center'>
+        <LikeButton
+          hasLiked={hasLiked}
+          onLikeToggle={onLikeToggle}
+          likesCount={likesCount}
+        />
+        <div className='relative flex-grow'>
           <input
             type='text'
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder='Add a comment...'
-            className='w-full p-4 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all'
+            className='w-full p-4 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pr-14' // Add padding-right to make space for button
           />
         </div>
       </form>
 
-      <button
-        onClick={toggleAllComments}
-        className='mb-4 p-3 bg-gray-700 text-white rounded-full hover:bg-gray-800 transition-all flex items-center gap-2'
-      >
-        {areCommentsVisible ? (
-          <>
-            <AiOutlineUp /> Hide Comments
-          </>
-        ) : (
-          <>
-            <AiOutlineDown /> Show Comments
-          </>
+      <div className='flex items-center justify-between mb-4 text-gray-700'>
+        <span className='font-semibold text-lg'>{comments.length} Comments</span>
+        {comments.length > 0 && (
+          <button
+            onClick={toggleAllComments}
+            className='p-3 text-black rounded-full transition-all flex items-center gap-2'
+          >
+            {areCommentsVisible ? (
+              <>
+                <AiOutlineUp /> Hide Comments
+              </>
+            ) : (
+              <>
+                <AiOutlineDown /> Show Comments
+              </>
+            )}
+          </button>
         )}
-      </button>
+      </div>
 
       {areCommentsVisible && (
         <div className='mt-6'>

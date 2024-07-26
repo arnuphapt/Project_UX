@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import PinInfo from './../../components/PinDetail/PinInfo'
 import { doc, getDoc, updateDoc, getFirestore } from 'firebase/firestore'
 import app from '@/app/Shared/firebaseConfig'
-import { HiArrowSmallLeft } from "react-icons/hi2";
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 
@@ -45,10 +44,7 @@ function PinDetail({ params }) {
         <div className='bg-white p-3 md:p-12 rounded-2xl md:px-24 lg:px-36'>
           <div className='shadow-2xl rounded-2xl p-3 md:p-7 lg:p-12 xl:pd-16'>
             <div className="">
-            <HiArrowSmallLeft 
-            className='text-[60px] font-bold ml-[-30px] cursor-pointer hover:bg-gray-200 rounded-full p-2'
-            onClick={() => router.back()} 
-          />
+
               <PinInfo pinDetail={pinDetail} />
             </div>
           </div>
