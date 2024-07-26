@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PostItem from "./PostItem";
-import PostModal from "./PostModal";
 
 function Posts({ posts }) {
   const [post,setPost]=useState()
@@ -9,7 +8,6 @@ function Posts({ posts }) {
   });
   return (
     <div>
-      <PostModal post={post} />
       <div
         className="grid grid-cols-1 
     sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
