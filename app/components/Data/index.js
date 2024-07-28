@@ -17,7 +17,7 @@ const Technology=[
     },
     {
         id:5,
-        name:' Wix'
+        name:'Wix'
     },
     {
         id:6,

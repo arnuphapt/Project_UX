@@ -1,12 +1,13 @@
 "use client"
-import Image from "next/image"
-import React, { useEffect } from 'react'
+import Image from "next/image";
+import React, { useEffect } from 'react';
 import { HiSearch } from "react-icons/hi";
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
-import app from '../Shared/firebaseConfig'
+import app from '../Shared/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { IoIosLogOut } from "react-icons/io";
+import { FaCirclePlus } from "react-icons/fa6";
 
 function Header() {
   const { data: session } = useSession();
@@ -25,7 +26,7 @@ function Header() {
         userImage: session.user.image
       });
     }
-  }
+  };
 
   const onCreateClick = () => {
     if (session) {
@@ -33,15 +34,16 @@ function Header() {
     } else {
       signIn();
     }
-  }
+  };
+
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to log out?")) {
       signOut();
     }
-  }
+  };
 
   return (
-    <div className='flex gap-3 md:gap-2 shadow-md items-center p-6 '>
+    <div className='flex gap-3 md:gap-2 shadow-md items-center p-6'>
       {/* logo */}
       <Image
         src='/image.png'
@@ -54,16 +56,16 @@ function Header() {
         style={{
           maxWidth: "100%",
           height: "auto"
-        }} />
+        }} 
+      />
       {/* home */}
-      <button className='bg-black 
-        text-white p-2 px-4 rounded-full'
+      <button className='text-[16px]
+        text-black m-2 p-1 px-1 hover:border-b-2 border-black'
         onClick={() => router.push('/')}>Home</button>
-        {/* Learn */}
-      <button className='bg-black 
-        text-white p-2 px-4 rounded-full'
+      {/* Learn */}
+      <button className='text-[16px]
+        text-black m-2 p-1 px-1 hover:border-b-2 border-black'
         onClick={() => router.push('/Learn')}>Learn</button>
-        
       {/* Search */}
       <div className='bg-[#e9e9e9] p-3
         flex gap-3 items-center rounded-full w-full hidden md:flex'>
@@ -72,8 +74,10 @@ function Header() {
           className='bg-transparent outline-none' />
       </div>
       {/* Create */}
-      <button className='font-semibold mx-2 p-2 px-4 rounded-full bg-blue-800 text-white'
-        onClick={() => onCreateClick()}>Create</button>
+      <button className='text-black mx-2 p-2 px-2 flex items-center'
+        onClick={onCreateClick}>
+        <FaCirclePlus className=' text-[45px]'/>
+      </button>
       {/* User profile */}
       {session?.user ? <Image
         src={session.user.image}
@@ -86,9 +90,10 @@ function Header() {
         style={{
           maxWidth: "100%",
           height: "auto"
-        }} /> :
+        }} 
+      /> :
         <button className='hover:bg-gray-300 font-semibold p-2 px-4 rounded-full'
-          onClick={() => signIn()}>Login</button>}
+          onClick={signIn}>Login</button>}
       {/* Logout */}
       <button className='hover:bg-gray-300 font-semibold p-1 px-2 rounded-full flex items-center'
         onClick={handleLogout}>

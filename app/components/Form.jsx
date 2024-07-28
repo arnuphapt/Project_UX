@@ -79,7 +79,7 @@ function Form() {
     <div className='bg-white p-16 rounded-2xl'>
     <div className='flex justify-between mb-6'>
       <HiArrowSmallLeft
-        className='text-[60px] font-bold cursor-pointer hover:bg-gray-200 rounded-full p-2'
+        className='text-[50px] font-bold cursor-pointer hover:bg-gray-200 rounded-full p-2'
         onClick={() => router.back()} />
       <button onClick={() => onSave()}
         className='bg-blue-500 p-2 text-white font-semibold px-3 rounded-lg'>

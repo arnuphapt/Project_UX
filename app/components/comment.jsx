@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Image from "next/image";
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
-import LikeButton from './LikeButton'; // Import the LikeButton component
+import LikeButton from './LikeButton';
 
 function CommentSection({
   comments,
@@ -11,9 +11,9 @@ function CommentSection({
   handleCommentDelete,
   handleCommentEdit,
   userEmail,
-  hasLiked,       // Receive `hasLiked` prop
-  onLikeToggle,   // Receive `onLikeToggle` prop
-  likesCount,     // Receive `likesCount` prop
+  hasLiked,
+  onLikeToggle,
+  likesCount,
 }) {
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [editedCommentText, setEditedCommentText] = useState('');
@@ -39,22 +39,22 @@ function CommentSection({
 
   return (
     <div className='mt-8 relative'>
-      <form onSubmit={handleCommentSubmit} className='mb-6 flex items-center'>
+      <div className='mb-6 flex items-center'>
         <LikeButton
           hasLiked={hasLiked}
           onLikeToggle={onLikeToggle}
           likesCount={likesCount}
         />
-        <div className='relative flex-grow'>
+        <form onSubmit={handleCommentSubmit} className='relative flex-grow'>
           <input
             type='text'
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
             placeholder='Add a comment...'
-            className='w-full p-4 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pr-14' // Add padding-right to make space for button
+            className='w-full p-4 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pr-14'
           />
-        </div>
-      </form>
+        </form>
+      </div>
 
       <div className='flex items-center justify-between mb-4 text-gray-700'>
         <span className='font-semibold text-lg'>{comments.length} Comments</span>

@@ -132,7 +132,7 @@ function PinInfo({ pinDetail }) {
     <div className='grid grid-cols-2'>
       <div>
         {isEditing ? (
-          <div className='w-[600px] h-[600px]'>
+          <div className='w-[400px] h-[400px]'>
              <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
           </div>
         ) : (
