@@ -1,10 +1,9 @@
 // PinList.js
 import React, { useState } from 'react';
 import PinItem from './PinItem';
-import SearchBar from '../SearchBar';
-import FilterBar from '../FilterBar';
+import SearchBar from '../Filterbar';
+import FilterBar from '../Searchbar';
 import Sorting from '../Sorting';
-import { Timestamp } from 'firebase/firestore';
 
 function PinList({ listOfPins }) {
     const [selectedTech, setSelectedTech] = useState([]);
