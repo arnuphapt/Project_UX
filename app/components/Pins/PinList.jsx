@@ -1,8 +1,8 @@
 // PinList.js
 import React, { useState } from 'react';
 import PinItem from './PinItem';
-import SearchBar from '../Filterbar';
-import FilterBar from '../Searchbar';
+import SearchBar from '../Searchbar';
+import FilterBar from '../Filterbar';
 import Sorting from '../Sorting';
 
 function PinList({ listOfPins }) {
