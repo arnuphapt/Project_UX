@@ -55,9 +55,9 @@ function Header() {
           <Image
             src='/image.png'
             alt='logo'
-            width={150}
-            height={150}
-            className='hover:bg-gray-300 p-2 rounded-full cursor-pointer'
+            width={160}
+            height={160}
+            className='p-2 rounded-full cursor-pointer'
             onClick={() => router.push('/')}
             style={{ maxWidth: "100%", height: "auto" }} 
           />

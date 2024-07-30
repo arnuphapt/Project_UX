@@ -47,7 +47,7 @@ function Profile({params}) {
       });
   }
   return (
-    <div>
+    <div className='mt-10'>
      {userInfo?
      <div>
       <UserInfo userInfo={userInfo} />

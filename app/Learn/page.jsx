@@ -22,13 +22,13 @@ export default function learn() {
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
           <img src="https://cdn.sanity.io/images/599r6htc/localized/3be051c77cbd4295b2e18809a521d0e66887ca16-720x721.png?rect=0,73,720,576&w=540&h=432&q=75&fit=max&auto=format" alt="UI design" className="w-full h64 mb-4" />
           <h3 className="text-lg font-semibold mb-2">UI design</h3>
-          <p className="text-gray-600 mb-4">เรียนรู้วิธีการออกแบบส่วนต่อประสานสำหรับผู้ใช้ Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
+          <p className="text-gray-600 mb-4">เรียนรู้วิธีการออกแบบส่วนต่อประสานสำหรับผู้ใช้</p>
           <a href="#" className="text-blue-500 font-semibold">ดูรายละเอียดเพิ่มเติม</a>
         </div>
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
           <img src="https://cdn.sanity.io/images/599r6htc/localized/29e39a5d558657d76d75489bb26f0a2ffe0e97f5-720x721.png?rect=0,1,720,720&w=360&h=360&q=75&fit=max&auto=format" alt="UX design" className="w-full h64 mb-4" />
           <h3 className="text-lg font-semibold mb-2">UX design</h3>
-          <p className="text-gray-600 mb-4">ค้นพบวิธีการออกแบบประสบการณ์การใช้งานที่ดี Lorem ipsum dolor sit amet consectetur adipiscing elit.</p>
+          <p className="text-gray-600 mb-4">ค้นพบวิธีการออกแบบประสบการณ์การใช้งานที่ดี</p>
           <a href="#" className="text-blue-500 font-semibold">ดูรายละเอียดเพิ่มเติม</a>
         </div>
       </div>

@@ -10,6 +10,7 @@ import EditPinForm from '../Editform';
 import UploadImage from '../UploadImage';
 import DeleteButton from '../DeleteButton'; // Import the DeleteButton component
 import { IoIosMore } from "react-icons/io";
+import { HiArrowSmallLeft } from "react-icons/hi2";
 
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
@@ -132,10 +133,11 @@ function PinInfo({ pinDetail }) {
     <div className='grid grid-cols-2'>
       <div>
         {isEditing ? (
-          <div className='w-[400px] h-[400px]'>
+          <div className='w-[500px] h-[500px]'>
              <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
           </div>
         ) : (
+          
           <PinImage pinDetail={pinDetail} />
         )}
       </div>
