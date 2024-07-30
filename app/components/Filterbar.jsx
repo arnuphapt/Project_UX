@@ -26,16 +26,16 @@ function FilterBar({ selectedTech, setSelectedTech }) {
     };
 
     return (
-        <div className="flex justify-center mb-7 ">
+        <div className="flex flex-wrap justify-center mb-7">
             {['All', ...Technology.map(tech => tech.name)].map(tech => (
                 <button
                     key={tech}
                     onClick={() => toggleTech(tech)}
-                    className={`mr-4 px-1 py-2 hover:border-b-2 border-black  ${
+                    className={`mr-4 mb-2 px-3 py-2 border-b-2 ${
                         (tech === 'All' && selectedTech.length === 0) || selectedTech.map(t => t.toLowerCase()).includes(tech.toLowerCase())
-                            ? 'text-black border-b-2 border-black'
-                            : 'text-black'
-                    }`}
+                            ? 'text-black border-black'
+                            : 'text-gray-500 border-transparent hover:border-gray-300'
+                    } transition-colors duration-200`}
                 >
                     {tech}
                 </button>

@@ -3,11 +3,11 @@ import React from 'react';
 
 function Sorting({ sortBy, setSortBy }) {
     return (
-        <div className="mb-4">
+        <div>
             <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="p-2 border border-gray-300 rounded"
+                className="p-2 border border-gray-300 rounded-full"
             >
                 <option value="default">Oldest</option>
                 <option value="newest">Newest</option> {/* Added */}
