@@ -31,6 +31,9 @@ function PinInfo({ pinDetail }) {
     const unsubscribeComments = onSnapshot(commentsRef, (snapshot) => {
       const commentsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setComments(commentsList);
+      updateDoc(doc(db, 'pinterest-post', pinDetail.id), {
+        commentCount: commentsList.length
+      });
     });
 
     const postRef = doc(db, 'pinterest-post', pinDetail.id);
