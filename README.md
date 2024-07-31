@@ -4,4 +4,5 @@
 #npm install i js-cookie
 #npm install react-icons --save
 #npm install react-toastify
+#bun add @nextui-org/react framer-motion
 # Netlify
