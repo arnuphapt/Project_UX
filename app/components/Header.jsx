@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import { IoIosLogOut } from "react-icons/io";
 import { FaCirclePlus } from "react-icons/fa6";
 import { FiMenu, FiX } from "react-icons/fi";
-
 function Header() {
   const { data: session } = useSession();
   const router = useRouter();

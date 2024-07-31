@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Data from './Data';
 import { HiArrowSmallLeft } from "react-icons/hi2";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Form() {
   const [techList, setTechList] = useState([]);
@@ -20,7 +22,6 @@ function Form() {
   const [link, setLink] = useState('');
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const router = useRouter();
   const storage = getStorage(app);
   const db = getFirestore(app);
@@ -28,9 +29,10 @@ function Form() {
 
   const onSave = () => {
     if (!title || !desc || !link || !file) {
-      setError('All fields are required and a file must be uploaded.');
+      toast.error('All fields are required and a file must be uploaded.');
       return;
     }
+    toast.success('Post success.') ;
     setLoading(true);
     uploadFile();
   };
@@ -90,7 +92,7 @@ function Form() {
             <span>Upload</span>}
         </button>
       </div>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+      <ToastContainer position="bottom-center" autoClose={1000} />
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8'>
         <UploadImage setFile={setFile} />
         <div className="lg:col-span-2">

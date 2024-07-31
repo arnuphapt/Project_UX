@@ -10,7 +10,8 @@ import EditPinForm from '../Editform';
 import UploadImage from '../UploadImage';
 import DeleteButton from '../DeleteButton'; // Import the DeleteButton component
 import { IoIosMore } from "react-icons/io";
-import { HiArrowSmallLeft } from "react-icons/hi2";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
@@ -54,11 +55,13 @@ function PinInfo({ pinDetail }) {
 
     try {
       await deleteDoc(doc(db, 'pinterest-post', pinDetail.id));
+      toast.success("Post deleted successfully!");
       router.push('/');
     } catch (error) {
+      toast.error("Error deleting post. Please try again.");
       console.error("Error deleting document: ", error);
     }
-  };
+  }
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
@@ -73,7 +76,9 @@ function PinInfo({ pinDetail }) {
         timestamp: new Date()
       });
       setNewComment('');
+      toast.success("Comment added successfully!");
     } catch (error) {
+      toast.error("Error adding comment. Please try again.");
       console.error("Error adding comment: ", error);
     }
   };
@@ -83,7 +88,9 @@ function PinInfo({ pinDetail }) {
     if (confirmed) {
       try {
         await deleteDoc(doc(db, 'pinterest-post', pinDetail.id, 'comments', commentId));
+        toast.success("Comment deleted successfully!");
       } catch (error) {
+        toast.error("Error deleting comment. Please try again.");
         console.error("Error deleting comment: ", error);
       }
     }
@@ -92,10 +99,13 @@ function PinInfo({ pinDetail }) {
   const handleCommentEdit = async (commentId, newText) => {
     try {
       await updateDoc(doc(db, 'pinterest-post', pinDetail.id, 'comments', commentId), { text: newText });
+      toast.success("Comment updated successfully!");
     } catch (error) {
+      toast.error("Error updating comment. Please try again.");
       console.error("Error editing comment: ", error);
     }
   };
+
 
   const handleLikeToggle = async () => {
     const postRef = doc(db, 'pinterest-post', pinDetail.id);
@@ -123,7 +133,9 @@ function PinInfo({ pinDetail }) {
         image: imageUrl
       });
       setIsEditing(false);
+      toast.success("Post updated successfully!");
     } catch (error) {
+      toast.error("Error updating post. Please try again.");
       console.error("Error updating post: ", error);
     }
   };
@@ -133,79 +145,88 @@ function PinInfo({ pinDetail }) {
   };
 
   return (
-    <div className='grid grid-cols-2'>
-      <div>
-        {isEditing ? (
-          <div className='w-[500px] h-[500px]'>
-             <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
-          </div>
-        ) : (
-          
-          <PinImage pinDetail={pinDetail} />
-        )}
+   // Inside your component's JSX
+<div className='grid grid-cols-2'>
+  <div>
+    <ToastContainer position="bottom-center" autoClose={5000} />
+    {isEditing ? (
+      <div className='w-[500px] h-[500px]'>
+        <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
       </div>
-      <div>
-        {isEditing ? (
-          <EditPinForm
-            pinDetail={pinDetail}
-            onSave={handleSaveChanges}
-            onCancel={handleEditToggle}
+    ) : (
+      <PinImage pinDetail={pinDetail} />
+      
+    )}
+  </div>
+  <div>
+    {isEditing ? (
+      <EditPinForm
+        pinDetail={pinDetail}
+        onSave={handleSaveChanges}
+        onCancel={handleEditToggle}
+      />
+    ) : (
+      <>
+        <div className='flex justify-between'>
+          <h2 className='text-[30px] font-bold mb-8'>{pinDetail.title}</h2>  
+          <IoIosMore 
+            className='text-[60px] font-bold ml-[-30px] cursor-pointer hover:bg-gray-200 rounded-full p-2'
+            onClick={() => router.push('/')}
           />
-        ) : (
+        </div>
+        <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
+        <p className='text-gray-500 mb-5'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
+        <p className='text-[20px] mt-10'>{pinDetail.desc}</p>
+        {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
+          <div className='mt-10 flex flex-wrap gap-2'>
+            {pinDetail.techList.map((tech, index) => (
+              <span
+                key={index}
+                className='px-3 py-1 bg-[#e9e9e9] rounded-full text-[15px] hover:scale-105 transition-all'
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        )}
+        <button
+          className='p-2 bg-[#e9e9e9] px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
+          onClick={() => window.open(pinDetail.link)}
+        >
+          Open Url
+        </button>
+        {isPostOwner && (
           <>
-            <div className='flex justify-between'><h2 className='text-[30px] font-bold mb-8'>{pinDetail.title}</h2>  
-            <IoIosMore 
-              className='text-[60px] font-bold ml-[-30px] cursor-pointer hover:bg-gray-200 rounded-full p-2'
-              onClick={() => router.push('/')}
-            /></div>
-            <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
-            <p className='text-gray-500 mb-5'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
-            <p className='text-[20px] mt-10'>{pinDetail.desc}</p>
-            {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
-              <div className='mt-10 flex flex-wrap gap-2'>
-                {pinDetail.techList.map((tech, index) => (
-                  <span
-                    key={index}
-                    className='px-3 py-1 bg-[#e9e9e9] rounded-full text-[15px] hover:scale-105 transition-all'
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            )}
+            <DeleteButton onDelete={handleDelete} />
             <button
-              className='p-2 bg-[#e9e9e9] px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
-              onClick={() => window.open(pinDetail.link)}
+              className='p-2 bg-blue-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
+              onClick={handleEditToggle}
             >
-              Open Url
+              Edit
             </button>
-            {isPostOwner && (
-              <>
-                <DeleteButton onDelete={handleDelete} /> {/* Use DeleteButton component */}
-                <button
-                  className='p-2 bg-blue-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
-                  onClick={handleEditToggle}
-                >
-                  Edit
-                </button>
-              </>
-            )}
-            <CommentSection
-              comments={comments}
-              handleCommentSubmit={handleCommentSubmit}
-              newComment={newComment}
-              setNewComment={setNewComment}
-              handleCommentDelete={handleCommentDelete}
-              handleCommentEdit={handleCommentEdit}
-              userEmail={session?.user?.email}
-              hasLiked={hasLiked}
-              onLikeToggle={handleLikeToggle}
-              likesCount={likes.length}
-            />
           </>
         )}
-      </div>
-    </div>
+        {session ? (
+          <CommentSection
+            comments={comments}
+            handleCommentSubmit={handleCommentSubmit}
+            newComment={newComment}
+            setNewComment={setNewComment}
+            handleCommentDelete={handleCommentDelete}
+            handleCommentEdit={handleCommentEdit}
+            userEmail={session?.user?.email}
+            hasLiked={hasLiked}
+            onLikeToggle={handleLikeToggle}
+            likesCount={likes.length}
+          />
+        ) : (
+          <p className="mt-5 text-rose-500">Please log in to like or comment.</p>
+        )}
+      </>
+    )}
+  </div>
+</div>
+
   );
 }
 
