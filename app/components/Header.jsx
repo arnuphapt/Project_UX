@@ -79,9 +79,11 @@ function Header() {
         <DropdownItem href="https://www.figma.com/" color="success">figma</DropdownItem>
         <DropdownItem href="https://www.wix.com/" color="default">wix</DropdownItem>
         <DropdownItem href="https://padlet.com/" color="danger">padlet</DropdownItem>
+        
       </DropdownMenu>
     </Dropdown>
-                <button className='font-semibold text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => router.push('/Learn')}>Learn</button>
+            {/* Learn */}
+            <button className='font-semibold text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => router.push('/Learn')}>Learn</button>
             <button className='text-black mx-2 p-2 flex items-center' onClick={onCreateClick}>
               <FaCirclePlus className='text-[45px]' />
             </button>

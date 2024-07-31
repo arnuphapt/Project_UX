@@ -12,6 +12,7 @@ function Pin({ listOfPins }) {
 
                 ))}
             </div>
+            
         </div>
     );
 }

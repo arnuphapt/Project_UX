@@ -13,6 +13,7 @@ import { IoIosMore } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// คอมโพเนนต์ PinInfo ที่ปรับปรุง
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
   const db = getFirestore(app);
@@ -106,7 +107,6 @@ function PinInfo({ pinDetail }) {
     }
   };
 
-
   const handleLikeToggle = async () => {
     const postRef = doc(db, 'pinterest-post', pinDetail.id);
     const newLikes = hasLiked
@@ -145,89 +145,87 @@ function PinInfo({ pinDetail }) {
   };
 
   return (
-   // Inside your component's JSX
-<div className='grid grid-cols-2'>
-  <div>
-    <ToastContainer position="bottom-center" autoClose={5000} />
-    {isEditing ? (
-      <div className='w-[500px] h-[500px]'>
-        <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
-      </div>
-    ) : (
-      <PinImage pinDetail={pinDetail} />
-      
-    )}
-  </div>
-  <div>
-    {isEditing ? (
-      <EditPinForm
-        pinDetail={pinDetail}
-        onSave={handleSaveChanges}
-        onCancel={handleEditToggle}
-      />
-    ) : (
-      <>
-        <div className='flex justify-between'>
-          <h2 className='text-[30px] font-bold mb-8'>{pinDetail.title}</h2>  
-          <IoIosMore 
-            className='text-[60px] font-bold ml-[-30px] cursor-pointer hover:bg-gray-200 rounded-full p-2'
-            onClick={() => router.push('/')}
-          />
-        </div>
-        <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
-        <p className='text-gray-500 mb-5'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
-        <p className='text-[20px] mt-10'>{pinDetail.desc}</p>
-        {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
-          <div className='mt-10 flex flex-wrap gap-2'>
-            {pinDetail.techList.map((tech, index) => (
-              <span
-                key={index}
-                className='px-3 py-1 bg-[#e9e9e9] rounded-full text-[15px] hover:scale-105 transition-all'
-              >
-                {tech}
-              </span>
-            ))}
+    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+      <div className='relative'>
+        <ToastContainer position="bottom-center" autoClose={5000} />
+        {isEditing ? (
+          <div className='w-full h-auto'>
+            <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
           </div>
+        ) : (
+          <PinImage pinDetail={pinDetail} />
         )}
-        <button
-          className='p-2 bg-[#e9e9e9] px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
-          onClick={() => window.open(pinDetail.link)}
-        >
-          Open Url
-        </button>
-        {isPostOwner && (
-          <>
-            <DeleteButton onDelete={handleDelete} />
-            <button
-              className='p-2 bg-blue-500 text-white px-5 text-[23px] mt-10 rounded-full hover:scale-105 transition-all'
-              onClick={handleEditToggle}
-            >
-              Edit
-            </button>
-          </>
-        )}
-        {session ? (
-          <CommentSection
-            comments={comments}
-            handleCommentSubmit={handleCommentSubmit}
-            newComment={newComment}
-            setNewComment={setNewComment}
-            handleCommentDelete={handleCommentDelete}
-            handleCommentEdit={handleCommentEdit}
-            userEmail={session?.user?.email}
-            hasLiked={hasLiked}
-            onLikeToggle={handleLikeToggle}
-            likesCount={likes.length}
+      </div>
+      <div>
+        {isEditing ? (
+          <EditPinForm
+            pinDetail={pinDetail}
+            onSave={handleSaveChanges}
+            onCancel={handleEditToggle}
           />
         ) : (
-          <p className="mt-5 text-rose-500">Please log in to like or comment.</p>
+          <>
+            <div className='flex flex-col md:flex-row md:justify-between'>
+              <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title}</h2>
+              <IoIosMore 
+                className='text-3xl md:text-5xl cursor-pointer hover:bg-gray-200 rounded-full p-2'
+                onClick={() => router.push('/')}
+              />
+            </div>
+            <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
+            <p className='text-gray-500 mb-4'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
+            <p className='text-lg mt-6'>{pinDetail.desc}</p>
+            {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
+              <div className='mt-6 flex flex-wrap gap-2'>
+                {pinDetail.techList.map((tech, index) => (
+                  <span
+                    key={index}
+                    className='px-3 py-1 bg-gray-200 rounded-full text-sm hover:scale-105 transition-all'
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            )}
+            <button
+              className='p-2 bg-gray-200 px-4 text-lg mt-6 rounded-full hover:scale-105 transition-all'
+              onClick={() => window.open(pinDetail.link)}
+            >
+              Open Url
+            </button>
+            {isPostOwner && (
+              <>
+                <DeleteButton onDelete={handleDelete} />
+                <button
+                  className='p-2 bg-blue-500 text-white px-4 text-lg mt-6 rounded-full hover:scale-105 transition-all'
+                  onClick={handleEditToggle}
+                >
+                  Edit
+                </button>
+              </>
+            )}
+            {session ? (
+              <CommentSection
+                comments={comments}
+                handleCommentSubmit={handleCommentSubmit}
+                newComment={newComment}
+                setNewComment={setNewComment}
+                handleCommentDelete={handleCommentDelete}
+                handleCommentEdit={handleCommentEdit}
+                userEmail={session?.user?.email}
+                hasLiked={hasLiked}
+                onLikeToggle={handleLikeToggle}
+                likesCount={likes.length}
+              />
+            ) : (
+              <p className="mt-5 text-red-500">Please log in to like or comment.</p>
+            )}
+          </>
         )}
-      </>
-    )}
-  </div>
-</div>
-
+      </div>
+    </div>
   );
 }
 
 export default PinInfo;
+
