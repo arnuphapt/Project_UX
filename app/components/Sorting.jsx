@@ -1,4 +1,3 @@
-// Sorting.js
 import React from 'react';
 
 function Sorting({ sortBy, setSortBy }) {

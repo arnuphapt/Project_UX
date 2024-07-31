@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import { IoIosLogOut } from "react-icons/io";
 import { FaCirclePlus } from "react-icons/fa6";
 import { FiMenu, FiX } from "react-icons/fi";
+import {Button, Dropdown,  DropdownTrigger,  DropdownMenu,  DropdownSection,  DropdownItem} from '@nextui-org/react'
+
 function Header() {
   const { data: session } = useSession();
   const router = useRouter();
@@ -48,6 +50,7 @@ function Header() {
 
   return (
     <div className='relative'>
+
       <div className='flex justify-between items-center p-6 shadow-md'>
         <div className='flex items-center gap-3'>
           {/* Logo */}
@@ -56,7 +59,7 @@ function Header() {
             alt='logo'
             width={160}
             height={160}
-            className='p-2 rounded-full cursor-pointer'
+            className='p-2 cursor-pointer'
             onClick={() => router.push('/')}
             style={{ maxWidth: "100%", height: "auto" }} 
           />
@@ -67,8 +70,18 @@ function Header() {
             {isMenuOpen ? <FiX className='text-[30px]' /> : <FiMenu className='text-[30px]' />}
           </button>
           <div className='hidden md:flex items-center gap-3'>
-            <button className='font-semibold text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => router.push('/')}>Home</button>
-            <button className='font-semibold text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => router.push('/Learn')}>Learn</button>
+          <Dropdown>
+      <DropdownTrigger>
+      <button className='font-semibold text-[16px] text-black m-2 p-1 hover:border-b-2 border-black'>Tools</button>
+
+      </DropdownTrigger>
+      <DropdownMenu>
+        <DropdownItem href="https://www.figma.com/" color="success">figma</DropdownItem>
+        <DropdownItem href="https://www.wix.com/" color="default">wix</DropdownItem>
+        <DropdownItem href="https://padlet.com/" color="danger">padlet</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+                <button className='font-semibold text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => router.push('/Learn')}>Learn</button>
             <button className='text-black mx-2 p-2 flex items-center' onClick={onCreateClick}>
               <FaCirclePlus className='text-[45px]' />
             </button>

@@ -53,7 +53,7 @@ function PinList({ listOfPins }) {
                 <h1 className="text-2xl font-bold">{headerText}</h1>
                 <Sorting sortBy={sortBy} setSortBy={setSortBy} />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
                 {sortedPins.map((item) => (
                     <PinItem key={item.id} pin={item} />
                 ))}
