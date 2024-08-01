@@ -169,7 +169,7 @@ function PinInfo({ pinDetail }) {
               <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title}</h2>
               <IoIosMore 
                 className='text-3xl md:text-5xl cursor-pointer hover:bg-gray-200 rounded-full p-2'
-                onClick={() => router.push('/')}
+                onClick={() => router.back()}
               />
             </div>
             <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />

@@ -41,7 +41,7 @@ function PinList({ listOfPins }) {
 
     const headerText = selectedTech.length === 0
         ? 'All'
-        : `Searching for: ${selectedTech.join(', ')}`;
+        : `Searching : ${selectedTech.join(', ')}`;
 
     return (
         <div className="mt-7 px-5">
