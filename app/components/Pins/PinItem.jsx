@@ -14,7 +14,7 @@ function PinItem({ pin }) {
 
   // Simulate loading delay for demonstration
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); // 1 second delay
+    const timer = setTimeout(() => setLoading(false), 1000); // 1 second delay
     return () => clearTimeout(timer);
   }, []);
 
