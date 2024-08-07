@@ -20,17 +20,17 @@ function PinList({ listOfPins }) {
 
     const sortedPins = [...filteredPins].sort((a, b) => {
         switch (sortBy) {
-            case 'newest':
+            case 'default':
                 return b.timestamp?.toDate() - a.timestamp?.toDate();
-            case 'oldest':
+            case 'Oldest posts':
                 return a.timestamp?.toDate() - b.timestamp?.toDate();
-            case 'likes':
+            case 'Most Liked':
                 return (b.likes?.length || 0) - (a.likes?.length || 0);
-            case 'views':
+            case 'Most Viewed':
                 return (b.viewCount || 0) - (a.viewCount || 0);
-            case 'title-asc':
+            case 'Name A-Z':
                 return a.title.localeCompare(b.title);
-            case 'title-desc':
+            case 'Name Z-A':
                 return b.title.localeCompare(a.title);
             case 'userName':
                 return a.userName.localeCompare(b.userName);
@@ -40,8 +40,8 @@ function PinList({ listOfPins }) {
     });
 
     const headerText = selectedTech.length === 0
-        ? 'All'
-        : `Searching : ${selectedTech.join(', ')}`;
+        ? 'All Post'
+        : `Filter : ${selectedTech.join(', ')}`;
 
     return (
         <div className="mt-7 px-5">
@@ -53,7 +53,7 @@ function PinList({ listOfPins }) {
                 <h1 className="text-2xl font-bold">{headerText}</h1>
                 <Sorting sortBy={sortBy} setSortBy={setSortBy} />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+            <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
                 {sortedPins.map((item) => (
                     <PinItem key={item.id} pin={item} />
                 ))}

@@ -146,7 +146,7 @@ function PinInfo({ pinDetail }) {
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-      <div className='relative'>
+      <div className='relative '>
         <ToastContainer position="bottom-center" autoClose={5000} />
         {isEditing ? (
           <div className='w-full h-auto'>

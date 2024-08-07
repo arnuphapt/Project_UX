@@ -25,10 +25,10 @@ function PinItem({ pin }) {
 
   return (
     <div
-      className="cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out bg-sky-50 p-2 rounded-3xl hover:bg-sky-200"
+      className="cursor-pointer"
       onClick={() => router.push("/pin/" + pin.id)}
     >
-      <div className="relative w-full h-40 overflow-hidden rounded-3xl">
+      <div className="relative w-full h-40 overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out bg-gray-100 p-2 rounded-3xl hover:bg-gray-200">
         {loading ? (
           <Skeleton className="w-full h-full rounded-3xl" />
         ) : (

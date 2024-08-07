@@ -72,19 +72,19 @@ function Header() {
           <div className='hidden md:flex items-center gap-3'>
           <Dropdown>
       <DropdownTrigger>
-      <button className='font-semibold text-[16px] text-black m-2 p-1 hover:border-b-2 border-black'>Tools</button>
+      <Button variant='light' className='font-semibold text-[16px]'>Tools</Button>
 
       </DropdownTrigger>
       <DropdownMenu>
-        <DropdownItem href="https://www.figma.com/" color="success">figma</DropdownItem>
+        <DropdownItem href="https://www.figma.com/" color="default">figma</DropdownItem>
         <DropdownItem href="https://www.wix.com/" color="default">wix</DropdownItem>
-        <DropdownItem href="https://padlet.com/" color="danger">padlet</DropdownItem>
+        <DropdownItem href="https://padlet.com/" color="default">padlet</DropdownItem>
         
       </DropdownMenu>
     </Dropdown>
             {/* Learn */}
-            <button className='font-semibold text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => router.push('/Learn')}>Learn</button>
-            <button className='text-black mx-2 p-2 flex items-center' onClick={onCreateClick}>
+            <Button variant='light' className='font-semibold text-[16px] ' onClick={() => router.push('/Learn')}>Learn</Button>
+            <button className='text-black mx-1 p-2 flex items-center' onClick={onCreateClick}>
               <FaCirclePlus className='text-[45px]' />
             </button>
             {session?.user ? (
@@ -98,7 +98,7 @@ function Header() {
                 style={{ maxWidth: "100%", height: "auto" }} 
               />
             ) : (
-              <button className='hover:bg-gray-300 font-semibold p-2 px-4 rounded-full' onClick={signIn}>Login</button>
+              <Button variant='light' className='font-semibold text-[16px] ' onClick={signIn}>Login</Button>
             )}
             <button className='hover:bg-gray-300 font-semibold p-1 px-2 rounded-full flex items-center' onClick={handleLogout}>
               <IoIosLogOut className='text-[30px]' />
@@ -106,7 +106,7 @@ function Header() {
           </div>
         </div>
       </div>
-      {/* Mobile Navigation Links */}
+      {/* Responsive */}
       <div className={`flex flex-col items-start items-center bg-white shadow-md ${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => {router.push('/'); setIsMenuOpen(false);}}>Home</button>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => {router.push('/Learn'); setIsMenuOpen(false);}}>Learn</button>

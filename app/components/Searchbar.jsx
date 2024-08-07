@@ -1,16 +1,18 @@
 import React from 'react';
 import { HiSearch } from "react-icons/hi";
+import { Input } from "@nextui-org/react";
 
 function SearchBar({ searchQuery, setSearchQuery }) {
     return (
-        <div className="border-b-2 p-2 w-full md:w-2/5 flex items-center">
-            <HiSearch className="text-[25px] text-gray-500 mr-2" />
-            <input
+        <div className=" p-2 w-full md:w-2/5 flex items-center">
+            <Input
+            endContent={<HiSearch className='text-[25px]'/>}
+            size='md'
+                variant='underlined'
                 type="text"
-                placeholder="Search"
+                label="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="p-1 w-full focus:outline-none"
             />
         </div>
     );
