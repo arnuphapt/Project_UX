@@ -14,21 +14,19 @@ function PinImage({ pinDetail }) {
 
   return (
     <div>
-      {loading ? (
-        <Skeleton className="w-full h-[500px] rounded-2xl" />
-      ) : (
+
         <img
           src={pinDetail.image ? pinDetail.image : PLACEHOLDER}
           alt={pinDetail.title}
-          width={500}
-          height={500}
+          width={600}
+          height={600}
           className='rounded-2xl'
           style={{
             maxWidth: "100%",
             height: "auto"
           }}
         />
-      )}
+
     </div>
   );
 }

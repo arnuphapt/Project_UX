@@ -27,18 +27,15 @@ function FilterBar({ selectedTech, setSelectedTech }) {
 
     return (
         <div className="flex flex-wrap justify-center mb-7">
-            {['All', ...Technology.map(tech => tech.name)].map(tech => (
-                <ButtonGroup>
-
+            {['All', ...Technology.map(tech => tech.name)].map((tech, index) => (
+                <ButtonGroup key={tech}> {/* Add a unique key here */}
                     <Button variant='light'
-                        key={tech}
                         onClick={() => toggleTech(tech)}
                         className={`mr-4 mb-2 px-3 py-2 border-b-3 ${(tech === 'All' && selectedTech.length === 0) || selectedTech.map(t => t.toLowerCase()).includes(tech.toLowerCase()) ? 'text-black'
                                 : 'text-gray-500 border-transparent hover:border-gray-300'}`}>
                         {tech}
                     </Button>
                 </ButtonGroup>
-
             ))}
         </div>
     );

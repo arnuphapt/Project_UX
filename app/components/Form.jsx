@@ -13,6 +13,7 @@ import Data from './Data';
 import { HiArrowSmallLeft } from "react-icons/hi2";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Input, CheckboxGroup, Checkbox,Button } from "@nextui-org/react";
 
 function Form() {
   const [techList, setTechList] = useState([]);
@@ -32,7 +33,7 @@ function Form() {
       toast.error('All fields are required and a file must be uploaded.');
       return;
     }
-    toast.success('Post success.') ;
+    toast.success('Post success.');
     setLoading(true);
     uploadFile();
   };
@@ -62,13 +63,8 @@ function Form() {
     });
   };
 
-  const onTechSelect = (name, isChecked) => {
-    if (isChecked) {
-      setTechList(techList => [...techList, name]);
-    } else {
-      let techListItem = techList.filter(item => item !== name);
-      setTechList(techListItem);
-    }
+  const handleTechChange = (values) => {
+    setTechList(values);
   };
 
   return (
@@ -77,50 +73,53 @@ function Form() {
         <HiArrowSmallLeft
           className='text-3xl lg:text-4xl font-bold cursor-pointer'
           onClick={() => router.push("/")} />
-        <button onClick={onSave}
-          className='bg-blue-500 p-2 text-white font-semibold px-3 rounded-lg'>
-          {loading ? <Image
-            src="/loading-indicator.png"
-            width={30}
-            height={30}
-            alt='loading'
-            className='animate-spin'
-            style={{
-              maxWidth: "100%",
-              height: "auto"
-            }} /> :
-            <span>Upload</span>}
-        </button>
+ <Button className='font-semibold'
+      size='md'
+      color="primary"
+      onClick={onSave}
+      isLoading={loading}
+      auto
+    >
+      {loading ? 'Loading...' : 'Upload'}
+    </Button>
       </div>
-      <ToastContainer position="bottom-center" autoClose={1000} />
+      <ToastContainer position="bottom-center" autoClose={2000} />
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8'>
         <UploadImage setFile={setFile} />
         <div className="lg:col-span-2">
           <UserTag user={session?.user} className='outline-none' />
           <div className='w-full'>
-            <input type="text" placeholder='Add a title'
+            <Input type="text" label='ADD A TITLE' variant='underlined' size='lg'
               onChange={(e) => setTitle(e.target.value)}
-              className='text-2xl md:text-3xl lg:text-4xl outline-none font-bold w-full border-b-2 border-gray-400 placeholder-gray-400 mt-6 md:mt-8' />
+              className='text-2xl md:text-3xl lg:text-4xl outline-none font-bold w-full mt-2 ' />
             <h2 className='text-xs md:text-sm text-gray-400 mt-2'>Name your work</h2>
-            <input type="text"
+
+            <Input type="text" variant='underlined' size='lg'
               onChange={(e) => setDesc(e.target.value)}
-              placeholder='Description'
-              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 md:pb-4 mt-6 md:mt-8 border-b-2 border-gray-400 placeholder-gray-400' />
-            <input type="text"
+              label='Description'
+              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2  mt-4  ' />
+
+            <Input type="text" variant='underlined'
               onChange={(e) => setLink(e.target.value)}
-              placeholder='Destination Link'
-              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 md:pb-4 mt-6 md:mt-8 border-b-2 border-gray-400 placeholder-gray-400' />
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 border-b-2 border-gray-400 pb-4 mt-6 md:mt-8">
-              {Data.Technology.map((item, index) => (
-                <div key={index} className="flex gap-2 items-center">
-                  <input id="technology"
-                    onClick={(e) => onTechSelect(item.name, e.target.checked)}
-                    type="checkbox"
-                    className="w-4 h-4" />
-                  <label className='text-sm md:text-base'>{item.name}</label>
-                </div>
-              ))}
+              label='Destination Link' size='lg'
+              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4' />
+
+            <div className="border-b-2 border-gray-300 p-2 pb-4 mt-6 md:mt-5">
+              <CheckboxGroup
+                label="Select Type"
+                color="success"
+                orientation="horizontal"
+                defaultValue={techList}
+                onChange={handleTechChange}
+              >
+                {Data.Technology.map((item, index) => (
+                  <Checkbox key={index} value={item.name} className='p-4'>
+                    {item.name}
+                  </Checkbox>
+                ))}
+              </CheckboxGroup>
             </div>
+
           </div>
         </div>
       </div>

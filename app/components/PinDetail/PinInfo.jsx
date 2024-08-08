@@ -8,12 +8,11 @@ import CommentSection from '../comment';
 import PinImage from './PinImage';
 import EditPinForm from '../Editform';
 import UploadImage from '../UploadImage';
-import DeleteButton from '../DeleteButton'; // Import the DeleteButton component
 import { IoIosMore } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu } from "@nextui-org/react";
 
-// คอมโพเนนต์ PinInfo ที่ปรับปรุง
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
   const db = getFirestore(app);
@@ -62,7 +61,7 @@ function PinInfo({ pinDetail }) {
       toast.error("Error deleting post. Please try again.");
       console.error("Error deleting document: ", error);
     }
-  }
+  };
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
@@ -144,9 +143,16 @@ function PinInfo({ pinDetail }) {
     setImageUrl(uploadedImageUrl);
   };
 
+  const handleDeleteClick = async () => {
+    const confirmed = window.confirm("Are you sure you want to delete this post?");
+    if (confirmed) {
+      await handleDelete();
+    }
+  };
+
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-      <div className='relative '>
+    <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4'>
+      <div className='relative'>
         <ToastContainer position="bottom-center" autoClose={5000} />
         {isEditing ? (
           <div className='w-full h-auto'>
@@ -167,10 +173,23 @@ function PinInfo({ pinDetail }) {
           <>
             <div className='flex flex-col md:flex-row md:justify-between'>
               <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title}</h2>
-              <IoIosMore 
-                className='text-3xl md:text-5xl cursor-pointer hover:bg-gray-200 rounded-full p-2'
-                onClick={() => router.back()}
-              />
+              {isPostOwner && (
+                <Dropdown>
+                  <DropdownTrigger>
+                    <Button variant="light" isIconOnly size='lg' className='text-[25px]'>
+                      <IoIosMore />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu variant="flat" aria-label="Dropdown menu with shortcut">
+                    <DropdownItem key="edit" onClick={handleEditToggle}>
+                      Edit file
+                    </DropdownItem>
+                    <DropdownItem key="delete" className="text-danger" color="danger" onClick={handleDeleteClick}>
+                      Delete file
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              )}
             </div>
             <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
             <p className='text-gray-500 mb-4'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
@@ -187,23 +206,12 @@ function PinInfo({ pinDetail }) {
                 ))}
               </div>
             )}
-            <button
-              className='p-2 bg-gray-200 px-4 text-lg mt-6 rounded-full hover:scale-105 transition-all'
+            <Button
+              radius="full" size='lg' className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg mt-5 "
               onClick={() => window.open(pinDetail.link)}
             >
               Open Url
-            </button>
-            {isPostOwner && (
-              <>
-                <DeleteButton onDelete={handleDelete} />
-                <button
-                  className='p-2 bg-blue-500 text-white px-4 text-lg mt-6 rounded-full hover:scale-105 transition-all'
-                  onClick={handleEditToggle}
-                >
-                  Edit
-                </button>
-              </>
-            )}
+            </Button>
             {session ? (
               <CommentSection
                 comments={comments}
@@ -228,4 +236,3 @@ function PinInfo({ pinDetail }) {
 }
 
 export default PinInfo;
-

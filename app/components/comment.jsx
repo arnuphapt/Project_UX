@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from "next/image";
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import LikeButton from './LikeButton';
+import { Input ,Button} from "@nextui-org/react";
 
 function CommentSection({
   comments,
@@ -46,12 +47,14 @@ function CommentSection({
           likesCount={likesCount}
         />
         <form onSubmit={handleCommentSubmit} className='relative flex-grow'>
-          <input
+          <Input
             type='text'
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
-            placeholder='Add a comment...'
-            className='w-full p-4 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pr-14'
+            label='Add a comment...'
+            variant='bordered'
+            radius='full'
+            size='md'
           />
         </form>
       </div>
@@ -94,27 +97,27 @@ function CommentSection({
               )}
               <div className='flex flex-col w-full'>
                 {editingCommentId === comment.id ? (
-                  <form onSubmit={(e) => handleEditSubmit(e, comment.id)} className='flex flex-col'>
-                    <input
+                  <form onSubmit={(e) => handleEditSubmit(e, comment.id)} className='flex flex-col' >
+                    <Input
                       type='text'
                       value={editedCommentText}
                       onChange={(e) => setEditedCommentText(e.target.value)}
-                      className='w-full p-3 border border-gray-300 rounded-lg shadow-sm mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all'
+                      size='lg'
                     />
-                    <div className='flex gap-2'>
-                      <button
+                    <div className='flex gap-2 mt-4'>
+                      <Button
                         type='submit'
-                        className='p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-all'
+                        className='p-2 bg-blue-500 text-white'
                       >
                         Save
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         type='button'
                         onClick={() => setEditingCommentId(null)}
-                        className='p-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 transition-all'
+                        className='p-2 bg-gray-500 text-white'
                       >
                         Cancel
-                      </button>
+                      </Button>
                     </div>
                   </form>
                 ) : (
@@ -123,7 +126,8 @@ function CommentSection({
                     <p className='text-gray-800'>{comment.text}</p>
                     <span className='text-gray-500 text-sm'>{new Date(comment.timestamp?.toDate()).toLocaleString()}</span>
                     {userEmail === comment.userEmail && (
-                      <div className='flex gap-2 mt-2'>
+                      <div className='flex gap-2 mt-2' >
+                        
                         <button
                           onClick={() => startEditing(comment.id, comment.text)}
                           className='text-blue-500 text-sm hover:underline'
