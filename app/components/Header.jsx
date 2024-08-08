@@ -84,9 +84,9 @@ function Header() {
     </Dropdown>
             {/* Learn */}
             <Button variant='light' className='font-semibold text-[16px] ' onClick={() => router.push('/Learn')}>Learn</Button>
-            <button className='text-black mx-1 p-2 flex items-center' onClick={onCreateClick}>
-              <FaCirclePlus className='text-[45px]' />
-            </button>
+            <Button  size="md" className="font-semibold bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" onClick={onCreateClick}>
+            Create Posts
+            </Button>
             {session?.user ? (
               <Image
                 src={session.user.image}

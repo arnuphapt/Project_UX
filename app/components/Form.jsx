@@ -13,10 +13,11 @@ import Data from './Data';
 import { HiArrowSmallLeft } from "react-icons/hi2";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Input, CheckboxGroup, Checkbox,Button } from "@nextui-org/react";
+import { Input, CheckboxGroup, Checkbox, Button, Select, SelectItem } from "@nextui-org/react";
 
 function Form() {
   const [techList, setTechList] = useState([]);
+  const [section, setSection] = useState(''); // State for section
   const { data: session } = useSession();
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
@@ -29,7 +30,7 @@ function Form() {
   const postId = Date.now().toString();
 
   const onSave = () => {
-    if (!title || !desc || !link || !file) {
+    if (!title || !desc || !link || !file || !section || !techList) {
       toast.error('All fields are required and a file must be uploaded.');
       return;
     }
@@ -48,6 +49,7 @@ function Form() {
           link: link,
           image: url,
           techList: techList,
+          section: section, // Include section in the post data
           userName: session.user.name,
           email: session.user.email,
           userImage: session.user.image,
@@ -62,9 +64,8 @@ function Form() {
       });
     });
   };
-
-  const handleTechChange = (values) => {
-    setTechList(values);
+  const handleSelectChange = (selectedValue) => {
+    setSection(selectedValue); // This stores "1", "2", "3", or "4" directly.
   };
 
   return (
@@ -73,15 +74,15 @@ function Form() {
         <HiArrowSmallLeft
           className='text-3xl lg:text-4xl font-bold cursor-pointer'
           onClick={() => router.push("/")} />
- <Button className='font-semibold'
-      size='md'
-      color="primary"
-      onClick={onSave}
-      isLoading={loading}
-      auto
-    >
-      {loading ? 'Loading...' : 'Upload'}
-    </Button>
+        <Button className='font-semibold'
+          size='md'
+          color="primary"
+          onClick={onSave}
+          isLoading={loading}
+          auto
+        >
+          {loading ? 'Loading...' : 'Upload'}
+        </Button>
       </div>
       <ToastContainer position="bottom-center" autoClose={2000} />
       <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8'>
@@ -93,16 +94,34 @@ function Form() {
               onChange={(e) => setTitle(e.target.value)}
               className='text-2xl md:text-3xl lg:text-4xl outline-none font-bold w-full mt-2 ' />
             <h2 className='text-xs md:text-sm text-gray-400 mt-2'>Name your work</h2>
+            <div className='grid grid-cols-3 gap-4'>
+              <Input type="text" variant='underlined' size='lg'
+                onChange={(e) => setDesc(e.target.value)}
+                label='Description'
+                className='text-base md:text-lg lg:text-xl outline-none w-full pb-2  mt-4 col-span-2 ' />
 
-            <Input type="text" variant='underlined' size='lg'
-              onChange={(e) => setDesc(e.target.value)}
-              label='Description'
-              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2  mt-4  ' />
+              <div className="mt-4">
+                <Select
+                  size='lg'
+                  variant='underlined' label="Section"
+                  onChange={(e) => handleSelectChange(e.target.value)}
+                >
+                  <SelectItem key="1" value="1">1</SelectItem>
+                  <SelectItem key="2" value="2">2</SelectItem>
+                  <SelectItem key="3" value="3">3</SelectItem>
+                  <SelectItem key="4" value="4">4</SelectItem>
+                </Select>
+              </div>
 
-            <Input type="text" variant='underlined'
+            </div>
+
+
+            <Input type='url' variant='underlined'
               onChange={(e) => setLink(e.target.value)}
               label='Destination Link' size='lg'
               className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4' />
+
+
 
             <div className="border-b-2 border-gray-300 p-2 pb-4 mt-6 md:mt-5">
               <CheckboxGroup
@@ -110,7 +129,7 @@ function Form() {
                 color="success"
                 orientation="horizontal"
                 defaultValue={techList}
-                onChange={handleTechChange}
+                onChange={setTechList}
               >
                 {Data.Technology.map((item, index) => (
                   <Checkbox key={index} value={item.name} className='p-4'>
@@ -119,6 +138,10 @@ function Form() {
                 ))}
               </CheckboxGroup>
             </div>
+
+
+
+
 
           </div>
         </div>
