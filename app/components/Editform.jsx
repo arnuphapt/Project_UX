@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
 import Data from './Data';
 import UploadImage from './UploadImage'; // Import UploadImage component
-import { Input, CheckboxGroup, Checkbox, Button } from "@nextui-org/react";
+import { Input, CheckboxGroup, Checkbox, Button, Modal, ModalContent, ModalBody, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
 
-const EditPinForm = ({ pinDetail, onSave, onCancel }) => {
+const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
   const [title, setTitle] = useState(pinDetail.title);
   const [desc, setDesc] = useState(pinDetail.desc);
   const [link, setLink] = useState(pinDetail.link);
   const [techList, setTechList] = useState(pinDetail.techList || []);
-  const [image, setImage] = useState(pinDetail.image || ''); // State for new image
-  const [imageUrl, setImageUrl] = useState(pinDetail.image || ''); // URL for preview
+  const [image, setImage] = useState(pinDetail.image || '');
+  const [imageUrl, setImageUrl] = useState(pinDetail.image || '');
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
+
+  const handleImageUpload = async (uploadedImageUrl) => {
+    setImageUrl(uploadedImageUrl);
+  };
 
   const handleTechChange = (values) => {
     setTechList(values);
   };
 
   const handleSave = async () => {
-    let imageUrlToSave = imageUrl; // Use current image URL by default
+    setLoading(true);
+    let imageUrlToSave = imageUrl;
 
     if (image && typeof image === 'object') {
       imageUrlToSave = await uploadImage(image);
@@ -30,44 +36,68 @@ const EditPinForm = ({ pinDetail, onSave, onCancel }) => {
       techList,
       image: imageUrlToSave
     });
+
+
   };
 
   return (
-    <div className='bg-white p-6 md:p-8 lg:p-12 xl:p-16 rounded-2xl'>
-      <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8'>
-        <div className="lg:col-span-2">
-          <div className='w-full'>
-            <Input type="text" label='ADD A TITLE' variant='underlined' size='lg'
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className='text-2xl md:text-3xl lg:text-4xl outline-none font-bold w-full mt-2 ' />
-            <h2 className='text-xs md:text-sm text-gray-400 mt-2'>Name your work</h2>
-            <Input type="text" variant='underlined' size='lg'
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)} label='Description'
-              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2  mt-4  ' />
-            <Input type="text" variant='underlined'
-              value={link}
-              onChange={(e) => setLink(e.target.value)} label='Destination Link' size='lg'
-              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4' />
-            <CheckboxGroup
-              label="Select Type"
-              color="success"
-              orientation="horizontal"
-              defaultValue={techList}
-              onChange={handleTechChange}
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <ModalContent>
+        {(onClose) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1">Edit Pin</ModalHeader>
+            <ModalBody>
 
-            >
-              {Data.Technology.map((item, index) => (
-                <Checkbox key={index} value={item.name} className='p-4' checked={techList.includes(item.name)}
+              <div className='w-full'>
+                <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
+                <Input
+                  type="text"
+                  label='ADD A TITLE'
+                  variant='underlined'
+                  size='lg'
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  className='text-2xl md:text-3xl lg:text-4xl outline-none font-bold w-full mt-2'
+                />
+                <h2 className='text-xs md:text-sm text-gray-400 mt-2'>Name your work</h2>
+                <Input
+                  type="text"
+                  variant='underlined'
+                  size='lg'
+                  value={desc}
+                  onChange={(e) => setDesc(e.target.value)}
+                  label='Description'
+                  className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
+                />
+                <Input
+                  type="text"
+                  variant='underlined'
+                  value={link}
+                  onChange={(e) => setLink(e.target.value)}
+                  label='Destination Link'
+                  size='lg'
+                  className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
+                />
+                <CheckboxGroup
+                  label="Select Type"
+                  color="success"
+                  orientation="horizontal"
+                  defaultValue={techList}
+                  onChange={handleTechChange}
                 >
-                  {item.name}
-                </Checkbox>
-              ))}
-            </CheckboxGroup>
-          </div>
-          <div className='flex items-center justify-between mb-6 mt-4'>
-        <Button className='font-semibold'
+                  {Data.Technology.map((item, index) => (
+                    <Checkbox key={index} value={item.name} className='p-4' checked={techList.includes(item.name)}>
+                      {item.name}
+                    </Checkbox>
+                  ))}
+                </CheckboxGroup>
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="light" onPress={onClose} isDisabled={loading}>
+                Close
+              </Button>
+              <Button className='font-semibold'
           size='md'
           color="primary"
           onClick={handleSave}
@@ -76,17 +106,12 @@ const EditPinForm = ({ pinDetail, onSave, onCancel }) => {
         >
           {loading ? 'Loading...' : 'Update'}
         </Button>
-        <Button
-          onClick={onCancel}
-        >
-          Cancel
-        </Button>
-      </div>
-        </div>
-
-      </div>
-    </div>
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+    </Modal>
   );
 };
 
-export default EditPinForm;
+export default PinInfoModal;

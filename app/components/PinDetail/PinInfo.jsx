@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import CommentSection from '../comment';
 import PinImage from './PinImage';
-import EditPinForm from '../Editform';
+import PinInfoModal from '../Editform'; // Renamed from EditPinForm to PinInfoModal
 import UploadImage from '../UploadImage';
 import { IoIosMore } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu, Chip, Tooltip } from "@nextui-org/react";
+import { Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu, Chip, Tooltip, useDisclosure } from "@nextui-org/react";
 
 function PinInfo({ pinDetail }) {
   const { data: session } = useSession();
@@ -21,9 +21,10 @@ function PinInfo({ pinDetail }) {
   const [newComment, setNewComment] = useState('');
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(pinDetail.image || '');
+  const { isOpen, onOpen, onOpenChange } = useDisclosure(); // Use the disclosure hook for the modal
+  const [loading, setLoading] = useState(false);
 
   const isPostOwner = session?.user?.email === pinDetail.email;
 
@@ -120,27 +121,19 @@ function PinInfo({ pinDetail }) {
     }
   };
 
-  const handleEditToggle = () => {
-    if (!isPostOwner) return;
-    setIsEditing(prev => !prev);
-  };
-
   const handleSaveChanges = async (updatedData) => {
     try {
       await updateDoc(doc(db, 'pinterest-post', pinDetail.id), {
         ...updatedData,
         image: imageUrl
       });
-      setIsEditing(false);
+      setLoading(false);
       toast.success("Post updated successfully!");
+      onOpenChange(false);
     } catch (error) {
       toast.error("Error updating post. Please try again.");
       console.error("Error updating post: ", error);
     }
-  };
-
-  const handleImageUpload = async (uploadedImageUrl) => {
-    setImageUrl(uploadedImageUrl);
   };
 
   const handleDeleteClick = async () => {
@@ -152,88 +145,72 @@ function PinInfo({ pinDetail }) {
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4'>
+      <PinInfoModal pinDetail={pinDetail} isOpen={isOpen} onOpenChange={onOpenChange} onSave={handleSaveChanges} /> {/* Pass onSave correctly */}
       <div className='relative'>
         <ToastContainer position="bottom-center" autoClose={5000} />
-        {isEditing ? (
-          <div className='w-full h-auto'>
-            <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
-          </div>
-        ) : (
-          <PinImage pinDetail={pinDetail} />
-        )}
+        <PinImage pinDetail={pinDetail} />
       </div>
       <div>
-        {isEditing ? (
-          <EditPinForm
-            pinDetail={pinDetail}
-            onSave={handleSaveChanges}
-            onCancel={handleEditToggle}
+        <div className='flex flex-col md:flex-row md:justify-between'>
+          <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title}</h2>
+          {isPostOwner && (
+            <Dropdown>
+              <DropdownTrigger>
+                <Button variant="light" isIconOnly size='lg' className='text-[25px]'>
+                  <IoIosMore />
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu variant="flat" aria-label="Dropdown menu with shortcut">
+                <DropdownItem key="edit" onPress={onOpen} >
+                  Edit file
+                </DropdownItem>
+                <DropdownItem key="delete" className="text-danger" color="danger" onClick={handleDeleteClick}>
+                  Delete file
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          )}
+        </div>
+        <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
+        <p className='text-gray-500 mb-4'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
+        <p className='text-lg mt-6'>{pinDetail.desc}</p>
+
+        {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
+          <div className='mt-6 flex flex-wrap gap-2'>
+            {pinDetail.techList.map((tech, index) => (
+              <Chip
+                color="default" variant="flat"
+                key={index}
+              >
+                {tech}
+              </Chip>
+            ))}
+          </div>
+        )}
+        <Tooltip content={(pinDetail.link)}>
+          <Button
+            radius="full" size='lg' className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg mt-5 "
+            onClick={() => window.open(pinDetail.link)}
+          >
+            Open Url
+          </Button>
+        </Tooltip>
+
+        {session ? (
+          <CommentSection
+            comments={comments}
+            handleCommentSubmit={handleCommentSubmit}
+            newComment={newComment}
+            setNewComment={setNewComment}
+            handleCommentDelete={handleCommentDelete}
+            handleCommentEdit={handleCommentEdit}
+            userEmail={session?.user?.email}
+            hasLiked={hasLiked}
+            onLikeToggle={handleLikeToggle}
+            likesCount={likes.length}
           />
         ) : (
-          <>
-            <div className='flex flex-col md:flex-row md:justify-between'>
-              <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title}</h2>
-              {isPostOwner && (
-                <Dropdown>
-                  <DropdownTrigger>
-                    <Button variant="light" isIconOnly size='lg' className='text-[25px]'>
-                      <IoIosMore />
-                    </Button>
-                  </DropdownTrigger>
-                  <DropdownMenu variant="flat" aria-label="Dropdown menu with shortcut">
-                    <DropdownItem key="edit" onClick={handleEditToggle}>
-                      Edit file
-                    </DropdownItem>
-                    <DropdownItem key="delete" className="text-danger" color="danger" onClick={handleDeleteClick}>
-                      Delete file
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              )}
-            </div>
-            <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
-            <p className='text-gray-500 mb-4'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
-            <p className='text-lg mt-6'>{pinDetail.desc}</p>
-            
-            {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
-              <div className='mt-6 flex flex-wrap gap-2'>
-                {pinDetail.techList.map((tech, index) => (
-                  <Chip
-                  color="default" variant="flat"
-                    key={index}
-                  >
-                    {tech}
-                  </Chip>
-                ))}
-              </div>
-            )}
-                <Tooltip content={(pinDetail.link)}>
-
-            <Button
-              radius="full" size='lg' className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg mt-5 "
-              onClick={() => window.open(pinDetail.link)}
-            >
-              Open Url
-            </Button>
-            </Tooltip>
-
-            {session ? (
-              <CommentSection
-                comments={comments}
-                handleCommentSubmit={handleCommentSubmit}
-                newComment={newComment}
-                setNewComment={setNewComment}
-                handleCommentDelete={handleCommentDelete}
-                handleCommentEdit={handleCommentEdit}
-                userEmail={session?.user?.email}
-                hasLiked={hasLiked}
-                onLikeToggle={handleLikeToggle}
-                likesCount={likes.length}
-              />
-            ) : (
-              <p className="mt-5 text-red-500">Please log in to like or comment.</p>
-            )}
-          </>
+          <p className="mt-5 text-red-500">Please log in to like or comment.</p>
         )}
       </div>
     </div>
