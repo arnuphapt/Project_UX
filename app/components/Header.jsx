@@ -88,20 +88,24 @@ function Header() {
               Create Posts
             </Button>
             <Dropdown>
-              <DropdownTrigger>
-                {session?.user ? (
-                  <Image
-                    src={session.user.image}
-                    alt='user-image'
-                    width={60}
-                    height={60}
-                    className='hover:bg-gray-300 p-2 rounded-full cursor-pointer'
-                    style={{ maxWidth: "100%", height: "auto" }}
-                  />
-                ) : (
-                  <Button variant='light' className='font-semibold text-[16px] ' onClick={signIn}>Login</Button>
-                )}
-              </DropdownTrigger>
+            {session?.user ? (
+  <DropdownTrigger>
+    <Image
+      src={session.user.image}
+      alt='user-image'
+      width={60}
+      height={60}
+      className='hover:bg-gray-300 p-2 rounded-full cursor-pointer'
+      style={{ maxWidth: "100%", height: "auto" }}
+    />
+    {/* Your dropdown content here */}
+  </DropdownTrigger>
+) : (
+  <Button variant='light' className='font-semibold text-[16px]' onClick={signIn}>
+    Login
+  </Button>
+)}
+
               <DropdownMenu variant="faded" aria-label="Dropdown menu with description">
                 <DropdownItem
                   description="User Proflie"
