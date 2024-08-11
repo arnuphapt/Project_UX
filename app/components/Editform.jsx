@@ -8,7 +8,6 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
   const [desc, setDesc] = useState(pinDetail.desc);
   const [link, setLink] = useState(pinDetail.link);
   const [techList, setTechList] = useState(pinDetail.techList || []);
-  const [image, setImage] = useState(pinDetail.image || '');
   const [imageUrl, setImageUrl] = useState(pinDetail.image || '');
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
@@ -25,8 +24,12 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
     setLoading(true);
     let imageUrlToSave = imageUrl;
 
-    if (image && typeof image === 'object') {
-      imageUrlToSave = await uploadImage(image);
+    if (file) {
+      // If there's a new file, upload it
+      imageUrlToSave = await UploadImage(file);
+    } else if (imageUrl === null) {
+      // If imageUrl is null, it means the image was removed
+      imageUrlToSave = null;
     }
 
     onSave({
@@ -41,7 +44,7 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size='xl'>
       <ModalContent>
         {(onClose) => (
           <>
@@ -49,8 +52,13 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
             <ModalBody>
 
               <div className='w-full'>
-                <UploadImage setFile={setFile} currentImageUrl={imageUrl} onUploadComplete={handleImageUpload} />
-                <Input
+              <UploadImage 
+                  setFile={setFile} 
+                  currentImageUrl={imageUrl} 
+                  onUploadComplete={handleImageUpload}
+                  postId={pinDetail.id} // Pass the postId here
+                />
+                                <Input
                   type="text"
                   label='ADD A TITLE'
                   variant='underlined'

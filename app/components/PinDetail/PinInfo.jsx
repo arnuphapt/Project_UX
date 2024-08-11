@@ -7,7 +7,6 @@ import { useSession } from 'next-auth/react';
 import CommentSection from '../comment';
 import PinImage from './PinImage';
 import PinInfoModal from '../Editform'; // Renamed from EditPinForm to PinInfoModal
-import UploadImage from '../UploadImage';
 import { IoIosMore } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,8 +20,6 @@ function PinInfo({ pinDetail }) {
   const [newComment, setNewComment] = useState('');
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
-  const [file, setFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState(pinDetail.image || '');
   const { isOpen, onOpen, onOpenChange } = useDisclosure(); // Use the disclosure hook for the modal
   const [loading, setLoading] = useState(false);
 
@@ -121,12 +118,8 @@ function PinInfo({ pinDetail }) {
     }
   };
 
-  const handleSaveChanges = async (updatedData) => {
+  const handleSaveChanges = async () => {
     try {
-      await updateDoc(doc(db, 'pinterest-post', pinDetail.id), {
-        ...updatedData,
-        image: imageUrl
-      });
       setLoading(false);
       toast.success("Post updated successfully!");
       onOpenChange(false);
