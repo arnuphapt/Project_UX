@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import Data from './Data';
 import UploadImage from './UploadImage'; // Import UploadImage component
 import { Input, CheckboxGroup, Checkbox, Button, Modal, ModalContent, ModalBody, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
+import { ToastContainer, toast } from 'react-toastify';
 
 const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
   const [title, setTitle] = useState(pinDetail.title);
   const [desc, setDesc] = useState(pinDetail.desc);
   const [link, setLink] = useState(pinDetail.link);
   const [techList, setTechList] = useState(pinDetail.techList || []);
+  const [image, setImage] = useState(pinDetail.image || '');
   const [imageUrl, setImageUrl] = useState(pinDetail.image || '');
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
@@ -21,15 +23,17 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
   };
 
   const handleSave = async () => {
+    // Validation checks
+    if (!title || !desc || !link || !techList || !imageUrl) {
+      toast.error('All fields are required and a file must be uploaded.');
+      return;
+    }
+
     setLoading(true);
     let imageUrlToSave = imageUrl;
 
-    if (file) {
-      // If there's a new file, upload it
-      imageUrlToSave = await UploadImage(file);
-    } else if (imageUrl === null) {
-      // If imageUrl is null, it means the image was removed
-      imageUrlToSave = null;
+    if (image && typeof image === 'object') {
+      imageUrlToSave = await uploadImage(image);
     }
 
     onSave({
@@ -37,14 +41,14 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
       desc,
       link,
       techList,
-      image: imageUrlToSave
+      
     });
 
 
   };
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size='xl'>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
         {(onClose) => (
           <>
@@ -58,7 +62,7 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
                   onUploadComplete={handleImageUpload}
                   postId={pinDetail.id} // Pass the postId here
                 />
-                                <Input
+                <Input
                   type="text"
                   label='ADD A TITLE'
                   variant='underlined'

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import CommentSection from '../comment';
 import PinImage from './PinImage';
-import PinInfoModal from '../Editform'; // Renamed from EditPinForm to PinInfoModal
+import PinInfoModal from '../Editform';
 import { IoIosMore } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,8 +20,7 @@ function PinInfo({ pinDetail }) {
   const [newComment, setNewComment] = useState('');
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure(); // Use the disclosure hook for the modal
-  const [loading, setLoading] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const isPostOwner = session?.user?.email === pinDetail.email;
 
@@ -118,11 +117,15 @@ function PinInfo({ pinDetail }) {
     }
   };
 
-  const handleSaveChanges = async () => {
+  const handleSaveChanges = async (updatedData) => {
     try {
-      setLoading(false);
+      await updateDoc(doc(db, 'pinterest-post', pinDetail.id), {
+        ...updatedData,
+
+      });
       toast.success("Post updated successfully!");
       onOpenChange(false);
+      
     } catch (error) {
       toast.error("Error updating post. Please try again.");
       console.error("Error updating post: ", error);
@@ -140,7 +143,8 @@ function PinInfo({ pinDetail }) {
     <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4'>
       <PinInfoModal pinDetail={pinDetail} isOpen={isOpen} onOpenChange={onOpenChange} onSave={handleSaveChanges} /> {/* Pass onSave correctly */}
       <div className='relative'>
-        <ToastContainer position="bottom-center" autoClose={5000} />
+        <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={true} 
+        />
         <PinImage pinDetail={pinDetail} />
       </div>
       <div>

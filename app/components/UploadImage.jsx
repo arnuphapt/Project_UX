@@ -18,14 +18,12 @@ function UploadImage({ setFile, currentImageUrl, postId }) {
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
 
-    if (!file) return; // Handle case where user cancels file selection
-
-    if (file.size > 5 * 1024 * 1024) {
+    if (file && file.size > 5 * 1024 * 1024) {
       setError('File size exceeds 5 MB.');
       return;
     }
 
-    if (!file.type.startsWith('image/')) {
+    if (file && !file.type.startsWith('image/')) {
       setError('Only image files are allowed.');
       return;
     }
@@ -71,7 +69,6 @@ function UploadImage({ setFile, currentImageUrl, postId }) {
       setSelectedFile(null);
       setFile(null);
       setImageUrl(null);
-      setError('');
       console.log('Image removed successfully');
     } catch (error) {
       console.error('Error removing image:', error);
