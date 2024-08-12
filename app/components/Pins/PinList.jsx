@@ -3,11 +3,14 @@ import PinItem from './PinItem';
 import SearchBar from '../Searchbar';
 import FilterBar from '../Filterbar';
 import Sorting from '../Sorting';
+import FilterSection from '../FilterSection'; // Import the new FilterSection component
 
 function PinList({ listOfPins }) {
     const [selectedTech, setSelectedTech] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('default');
+    const [selectedSection, setSelectedSection] = useState('');
+    const sections = [...new Set(listOfPins.map(pin => pin.section))];
 
     const filteredPins = listOfPins.filter(pin => {
         const matchesTech = selectedTech.length === 0 || selectedTech.some(tech => pin.techList.includes(tech));
@@ -15,7 +18,9 @@ function PinList({ listOfPins }) {
             pin.techList.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase())) ||
             (pin.userName && pin.userName.toLowerCase().includes(searchQuery.toLowerCase()));
 
-        return matchesTech && matchesSearchQuery;
+        const matchesSection = selectedSection === '' || pin.section === selectedSection;
+
+        return matchesTech && matchesSearchQuery && matchesSection;
     });
 
     const sortedPins = [...filteredPins].sort((a, b) => {
@@ -39,18 +44,17 @@ function PinList({ listOfPins }) {
         }
     });
 
-    const headerText = selectedTech.length === 0
-        ? 'All Post'
-        : `Filter : ${selectedTech.join(', ')}`;
 
     return (
         <div className="mt-7 px-5">
             <div className="flex justify-center items-center mb-10">
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </div>
+
             <FilterBar selectedTech={selectedTech} setSelectedTech={setSelectedTech} />
+
             <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">{headerText}</h1>
+            <FilterSection sections={sections} selectedSection={selectedSection} setSelectedSection={setSelectedSection} />
                 <Sorting sortBy={sortBy} setSortBy={setSortBy} />
             </div>
             <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">

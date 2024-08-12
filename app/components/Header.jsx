@@ -52,7 +52,7 @@ function Header() {
           } else {
             reject(new Error('Logout failed!'));
           }
-        }, 1000); // Delay of 2 seconds
+        }, 1000); // Delay of 1 seconds
       });
   
       toast.promise(logoutPromise, {
@@ -71,7 +71,7 @@ function Header() {
           // Delay for 1 second before signing out
           setTimeout(() => {
             signOut();
-          }, 1500); // 1000 milliseconds = 1 second
+          }, 2000); // 1000 milliseconds = 1 second
     }
   };
   
@@ -96,7 +96,7 @@ function Header() {
           />
         </div>
         <div className='flex items-center gap-3'>
-          <button onClick={toggleMenu} className="md:hidden">
+          <button className="md:hidden" onClick={toggleMenu} >
             {isMenuOpen ? <FiX className='text-[30px]' /> : <FiMenu className='text-[30px]' />}
           </button>
           <div className='hidden md:flex items-center gap-3'>
@@ -108,6 +108,9 @@ function Header() {
                 <DropdownItem href="https://www.figma.com/" color="default">figma</DropdownItem>
                 <DropdownItem href="https://www.wix.com/" color="default">wix</DropdownItem>
                 <DropdownItem href="https://padlet.com/" color="default">padlet</DropdownItem>
+                <DropdownItem href="https://claude.ai/new" color="default">claude</DropdownItem>
+                <DropdownItem href="https://miro.com/" color="default">miro</DropdownItem>
+
               </DropdownMenu>
             </Dropdown>
             <Button variant='light' className='font-semibold text-[16px] ' onClick={() => router.push('/Learn')}>Learn</Button>

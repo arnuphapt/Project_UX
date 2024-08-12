@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { HiArrowUpCircle } from 'react-icons/hi2';
 import { Button } from '@nextui-org/react';
-import { doc, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db } from '../Shared/firebaseConfig';
 
 function UploadImage({ setFile, currentImageUrl, postId,onUploadComplete  }) {
   
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(currentImageUrl);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setImageUrl(currentImageUrl);
@@ -40,7 +39,6 @@ function UploadImage({ setFile, currentImageUrl, postId,onUploadComplete  }) {
 
       setImageUrl(newImageUrl);
       onUploadComplete(newImageUrl); // ส่ง URL กลับไปยัง parent component
-      setError('');
       console.log('Image uploaded successfully');
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -57,7 +55,7 @@ function UploadImage({ setFile, currentImageUrl, postId,onUploadComplete  }) {
   };
 
   return (
-    <div className='h-[250px] bg-[#f5f5f5] border-[2px] border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center p-4'>
+    <div className='h-full bg-[#f5f5f5] border-[2px] border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center p-4'>
       {!imageUrl ? (
         <label
           htmlFor='dropzone-file'
@@ -68,6 +66,7 @@ function UploadImage({ setFile, currentImageUrl, postId,onUploadComplete  }) {
             <p className='text-center text-gray-500 font-medium'>Drag and Drop or Browse assets here</p>
             <p className='text-gray-500 my-2'>image (5MB)</p>
             <Button color='primary' className='mt-2'>Browse</Button>
+
           </div>
           <input
             id='dropzone-file'
@@ -75,7 +74,9 @@ function UploadImage({ setFile, currentImageUrl, postId,onUploadComplete  }) {
             accept='image/*'
             className='hidden'
             onChange={handleFileChange}
+            
           />
+
         </label>
       ) : (
         <div className='relative h-full w-full'>
