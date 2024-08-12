@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserTag from '../UserTag';
-import { getFirestore, doc, deleteDoc, collection, addDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { getFirestore, doc, deleteDoc, collection, addDoc, onSnapshot, updateDoc,getDoc  } from 'firebase/firestore';
 import app from '../../Shared/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -12,7 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu, Chip, Tooltip, useDisclosure } from "@nextui-org/react";
 
-function PinInfo({ pinDetail }) {
+function PinInfo({ pinDetail: initialPinDetail }) {
   const { data: session } = useSession();
   const db = getFirestore(app);
   const router = useRouter();
@@ -21,8 +21,20 @@ function PinInfo({ pinDetail }) {
   const [likes, setLikes] = useState([]);
   const [hasLiked, setHasLiked] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [pinDetail, setPinDetail] = useState(initialPinDetail);
 
   const isPostOwner = session?.user?.email === pinDetail.email;
+
+  const fetchPinData = async () => {
+    try {
+      const pinDoc = await getDoc(doc(db, 'pinterest-post', pinDetail.id));
+      if (pinDoc.exists()) {
+        setPinDetail({ id: pinDoc.id, ...pinDoc.data() });
+      }
+    } catch (error) {
+      console.error("Error fetching updated pin data: ", error);
+    }
+  };
 
   useEffect(() => {
     const commentsRef = collection(db, 'pinterest-post', pinDetail.id, 'comments');
@@ -119,13 +131,10 @@ function PinInfo({ pinDetail }) {
 
   const handleSaveChanges = async (updatedData) => {
     try {
-      await updateDoc(doc(db, 'pinterest-post', pinDetail.id), {
-        ...updatedData,
-
-      });
+      await updateDoc(doc(db, 'pinterest-post', pinDetail.id), updatedData);
       toast.success("Post updated successfully!");
       onOpenChange(false);
-      
+      await fetchPinData();
     } catch (error) {
       toast.error("Error updating post. Please try again.");
       console.error("Error updating post: ", error);
@@ -149,8 +158,8 @@ function PinInfo({ pinDetail }) {
       </div>
       <div>
         <div className='flex flex-col md:flex-row md:justify-between'>
-          <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title}</h2>
-          {isPostOwner && (
+        <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title}</h2>
+        {isPostOwner && (
             <Dropdown>
               <DropdownTrigger>
                 <Button variant="light" isIconOnly size='lg' className='text-[25px]'>

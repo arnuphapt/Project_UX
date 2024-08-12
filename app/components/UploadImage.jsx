@@ -5,7 +5,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db } from '../Shared/firebaseConfig';
 
-function UploadImage({ setFile, currentImageUrl, postId }) {
+function UploadImage({ setFile, currentImageUrl, postId,onUploadComplete  }) {
   
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(currentImageUrl);
@@ -35,45 +35,25 @@ function UploadImage({ setFile, currentImageUrl, postId }) {
     const storageRef = ref(storage, `images/${postId}/${file.name}`);
 
     try {
-      // Upload the file to Firebase Storage
       await uploadBytes(storageRef, file);
-      // Get the download URL
       const newImageUrl = await getDownloadURL(storageRef);
 
-      // Update Firestore with the new image URL
-      if (postId) {
-        const postRef = doc(db, 'pinterest-post', postId);
-        await updateDoc(postRef, {
-          image: newImageUrl
-        });
-      }
-
-      // Update the image URL in the component state
       setImageUrl(newImageUrl);
+      onUploadComplete(newImageUrl); // ส่ง URL กลับไปยัง parent component
       setError('');
-      console.log('Image uploaded and URL updated successfully');
+      console.log('Image uploaded successfully');
     } catch (error) {
       console.error('Error uploading image:', error);
       setError('Failed to upload image. Please try again.');
     }
   };
 
-  const handleRemoveImage = async () => {
-    try {
-      if (postId) {
-        const postRef = doc(db, 'pinterest-post', postId);
-        await updateDoc(postRef, {
-          image: null
-        });
-      }
-      setSelectedFile(null);
-      setFile(null);
-      setImageUrl(null);
-      console.log('Image removed successfully');
-    } catch (error) {
-      console.error('Error removing image:', error);
-      setError('Failed to remove image. Please try again.');
-    }
+  const handleRemoveImage = () => {
+    setSelectedFile(null);
+    setFile(null);
+    setImageUrl(null);
+    onUploadComplete(null); // แจ้ง parent component ว่าไม่มีรูปภาพ
+    console.log('Image removed');
   };
 
   return (

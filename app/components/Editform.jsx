@@ -36,13 +36,26 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
       imageUrlToSave = await uploadImage(image);
     }
 
-    onSave({
-      title,
-      desc,
-      link,
-      techList,
-      
-    });
+    try {
+      // สร้างอ็อบเจ็กต์ข้อมูลที่จะอัพเดท
+      const updatedData = {
+        title,
+        desc,
+        link,
+        techList,
+        image: imageUrl // รวม URL ของรูปภาพใหม่
+      };
+
+      // เรียกใช้ฟังก์ชัน onSave ที่ส่งมาจาก parent component
+      await onSave(updatedData);
+
+      setLoading(false);
+      onOpenChange(false); // ปิด modal
+    } catch (error) {
+      setLoading(false);
+      console.error('Error updating pin:', error);
+      toast.error('Failed to update pin. Please try again.');
+    }
 
 
   };
