@@ -3,7 +3,6 @@ import { useRouter } from 'next/navigation';
 import { GrView } from 'react-icons/gr';
 import { AiOutlineComment } from 'react-icons/ai';
 import { IoHeart } from 'react-icons/io5';
-
 import { Card, CardHeader, CardFooter, Image, Skeleton } from "@nextui-org/react";
 import { getFirestore, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import app from '../../Shared/firebaseConfig';
@@ -69,7 +68,9 @@ function PinItem({ pin }) {
           className="z-0 w-full h-full object-cover"
           src={pin.image ? pin.image : PLACEHOLDER}
           onClick={() => router.push("/pin/" + pin.id)}
-        />)}
+          loading="lazy" // This enables lazy loading
+        />
+        )}
 
         <CardHeader className="absolute ml-4 flex-col !items-end">
           {isHovered && (
