@@ -8,6 +8,8 @@ const Technology = [
     { id: 4, name: 'Canva' },
     { id: 5, name: 'Wix' },
     { id: 6, name: 'Figma' },
+    { id: 7, name: 'Project' },
+
 ];
 
 function FilterBar({ selectedTech, setSelectedTech }) {

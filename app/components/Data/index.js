@@ -23,6 +23,10 @@ const Technology=[
         id:6,
         name:'Figma'
     },
+    {
+        id:7,
+        name:'Project'
+    },
 
 ]
 

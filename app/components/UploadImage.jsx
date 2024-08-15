@@ -42,7 +42,6 @@ function UploadImage({ setFile, currentImageUrl, postId,onUploadComplete  }) {
       console.log('Image uploaded successfully');
     } catch (error) {
       console.error('Error uploading image:', error);
-      setError('Failed to upload image. Please try again.');
     }
   };
 
