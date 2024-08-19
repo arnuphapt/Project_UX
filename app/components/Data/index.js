@@ -1,7 +1,7 @@
 const Technology=[
     {
         id:1,
-        name:'Wireframe',
+        name:'Project',
     },
     {
         id:2,
@@ -13,7 +13,7 @@ const Technology=[
     },
     {
         id:4,
-        name:'Canva'
+        name:'Wireframe'
     },
     {
         id:5,
@@ -23,11 +23,6 @@ const Technology=[
         id:6,
         name:'Figma'
     },
-    {
-        id:7,
-        name:'Project'
-    },
-
 ]
 
 export default{

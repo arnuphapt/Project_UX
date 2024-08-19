@@ -62,9 +62,8 @@ function UploadImage({ setFile, currentImageUrl, postId,onUploadComplete  }) {
         >
           <div className='flex flex-col items-center text-gray-600'>
             <HiArrowUpCircle className='text-[40px] mb-4' />
-            <p className='text-center text-gray-500 font-medium'>Drag and Drop or Browse assets here</p>
+            <p className='text-center text-gray-500 font-medium'>Upload image here</p>
             <p className='text-gray-500 my-2'>image (5MB)</p>
-            <Button color='primary' className='mt-2'>Browse</Button>
 
           </div>
           <input

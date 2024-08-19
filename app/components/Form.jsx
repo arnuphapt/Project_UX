@@ -8,7 +8,6 @@ import UserTag from './UserTag';
 import app from '../Shared/firebaseConfig';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
-import Image from "next/image";
 import Data from './Data';
 import { HiArrowSmallLeft } from "react-icons/hi2";
 import { ToastContainer, toast } from 'react-toastify';
