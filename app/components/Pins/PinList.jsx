@@ -6,7 +6,7 @@ import Sorting from '../Sorting';
 import FilterSection from '../FilterSection'; // Import the new FilterSection component
 import { Button } from "@nextui-org/react"; // เพิ่มการ import Button
 
-function PinList({ listOfPins,getMorePins, loading }) {
+function PinList({ listOfPins, getMorePins, loading }) {
     const [selectedTech, setSelectedTech] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('default');
@@ -55,7 +55,7 @@ function PinList({ listOfPins,getMorePins, loading }) {
             <FilterBar selectedTech={selectedTech} setSelectedTech={setSelectedTech} />
 
             <div className="flex justify-between items-center mb-4">
-            <FilterSection sections={sections} selectedSection={selectedSection} setSelectedSection={setSelectedSection} />
+                <FilterSection sections={sections} selectedSection={selectedSection} setSelectedSection={setSelectedSection} />
                 <Sorting sortBy={sortBy} setSortBy={setSortBy} />
             </div>
             <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
@@ -65,9 +65,15 @@ function PinList({ listOfPins,getMorePins, loading }) {
             </div>
             {listOfPins.length >= 30 && (
                 <div className="flex justify-center mt-6" >
-                    <Button color="primary" onClick={handleSeeMore} disabled={loading}>
+                    <Button
+                        color="primary"
+                        onClick={handleSeeMore}
+                        disabled={loading}
+                        aria-label={loading ? 'Loading more pins' : 'Load more pins'}
+                    >
                         {loading ? 'Loading...' : 'See More'}
                     </Button>
+
                 </div>
             )}
         </div>

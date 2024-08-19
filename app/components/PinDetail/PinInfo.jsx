@@ -11,6 +11,7 @@ import { IoIosMore } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu, Chip, Tooltip, useDisclosure } from "@nextui-org/react";
+const adminEmail = 'arnuphap.t@kkumail.com'; // Replace with your admin's email address
 
 function PinInfo({ pinDetail: initialPinDetail }) {
   const { data: session } = useSession();
@@ -23,7 +24,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [pinDetail, setPinDetail] = useState(initialPinDetail);
 
-  const isPostOwner = session?.user?.email === pinDetail.email;
+  const isPostOwner = session?.user?.email === pinDetail.email || session?.user?.email === adminEmail; // Include admin check
 
   const fetchPinData = async () => {
     try {

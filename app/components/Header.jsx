@@ -44,17 +44,15 @@ function Header() {
     if (window.confirm("Are you sure you want to log out?")) {
       const logoutPromise = new Promise((resolve, reject) => {
         setTimeout(() => {
-          // Simulate logout logic here
-          const success = true; // Set this based on your actual logout logic
-  
+          const success = true;
           if (success) {
             resolve();
           } else {
             reject(new Error('Logout failed!'));
           }
-        }, 1000); // Delay of 1 seconds
+        }, 1000);
       });
-  
+
       toast.promise(logoutPromise, {
         pending: 'Logging out...',
         success: 'You have been logged out!',
@@ -68,13 +66,11 @@ function Header() {
         draggable: false,
         progress: undefined,
       });
-          // Delay for 1 second before signing out
-          setTimeout(() => {
-            signOut();
-          }, 2000); // 1000 milliseconds = 1 second
+      setTimeout(() => {
+        signOut();
+      }, 2000);
     }
   };
-  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -94,9 +90,11 @@ function Header() {
             onClick={() => router.push('/')}
             style={{ maxWidth: "100%", height: "auto" }}
           />
+
         </div>
+        
         <div className='flex items-center gap-3'>
-          <button className="md:hidden" onClick={toggleMenu} >
+          <button className="md:hidden" onClick={toggleMenu}>
             {isMenuOpen ? <FiX className='text-[30px]' /> : <FiMenu className='text-[30px]' />}
           </button>
           <div className='hidden md:flex items-center gap-3'>
@@ -110,10 +108,9 @@ function Header() {
                 <DropdownItem href="https://padlet.com/" color="default">padlet</DropdownItem>
                 <DropdownItem href="https://claude.ai/new" color="default">claude</DropdownItem>
                 <DropdownItem href="https://miro.com/" color="default">miro</DropdownItem>
-
               </DropdownMenu>
             </Dropdown>
-            <Button variant='light' className='font-semibold text-[16px] ' onClick={() => router.push('/Learn')}>Learn</Button>
+            <Button variant='light' className='font-semibold text-[16px]' onClick={() => router.push('/Learn')}>Learn</Button>
             <Button size="md" className="font-semibold bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" onClick={onCreateClick}>
               Create Posts
             </Button>
@@ -152,6 +149,7 @@ function Header() {
                 >
                   Logout
                 </DropdownItem>
+
               </DropdownMenu>
             </Dropdown>
           </div>
