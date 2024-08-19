@@ -4,14 +4,14 @@ import SearchBar from '../Searchbar';
 import FilterBar from '../Filterbar';
 import Sorting from '../Sorting';
 import FilterSection from '../FilterSection'; // Import the new FilterSection component
+import { Button } from "@nextui-org/react"; // เพิ่มการ import Button
 
-function PinList({ listOfPins }) {
+function PinList({ listOfPins,getMorePins, loading }) {
     const [selectedTech, setSelectedTech] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('default');
     const [selectedSection, setSelectedSection] = useState('');
     const sections = [...new Set(listOfPins.map(pin => pin.section))];
-
     const filteredPins = listOfPins.filter(pin => {
         const matchesTech = selectedTech.length === 0 || selectedTech.some(tech => pin.techList.includes(tech));
         const matchesSearchQuery = pin.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -43,8 +43,9 @@ function PinList({ listOfPins }) {
                 return new Date(a.timestamp?.toDate()) - new Date(b.timestamp?.toDate());
         }
     });
-
-
+    const handleSeeMore = () => {
+        getMorePins();
+    };
     return (
         <div className="mt-7 px-5">
             <div className="flex justify-center items-center mb-10">
@@ -62,6 +63,13 @@ function PinList({ listOfPins }) {
                     <PinItem key={item.id} pin={item} />
                 ))}
             </div>
+            {listOfPins.length >= 30 && (
+                <div className="flex justify-center mt-6" >
+                    <Button color="primary" onClick={handleSeeMore} disabled={loading}>
+                        {loading ? 'Loading...' : 'See More'}
+                    </Button>
+                </div>
+            )}
         </div>
     );
 }
