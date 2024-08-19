@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Data from './Data';
 import UploadImage from './UploadImage'; // Import UploadImage component
-import { Input, CheckboxGroup, Checkbox, Button, Modal, ModalContent, ModalBody, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
-import { ToastContainer, toast } from 'react-toastify';
+import { Input, CheckboxGroup, Checkbox, Button, Modal, ModalContent, ModalBody, ModalFooter, ModalHeader, Select,SelectItem } from "@nextui-org/react";
 
 const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
   const [title, setTitle] = useState(pinDetail.title);
   const [desc, setDesc] = useState(pinDetail.desc);
+  const [section, setsection] = useState(pinDetail.section);
   const [link, setLink] = useState(pinDetail.link);
   const [techList, setTechList] = useState(pinDetail.techList || []);
   const [image, setImage] = useState(pinDetail.image || '');
@@ -41,6 +41,7 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
       const updatedData = {
         title,
         desc,
+        section,
         link,
         techList,
         image: imageUrl // รวม URL ของรูปภาพใหม่
@@ -69,9 +70,9 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
             <ModalBody>
 
               <div className='w-full'>
-              <UploadImage 
-                  setFile={setFile} 
-                  currentImageUrl={imageUrl} 
+                <UploadImage
+                  setFile={setFile}
+                  currentImageUrl={imageUrl}
                   onUploadComplete={handleImageUpload}
                   postId={pinDetail.id} // Pass the postId here
                 />
@@ -94,6 +95,21 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
                   label='Description'
                   className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
                 />
+                <Select
+                  type="text"
+                  variant='underlined'
+                  size='lg'
+                  defaultValue={section}
+                  onChange={(e) => setsection(e.target.value)}
+                  label='Section'
+                  className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
+                >
+                  <SelectItem key="1" value="1">1</SelectItem>
+                  <SelectItem key="2" value="2">2</SelectItem>
+                  <SelectItem key="3" value="3">3</SelectItem>
+                  <SelectItem key="4" value="4">4</SelectItem>
+                  </Select>
+
                 <Input
                   type="text"
                   variant='underlined'
@@ -123,14 +139,14 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
                 Close
               </Button>
               <Button className='font-semibold'
-          size='md'
-          color="primary"
-          onClick={handleSave}
-          isLoading={loading}
-          auto
-        >
-          {loading ? 'Loading...' : 'Update'}
-        </Button>
+                size='md'
+                color="primary"
+                onClick={handleSave}
+                isLoading={loading}
+                auto
+              >
+                {loading ? 'Loading...' : 'Update'}
+              </Button>
             </ModalFooter>
           </>
         )}
