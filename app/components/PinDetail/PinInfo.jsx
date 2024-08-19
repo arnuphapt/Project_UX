@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UserTag from '../UserTag';
-import { getFirestore, doc, deleteDoc, collection, addDoc, onSnapshot, updateDoc,getDoc  } from 'firebase/firestore';
+import { getFirestore, doc, deleteDoc, collection, addDoc, onSnapshot, updateDoc, getDoc } from 'firebase/firestore';
 import app from '../../Shared/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -152,14 +152,14 @@ function PinInfo({ pinDetail: initialPinDetail }) {
     <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4'>
       <PinInfoModal pinDetail={pinDetail} isOpen={isOpen} onOpenChange={onOpenChange} onSave={handleSaveChanges} /> {/* Pass onSave correctly */}
       <div className='relative'>
-        <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={true} 
+        <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={true}
         />
         <PinImage pinDetail={pinDetail} />
       </div>
       <div>
         <div className='flex flex-col md:flex-row md:justify-between'>
-        <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title}</h2>
-        {isPostOwner && (
+          <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title}</h2>
+          {isPostOwner && (
             <Dropdown>
               <DropdownTrigger>
                 <Button variant="light" isIconOnly size='lg' className='text-[25px]'>
@@ -178,7 +178,16 @@ function PinInfo({ pinDetail: initialPinDetail }) {
           )}
         </div>
         <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
-        <p className='text-gray-500 mb-4'> ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString()}</p>
+        <p className='text-gray-500 mb-4'>
+          ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString('th-TH', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+          })}
+        </p>
         <p className='text-lg mt-6'>{pinDetail.desc}</p>
 
         {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
