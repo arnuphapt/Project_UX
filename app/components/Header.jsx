@@ -18,6 +18,9 @@ function Header() {
   const db = getFirestore(app);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Define admin email constant
+  const ADMIN_EMAIL = 'arnuphap.t@kkumail.com'; // Replace with your actual admin email
+
   useEffect(() => {
     saveUserInfo();
   }, [session]);
@@ -90,7 +93,6 @@ function Header() {
             onClick={() => router.push('/')}
             style={{ maxWidth: "100%", height: "auto" }}
           />
-
         </div>
         
         <div className='flex items-center gap-3'>
@@ -134,7 +136,7 @@ function Header() {
               <DropdownMenu variant="faded" aria-label="Dropdown menu with description">
                 <DropdownItem
                   description="User Profile"
-                  onClick={() => router.push('/' + session.user.email)}
+                  onClick={() => router.push('/users/' + session.user.email)}
                   showDivider
                   startContent={<CiUser className="text-[25px]"/>}
                 >
@@ -144,12 +146,22 @@ function Header() {
                   className="text-danger"
                   color="danger"
                   description="Logout"
+                  showDivider
                   onClick={handleLogout}
                   startContent={<IoIosLogOut className="text-[25px]"/>}
                 >
                   Logout
                 </DropdownItem>
-
+                {session?.user.email === ADMIN_EMAIL && (
+                  <DropdownItem
+                    color="default"
+                    description="Only admin"
+                    onClick={() => router.push('/adminurachat389')}
+                    startContent={<CiUser className="text-[25px]"/>}
+                  >
+                    ADMIN
+                  </DropdownItem>
+                )}
               </DropdownMenu>
             </Dropdown>
           </div>

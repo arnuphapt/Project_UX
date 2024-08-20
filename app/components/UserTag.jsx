@@ -8,7 +8,7 @@ function UserTag({ user }) {
 
   const navigateToProfile = () => {
     if (user?.email) {
-      router.push(`/${user.email}`);
+      router.push(`/users/${user.email}`);
     }
   };
 
