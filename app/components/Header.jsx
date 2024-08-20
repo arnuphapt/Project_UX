@@ -11,6 +11,7 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { RiAdminFill } from "react-icons/ri";
 
 function Header() {
   const { data: session } = useSession();
@@ -157,7 +158,7 @@ function Header() {
                     color="default"
                     description="Only admin"
                     onClick={() => router.push('/adminurachat389')}
-                    startContent={<CiUser className="text-[25px]"/>}
+                    startContent={<RiAdminFill className="text-[25px]"/>}
                   >
                     ADMIN
                   </DropdownItem>
