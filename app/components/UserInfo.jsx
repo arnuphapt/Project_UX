@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from 'react'
 import { signOut,useSession } from "next-auth/react"
 import { useRouter } from 'next/navigation';
+import {  Button} from "@nextui-org/react";
 
 function UserInfo({userInfo}) {
     console.log(userInfo);
@@ -29,11 +30,11 @@ function UserInfo({userInfo}) {
         font-semibold'>{userInfo.userName}</h2>
         <h2 className='text-gray-400'>{userInfo.email}</h2>
         <div className='flex gap-4'>
-        <button className='bg-gray-200
-         p-2 px-3 font-semibold mt-5 rounded-full'>Edit</button>
-        {session?.user.email== userInfo.email? <button className='bg-gray-200
+        <Button className='bg-gray-200
+         p-2 px-3 font-semibold mt-5 rounded-full'>Edit</Button>
+        {session?.user.email== userInfo.email? <Button className='bg-gray-200
          p-2 px-3 font-semibold mt-5 rounded-full'
-         onClick={()=>handleLogout()}>Logout</button>:null}
+         onClick={()=>handleLogout()}>Logout</Button>:null}
       </div>
     </div>
   );

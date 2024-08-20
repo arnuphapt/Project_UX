@@ -39,7 +39,7 @@ function CommentSection({
   };
 
   return (
-    <div className='mt-8 relative'>
+    <div className='mt-5 relative'>
       <div className='mb-6 flex items-center'>
         <LikeButton
           hasLiked={hasLiked}

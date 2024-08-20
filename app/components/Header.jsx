@@ -173,7 +173,7 @@ function Header() {
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/Learn'); setIsMenuOpen(false); }}>Learn</button>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={onCreateClick}>Create</button>
         {session?.user && (
-          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/' + session.user.email); setIsMenuOpen(false); }}>Profile</button>
+          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/users/' + session.user.email); setIsMenuOpen(false); }}>Profile</button>
         )}
         {session?.user ? (
           <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={handleLogout}>Logout</button>
