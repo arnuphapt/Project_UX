@@ -1,5 +1,5 @@
 import React from 'react';
-import LikedPosts from './Likepost';
+import LikedPosts from '../Pins/Likepost';
 import PinItem from '../Pins/PinItem';
 
 function Pin({ listOfPins, userInfo }) {
@@ -14,7 +14,7 @@ function Pin({ listOfPins, userInfo }) {
       {/* Display liked posts */}
       <div className="mt-10">
         <h2 className="text-2xl font-bold mb-4">{userInfo.userName}'s Liked Posts</h2>
-        <LikedPosts />
+        <LikedPosts userEmail={userInfo.email} />
       </div>
     </div>
   );

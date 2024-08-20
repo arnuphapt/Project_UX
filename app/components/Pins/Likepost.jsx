@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import app from '../../Shared/firebaseConfig';
 import PinItem from '../Pins/PinItem';
 
-const LikedPosts = () => {
-  const { data: session } = useSession();
+const LikedPosts = ({ userEmail }) => {
   const db = getFirestore(app);
   const [likedPosts, setLikedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (session) {
+    if (userEmail) {
       const fetchLikedPosts = async () => {
         const q = query(
           collection(db, 'pinterest-post'),
-          where('likes', 'array-contains', session.user.email)
+          where('likes', 'array-contains', userEmail)
         );
         const querySnapshot = await getDocs(q);
         const posts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -25,14 +23,14 @@ const LikedPosts = () => {
 
       fetchLikedPosts();
     }
-  }, [session, db]);
+  }, [userEmail, db]);
 
   if (loading) {
     return <p>Loading...</p>;
   }
 
   if (likedPosts.length === 0) {
-    return <p>No liked posts found.</p>;
+    return <p>No liked posts found Let's Like some post.</p>;
   }
 
   return (
