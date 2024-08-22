@@ -11,7 +11,9 @@ import { IoIosMore } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu, Chip, Tooltip, useDisclosure } from "@nextui-org/react";
-const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com'];
+import { RxCross1 } from "react-icons/rx";
+
+const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com','bassball389@gmail.com'];
 
 function PinInfo({ pinDetail: initialPinDetail }) {
   const { data: session } = useSession();
@@ -155,11 +157,14 @@ function PinInfo({ pinDetail: initialPinDetail }) {
       <div className='relative'>
         <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={true}
         />
+                <RxCross1 
+          className='text-2xl lg:text-3xl font-bold cursor-pointer'
+          onClick={() => router.push("/")} />
         <PinImage pinDetail={pinDetail} />
       </div>
       <div>
         <div className='flex flex-col md:flex-row md:justify-between'>
-          <h2 className='text-2xl md:text-3xl font-bold mb-4'>{pinDetail.title} Section.{pinDetail.section}</h2>
+          <h2 className='text-2xl md:text-3xl font-bold mb-2'>{pinDetail.title} Section.{pinDetail.section}</h2>
           {isPostOwner && (
             <Dropdown>
               <DropdownTrigger>
@@ -179,17 +184,32 @@ function PinInfo({ pinDetail: initialPinDetail }) {
           )}
         </div>
         <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
-        <p className='text-gray-500 mb-4'>
-          ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString('th-TH', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false
-          })}
-        </p>
-        <p className='text-lg mt-6'>{pinDetail.desc}</p>
+
+        <p className='text-gray-500'>
+            ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString('th-TH', {
+              day: '2-digit',
+              month: 'long',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+              hour12: false
+            })}
+          </p>
+        {Array.isArray(pinDetail.usertaged) && pinDetail.usertaged.length > 0 && (
+          <div className='mt-2 flex flex-wrap gap-2'>
+            {pinDetail.usertaged.map((tag, index) => (
+              <Chip
+                color="default" variant="flat"
+                key={index}
+              >
+                {tag}
+              </Chip>
+            ))}
+          </div>
+        )}
+
+
+        <p className='text-xl mt-6'>{pinDetail.desc}</p>
 
         {Array.isArray(pinDetail.techList) && pinDetail.techList.length > 0 && (
           <div className='mt-6 flex flex-wrap gap-2'>
@@ -203,15 +223,19 @@ function PinInfo({ pinDetail: initialPinDetail }) {
             ))}
           </div>
         )}
-        <Tooltip content={(pinDetail.link)}>
-          <Button
-            radius="full" size='lg' className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg mt-5 "
-            onClick={() => window.open(pinDetail.link)}
-          >
-            Open Url
-          </Button>
-        </Tooltip>
 
+        <div className='flex'>
+          <Tooltip content={(pinDetail.link)}>
+            <Button
+              radius="full" size='lg' className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg mt-5 "
+              onClick={() => window.open(pinDetail.link)}
+            >
+              Open Url
+            </Button>
+          </Tooltip>
+
+
+        </div>
         {session ? (
           <CommentSection
             comments={comments}

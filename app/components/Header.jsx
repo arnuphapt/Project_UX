@@ -101,7 +101,8 @@ function Header() {
             {isMenuOpen ? <FiX className='text-[30px]' /> : <FiMenu className='text-[30px]' />}
           </button>
           <div className='hidden md:flex items-center gap-3'>
-            <Dropdown>
+          <Button variant='light' className='font-semibold text-[16px]' onClick={() => router.push('/')}>Home</Button>
+          <Dropdown>
               <DropdownTrigger>
                 <Button variant='light' className='font-semibold text-[16px]'>Tools</Button>
               </DropdownTrigger>
