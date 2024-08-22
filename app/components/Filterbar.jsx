@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, ButtonGroup } from "@nextui-org/react";
 import { FaProjectDiagram, FaPencilRuler, FaPaintBrush } from 'react-icons/fa';
+
 import { MdViewQuilt } from 'react-icons/md';
 import { SiWix, SiFigma } from 'react-icons/si';
 import { AiOutlineAppstore } from 'react-icons/ai';
+import { HiMiniPresentationChartLine } from "react-icons/hi2";
 
 const Technology = [
     { id: 1, name: 'Project', icon: <FaProjectDiagram /> },
@@ -12,6 +14,9 @@ const Technology = [
     { id: 4, name: 'Wireframe', icon: <MdViewQuilt /> },
     { id: 5, name: 'Wix', icon: <SiWix /> },
     { id: 6, name: 'Figma', icon: <SiFigma /> },
+    { id: 7, name: 'Canva', icon: <HiMiniPresentationChartLine /> },
+
+
 ];
 
 function FilterBar({ selectedTech, setSelectedTech }) {
@@ -36,8 +41,8 @@ function FilterBar({ selectedTech, setSelectedTech }) {
                     <Button
                         variant='light'
                         onClick={() => toggleTech(tech)}
-                        className={`mr-4 mb-2 px-3 py-2 border-b-3 ${(tech === 'All' && selectedTech.length === 0) || selectedTech.map(t => t.toLowerCase()).includes(tech.toLowerCase()) ? 'text-black'
-                                : 'text-gray-500 border-transparent hover:border-gray-300'}`}>
+                        className={`mr-4 mb-2 px-3 py-2 border-b-3  ${(tech === 'All' && selectedTech.length === 0) || selectedTech.map(t => t.toLowerCase()).includes(tech.toLowerCase()) ? 'text-blue-600 border-blue-200'
+                                : 'text-black border-transparent hover:border-gray-300'}`}>
                         {tech === 'All' ? <AiOutlineAppstore /> : Technology.find(t => t.name === tech)?.icon} {/* Icon */}
                         <span className="ml-2">{tech}</span>
                     </Button>
