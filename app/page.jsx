@@ -18,7 +18,7 @@ export default function Home() {
 
   const getAllPins = async () => {
     setLoading(true);
-    const q = query(collection(db, 'pinterest-post'), limit(30));
+    const q = query(collection(db, 'pinterest-post'), limit(150));
     const querySnapshot = await getDocs(q);
   
     const pins = [];
