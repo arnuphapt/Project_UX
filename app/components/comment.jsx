@@ -80,8 +80,10 @@ function CommentSection({
       </div>
 
       {areCommentsVisible && (
-        <div className='mt-6'>
-          {comments.map((comment) => (
+  <div className='mt-6'>
+    {comments
+      .sort((a, b) => b.timestamp.toDate() - a.timestamp.toDate())
+      .map((comment) => (
             <div key={comment.id} className='border-b py-4 flex items-start gap-4'>
               {comment.userImage && (
                 <Image
