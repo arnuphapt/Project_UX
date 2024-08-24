@@ -62,20 +62,23 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal isOpen={isOpen} onOpenChange={onOpenChange} size='5xl'>
       <ModalContent>
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1">Edit Pin</ModalHeader>
             <ModalBody>
-
-              <div className='w-full'>
-                <UploadImage
+            <div className='grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8'>
+              <div className='col-span-2'>
+            <UploadImage
                   setFile={setFile}
                   currentImageUrl={imageUrl}
                   onUploadComplete={handleImageUpload}
                   postId={pinDetail.id} // Pass the postId here
                 />
+                </div>
+                <div className='col-span-2'>
+
                 <Input
                   type="text"
                   label='ADD A TITLE'
@@ -99,10 +102,11 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
                   type="text"
                   variant='underlined'
                   size='lg'
-                  defaultValue={section}
+                  defaultSelectedKeys={section}
                   onChange={(e) => setsection(e.target.value)}
                   label='Section'
                   className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
+                  isDisabled
                 >
                   <SelectItem key="1" value="1">1</SelectItem>
                   <SelectItem key="2" value="2">2</SelectItem>
@@ -133,6 +137,8 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
                   ))}
                 </CheckboxGroup>
               </div>
+              </div>
+
             </ModalBody>
             <ModalFooter>
               <Button color="danger" variant="light" onPress={onClose} isDisabled={loading}>

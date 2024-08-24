@@ -19,9 +19,9 @@ function Header() {
   const db = getFirestore(app);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Define admin email constant
-  const ADMIN_EMAIL = 'arnuphap.t@kkumail.com'; // Replace with your actual admin email
+  const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com','bassball389@gmail.com','natthawee.y@kkumail.com'];
 
+  
   useEffect(() => {
     saveUserInfo();
   }, [session]);
@@ -154,7 +154,7 @@ function Header() {
                 >
                   Logout
                 </DropdownItem>
-                {session?.user.email === ADMIN_EMAIL && (
+                { adminEmails && (
                   <DropdownItem
                     color="default"
                     description="Only admin"

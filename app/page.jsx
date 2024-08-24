@@ -1,9 +1,7 @@
 "use client"
-
 import app from './Shared/firebaseConfig';
 import PinList from './components/Pins/PinList';
-import { getFirestore, doc, setDoc, getDoc, 
-  collection, getDocs, query, where, limit, startAfter } from "firebase/firestore";
+import { getFirestore, collection, getDocs, query, limit, startAfter} from "firebase/firestore";
 import { useEffect, useState } from 'react'
 
 export default function Home() {
