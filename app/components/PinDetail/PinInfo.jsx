@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useCallback  } from 'react';
 import UserTag from '../UserTag';
-import { getFirestore, doc, deleteDoc, collection, addDoc, onSnapshot, updateDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, deleteDoc, collection, addDoc, onSnapshot, updateDoc, getDoc, getDocs } from 'firebase/firestore';
 import app from '../../Shared/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu, Chip, Tooltip, useDisclosure } from "@nextui-org/react";
 import { RxCross1 } from "react-icons/rx";
 
-const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com','bassball389@gmail.com'];
+const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'bassball389@gmail.com'];
 
 function PinInfo({ pinDetail: initialPinDetail }) {
   const { data: session } = useSession();
@@ -25,9 +25,10 @@ function PinInfo({ pinDetail: initialPinDetail }) {
   const [hasLiked, setHasLiked] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [pinDetail, setPinDetail] = useState(initialPinDetail);
-
   const isPostOwner = adminEmails.includes(session?.user?.email) || session?.user?.email === pinDetail.email;
+  const [studentId, setStudentId] = useState('');
 
+  
   const fetchPinData = async () => {
     try {
       const pinDoc = await getDoc(doc(db, 'pinterest-post', pinDetail.id));
@@ -40,45 +41,70 @@ function PinInfo({ pinDetail: initialPinDetail }) {
   };
 
   useEffect(() => {
-    const commentsRef = collection(db, 'pinterest-post', pinDetail.id, 'comments');
-    const unsubscribeComments = onSnapshot(commentsRef, (snapshot) => {
-      const commentsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setComments(commentsList);
-      updateDoc(doc(db, 'pinterest-post', pinDetail.id), {
-        commentCount: commentsList.length
-      });
-    });
-
+    const fetchData = async () => {
+      await fetchPinData();
+      await fetchUserData();
+    };
+    fetchData();
+  
     const postRef = doc(db, 'pinterest-post', pinDetail.id);
-    const unsubscribePost = onSnapshot(postRef, (doc) => {
+    const commentsRef = collection(postRef, 'comments');
+  
+    const unsubscribe = onSnapshot(postRef, (doc) => {
       const data = doc.data();
+      setPinDetail({ id: doc.id, ...data });
       setLikes(data?.likes || []);
       setHasLiked(data?.likes?.includes(session?.user?.email) || false);
     });
-
+  
+    const unsubscribeComments = onSnapshot(commentsRef, (snapshot) => {
+      const commentsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setComments(commentsList);
+      updateDoc(postRef, { commentCount: commentsList.length });
+    });
+  
     return () => {
+      unsubscribe();
       unsubscribeComments();
-      unsubscribePost();
     };
   }, [db, pinDetail.id, session?.user?.email]);
-
+  
+  const fetchUserData = async () => {
+    try {
+      const userDoc = await getDoc(doc(db, 'student-info', pinDetail.email));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setStudentId(userData.studentId);
+      }
+    } catch (error) {
+      console.error("Error fetching user data: ", error);
+    }
+  };
   const handleDelete = async () => {
     if (!isPostOwner) return;
 
     try {
+      // 1. ลบความคิดเห็นทั้งหมดที่เกี่ยวข้องกับโพสต์
+      const commentsRef = collection(db, 'pinterest-post', pinDetail.id, 'comments');
+      const commentsSnapshot = await getDocs(commentsRef);
+      const deletionPromises = commentsSnapshot.docs.map(doc => deleteDoc(doc.ref));
+      await Promise.all(deletionPromises);
+
+      // 2. ลบเอกสารหลักของโพสต์
       await deleteDoc(doc(db, 'pinterest-post', pinDetail.id));
-      toast.success("Post deleted successfully!");
+
+      toast.success("Post and all associated comments deleted successfully!");
       router.push('/');
     } catch (error) {
-      toast.error("Error deleting post. Please try again.");
-      console.error("Error deleting document: ", error);
+      toast.error("Error deleting post and comments. Please try again.");
+      console.error("Error deleting document and comments: ", error);
     }
   };
 
-  const handleCommentSubmit = async (event) => {
+  const handleCommentSubmit = useCallback(async (event) => {
     event.preventDefault();
     if (newComment.trim() === '') return;
-
+  
     try {
       await addDoc(collection(db, 'pinterest-post', pinDetail.id, 'comments'), {
         text: newComment,
@@ -93,7 +119,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
       toast.error("Error adding comment. Please try again.");
       console.error("Error adding comment: ", error);
     }
-  };
+  }, [db, pinDetail.id, newComment, session?.user]);
 
   const handleCommentDelete = async (commentId) => {
     const confirmed = window.confirm("Are you sure you want to delete this comment?");
@@ -144,26 +170,28 @@ function PinInfo({ pinDetail: initialPinDetail }) {
     }
   };
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = useCallback(async () => {
     const confirmed = window.confirm("Are you sure you want to delete this post?");
     if (confirmed) {
       await handleDelete();
     }
-  };
+  }, [handleDelete]);
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4'>
       <PinInfoModal pinDetail={pinDetail} isOpen={isOpen} onOpenChange={onOpenChange} onSave={handleSaveChanges} /> {/* Pass onSave correctly */}
       <div className='relative'>
-        <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={true}
-        />
-                <RxCross1 
-          className='text-2xl lg:text-3xl font-bold cursor-pointer'
-          onClick={() => router.push("/")} />
+        <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={true} />
+        <Button variant="light" isIconOnly size='lg' className='text-[25px]' onClick={() => router.push("/")}>
+
+          <RxCross1 />
+
+        </Button>
+
         <PinImage pinDetail={pinDetail} />
       </div>
       <div>
-        <div className='flex flex-col md:flex-row md:justify-between'>
+        <div className='flex flex-row justify-between md:flex-row md:justify-between'>
           <h2 className='text-2xl md:text-3xl font-bold mb-2'>{pinDetail.title} Section.{pinDetail.section}</h2>
           {isPostOwner && (
             <Dropdown>
@@ -183,18 +211,22 @@ function PinInfo({ pinDetail: initialPinDetail }) {
             </Dropdown>
           )}
         </div>
-        <UserTag user={{ name: pinDetail.userName, email: pinDetail.email, image: pinDetail.userImage }} />
-
+        <UserTag user={{ 
+          name: pinDetail.userName, 
+          email: pinDetail.email,
+          image: pinDetail.userImage,
+          studentId: studentId  // เพิ่ม studentId
+        }} />
         <p className='text-gray-500'>
-            ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString('th-TH', {
-              day: '2-digit',
-              month: 'long',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-              hour12: false
-            })}
-          </p>
+          ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString('th-TH', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+          })}
+        </p>
         {Array.isArray(pinDetail.usertaged) && pinDetail.usertaged.length > 0 && (
           <div className='mt-2 flex flex-wrap gap-2'>
             {pinDetail.usertaged.map((tag, index) => (

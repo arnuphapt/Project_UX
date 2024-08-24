@@ -63,10 +63,11 @@ function PinList({ listOfPins, getMorePins, loading }) {
                     <PinItem key={item.id} pin={item} />
                 ))}
             </div>
-            {listOfPins.length >= 30 && (
+            {listOfPins.length >= 150 && (
                 <div className="flex justify-center mt-6" >
                     <Button
                         color="primary"
+                        variant='light'
                         onClick={handleSeeMore}
                         disabled={loading}
                         aria-label={loading ? 'Loading more pins' : 'Load more pins'}

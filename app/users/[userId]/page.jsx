@@ -9,10 +9,13 @@ function Profile({ params }) {
   const db = getFirestore(app);
   const [userInfo, setUserInfo] = useState();
   const [listOfPins, setListOfPins] = useState([]);
+  const [studentInfo, setStudentInfo] = useState({ studentId: '', section: '' });
 
   useEffect(() => {
     if (params) {
-      getUserInfo(params.userId.replace('%40', '@'))
+      const email = params.userId.replace('%40', '@');
+      getUserInfo(email);
+      getStudentInfo(email);
     }
   }, [params]);
 
@@ -26,6 +29,22 @@ function Profile({ params }) {
       console.log("No such document!");
     }
   }
+
+  const getStudentInfo = async (email) => {
+    try {
+      const docRef = doc(db, 'student-info', email);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setStudentInfo({
+          studentId: data.studentId,
+          section: data.section
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching student info: ", error);
+    }
+  };
 
   useEffect(() => {
     if (userInfo) {
@@ -44,9 +63,9 @@ function Profile({ params }) {
 
   return (
     <div className='mt-10'>
-      {userInfo ?
+      {userInfo ? 
         <div>
-          <UserInfo userInfo={userInfo} />
+          <UserInfo userInfo={{...userInfo, ...studentInfo}} />
           <Pin listOfPins={listOfPins} userInfo={userInfo} />
         </div> : null}
     </div>

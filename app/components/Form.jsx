@@ -12,11 +12,10 @@ import Data from './Data';
 import { HiArrowSmallLeft } from "react-icons/hi2";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Input, CheckboxGroup, Checkbox, Button, Select, SelectItem } from "@nextui-org/react";
+import { Input, CheckboxGroup, Checkbox, Button } from "@nextui-org/react";
 
-function Form() {
+function Form({ studentId, section }) {
   const [techList, setTechList] = useState([]);
-  const [section, setSection] = useState(''); // State for section
   const { data: session } = useSession();
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
@@ -37,18 +36,24 @@ function Form() {
 
   const validate = () => {
     let isValid = true;
-    let newErrors = { title: '', desc: '', link: '', section: '', techList: '' };
-  
+    let newErrors = { title: '', desc: '', link: '', techList: '' };
+
     if (!title.trim()) {
       newErrors.title = 'Title is required';
       isValid = false;
+    } else if (title.length > 40) {
+      newErrors.title = 'Title must be 40 characters or less';
+      isValid = false;
     }
-  
+
     if (!desc.trim()) {
       newErrors.desc = 'Description is required';
       isValid = false;
+    } else if (desc.length > 80) {
+      newErrors.desc = 'Description must be 80 characters or less';
+      isValid = false;
     }
-  
+
     if (!link.trim()) {
       newErrors.link = 'Link is required';
       isValid = false;
@@ -60,26 +65,32 @@ function Form() {
         isValid = false;
       }
     }
-  
-    if (!section) {
-      newErrors.section = 'Section is required';
-      isValid = false;
-    }
-  
+
     if (techList.length === 0) {
       newErrors.techList = 'At least one technology must be selected';
       isValid = false;
     }
-  
+
     setErrors(newErrors);
     return isValid;
   };
+
   const onSave = () => {
     if (!validate()) {
       return;
     }
     if (!file) {
-      toast.error('A Image must be uploaded.');
+      toast.error('An image must be uploaded.');
+      return;
+    }
+    if (!studentId.trim() || !section.trim()) {
+      toast.error('Student ID and Section are required. Redirecting to profile...', {
+        onClose: () => {
+          setTimeout(() => {
+            router.push(`/users/${session.user.email}?openModal=true`);
+          }, 1000);
+        }
+      });
       return;
     }
     toast.success('Post success.');
@@ -97,7 +108,8 @@ function Form() {
           link: link,
           image: url,
           techList: techList,
-          section: section, // Include section in the post data
+          section: section,
+          studentId: studentId,
           userName: session.user.name,
           email: session.user.email,
           userImage: session.user.image,
@@ -112,17 +124,14 @@ function Form() {
       });
     });
   };
-  const handleSelectChange = (selectedValue) => {
-    setSection(selectedValue); // This stores "1", "2", "3", or "4" directly.
-  };
 
   return (
-    <div className='bg-white p-6 md:p-8 lg:p-12 xl:p-16 rounded-2xl'>
+    <div className='bg-white p-6 md:p-8 lg:p-12 xl:p-16 rounded-2xl '>
       <div className='flex items-center justify-between mb-6'>
         <HiArrowSmallLeft
           className='text-3xl lg:text-4xl font-bold cursor-pointer'
           onClick={() => router.push("/")} />
-        <Button className='font-semibold'
+        <Button className='font-semibold bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg'
           size='md'
           color="primary"
           onClick={onSave}
@@ -137,83 +146,76 @@ function Form() {
         <UploadImage setFile={setFile} />
         <div className="lg:col-span-2">
           <UserTag user={session?.user} className='outline-none' />
-          <div className='w-full'>
-          <Input 
-  type="text" 
-  label='ADD A TITLE' 
-  variant='underlined' 
-  size='lg'
-  onChange={(e) => setTitle(e.target.value)}
-  className='text-2xl md:text-3xl lg:text-4xl outline-none font-bold w-full mt-2'
-  errorMessage={errors.title}
-  isInvalid={!!errors.title}
-/>
-            <h2 className='text-xs md:text-sm text-gray-400 mt-2'>Name your work</h2>
-            <div className='grid grid-cols-3 gap-4'>
-            <Input 
-  type="text" 
-  variant='underlined' 
-  size='lg'
-  onChange={(e) => setDesc(e.target.value)}
-  label='Description'
-  className='text-base md:text-lg lg:text-xl outline-none w-full pb-2  mt-4 col-span-2'
-  errorMessage={errors.desc}
-  isInvalid={!!errors.desc}
-/>
-
-              <div className="mt-4">
-              <Select
-  size='lg'
-  variant='underlined' 
-  label="Section"
-  onChange={(e) => handleSelectChange(e.target.value)}
-  errorMessage={errors.section}
-  isInvalid={!!errors.section}
->
-  <SelectItem key="1" value="1">1</SelectItem>
-  <SelectItem key="2" value="2">2</SelectItem>
-  <SelectItem key="3" value="3">3</SelectItem>
-  <SelectItem key="4" value="4">4</SelectItem>
-</Select>
-              </div>
-
+          <div className='grid grid-cols-3 gap-4'>
+            <Input
+              type="text"
+              variant='underlined'
+              size='lg'
+              value={studentId}
+              isDisabled
+              label='Student ID'
+              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4 col-span-2'
+            />
+            <div>
+              <Input
+                type="text"
+                variant='underlined'
+                size='lg'
+                value={section}
+                isDisabled
+                label='Section'
+                className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
+              />
             </div>
-
-
-            <Input 
-  type='url' 
-  variant='underlined'
-  onChange={(e) => setLink(e.target.value)}
-  label='Destination Link' 
-  size='lg'
-  className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
-  errorMessage={errors.link}
-  isInvalid={!!errors.link}
-/>
-
-
-
-<div className="border-b-2 border-gray-300 p-2 pb-4 mt-6 md:mt-5">
-  <CheckboxGroup
-    label="Select Type"
-    color="success"
-    orientation="horizontal"
-    defaultValue={techList}
-    onChange={setTechList}
-  >
-    {Data.Technology.map((item, index) => (
-      <Checkbox key={index} value={item.name} className='p-4'>
-        {item.name}
-      </Checkbox>
-    ))}
-  </CheckboxGroup>
-  {errors.techList && <p className="text-red-500 text-sm mt-1">{errors.techList}</p>}
-</div>
-
-
-
-
-
+          </div>
+          <div className='w-full'>
+            <Input
+              type="text"
+              label='ADD A TITLE'
+              variant='underlined'
+              size='lg'
+              onChange={(e) => setTitle(e.target.value)}
+              className='text-2xl md:text-3xl lg:text-4xl outline-none font-bold w-full mt-2'
+              errorMessage={errors.title}
+              isInvalid={!!errors.title}
+            />
+            <h2 className='text-xs md:text-sm text-gray-400 mt-2'>Name your work</h2>
+            <Input
+              type="text"
+              variant='underlined'
+              size='lg'
+              onChange={(e) => setDesc(e.target.value)}
+              label='Description'
+              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2  mt-4 '
+              errorMessage={errors.desc}
+              isInvalid={!!errors.desc}
+            />
+            <Input
+              type='url'
+              variant='underlined'
+              onChange={(e) => setLink(e.target.value)}
+              label='Destination Link'
+              size='lg'
+              className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
+              errorMessage={errors.link}
+              isInvalid={!!errors.link}
+            />
+            <div className="border-b-2 border-gray-300 p-2 pb-4 mt-6 md:mt-5">
+              <CheckboxGroup
+                label="Select Type"
+                color="success"
+                orientation="horizontal"
+                defaultValue={techList}
+                onChange={setTechList}
+              >
+                {Data.Technology.map((item, index) => (
+                  <Checkbox key={index} value={item.name} className='p-4'>
+                    {item.name}
+                  </Checkbox>
+                ))}
+              </CheckboxGroup>
+              {errors.techList && <p className="text-red-500 text-sm mt-1">{errors.techList}</p>}
+            </div>
           </div>
         </div>
       </div>

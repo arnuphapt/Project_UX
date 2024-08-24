@@ -15,7 +15,7 @@ function UserTag({ user }) {
   return (
     <div className=''>
       {user ? (
-        <div 
+        <div
           className='flex gap-3 items-center cursor-pointer p-2 rounded-full hover:bg-gray-100 transition-all duration-200 max-w-[250px]'
           onClick={navigateToProfile}
         >
@@ -31,7 +31,7 @@ function UserTag({ user }) {
             }} />
           <div className='flex flex-col overflow-hidden'>
             <h2 className='text-[14px] font-medium truncate'>{user.name}</h2>
-            <h2 className='text-[12px] truncate'>{user.email}</h2>
+            <h2 className='text-[12px] truncate'>{user.studentId || user.email}</h2> {/* แสดง studentId ถ้ามี, ไม่งั้นแสดง email */}
           </div>
         </div>
       ) : null}

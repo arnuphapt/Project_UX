@@ -126,7 +126,14 @@ function CommentSection({
                   <>
                     <div className='font-semibold text-lg'>{comment.userName}</div>
                     <p className='text-gray-800'>{comment.text}</p>
-                    <span className='text-gray-500 text-sm'>{new Date(comment.timestamp?.toDate()).toLocaleString()}</span>
+                    <span className='text-gray-500 text-sm'>{new Date(comment.timestamp?.toDate()).toLocaleString('th-TH', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+          })}</span>
                     {userEmail === comment.userEmail && (
                       <div className='flex gap-2 mt-2' >
                         
