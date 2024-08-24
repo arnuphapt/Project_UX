@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import PinInfo from './../../components/PinDetail/PinInfo'
+import PinInfo from '../../../components/PinDetail/PinInfo'
 import { doc, getDoc, updateDoc, getFirestore } from 'firebase/firestore'
 import app from '@/app/Shared/firebaseConfig'
 import { useRouter } from 'next/navigation'

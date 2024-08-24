@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { HiArrowUpCircle } from 'react-icons/hi2';
 import { Button, Progress } from '@nextui-org/react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { useSession } from "next-auth/react";
 
 function UploadImage({ setFile, currentImageUrl, postId, onUploadComplete }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -9,6 +10,7 @@ function UploadImage({ setFile, currentImageUrl, postId, onUploadComplete }) {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const { data: session } = useSession();
 
   useEffect(() => {
     setImageUrl(currentImageUrl);
@@ -32,9 +34,9 @@ function UploadImage({ setFile, currentImageUrl, postId, onUploadComplete }) {
     setFile(file);
 
     const storage = getStorage();
-    const storageRef = ref(storage, `images/${postId}/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    const storageRef = ref(storage, 'pinterest/' + file.name); //`pinterest/${postId}/${file.name}`
 
+    const uploadTask = uploadBytesResumable(storageRef, file);
     setLoading(true);
 
     uploadTask.on(

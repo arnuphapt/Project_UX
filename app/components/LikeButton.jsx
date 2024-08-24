@@ -8,6 +8,7 @@ const LikeButton = ({ hasLiked, onLikeToggle, likesCount }) => {
     <Button isIconOnly radius='lg'size='lg'
       className={`flex items-center p-3 mr-3 ${hasLiked ? 'bg-red-500 text-white' : 'bg-gray-300'}`}
       onClick={onLikeToggle}
+      aria-label="Button update like"
     >
       {hasLiked ? <FaHeart /> : <FaRegHeart />} 
     </Button>

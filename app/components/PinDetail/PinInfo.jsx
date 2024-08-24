@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu, Chip, Tooltip, useDisclosure } from "@nextui-org/react";
 import { RxCross1 } from "react-icons/rx";
 
-const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'bassball389@gmail.com'];
+const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'natthawee.y@kkumail.com'];
 
 function PinInfo({ pinDetail: initialPinDetail }) {
   const { data: session } = useSession();
@@ -26,7 +26,6 @@ function PinInfo({ pinDetail: initialPinDetail }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [pinDetail, setPinDetail] = useState(initialPinDetail);
   const isPostOwner = adminEmails.includes(session?.user?.email) || session?.user?.email === pinDetail.email;
-  const [studentId, setStudentId] = useState('');
 
   
   const fetchPinData = async () => {
@@ -43,7 +42,6 @@ function PinInfo({ pinDetail: initialPinDetail }) {
   useEffect(() => {
     const fetchData = async () => {
       await fetchPinData();
-      await fetchUserData();
     };
     fetchData();
   
@@ -69,17 +67,6 @@ function PinInfo({ pinDetail: initialPinDetail }) {
     };
   }, [db, pinDetail.id, session?.user?.email]);
   
-  const fetchUserData = async () => {
-    try {
-      const userDoc = await getDoc(doc(db, 'student-info', pinDetail.email));
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        setStudentId(userData.studentId);
-      }
-    } catch (error) {
-      console.error("Error fetching user data: ", error);
-    }
-  };
   const handleDelete = async () => {
     if (!isPostOwner) return;
 
@@ -182,7 +169,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
       <PinInfoModal pinDetail={pinDetail} isOpen={isOpen} onOpenChange={onOpenChange} onSave={handleSaveChanges} /> {/* Pass onSave correctly */}
       <div className='relative'>
         <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={true} />
-        <Button variant="light" isIconOnly size='lg' className='text-[25px]' onClick={() => router.push("/")}>
+        <Button variant="light" isIconOnly size='lg' className='text-[25px]' onClick={() => router.push("/")} aria-label="Button with Cross for back to homepage">
 
           <RxCross1 />
 
@@ -196,16 +183,16 @@ function PinInfo({ pinDetail: initialPinDetail }) {
           {isPostOwner && (
             <Dropdown>
               <DropdownTrigger>
-                <Button variant="light" isIconOnly size='lg' className='text-[25px]'>
+                <Button variant="light" isIconOnly size='lg' className='text-[25px]' aria-label="Button for manage post">
                   <IoIosMore />
                 </Button>
               </DropdownTrigger>
               <DropdownMenu variant="flat" aria-label="Dropdown menu with shortcut">
-                <DropdownItem key="edit" onPress={onOpen} >
-                  Edit file
+                <DropdownItem key="edit" onPress={onOpen}  description="Allow you to Edit the post">
+                  Edit 
                 </DropdownItem>
-                <DropdownItem key="delete" className="text-danger" color="danger" onClick={handleDeleteClick}>
-                  Delete file
+                <DropdownItem key="delete" className="text-danger" color="danger" onClick={handleDeleteClick} description="Permanently delete the post">
+                  Delete 
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -215,7 +202,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
           name: pinDetail.userName, 
           email: pinDetail.email,
           image: pinDetail.userImage,
-          studentId: studentId  // เพิ่ม studentId
+          studentId: pinDetail.studentId,  // เพิ่ม studentId
         }} />
         <p className='text-gray-500'>
           ส่งเมื่อ {new Date(pinDetail.timestamp?.toDate()).toLocaleString('th-TH', {
@@ -261,6 +248,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
             <Button
               radius="full" size='lg' className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg mt-5 "
               onClick={() => window.open(pinDetail.link)}
+              aria-label="Button for open destination link"
             >
               Open Url
             </Button>

@@ -11,6 +11,7 @@ import { CircularProgress } from "@nextui-org/react"
 function PinBuilder() {
   const [studentId, setStudentId] = useState('')
   const [section, setSection] = useState('')
+  const [loading, setLoading] = useState(true)
   const { data: session } = useSession()
   const db = getFirestore(app)
   const router = useRouter()
@@ -20,6 +21,15 @@ function PinBuilder() {
       fetchStudentInfo()
     }
   }, [session])
+
+  useEffect(() => {
+    if (!loading) {
+      if (!studentId || !section) {
+        // Redirect if no studentId or section is found
+        router.push(`/users/${session.user.email}?openModal=true`)
+      }
+    }
+  }, [loading, studentId, section, router, session.user.email])
 
   const fetchStudentInfo = async () => {
     try {
@@ -36,17 +46,22 @@ function PinBuilder() {
     } catch (error) {
       console.error("Error fetching student info: ", error)
       // Handle error (e.g., show error message to user)
+    } finally {
+      setLoading(false)
     }
   }
 
-  if (!session) {
+  if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <CircularProgress
-          aria-label="Loading..."
-          size="lg"
-          color="warning"
-        />
+      <div className='bg-[#e9e9e9] min-h-screen p-8 px-[10px] md:px-[160px]'>
+        <div className="flex justify-center items-center h-full min-h-screen">
+          <CircularProgress
+            aria-label="Loading student information..."
+            size="lg"
+            color='primary'
+            label="Loading student information..."
+          />
+        </div>
       </div>
     )
   }
@@ -57,11 +72,7 @@ function PinBuilder() {
         <Form studentId={studentId} section={section} />
       ) : (
         <div className="flex justify-center items-center h-full min-h-screen">
-          <CircularProgress
-            aria-label="Loading student information..."
-            size="lg"
-            color="warning"
-          />
+          <p>No student information found. Redirecting...</p>
         </div>
       )}
     </div>

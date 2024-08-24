@@ -2,13 +2,13 @@ import Image from "next/image";
 import React, { useState, useEffect } from 'react';
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
-import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Input, Select, SelectItem } from "@nextui-org/react";
+import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Input, Select, SelectItem, Badge, Avatar } from "@nextui-org/react";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import app from '../Shared/firebaseConfig'; // Adjust path based on your project structure
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams } from 'next/navigation';
-import { FaUser, FaEnvelope, FaIdCard } from 'react-icons/fa'; // Import React Icons
+import { FaUser, FaEnvelope, FaIdCard ,FaCheck} from 'react-icons/fa'; // Import React Icons
 
 function UserInfo({ userInfo }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +19,7 @@ function UserInfo({ userInfo }) {
   const db = getFirestore(app);
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
-  const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com','bassball389@gmail.com','natthawee.y@kkumail.com'];
+  const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'natthawee.y@kkumail.com'];
   const isPostOwner = adminEmails.includes(session?.user?.email) || session?.user?.email === userInfo.email;
 
   useEffect(() => {
@@ -81,18 +81,33 @@ function UserInfo({ userInfo }) {
   }
 
   return (
-    
+
     <div className='flex flex-col items-center'>
-      <Image
-        src={userInfo.userImage}
-        alt='userImage'
-        width={100}
-        height={100}
-        className='rounded-full'
-        style={{
-          maxWidth: "100%",
-          height: "auto"
-        }} />
+            {userInfo.studentId ? (
+
+      <Badge
+        isOneChar
+        content={<FaCheck className="text-white"/>}
+        color="success"
+        placement="bottom-right"
+      >
+        <Avatar
+        isBordered
+        color="success"
+          size="lg"
+          src={userInfo.userImage}
+          alt='userImage'
+          className='rounded-full text-[60px] w-20 h-20 text-large'
+        />
+      </Badge>
+      ):( 
+        <Avatar
+          size="lg"
+          src={userInfo.userImage}
+          alt='userImage'
+          className='rounded-full text-[60px] w-20 h-20 text-large'
+        />
+     )}
 
       <h2 className='text-[30px] font-semibold' >{userInfo.userName}</h2>
       <h2 className='text-[18px] text-gray-400'>{userInfo.email}</h2>
@@ -120,20 +135,20 @@ function UserInfo({ userInfo }) {
           <ModalHeader>{studentId ? 'Edit' : 'Add'} Student Information</ModalHeader>
           <ModalBody>
             <div className="text-rose-600 flex justify-center">{studentId ? '' : '**Add Student information before create post**'}</div>
-            <Input 
+            <Input
               type="text"
               size='lg'
               variant='underlined'
-              label='Username' 
+              label='Username'
               value={userInfo.userName}
               isDisabled
               endContent={<FaUser />}
             />
-            <Input 
+            <Input
               type="text"
               size='lg'
               variant='underlined'
-              label='Email '  
+              label='Email '
               value={userInfo.email}
               isDisabled
               endContent={<FaEnvelope />}
@@ -167,7 +182,7 @@ function UserInfo({ userInfo }) {
               Close
             </Button>
             <Button color="primary" onClick={handleSave} isLoading={loading}>
-              { loading ? 'Loading...' : 'Save'}
+              {loading ? 'Loading...' : 'Save'}
             </Button>
           </ModalFooter>
         </ModalContent>

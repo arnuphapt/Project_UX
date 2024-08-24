@@ -67,7 +67,7 @@ function PinItem({ pin }) {
           alt={pin.title}
           className="z-0 w-full h-full object-cover"
           src={pin.image ? pin.image : PLACEHOLDER}
-          onClick={() => router.push("/pin/" + pin.id)}
+          onClick={() => router.push("/pin/"+ pin.userName + "/" + pin.id)}
           loading="lazy" // This enables lazy loading
         />
         )}

@@ -128,11 +128,12 @@ function Form({ studentId, section }) {
   return (
     <div className='bg-white p-6 md:p-8 lg:p-12 xl:p-16 rounded-2xl '>
       <div className='flex items-center justify-between mb-6'>
-        <HiArrowSmallLeft
-          className='text-3xl lg:text-4xl font-bold cursor-pointer'
-          onClick={() => router.push("/")} />
+      <Button variant="light" isIconOnly size='lg' className='text-[25px]' onClick={() => router.push("/")}>
+
+        <HiArrowSmallLeft/>
+          </Button>
         <Button className='font-semibold bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg'
-          size='md'
+          size='xl'
           color="primary"
           onClick={onSave}
           isLoading={loading}
