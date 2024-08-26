@@ -14,6 +14,7 @@ function UserInfo({ userInfo }) {
   const [isOpen, setIsOpen] = useState(false);
   const [studentId, setStudentId] = useState('');
   const [section, setSection] = useState('');
+  const [infoLoading, setInfoLoading] = useState(true);  // State to track loading of student info
   const router = useRouter();
   const { data: session } = useSession();
   const db = getFirestore(app);
@@ -40,6 +41,8 @@ function UserInfo({ userInfo }) {
       }
     } catch (error) {
       console.error("Error fetching student info: ", error);
+    } finally {
+      setInfoLoading(false);  // Set loading state to false once fetching is complete
     }
   };
 
@@ -81,35 +84,33 @@ function UserInfo({ userInfo }) {
   }
 
   return (
-
     <div className='flex flex-col items-center'>
-            {userInfo.studentId ? (
-
-      <Badge
-        isOneChar
-        content={<FaCheck className="text-white"/>}
-        color="success"
-        placement="bottom-right"
-      >
+      {userInfo.studentId ? (
+        <Badge
+          isOneChar
+          content={<FaCheck className="text-white"/>}
+          color="success"
+          placement="bottom-right"
+        >
+          <Avatar
+            isBordered
+            color="success"
+            size="lg"
+            src={userInfo.userImage}
+            alt='userImage'
+            className='rounded-full text-[60px] w-20 h-20 text-large'
+          />
+        </Badge>
+      ) : ( 
         <Avatar
-        isBordered
-        color="success"
           size="lg"
           src={userInfo.userImage}
           alt='userImage'
           className='rounded-full text-[60px] w-20 h-20 text-large'
         />
-      </Badge>
-      ):( 
-        <Avatar
-          size="lg"
-          src={userInfo.userImage}
-          alt='userImage'
-          className='rounded-full text-[60px] w-20 h-20 text-large'
-        />
-     )}
+      )}
 
-      <h2 className='text-[30px] font-semibold' >{userInfo.userName}</h2>
+      <h2 className='text-[30px] font-semibold'>{userInfo.userName}</h2>
       <h2 className='text-[18px] text-gray-400'>{userInfo.email}</h2>
       {studentId && (
         <h2 className='text-gray-400'>Student ID: {studentId}</h2>
@@ -120,7 +121,11 @@ function UserInfo({ userInfo }) {
 
       <div className='flex gap-4 mt-4'>
         {isPostOwner && (
-          <Button className='bg-gray-200 p-2 px-3 font-semibold rounded-full' onClick={handleOpen}>
+          <Button 
+            className='bg-gray-200 p-2 px-3 font-semibold rounded-full' 
+            onClick={handleOpen} 
+            isDisabled={infoLoading}  // Disable button while loading
+          >
             {studentId ? 'Edit Profile' : 'Add Student Info'}
           </Button>
         )}
@@ -181,7 +186,7 @@ function UserInfo({ userInfo }) {
             <Button color="danger" variant="light" onClick={handleClose}>
               Close
             </Button>
-            <Button color="primary" onClick={handleSave} isLoading={loading}>
+            <Button color="primary" onClick={handleSave} isLoading={loading} className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white">
               {loading ? 'Loading...' : 'Save'}
             </Button>
           </ModalFooter>

@@ -144,9 +144,8 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
               <Button color="danger" variant="light" onPress={onClose} isDisabled={loading}>
                 Close
               </Button>
-              <Button className='font-semibold'
+              <Button className='font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg '
                 size='md'
-                color="primary"
                 onClick={handleSave}
                 isLoading={loading}
                 auto

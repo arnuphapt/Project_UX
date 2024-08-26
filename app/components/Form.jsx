@@ -132,7 +132,7 @@ function Form({ studentId, section }) {
 
         <HiArrowSmallLeft/>
           </Button>
-        <Button className='font-semibold bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg'
+        <Button className='font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg'
           size='xl'
           color="primary"
           onClick={onSave}
@@ -210,13 +210,14 @@ function Form({ studentId, section }) {
                 onChange={setTechList}
               >
                 {Data.Technology.map((item, index) => (
-                  <Checkbox key={index} value={item.name} className='p-4'>
+                  <Checkbox key={index} value={item.name} className='pr-5 pt-2'>
                     {item.name}
                   </Checkbox>
                 ))}
               </CheckboxGroup>
-              {errors.techList && <p className="text-red-500 text-sm mt-1">{errors.techList}</p>}
             </div>
+            {errors.techList && <p className="text-red-500 text-sm mt-1">{errors.techList}</p>}
+
           </div>
         </div>
       </div>

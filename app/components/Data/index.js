@@ -27,6 +27,10 @@ const Technology=[
         id:7,
         name:'Canva'
     },
+    {
+        id:8,
+        name:'Example'
+    },
 ]
 
 export default{

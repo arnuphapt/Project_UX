@@ -169,13 +169,14 @@ function PinInfo({ pinDetail: initialPinDetail }) {
       <PinInfoModal pinDetail={pinDetail} isOpen={isOpen} onOpenChange={onOpenChange} onSave={handleSaveChanges} /> {/* Pass onSave correctly */}
       <div className='relative'>
         <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar={true} />
-        <Button variant="light" isIconOnly size='lg' className='text-[25px]' onClick={() => router.push("/")} aria-label="Button with Cross for back to homepage">
+        <Button variant="light" isIconOnly size='lg' className='text-[25px] mb-2' onClick={() => router.push("/")} aria-label="Button with Cross for back to homepage">
 
           <RxCross1 />
 
         </Button>
-
+<div className='flex justify-center items-center'>
         <PinImage pinDetail={pinDetail} />
+        </div>
       </div>
       <div>
         <div className='flex flex-row justify-between md:flex-row md:justify-between'>
@@ -246,7 +247,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
         <div className='flex'>
           <Tooltip content={(pinDetail.link)}>
             <Button
-              radius="full" size='lg' className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg mt-5 "
+              radius="full" size='lg' className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg mt-5 "
               onClick={() => window.open(pinDetail.link)}
               aria-label="Button for open destination link"
             >

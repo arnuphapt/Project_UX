@@ -112,7 +112,7 @@ function Header() {
               </DropdownMenu>
             </Dropdown>
             <Button variant='light' className='font-semibold text-[16px]' onClick={() => router.push('/Learn')}>Learn</Button>
-            <Button size="md" className="font-semibold bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg" onClick={onCreateClick}>
+            <Button size="md" className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg" onClick={onCreateClick}>
               Create Posts
             </Button>
             <Dropdown>
@@ -132,7 +132,7 @@ function Header() {
                   Login
                 </Button>
               )}
-              <DropdownMenu variant="faded" aria-label="Dropdown menu with description">
+              <DropdownMenu variant="flat" aria-label="Dropdown menu with description">
                 <DropdownItem
                   description="User Profile"
                   onClick={() => router.push('/users/' + session.user.email)}
@@ -149,7 +149,6 @@ function Header() {
                   Edit
                 </DropdownItem>
                 <DropdownItem
-                  isDisabled
                     color="default"
                     description="Only admin"
                     onClick={() => router.push('/adminurachat389')}

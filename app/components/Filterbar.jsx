@@ -6,8 +6,10 @@ import { MdViewQuilt } from 'react-icons/md';
 import { SiWix, SiFigma } from 'react-icons/si';
 import { AiOutlineAppstore } from 'react-icons/ai';
 import { HiMiniPresentationChartLine } from "react-icons/hi2";
+import { MdOutlineAnnouncement } from "react-icons/md";
 
 const Technology = [
+    { id: 8, name: 'Example', icon: <MdOutlineAnnouncement /> },
     { id: 1, name: 'Project', icon: <FaProjectDiagram /> },
     { id: 2, name: 'Ux', icon: <FaPencilRuler /> },
     { id: 3, name: 'Ui', icon: <FaPaintBrush /> },

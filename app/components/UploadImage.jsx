@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { HiArrowUpCircle } from 'react-icons/hi2';
-import { Button, Progress } from '@nextui-org/react';
+import { Button, CircularProgress } from '@nextui-org/react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useSession } from "next-auth/react";
+import { RxCross1 } from "react-icons/rx";
 
 function UploadImage({ setFile, currentImageUrl, postId, onUploadComplete }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -88,11 +89,21 @@ function UploadImage({ setFile, currentImageUrl, postId, onUploadComplete }) {
             htmlFor='dropzone-file'
             className='flex flex-col items-center justify-center cursor-pointer h-full w-full'
           >
-            <div className='flex flex-col items-center text-gray-600'>
-              <HiArrowUpCircle className='text-[40px] mb-4' />
-              <p className='text-center text-gray-500 font-medium'>Upload image here</p>
-              <p className='text-gray-500 my-2'>image (5MB)</p>
-            </div>
+          {loading ? (
+            <CircularProgress
+              aria-label="Uploading..."
+              label='Uploading...'
+              size="lg"
+              value={uploadProgress}
+              color="primary"
+              showValueLabel={true}
+              className="max-w-md mt-4 "
+            />
+          ) : (            <div className='flex flex-col items-center text-gray-600'>
+            <HiArrowUpCircle className='text-[40px] mb-4' />
+            <p className='text-center text-gray-500 font-medium'>Upload image here</p>
+            <p className='text-gray-500 my-2'>image (5MB)</p>
+          </div>)}
             <input
               id='dropzone-file'
               type='file'
@@ -101,16 +112,7 @@ function UploadImage({ setFile, currentImageUrl, postId, onUploadComplete }) {
               onChange={handleFileChange}
             />
           </label>
-          {loading && (
-            <Progress
-              aria-label="Uploading..."
-              size="md"
-              value={uploadProgress}
-              color="success"
-              showValueLabel={true}
-              className="max-w-md mt-4"
-            />
-          )}
+
         </>
       ) : (
         <div className='relative h-full w-full'>
@@ -125,8 +127,9 @@ function UploadImage({ setFile, currentImageUrl, postId, onUploadComplete }) {
             color='danger'
             className='absolute top-2 right-2 text-white rounded-full'
             aria-label='Remove image'
+            isIconOnly
           >
-            X
+            <RxCross1/>
           </Button>
         </div>
       )}
