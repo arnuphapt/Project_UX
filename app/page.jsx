@@ -36,40 +36,19 @@ export default function Home() {
   }, []);
 
   const getAllPins = async () => {
-    setLoading(true);
-    const q = query(collection(db, 'pinterest-post'), limit(150));
+    const q = query(collection(db, 'pinterest-post'));
     const querySnapshot = await getDocs(q);
-
+  
+    // Collect all pins in an array
     const pins = [];
     querySnapshot.forEach((doc) => {
-      pins.push({ ...doc.data(), id: doc.id });
+      pins.push(doc.data());
     });
-
+  
+    // Update the state once with all collected pins
     setListOfPins(pins);
-    setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
-    setLoading(false);
-  };
+  }
 
-  const getMorePins = async () => {
-    if (!lastVisible) return;
-
-    setLoading(true);
-    const q = query(
-      collection(db, 'pinterest-post'),
-      limit(12),
-      startAfter(lastVisible)
-    );
-    const querySnapshot = await getDocs(q);
-
-    const newPins = [];
-    querySnapshot.forEach((doc) => {
-      newPins.push({ ...doc.data(), id: doc.id });
-    });
-
-    setListOfPins(prevPins => [...prevPins, ...newPins]);
-    setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
-    setLoading(false);
-  };
 
   const handleDoNotShowAgain = () => {
     // Set current time in local storage
@@ -83,7 +62,6 @@ export default function Home() {
       <div className="p-4">
         <PinList 
           listOfPins={listOfPins} 
-          getMorePins={getMorePins}
           loading={loading}
         />
       </div>
@@ -93,18 +71,15 @@ export default function Home() {
           <ModalContent>
             {(onClose) => (
               <>
-                <ModalHeader className="flex flex-col gap-1">ประกาศๆ</ModalHeader>
+                <ModalHeader className="flex flex-col gap-1">ประกาศ!!</ModalHeader>
                 <ModalBody>
                   <p> 
-                    ไปเพิ่มรหัสนักศึกษากับกลุ่มที่นักศึกษาอยู่ที่โปรไฟล์ของตัวก่อนทำการสร้างโพสต์ด้วยนะครับบ
+                  ให้ไปที่ Edit Profile สำหรับทุกคนที่ยังไม่ได้เพิ่ม ข้อมูลรหัสนักศึกษา และ Section ก่อนทำการสร้างโพสต์
                   </p>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" onPress={onClose}>
+                  <Button color="primary" onPress={handleDoNotShowAgain}>
                     OK
-                  </Button>
-                  <Button color="secondary" onPress={handleDoNotShowAgain}>
-                    Do not show again
                   </Button>
                 </ModalFooter>
               </>

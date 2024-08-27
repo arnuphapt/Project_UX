@@ -198,13 +198,13 @@ function Form({ studentId, section }) {
               label='Destination Link'
               size='lg'
               className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
-              errorMessage={errors.link}
+              errorMessage={errors.link} 
               isInvalid={!!errors.link}
             />
             <div className="border-b-2 border-gray-300 p-2 pb-4 mt-6 md:mt-5">
               <CheckboxGroup
                 label="Select Type"
-                color="success"
+                color="primary"
                 orientation="horizontal"
                 defaultValue={techList}
                 onChange={setTechList}

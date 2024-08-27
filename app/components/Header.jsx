@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSession, signIn, signOut } from "next-auth/react";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import app from '../Shared/firebaseConfig';
-import { useRouter } from 'next/navigation';
+import { useRouter ,usePathname  } from 'next/navigation';
 import { CiUser,CiEdit  } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 import { FiMenu, FiX } from "react-icons/fi";
@@ -12,13 +12,16 @@ import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RiAdminLine  } from "react-icons/ri";
+const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'natthawee.y@kkumail.com'];
 
 function Header() {
   const { data: session } = useSession();
   const router = useRouter();
   const db = getFirestore(app);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+  const pathname = usePathname();
+  const isActive = (path) => pathname === path;
+
   useEffect(() => {
     saveUserInfo();
   }, [session]);
@@ -98,8 +101,12 @@ function Header() {
             {isMenuOpen ? <FiX className='text-[30px]' /> : <FiMenu className='text-[30px]' />}
           </button>
           <div className='hidden md:flex items-center gap-3'>
-          <Button variant='light' className='font-semibold text-[16px]' onClick={() => router.push('/')}>Home</Button>
-          <Dropdown>
+          <Button variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-gray-200' : ''}`} 
+ onClick={() => router.push('/')}>Home</Button>
+
+            <Button variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-gray-200' : ''}`} 
+ onClick={() => router.push('/Learn')}>Learn</Button>
+           <Dropdown >
               <DropdownTrigger>
                 <Button variant='light' className='font-semibold text-[16px]'>Tools</Button>
               </DropdownTrigger>
@@ -111,7 +118,6 @@ function Header() {
                 <DropdownItem href="https://miro.com/" color="default">miro</DropdownItem>
               </DropdownMenu>
             </Dropdown>
-            <Button variant='light' className='font-semibold text-[16px]' onClick={() => router.push('/Learn')}>Learn</Button>
             <Button size="md" className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg" onClick={onCreateClick}>
               Create Posts
             </Button>
@@ -123,7 +129,7 @@ function Header() {
                     alt='user-image'
                     width={60}
                     height={60}
-                    className='hover:bg-gray-300 p-2 rounded-full cursor-pointer'
+                    className={`hover:bg-gray-300 p-2 rounded-full cursor-pointer ${isActive('/users/' + session.user.email) ? 'bg-gray-200' : ''}`} 
                     style={{ maxWidth: "100%", height: "auto" }}
                   />
                 </DropdownTrigger>
@@ -148,15 +154,7 @@ function Header() {
                 >
                   Edit
                 </DropdownItem>
-                <DropdownItem
-                    color="default"
-                    description="Only admin"
-                    onClick={() => router.push('/adminurachat389')}
-                    startContent={<RiAdminLine  className="text-[25px]"/>}
-                    showDivider
-                  >
-                    Dashboard
-                  </DropdownItem>
+
                 <DropdownItem
                   className="text-danger"
                   color="danger"
@@ -173,7 +171,7 @@ function Header() {
           </div>
         </div>
       </div>
-      <div className={`flex flex-col items-start items-center bg-white shadow-md ${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
+      <div className={`flex flex-col items-center bg-white shadow-md ${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/'); setIsMenuOpen(false); }}>Home</button>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/Learn'); setIsMenuOpen(false); }}>Learn</button>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={onCreateClick}>Create</button>

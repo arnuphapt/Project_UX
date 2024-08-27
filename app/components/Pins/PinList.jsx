@@ -3,21 +3,23 @@ import PinItem from './PinItem';
 import SearchBar from '../Searchbar';
 import FilterBar from '../Filterbar';
 import Sorting from '../Sorting';
-import FilterSection from '../FilterSection'; // Import the new FilterSection component
-import { Button } from "@nextui-org/react"; // เพิ่มการ import Button
-
-function PinList({ listOfPins, getMorePins, loading }) {
+import FilterSection from '../FilterSection';
+import { Button, Pagination } from "@nextui-org/react";
+function PinList({ listOfPins }) {
     const [selectedTech, setSelectedTech] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('default');
     const [selectedSection, setSelectedSection] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const pinsPerPage = 18; // Define how many pins you want to display per page
+
     const sections = [...new Set(listOfPins.map(pin => pin.section))];
+
     const filteredPins = listOfPins.filter(pin => {
         const matchesTech = selectedTech.length === 0 || selectedTech.some(tech => pin.techList.includes(tech));
         const matchesSearchQuery = pin.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             pin.techList.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase())) ||
             (pin.userName && pin.userName.toLowerCase().includes(searchQuery.toLowerCase()));
-
         const matchesSection = selectedSection === '' || pin.section === selectedSection;
 
         return matchesTech && matchesSearchQuery && matchesSection;
@@ -43,11 +45,19 @@ function PinList({ listOfPins, getMorePins, loading }) {
                 return new Date(a.timestamp?.toDate()) - new Date(b.timestamp?.toDate());
         }
     });
-    const handleSeeMore = () => {
-        getMorePins();
-    };
+
+    // Calculate the pins to display based on the current page
+    const indexOfLastPin = currentPage * pinsPerPage;
+    const indexOfFirstPin = indexOfLastPin - pinsPerPage;
+    const currentPins = sortedPins.slice(indexOfFirstPin, indexOfLastPin);
+
+    // Calculate total pages for pagination
+    const totalPages = Math.ceil(sortedPins.length / pinsPerPage);
+
     return (
         <div className="mt-7 px-5">
+
+
             <div className="flex justify-center items-center mb-10">
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </div>
@@ -58,26 +68,21 @@ function PinList({ listOfPins, getMorePins, loading }) {
                 <FilterSection sections={sections} selectedSection={selectedSection} setSelectedSection={setSelectedSection} />
                 <Sorting sortBy={sortBy} setSortBy={setSortBy} />
             </div>
-            <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-                {sortedPins.map((item) => (
+            
+            <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                {currentPins.map((item) => (
                     <PinItem key={item.id} pin={item} />
                 ))}
             </div>
-            {listOfPins.length >= 150 && (
-                <div className="flex justify-center mt-6" >
-                    <Button
-                        color="primary"
-                        variant='light'
-                        onClick={handleSeeMore}
-                        disabled={loading}
-                        aria-label={loading ? 'Loading more pins' : 'Load more pins'}
-                    >
-                        {loading ? 'Loading...' : 'See More'}
-                    </Button>
 
+            {/* Pagination component */}
+            {filteredPins.length > 0 && (
+                <div className="flex justify-center mt-10">
+                    <Pagination size='lg' showControls total={totalPages} initialPage={1} onChange={page => setCurrentPage(page)} />
                 </div>
             )}
         </div>
+            
     );
 }
 

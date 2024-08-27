@@ -106,7 +106,6 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
                   onChange={(e) => setsection(e.target.value)}
                   label='Section'
                   className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
-                  isDisabled
                 >
                   <SelectItem key="1" value="1">1</SelectItem>
                   <SelectItem key="2" value="2">2</SelectItem>

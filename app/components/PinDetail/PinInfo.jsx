@@ -180,7 +180,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
       </div>
       <div>
         <div className='flex flex-row justify-between md:flex-row md:justify-between'>
-          <h2 className='text-2xl md:text-3xl font-bold mb-2'>{pinDetail.title} Section.{pinDetail.section}</h2>
+          <h2 className='text-2xl md:text-3xl font-bold'>{pinDetail.title} Section.{pinDetail.section}</h2>
           {isPostOwner && (
             <Dropdown>
               <DropdownTrigger>

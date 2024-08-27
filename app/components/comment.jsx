@@ -81,7 +81,7 @@ function CommentSection({
       </div>
 
       {areCommentsVisible && (
-        <div className='mt-6'>
+        <div className='mt-4'>
           {comments
             .sort((a, b) => b.timestamp.toDate() - a.timestamp.toDate())
             .map((comment) => (
