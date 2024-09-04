@@ -1,9 +1,10 @@
-"use client"
-import React, { useEffect, useState } from 'react'
+"use client";
+import React, { useEffect, useState } from 'react';
 import app from '../../Shared/firebaseConfig';
-import UserInfo from '../../components/UserInfo'
-import { collection, getDocs, getDoc, doc, getFirestore, query, where } from 'firebase/firestore'
-import Pin from '../../components/Pins/Pin'
+import UserInfo from '../../components/UserInfo';
+import { collection, getDocs, getDoc, doc, getFirestore, query, where } from 'firebase/firestore';
+import Pin from '../../components/Pins/Pin';
+import LikedPosts from '../../components/Pins/Likepost';  // Import LikedPosts component
 
 function Profile({ params }) {
   const db = getFirestore(app);
@@ -48,10 +49,10 @@ function Profile({ params }) {
     if (userInfo) {
       getUserPins();
     }
-  }, [userInfo])
+  }, [userInfo]);
 
   const getUserPins = async () => {
-    setListOfPins([])
+    setListOfPins([]);
     const q = query(collection(db, 'pinterest-post'), where("email", '==', userInfo.email));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -61,13 +62,20 @@ function Profile({ params }) {
 
   return (
     <div className='mt-10'>
-      {userInfo ? 
+      {userInfo ? (
         <div>
           <UserInfo userInfo={userInfo} />
+          <h2 className="text-2xl font-bold mb-4 px-5">{userInfo.userName}'s Posts</h2>
           <Pin listOfPins={listOfPins} userInfo={userInfo} />
-        </div> : null}
+          {/* Include LikedPosts here */}
+          <div className="mt-10">
+            <h2 className="text-2xl font-bold mb-4 px-5">{userInfo.userName}'s Liked Posts</h2>
+            <LikedPosts userEmail={userInfo.email} />
+          </div>
+        </div>
+      ) : null}
     </div>
-  )
+  );
 }
 
 export default Profile;

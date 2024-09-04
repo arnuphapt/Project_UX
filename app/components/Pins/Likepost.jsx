@@ -34,7 +34,7 @@ const LikedPosts = ({ userEmail }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4  px-5">
       {likedPosts.map(post => (
         <PinItem key={post.id} pin={post} />
       ))}

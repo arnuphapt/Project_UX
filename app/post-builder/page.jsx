@@ -7,7 +7,7 @@ import { getFirestore, doc, getDoc } from "firebase/firestore"
 import app from '../Shared/firebaseConfig'
 import { useRouter } from 'next/navigation'
 import { CircularProgress } from "@nextui-org/react"
-
+import  Breadcrumbs  from '../components/Breadcrumbs'
 function PinBuilder() {
   const [studentId, setStudentId] = useState('')
   const [section, setSection] = useState('')
@@ -68,6 +68,7 @@ function PinBuilder() {
 
   return (
     <div className='bg-[#e9e9e9] min-h-screen p-8 px-[10px] md:px-[160px]'>
+<Breadcrumbs/>
       {studentId && section ? (
         <Form studentId={studentId} section={section} />
       ) : (

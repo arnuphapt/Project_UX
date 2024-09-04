@@ -1,63 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import PinItem from './PinItem';
 import SearchBar from '../Searchbar';
 import FilterBar from '../Filterbar';
 import Sorting from '../Sorting';
 import FilterSection from '../FilterSection';
-import { Button, Pagination } from "@nextui-org/react";
+import { Pagination } from "@nextui-org/react";
+
 function PinList({ listOfPins }) {
     const [selectedTech, setSelectedTech] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('default');
     const [selectedSection, setSelectedSection] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const pinsPerPage = 18; // Define how many pins you want to display per page
+    const pinsPerPage = 18;
 
-    const sections = [...new Set(listOfPins.map(pin => pin.section))];
+    const sections = useMemo(() => [...new Set(listOfPins.map(pin => pin.section))], [listOfPins]);
 
-    const filteredPins = listOfPins.filter(pin => {
-        const matchesTech = selectedTech.length === 0 || selectedTech.some(tech => pin.techList.includes(tech));
-        const matchesSearchQuery = pin.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            pin.techList.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase())) ||
-            (pin.userName && pin.userName.toLowerCase().includes(searchQuery.toLowerCase()));
-        const matchesSection = selectedSection === '' || pin.section === selectedSection;
+    // Reset pagination to 1 whenever filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [selectedTech, searchQuery, selectedSection, sortBy]);
 
-        return matchesTech && matchesSearchQuery && matchesSection;
-    });
+    const filteredAndSortedPins = useMemo(() => {
+        // Step 1: Filter pins
+        const filtered = listOfPins.filter(pin => {
+            const matchesTech = selectedTech.length === 0 || selectedTech.some(tech => pin.techList.includes(tech));
+            const matchesSearchQuery = pin.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                pin.techList.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                (pin.userName && pin.userName.toLowerCase().includes(searchQuery.toLowerCase()));
+            const matchesSection = selectedSection === '' || pin.section === selectedSection;
 
-    const sortedPins = [...filteredPins].sort((a, b) => {
-        switch (sortBy) {
-            case 'default':
-                return b.timestamp?.toDate() - a.timestamp?.toDate();
-            case 'Oldest posts':
-                return a.timestamp?.toDate() - b.timestamp?.toDate();
-            case 'Most Liked':
-                return (b.likes?.length || 0) - (a.likes?.length || 0);
-            case 'Most Viewed':
-                return (b.viewCount || 0) - (a.viewCount || 0);
-            case 'Name A-Z':
-                return a.title.localeCompare(b.title);
-            case 'Name Z-A':
-                return b.title.localeCompare(a.title);
-            case 'userName':
-                return a.userName.localeCompare(b.userName);
-            default:
-                return new Date(a.timestamp?.toDate()) - new Date(b.timestamp?.toDate());
-        }
-    });
+            return matchesTech && matchesSearchQuery && matchesSection;
+        });
+
+        // Step 2: Group by user and get the latest post for each user
+        const latestPinsByUser = filtered.reduce((acc, pin) => {
+            if (!acc[pin.userName] || pin.timestamp > acc[pin.userName].timestamp) {
+                acc[pin.userName] = pin;
+            }
+            return acc;
+        }, {});
+
+        // Step 3: Convert back to array and sort
+        return Object.values(latestPinsByUser).sort((a, b) => {
+            switch (sortBy) {
+                case 'default':
+                    return b.timestamp?.toDate() - a.timestamp?.toDate();
+                case 'Oldest posts':
+                    return a.timestamp?.toDate() - b.timestamp?.toDate();
+                case 'Most Liked':
+                    return (b.likes?.length || 0) - (a.likes?.length || 0);
+                case 'Most Viewed':
+                    return (b.viewCount || 0) - (a.viewCount || 0);
+                case 'Name A-Z':
+                    return a.title.localeCompare(b.title);
+                case 'Name Z-A':
+                    return b.title.localeCompare(a.title);
+                case 'userName':
+                    return a.userName.localeCompare(b.userName);
+                default:
+                    return b.timestamp?.toDate() - a.timestamp?.toDate();
+            }
+        });
+    }, [listOfPins, selectedTech, searchQuery, selectedSection, sortBy]);
 
     // Calculate the pins to display based on the current page
     const indexOfLastPin = currentPage * pinsPerPage;
     const indexOfFirstPin = indexOfLastPin - pinsPerPage;
-    const currentPins = sortedPins.slice(indexOfFirstPin, indexOfLastPin);
+    const currentPins = filteredAndSortedPins.slice(indexOfFirstPin, indexOfLastPin);
 
     // Calculate total pages for pagination
-    const totalPages = Math.ceil(sortedPins.length / pinsPerPage);
+    const totalPages = Math.ceil(filteredAndSortedPins.length / pinsPerPage);
 
     return (
         <div className="mt-7 px-5">
-
-
             <div className="flex justify-center items-center mb-10">
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </div>
@@ -75,14 +91,12 @@ function PinList({ listOfPins }) {
                 ))}
             </div>
 
-            {/* Pagination component */}
-            {filteredPins.length > 0 && (
+            {filteredAndSortedPins.length > 0 && (
                 <div className="flex justify-center mt-10">
                     <Pagination size='lg' showControls total={totalPages} initialPage={1} onChange={page => setCurrentPage(page)} />
                 </div>
             )}
         </div>
-            
     );
 }
 

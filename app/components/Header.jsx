@@ -38,7 +38,7 @@ function Header() {
 
   const onCreateClick = () => {
     if (session) {
-      router.push('/pin-builder');
+      router.push('/post-builder');
     } else {
       signIn();
     }
@@ -154,7 +154,15 @@ function Header() {
                 >
                   Edit
                 </DropdownItem>
-
+                <DropdownItem
+                    color="default"
+                    description="Only admin"
+                    onClick={() => router.push('/adminurachat389')}
+                    startContent={<RiAdminLine  className="text-[25px]"/>}
+                    showDivider
+                  >
+                    Dashboard
+                  </DropdownItem>
                 <DropdownItem
                   className="text-danger"
                   color="danger"
