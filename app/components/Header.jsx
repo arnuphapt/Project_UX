@@ -155,6 +155,7 @@ function Header() {
                   Edit
                 </DropdownItem>
                 <DropdownItem
+                isDisabled
                     color="default"
                     description="Only admin"
                     onClick={() => router.push('/adminurachat389')}
