@@ -23,15 +23,24 @@ function PinBuilder() {
   }, [session])
 
   useEffect(() => {
-    if (!loading) {
-      if (!studentId || !section) {
-        // Redirect if no studentId or section is found
-        router.push(`/users/${session.user.email}?openModal=true`)
+    if (session?.user?.email) {
+      if (!loading) {
+        if (!studentId || !section) {
+          // Redirect if no studentId or section is found
+          router.push(`/users/${session.user.email}?openModal=true`)
+        }
       }
     }
-  }, [loading, studentId, section, router, session.user.email])
-
+  }, [loading, studentId, section, router, session])
+  
   const fetchStudentInfo = async () => {
+    if (!session?.user?.email) {
+      // Handle case where session.email is not available
+      console.error("Session email is not available.")
+      setLoading(false)
+      return
+    }
+    
     try {
       const docRef = doc(db, 'student-info', session.user.email)
       const docSnap = await getDoc(docRef)
@@ -50,6 +59,7 @@ function PinBuilder() {
       setLoading(false)
     }
   }
+  
 
   if (loading) {
     return (
