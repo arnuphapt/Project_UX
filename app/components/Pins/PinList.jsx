@@ -1,10 +1,10 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import PinItem from './PinItem';
 import SearchBar from '../Searchbar';
 import FilterBar from '../Filter/Filterbar';
 import Sorting from '../Filter/Sorting';
 import FilterSection from '../Filter/FilterSection';
-import FilterYears from '../Filter/FilterYears'; // นำเข้า FilterYears ที่แก้ไขแล้ว
+import FilterYears from '../Filter/FilterYears';
 
 import { Pagination } from "@nextui-org/react";
 
@@ -12,17 +12,20 @@ function PinList({ listOfPins }) {
     const [selectedTech, setSelectedTech] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('default');
-    const [selectedSection, setSelectedSection] = useState(''); // ฟิลเตอร์ section เดิม
-    const [selectedPeriod, setSelectedPeriod] = useState(''); // ฟิลเตอร์ช่วงเวลาใหม่
+    const [selectedSection, setSelectedSection] = useState('');
+    const [selectedPeriod, setSelectedPeriod] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const pinsPerPage = 18;
 
     const sections = useMemo(() => [...new Set(listOfPins.map(pin => pin.section))], [listOfPins]);
 
-    // Reset pagination to 1 whenever filters change
-    useEffect(() => {
+    const resetPage = useCallback(() => {
         setCurrentPage(1);
-    }, [selectedTech, searchQuery, selectedSection, selectedPeriod, sortBy]);
+    }, []);
+
+    useEffect(() => {
+        resetPage();
+    }, [selectedTech, searchQuery, selectedSection, selectedPeriod, sortBy, resetPage]);
 
     const filteredAndSortedPins = useMemo(() => {
         // Step 1: Filter pins
@@ -33,16 +36,15 @@ function PinList({ listOfPins }) {
                 (pin.userName && pin.userName.toLowerCase().includes(searchQuery.toLowerCase()));
             const matchesSection = selectedSection === '' || pin.section === selectedSection;
 
-            // ฟังก์ชันสำหรับการฟิลเตอร์ตามช่วงเดือน
             const matchesPeriod = (() => {
                 if (selectedPeriod === '1/67') {
-                    const month = pin.timestamp?.toDate().getMonth() + 1; // ดึงเดือนของโพสต์
-                    return month >= 6 && month <= 10; // ช่วงเดือน 6 ถึง 10
+                    const month = pin.timestamp?.toDate().getMonth() + 1;
+                    return month >= 6 && month <= 10;
                 } else if (selectedPeriod === '2/67') {
                     const month = pin.timestamp?.toDate().getMonth() + 1;
-                    return month >= 11 || month <= 4; // ช่วงเดือน 11 ถึงเดือน 4
+                    return month >= 11 || month <= 4;
                 }
-                return true; // แสดงทุกช่วงถ้าไม่ได้เลือก
+                return true;
             })();
 
             return matchesTech && matchesSearchQuery && matchesSection && matchesPeriod;
@@ -79,28 +81,26 @@ function PinList({ listOfPins }) {
         });
     }, [listOfPins, selectedTech, searchQuery, selectedSection, selectedPeriod, sortBy]);
 
-    // Calculate the pins to display based on the current page
     const indexOfLastPin = currentPage * pinsPerPage;
     const indexOfFirstPin = indexOfLastPin - pinsPerPage;
     const currentPins = filteredAndSortedPins.slice(indexOfFirstPin, indexOfLastPin);
 
-    // Calculate total pages for pagination
     const totalPages = Math.ceil(filteredAndSortedPins.length / pinsPerPage);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
 
     return (
         <div className="mt-7 px-5">
-
             <div className="flex justify-center items-center mb-10">
-
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </div>
             <FilterBar selectedTech={selectedTech} setSelectedTech={setSelectedTech} />
             <div className="flex justify-between items-center mb-4">
                 <FilterSection sections={sections} selectedSection={selectedSection} setSelectedSection={setSelectedSection} />
-                <FilterYears selectedPeriod={selectedPeriod} setSelectedPeriod={setSelectedPeriod} /> {/* เพิ่มฟิลเตอร์ช่วงเวลา */}
-
+                <FilterYears selectedPeriod={selectedPeriod} setSelectedPeriod={setSelectedPeriod} />
                 <Sorting sortBy={sortBy} setSortBy={setSortBy} />
-
             </div>
 
             <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
@@ -117,7 +117,13 @@ function PinList({ listOfPins }) {
 
             {filteredAndSortedPins.length > 0 && (
                 <div className="flex justify-center mt-10">
-                    <Pagination size='lg' showControls total={totalPages} initialPage={1} onChange={page => setCurrentPage(page)} />
+                    <Pagination 
+                        size='lg' 
+                        showControls 
+                        total={totalPages} 
+                        page={currentPage}
+                        onChange={handlePageChange} 
+                    />
                 </div>
             )}
         </div>
