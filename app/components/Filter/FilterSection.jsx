@@ -12,14 +12,15 @@ function FilterSection({ sections, selectedSection, setSelectedSection }) {
         className="max-w-40 "
         variant='flat'
     >
-        <SelectItem key="" value="" showDivider>
+        <SelectItem key="" value="" >
             All Sections
-        </SelectItem>
+        </SelectItem > 
         {sortedSections.map((section) => (
             <SelectItem key={section} value={section}>
                 {section === '' ? 'All Sections' : `Section ${section}`}
             </SelectItem>
         ))}
+
     </Select>
     );
 }
