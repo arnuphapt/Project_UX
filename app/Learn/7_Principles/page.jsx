@@ -10,14 +10,15 @@ export default function learn() {
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
         <h3 className="text-3xl font-semibold mb-2">เริ่มจาก ดูวิดิโอ 7 principles that make your website more engaging และทำความเข้าใจ </h3>
         <div className="flex justify-center">
-        <iframe 
-        className="w-full max-w-2xl h-96 mt-10 mb-10" 
-        src="https://www.youtube.com/watch?v=3J85SUZFXNM" 
-        title="YouTube video" 
         
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowFullScreen>
+        <iframe 
+    className="w-full max-w-2xl h-96 mt-10 mb-10" 
+    src="https://www.youtube.com/embed/3J85SUZFXNM" 
+    title="YouTube video" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowFullScreen>
         </iframe>
+
         </div>
 
           <h3 className="text-2xl font-semibold mb-2 mt-6">เอาละ มาดูกันดีกว่าว่าสิ่งที่ได้ชมไปนั้น มีเนื้อหาอะไรบ้าง ? </h3>
