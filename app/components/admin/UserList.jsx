@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { db } from "../../Shared/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import {
@@ -11,17 +12,20 @@ import {
   TableCell,
   User,
   Pagination,
+  Spinner,
+  getKeyValue
 } from "@nextui-org/react";
+import { useAsyncList } from "@react-stately/data";
 
 const UserList = () => {
-  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 10; // Adjust this number based on how many users you want to show per page
+  const usersPerPage = 10;
+  const router = useRouter();
 
-  useEffect(() => {
-    const fetchUsersAndStudentInfo = async () => {
+  const list = useAsyncList({
+    async load({ signal }) {
       try {
-        // Fetch user data from "user" collection
         const usersCollection = collection(db, "user");
         const userSnapshot = await getDocs(usersCollection);
         const userList = userSnapshot.docs.map((doc) => ({
@@ -29,7 +33,6 @@ const UserList = () => {
           ...doc.data(),
         }));
 
-        // Fetch student info from "student-info" collection
         const studentInfoCollection = collection(db, "student-info");
         const studentInfoSnapshot = await getDocs(studentInfoCollection);
         const studentInfoList = studentInfoSnapshot.docs.map((doc) => ({
@@ -37,31 +40,52 @@ const UserList = () => {
           ...doc.data(),
         }));
 
-        // Combine user and student info data based on some key
         const combinedData = userList.map((user) => {
           const student = studentInfoList.find((info) => info.id === user.id);
           return {
             ...user,
-            studentId: student ? student.studentId : "N/A", // Assign studentId or "N/A" if not found
-            section: student ? student.section : "N/A",    // Assign section or "N/A" if not found
+            studentId: student ? student.studentId : null,
+            section: student ? student.section : "N/A",
+            role: student && student.studentId ? "student" : "guest",
           };
         });
 
-        setUsers(combinedData);
+        setIsLoading(false);
+        return {
+          items: combinedData,
+        };
       } catch (error) {
         console.error("Error fetching data: ", error);
+        setIsLoading(false);
+        return { items: [] };
       }
-    };
+    },
+    async sort({ items, sortDescriptor }) {
+      return {
+        items: items.sort((a, b) => {
+          let first = a[sortDescriptor.column];
+          let second = b[sortDescriptor.column];
+          let cmp = (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
+          if (sortDescriptor.direction === "descending") {
+            cmp *= -1;
+          }
+          return cmp;
+        }),
+      };
+    },
+  });
 
-    fetchUsersAndStudentInfo();
-  }, []);
+  const navigateToProfile = (email) => {
+    if (email) {
+      router.push(`/users/${email}`);
+    }
+  };
 
-  // Calculate the current users to display
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = list.items.slice(indexOfFirstUser, indexOfLastUser);
 
-  const totalPages = Math.ceil(users.length / usersPerPage);
+  const totalPages = Math.ceil(list.items.length / usersPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -69,38 +93,50 @@ const UserList = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <Table aria-label="User Data Table">
+      <Table
+        aria-label="User Data Table with sorting"
+        sortDescriptor={list.sortDescriptor}
+        onSortChange={list.sort}
+        classNames={{
+          table: "min-h-[400px]",
+        }}
+      >
         <TableHeader>
-          <TableColumn>No.</TableColumn>
-          <TableColumn>Student ID</TableColumn>
-          <TableColumn>NAME</TableColumn>
-          <TableColumn>SECTION</TableColumn>
-          <TableColumn>ROLE</TableColumn>
+          <TableColumn key="studentId" allowsSorting>Student ID</TableColumn>
+          <TableColumn key="userName" allowsSorting>NAME</TableColumn>
+          <TableColumn key="section" allowsSorting>SECTION</TableColumn>
+          <TableColumn key="role" allowsSorting>ROLE</TableColumn>
           <TableColumn>ACTION</TableColumn>
         </TableHeader>
-        <TableBody emptyContent={"No rows to display."}>
-          {currentUsers.map((user, index) => (
-            <TableRow key={user.id}>
-              <TableCell>{indexOfFirstUser + index + 1}</TableCell>
-              <TableCell>{user.studentId}</TableCell>
+        <TableBody 
+          items={currentUsers}
+          isLoading={isLoading}
+          loadingContent={<Spinner label="Loading..." />}
+        >
+          {(item) => (
+            <TableRow key={item.id}>
+              <TableCell>{item.studentId || "N/A"}</TableCell>
               <TableCell>
                 <User
-                  name={user.userName || "N/A"}
-                  description={user.id}
+                  name={item.userName || "N/A"}
+                  description={item.id}
                   avatarProps={{
-                    src: user.userImage || "/path/to/default/image.png",
+                    src: item.userImage || "/path/to/default/image.png",
                   }}
                 />
               </TableCell>
-              <TableCell>{user.section || "N/A"}</TableCell>
-              <TableCell>N/A</TableCell>
+              <TableCell>{getKeyValue(item, 'section')}</TableCell>
+              <TableCell>{getKeyValue(item, 'role')}</TableCell>
               <TableCell>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                  onClick={() => navigateToProfile(item.email)}
+                >
                   View
                 </button>
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
       <div className="flex w-full justify-center">
