@@ -66,7 +66,7 @@ function PinDetail({ params }) {
           </div>
           {listOfPins.length > 0 && 
             <div className='mt-10'>
-              <h2 className="text-2xl font-bold mb-4">{pinDetail.userName}'s More Pins</h2>
+              <h2 className="text-2xl font-bold mb-4">{pinDetail.userName}'s More Post</h2>
               <Pin listOfPins={listOfPins} userInfo={{ userName: pinDetail.userName, email: pinDetail.email }} />
             </div>
           }

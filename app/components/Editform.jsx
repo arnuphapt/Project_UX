@@ -66,7 +66,7 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">Edit Pin</ModalHeader>
+            <ModalHeader className="flex flex-col gap-1">Edit Post</ModalHeader>
             <ModalBody>
             <div className='grid grid-cols-1 lg:grid-cols-4 gap-6 md:gap-8'>
               <div className='col-span-2'>

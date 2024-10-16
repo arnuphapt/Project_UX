@@ -96,7 +96,6 @@ function UploadImage({ setFile, currentImageUrl, postId, onUploadComplete }) {
               size="lg"
               value={uploadProgress}
               color="primary"
-              showValueLabel={true}
               className="max-w-md mt-4 "
             />
           ) : (            <div className='flex flex-col items-center text-gray-600'>

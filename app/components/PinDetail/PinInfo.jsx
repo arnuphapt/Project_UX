@@ -80,7 +80,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
       // 2. ลบเอกสารหลักของโพสต์
       await deleteDoc(doc(db, 'pinterest-post', pinDetail.id));
 
-      toast.success("Post and all associated comments deleted successfully!");
+      toast.success("Post deleted successfully!");
       router.push('/');
     } catch (error) {
       toast.error("Error deleting post and comments. Please try again.");

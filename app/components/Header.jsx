@@ -4,15 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { useSession, signIn, signOut } from "next-auth/react";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import app from '../Shared/firebaseConfig';
-import { useRouter ,usePathname  } from 'next/navigation';
-import { CiUser,CiEdit  } from "react-icons/ci";
+import { useRouter, usePathname } from 'next/navigation';
+import { CiUser, CiEdit } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 import { FiMenu, FiX } from "react-icons/fi";
-import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from '@nextui-org/react';
+import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Input } from '@nextui-org/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { RiAdminLine  } from "react-icons/ri";
-const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'natthawee.y@kkumail.com'];
+import { RiAdminLine } from "react-icons/ri";
 
 function Header() {
   const { data: session } = useSession();
@@ -21,6 +20,7 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
+  const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'natthawee.y@kkumail.com'];
 
   useEffect(() => {
     saveUserInfo();
@@ -95,18 +95,19 @@ function Header() {
             style={{ maxWidth: "100%", height: "auto" }}
           />
         </div>
-        
+              
         <div className='flex items-center gap-3'>
           <button aria-label="Button toggle menu for responsive" className="md:hidden" onClick={toggleMenu}>
             {isMenuOpen ? <FiX className='text-[30px]' /> : <FiMenu className='text-[30px]' />}
           </button>
           <div className='hidden md:flex items-center gap-3'>
-          <Button variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-gray-200' : ''}`} 
- onClick={() => router.push('/')}>Home</Button>
+            
+            <Button variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-gray-200' : ''}`} 
+              onClick={() => router.push('/')}>Home</Button>
 
             <Button variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-gray-200' : ''}`} 
- onClick={() => router.push('/Learn')}>Learn</Button>
-           <Dropdown >
+              onClick={() => router.push('/Learn')}>Learn</Button>
+            <Dropdown >
               <DropdownTrigger>
                 <Button variant='light' className='font-semibold text-[16px]'>Tools</Button>
               </DropdownTrigger>
@@ -147,23 +148,14 @@ function Header() {
                   Profile
                 </DropdownItem>
                 <DropdownItem
-                  description="Edit Profile"
-                  onClick={() => router.push(`/users/${session.user.email}?openModal=true`)}
+                  description="Create Your Posts"
+                  onClick={onCreateClick}                  
                   startContent={<CiEdit  className="text-[25px]"/>}
                   
                 >
-                  Edit
+                  Create Posts
                 </DropdownItem>
-                <DropdownItem
-                isDisabled
-                    color="default"
-                    description="Only admin"
-                    onClick={() => router.push('/adminurachat389')}
-                    startContent={<RiAdminLine  className="text-[25px]"/>}
-                    showDivider
-                  >
-                    Dashboard
-                  </DropdownItem>
+              
                 <DropdownItem
                   className="text-danger"
                   color="danger"
@@ -174,7 +166,6 @@ function Header() {
                 >
                   Logout
                 </DropdownItem>
-
               </DropdownMenu>
             </Dropdown>
           </div>

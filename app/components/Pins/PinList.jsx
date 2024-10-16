@@ -7,6 +7,7 @@ import FilterSection from '../Filter/FilterSection';
 import FilterYears from '../Filter/FilterYears';
 
 import { Pagination } from "@nextui-org/react";
+import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
 
 function PinList({ listOfPins }) {
     const [selectedTech, setSelectedTech] = useState([]);
@@ -94,6 +95,37 @@ function PinList({ listOfPins }) {
     return (
         <div className="mt-7 px-5">
             <div className="flex justify-center items-center mb-10">
+            <Card className="max-w-[400px]">
+      <CardHeader className="flex gap-3">
+        <Image
+          alt="nextui logo"
+          height={40}
+          radius="sm"
+          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
+          width={40}
+        />
+        <div className="flex flex-col">
+          <p className="text-md">Admin</p>
+          <p className="text-small text-default-500">Admin </p>
+        </div>
+      </CardHeader>
+      <Divider/>
+      <CardBody>
+        <p>ขณะนี้เหลือเวลาอีก 4 วันจนกว่าจะหมดเวลาสอบ</p>
+      </CardBody>
+      <Divider/>
+      <CardFooter>
+        <Link
+          isExternal
+          showAnchorIcon
+          href="https://github.com/nextui-org/nextui"
+        >
+          See more
+        </Link>
+      </CardFooter>
+    </Card>
+            </div>
+            <div className="flex justify-center items-center mb-10">
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             </div>
             <FilterBar selectedTech={selectedTech} setSelectedTech={setSelectedTech} />
@@ -123,6 +155,7 @@ function PinList({ listOfPins }) {
                         total={totalPages} 
                         page={currentPage}
                         onChange={handlePageChange} 
+                        variant='bordered'
                     />
                 </div>
             )}
