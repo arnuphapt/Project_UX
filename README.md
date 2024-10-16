@@ -5,4 +5,5 @@
 #npm install react-icons --save
 #npm install react-toastify
 #bun add @nextui-org/react framer-motion
+#npm install @react-stately/data
 # Netlify
