@@ -54,13 +54,13 @@ export default function Home() {
   const handleDoNotShowAgain = () => {
     // Set current time in local storage
     localStorage.setItem("modalTimestamp", new Date().toISOString());
-    setShowModal(false);
-    onOpenChange(false);
+
   };
   const handleok = () => {
     // Set current time in local storage
     setShowModal(false);
-  };
+    onOpenChange(false);
+    };
 
   return (
     <>

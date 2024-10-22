@@ -1,47 +1,17 @@
-"use client"
+
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import  Breadcrumbs  from '../components/Breadcrumbs'
-
-import {Card, CardHeader, CardBody, CardFooter, Image, Button} from "@nextui-org/react";
-
 export default function learn() {
-  const router = useRouter();
-
   return (
     <div className="max-w-7xl mx-auto p-4">
-            <Breadcrumbs/>
-
       <h1 className="text-3xl font-bold mb-4 mt-10">เนื้อหาในรายวิชา</h1>
       
 
-      <h2 className="text-xl font-semibold mb-4">CP352002 User Experience Design</h2>
+      <h2 className="text-xl font-semibold mb-4 ml-6">User Experience Design</h2>
+      <p className="text-gray-700 mb-8 ml-6">CP352002 :: User Experience Design </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8  ">
-
-      <Card isFooterBlurred className="w-full h-[400px]">
-      <Image
-        removeWrapper
-        alt="Relaxing app background"
-        className="z-0 w-full h-full object-cover"
-        src="https://www.flottmanco.com/wp-content/uploads/2016/01/designprinciples.jpg"
-      />
-      <CardFooter className="absolute bg-black/40 bottom-0 z-10 border-t-1 border-default-600 dark:border-default-100">
-        <div className="flex flex-grow gap-2 items-center">
-          <div className="flex flex-col ml-2">
-          <h4 className="text-white/90 text-xl  font-bold">Lecture5</h4>
-          <p className="text-md text-white/60">Principles of Graphics Design</p>
-          </div>
-        </div>
-        <Button radius="full" size="sm" onClick={() => router.push("Learn/Graphics_Design")}
-        >See more</Button>
-      </CardFooter>
-    </Card>
-
-
-
-<div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
+      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
   <Link href="Learn/Graphics_Design">
     <img src="https://www.flottmanco.com/wp-content/uploads/2016/01/designprinciples.jpg" alt="Principles of Graphics Design" className="w-full h-64 mb-4 cursor-pointer" />
   </Link>
@@ -51,8 +21,6 @@ export default function learn() {
     <span className="text-blue-500 font-semibold cursor-pointer">ดูรายละเอียดเพิ่มเติม</span>
   </Link>
 </div>
-
-
 
 <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
   <Link href="Learn/7_Principles">
@@ -103,5 +71,4 @@ export default function learn() {
     </div>
   );
 }
-
 
