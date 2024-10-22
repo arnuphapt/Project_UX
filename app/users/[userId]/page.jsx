@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import app from '../../Shared/firebaseConfig';
+import {app} from '../../Shared/firebaseConfig';
 import UserInfo from '../../components/UserInfo';
 import { collection, getDocs, getDoc, doc, getFirestore, query, where } from 'firebase/firestore';
 import Pin from '../../components/Pins/Pin';
