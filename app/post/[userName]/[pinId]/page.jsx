@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import PinInfo from '../../../components/PinDetail/PinInfo'
 import { doc, getDoc, updateDoc, getFirestore, query, collection, where, getDocs } from 'firebase/firestore'
-import app from '@/app/Shared/firebaseConfig'
+import { app } from '@/app/Shared/firebaseConfig'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import Breadcrumbs from '../../../components/Breadcrumbs'

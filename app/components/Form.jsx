@@ -5,7 +5,7 @@ import UploadImage from './UploadImage';
 import { useSession } from "next-auth/react";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import UserTag from './UserTag';
-import app from '../Shared/firebaseConfig';
+import { app } from '../Shared/firebaseConfig';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import Data from './Data';

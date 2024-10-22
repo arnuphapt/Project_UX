@@ -3,15 +3,15 @@ import Image from "next/image";
 import React, { useState, useEffect } from 'react';
 import { useSession, signIn, signOut } from "next-auth/react";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
-import app from '../Shared/firebaseConfig';
+import { app } from '../Shared/firebaseConfig';
 import { useRouter, usePathname } from 'next/navigation';
 import { CiUser, CiEdit } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 import { FiMenu, FiX } from "react-icons/fi";
+import { RiAdminLine } from "react-icons/ri";
 import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Input } from '@nextui-org/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { RiAdminLine } from "react-icons/ri";
 
 function Header() {
   const { data: session } = useSession();
@@ -20,7 +20,15 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
-  const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'natthawee.y@kkumail.com'];
+  
+  // Function to check if user is admin
+  const isAdmin = (email) => {
+    const adminEmailsString = process.env.NEXT_PUBLIC_ALLOWED_ADMIN_EMAILS;
+    if (!adminEmailsString || !email) return false;
+    
+    const adminEmails = adminEmailsString.split(',').map(email => email.trim());
+    return adminEmails.includes(email);
+  };
 
   useEffect(() => {
     saveUserInfo();
@@ -46,15 +54,8 @@ function Header() {
 
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to log out?")) {
-      const logoutPromise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          const success = true;
-          if (success) {
-            resolve();
-          } else {
-            reject(new Error('Logout failed!'));
-          }
-        }, 1000);
+      const logoutPromise = new Promise((resolve) => {
+        setTimeout(resolve, 1000);
       });
 
       toast.promise(logoutPromise, {
@@ -83,7 +84,7 @@ function Header() {
   return (
     <div className='relative'>
       <ToastContainer />
-      <div className='flex justify-between items-center p-6 shadow-md'>
+      <div className='flex justify-between items-center p-4 shadow-md'>
         <div className='flex items-center gap-3'>
           <Image
             src='/image.png'
@@ -107,7 +108,7 @@ function Header() {
 
             <Button variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-gray-200' : ''}`} 
               onClick={() => router.push('/Learn')}>Learn</Button>
-            <Dropdown >
+            <Dropdown>
               <DropdownTrigger>
                 <Button variant='light' className='font-semibold text-[16px]'>Tools</Button>
               </DropdownTrigger>
@@ -150,12 +151,23 @@ function Header() {
                 <DropdownItem
                   description="Create Your Posts"
                   onClick={onCreateClick}                  
-                  startContent={<CiEdit  className="text-[25px]"/>}
-                  
+                  startContent={<CiEdit className="text-[25px]"/>}
                 >
                   Create Posts
                 </DropdownItem>
-              
+
+                {/* Only show Dashboard for admin users */}
+                {session?.user && isAdmin(session.user.email) && (
+                  <DropdownItem
+                    description="Admin Dashboard"
+                    onClick={() => router.push('/adminurachat389/Dashboard')}
+                    startContent={<RiAdminLine className="text-[25px]"/>}
+                    className="text-blue-600"
+                  >
+                    DASHBOARD
+                  </DropdownItem>
+                )}
+                
                 <DropdownItem
                   className="text-danger"
                   color="danger"
@@ -171,12 +183,23 @@ function Header() {
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
       <div className={`flex flex-col items-center bg-white shadow-md ${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/'); setIsMenuOpen(false); }}>Home</button>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/Learn'); setIsMenuOpen(false); }}>Learn</button>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={onCreateClick}>Create</button>
         {session?.user && (
           <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/users/' + session.user.email); setIsMenuOpen(false); }}>Profile</button>
+        )}
+        {/* Show Dashboard in mobile menu only for admin users */}
+        {session?.user && isAdmin(session.user.email) && (
+          <button 
+            className='text-[16px] text-blue-600 m-2 p-1 hover:border-b-2 border-blue-600 font-medium'
+            onClick={() => { router.push('/adminurachat389/Dashboard'); setIsMenuOpen(false); }}
+          >
+            Dashboard
+          </button>
         )}
         {session?.user ? (
           <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={handleLogout}>Logout</button>

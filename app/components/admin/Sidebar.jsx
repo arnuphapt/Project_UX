@@ -1,12 +1,48 @@
-import { Button, Link } from "@nextui-org/react"
+import { useRouter } from 'next/navigation';
+import { Button, Link } from "@nextui-org/react";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '@/app/Shared/firebaseConfig';
+import { signOut } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+export default function AdminSidebar() {
+  const [user, loading] = useAuthState(auth);
+  const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+  const [userSession, setUserSession] = useState(null);
 
-export default function Component() {
+  // Set isClient to true when component mounts
+  useEffect(() => {
+    setIsClient(true);
+    // Safely check sessionStorage after mount
+    const session = window?.sessionStorage?.getItem('user') || null;
+    setUserSession(session);
+  }, []);
+
+  useEffect(() => {
+    // Only run authentication check on client side
+    if (isClient && !loading && !user && !userSession) {
+      router.push('/adminurachat389');
+    }
+  }, [user, loading, userSession, router, isClient]);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      if (window?.sessionStorage) {
+        window.sessionStorage.removeItem('user');
+      }
+      router.push('/adminurachat389');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
+
   return (
     <aside className="fixed inset-y-0 left-0 z-10 flex w-14 flex-col border-r bg-background sm:w-64">
       <div className="flex h-14 shrink-0 items-center justify-between border-b px-4 sm:justify-start sm:px-6">
         <Link href="/" className="flex items-center gap-2" prefetch={false}>
-          <MountainIcon className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
+          <MountainIcon className="h-6 w-6" /> ADMIN PAGE
         </Link>
         <Button variant="ghost" size="icon" className="sm:hidden">
           <MenuIcon className="h-6 w-6" />
@@ -39,7 +75,7 @@ export default function Component() {
             Posts
           </Link>
           <Link
-            href="#"
+            href="/adminurachat389/CreatePost"
             className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground active:bg-muted-light"
           >
             <FilePenIcon className="h-5 w-5" />
@@ -48,7 +84,7 @@ export default function Component() {
         </nav>
       </div>
       <div className="flex shrink-0 border-t px-4 py-6 sm:px-6">
-        <Button variant="ghost" className="w-full justify-start gap-2">
+        <Button variant="ghost" className="w-full justify-start gap-2" onClick={handleSignOut}  >
           <LogOutIcon className="h-5 w-5" />
           Logout
         </Button>

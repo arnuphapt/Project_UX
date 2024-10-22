@@ -20,7 +20,7 @@ import { useAsyncList } from "@react-stately/data";
 const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 10;
+  const [usersPerPage, setUsersPerPage] = useState(10);
   const router = useRouter();
 
   const list = useAsyncList({
@@ -40,15 +40,21 @@ const UserList = () => {
           ...doc.data(),
         }));
 
-        const combinedData = userList.map((user) => {
+        const combinedData = userList.map((user, index) => {
           const student = studentInfoList.find((info) => info.id === user.id);
           return {
             ...user,
+            no: index + 1,
             studentId: student ? student.studentId : null,
             section: student ? student.section : "N/A",
             role: student && student.studentId ? "student" : "guest",
           };
         });
+
+        // Adjust users per page based on total items
+        const totalItems = combinedData.length;
+        const newUsersPerPage = Math.ceil(totalItems / Math.ceil(totalItems / 10));
+        setUsersPerPage(newUsersPerPage);
 
         setIsLoading(false);
         return {
@@ -102,6 +108,7 @@ const UserList = () => {
         }}
       >
         <TableHeader>
+          <TableColumn key="no" allowsSorting>No.</TableColumn>
           <TableColumn key="studentId" allowsSorting>Student ID</TableColumn>
           <TableColumn key="userName" allowsSorting>NAME</TableColumn>
           <TableColumn key="section" allowsSorting>SECTION</TableColumn>
@@ -115,6 +122,7 @@ const UserList = () => {
         >
           {(item) => (
             <TableRow key={item.id}>
+              <TableCell>{item.no}</TableCell>
               <TableCell>{item.studentId || "N/A"}</TableCell>
               <TableCell>
                 <User

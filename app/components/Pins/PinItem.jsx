@@ -5,7 +5,7 @@ import { AiOutlineComment } from 'react-icons/ai';
 import { IoHeart } from 'react-icons/io5';
 import { Card, CardHeader, CardFooter, Image, Skeleton } from "@nextui-org/react";
 import { getFirestore, doc, updateDoc, onSnapshot } from 'firebase/firestore';
-import app from '../../Shared/firebaseConfig';
+import { app } from '../../Shared/firebaseConfig';
 import LikeButton from '../LikeButton';
 import { useSession } from 'next-auth/react';
 
