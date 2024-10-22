@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import Form from './../components/Form'
 import { useSession } from "next-auth/react"
 import { getFirestore, doc, getDoc } from "firebase/firestore"
-import { app } from '../Shared/firebaseConfig'
+import app from '../Shared/firebaseConfig'
 import { useRouter } from 'next/navigation'
 import { CircularProgress } from "@nextui-org/react"
 import  Breadcrumbs  from '../components/Breadcrumbs'

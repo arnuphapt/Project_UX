@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import { app } from '../../Shared/firebaseConfig';
+import app from '../../Shared/firebaseConfig';
 import PinItem from '../Pins/PinItem';
 
 const LikedPosts = ({ userEmail }) => {

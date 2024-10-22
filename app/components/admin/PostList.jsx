@@ -13,8 +13,7 @@ import {
   User,
   Pagination,
   Spinner,
-  getKeyValue,
-  Button
+  getKeyValue
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
 
@@ -29,10 +28,9 @@ const PostList = () => {
       try {
         const postsCollection = collection(db, "pinterest-post");
         const postsSnapshot = await getDocs(postsCollection);
-        const postsList = postsSnapshot.docs.map((doc, index) => ({
+        const postsList = postsSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-          no: index + 1, // Add number for each post
         }));
         setIsLoading(false);
         return {
@@ -59,9 +57,9 @@ const PostList = () => {
     },
   });
 
-  const navigateToPost = (userName, postId) => {
-    if (userName && postId) {
-      router.push(`/post/${userName}/${postId}`);
+  const navigateToProfile = (email) => {
+    if (email) {
+      router.push(`/users/${email}`);
     }
   };
 
@@ -86,11 +84,10 @@ const PostList = () => {
         }}
       >
         <TableHeader>
-          <TableColumn key="no" allowsSorting>No.</TableColumn>
           <TableColumn key="title" allowsSorting>Title</TableColumn>
           <TableColumn key="userName" allowsSorting>User</TableColumn>
           <TableColumn key="section" allowsSorting>Section</TableColumn>
-          <TableColumn key="viewCount" allowsSorting>Link</TableColumn>
+          <TableColumn key="viewCount" allowsSorting>View Count</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody 
@@ -100,7 +97,6 @@ const PostList = () => {
         >
           {(item) => (
             <TableRow key={item.id}>
-              <TableCell>{item.no}</TableCell>
               <TableCell>{getKeyValue(item, 'title') || "N/A"}</TableCell>
               <TableCell>
                 <User
@@ -112,21 +108,11 @@ const PostList = () => {
                 />
               </TableCell>
               <TableCell>{getKeyValue(item, 'section') || "N/A"}</TableCell>
-              <TableCell>
-                
-              <Button
-               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-              onClick={() => window.open(item.link)}
-              aria-label="Button for open destination link"
-            >
-              Open Url
-            </Button>
-
-              </TableCell>
+              <TableCell>{getKeyValue(item, 'viewCount') || 0}</TableCell>
               <TableCell>
                 <button
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-                  onClick={() => navigateToPost(item.userName, item.id)}
+                  onClick={() => navigateToProfile(item.email)}
                 >
                   View
                 </button>

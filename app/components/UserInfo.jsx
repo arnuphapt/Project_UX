@@ -20,7 +20,7 @@ function UserInfo({ userInfo }) {
   const db = getFirestore(app);
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
-  const adminEmails = process.env.NEXT_PUBLIC_ALLOWED_ADMIN_EMAILS;
+  const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'natthawee.y@kkumail.com'];
   const isPostOwner = adminEmails.includes(session?.user?.email) || session?.user?.email === userInfo.email;
 
   useEffect(() => {

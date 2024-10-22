@@ -1,9 +1,9 @@
 "use client";
-import { app } from './Shared/firebaseConfig';
+import app from './Shared/firebaseConfig';
 import PinList from './components/Pins/PinList';
 import { getFirestore, collection, getDocs, query, limit, startAfter } from "firebase/firestore";
 import { useEffect, useState } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure,Checkbox } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 
 export default function Home() {
   const db = getFirestore(app);
@@ -12,7 +12,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
 
   useEffect(() => {
     // Check local storage for modal preference and timestamp
@@ -57,10 +56,6 @@ export default function Home() {
     setShowModal(false);
     onOpenChange(false);
   };
-  const handleok = () => {
-    // Set current time in local storage
-    setShowModal(false);
-  };
 
   return (
     <>
@@ -82,15 +77,11 @@ export default function Home() {
                   ให้ไปที่ Edit Profile สำหรับทุกคนที่ยังไม่ได้เพิ่ม ข้อมูลรหัสนักศึกษา และ Section ก่อนทำการสร้างโพสต์
                   </p>
                 </ModalBody>
-          <ModalFooter className="flex flex-col items-stretch gap-2">
-          <div className="flex items-center justify-between">
-            <Checkbox onValueChange={handleDoNotShowAgain}>ไม่แสดงหน้านี้อีก</Checkbox>
-            <Button color="primary" onPress={handleok}>
-            OK
-          </Button>
-          </div>
-
-        </ModalFooter>
+                <ModalFooter>
+                  <Button color="primary" onPress={handleDoNotShowAgain}>
+                    OK
+                  </Button>
+                </ModalFooter>
               </>
             )}
           </ModalContent>
