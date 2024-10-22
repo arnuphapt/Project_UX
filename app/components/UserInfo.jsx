@@ -4,7 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Input, Select, SelectItem, Badge, Avatar } from "@nextui-org/react";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
-import app from '../Shared/firebaseConfig'; // Adjust path based on your project structure
+import { app } from '../Shared/firebaseConfig'; // Adjust path based on your project structure
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams } from 'next/navigation';

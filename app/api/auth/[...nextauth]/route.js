@@ -13,7 +13,7 @@ const getAllowedEmails = () => {
   return emailsString.split(',').map(email => email.trim());
 };
 
-export const { auth, handlers, signIn, signOut } = NextAuth({
+const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -37,4 +37,4 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   },
 });
 
-export const { GET, POST } = handlers;
+export { handler as GET, handler as POST };

@@ -24,8 +24,8 @@ function PinInfo({ pinDetail: initialPinDetail }) {
   const [hasLiked, setHasLiked] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [pinDetail, setPinDetail] = useState(initialPinDetail);
-  const isPostOwner = adminEmails.includes(session?.user?.email) || session?.user?.email === pinDetail.email;
   const adminEmails = process.env.NEXT_PUBLIC_ALLOWED_ADMIN_EMAILS;
+  const isPostOwner = adminEmails.includes(session?.user?.email) || session?.user?.email === pinDetail.email;
 
   
   const fetchPinData = async () => {
