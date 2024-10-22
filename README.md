@@ -6,4 +6,5 @@
 #npm install react-toastify
 #bun add @nextui-org/react framer-motion
 #npm install @react-stately/data
-# Netlify
+#npm i react-firebase-hooks
+#bun add next-auth@beta
