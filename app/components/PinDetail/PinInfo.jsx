@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useCallback  } from 'react';
 import UserTag from '../UserTag';
 import { getFirestore, doc, deleteDoc, collection, addDoc, onSnapshot, updateDoc, getDoc, getDocs } from 'firebase/firestore';
-import app from '../../Shared/firebaseConfig';
+import { app } from '../../Shared/firebaseConfig';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import CommentSection from '../comment';
@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Button, Dropdown, DropdownTrigger, DropdownItem, DropdownMenu, Chip, Tooltip, useDisclosure } from "@nextui-org/react";
 import { RxCross1 } from "react-icons/rx";
 
-const adminEmails = ['arnuphap.t@kkumail.com', 'urachartsc07@gmail.com', 'natthawee.y@kkumail.com'];
 
 function PinInfo({ pinDetail: initialPinDetail }) {
   const { data: session } = useSession();
@@ -26,6 +25,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [pinDetail, setPinDetail] = useState(initialPinDetail);
   const isPostOwner = adminEmails.includes(session?.user?.email) || session?.user?.email === pinDetail.email;
+  const adminEmails = process.env.NEXT_PUBLIC_ALLOWED_ADMIN_EMAILS;
 
   
   const fetchPinData = async () => {
