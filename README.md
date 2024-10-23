@@ -1,4 +1,4 @@
-#ขั้นตอนการติดตั้งโปรเจคและ Dependencies ที่จำเป็น
+#install necessary depencies 
 npm install
 npm install next-auth
 npm install firebase
