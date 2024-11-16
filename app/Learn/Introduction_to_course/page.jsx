@@ -4,7 +4,7 @@ export default function learn() {
   return (
     <div className="max-w-7xl mx-auto p-4 bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
       <h1 className="text-2xl font-bold mb-4">Lecture 1 Introduction to course</h1>
-      <img src="/introlec1.png" alt="Evaluation" className=" h-auto w-full max-w-4xl mx-auto p-7 mt-10 mb-10  " />
+      <img src="/introlec1.png" alt="Introduction to course" className=" h-auto w-full max-w-4xl mx-auto p-7 mt-10 mb-10  " />
      
       
       
@@ -35,18 +35,18 @@ export default function learn() {
       
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
         <Link href="https://www.canva.com/design/DAFBNodGkLQ/UxibHwguGv5ehVWgXv87MQ/view?utm_content=DAFBNodGkLQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target="_blank">
-            <img src="https://user.oc-static.com/upload/2018/07/17/15318170671735_ABcycle_AdobeStock_94041229.jpg" alt="ab test" className="w-full h-64 mb-4 cursor-pointer" />
+            <img src="https://i.ytimg.com/vi/9BdtGjoIN4E/maxresdefault.jpg" alt="People in ux" className="w-full h-auto mb-4 cursor-pointer" />
         </Link>
-         <h3 className="text-lg font-semibold mb-2 mt-9">1. People in User experience (UX)</h3>
+         <h3 className="text-lg font-semibold mb-2 mt-14">1. People in User experience (UX)</h3>
         <p className="text-gray-600 mb-4">ความเป็นมาของบุคคลที่ให้แนวคิดต่าง ๆ ในด้าน ประสบการณ์ผู้ใช้งาน</p>
         <Link href="https://www.canva.com/design/DAFBNodGkLQ/UxibHwguGv5ehVWgXv87MQ/view?utm_content=DAFBNodGkLQ&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target="_blank">
-            <span className="text-blue-500 font-semibold cursor-pointer">ดูรายละเอียดเพิ่มเติม</span>
+            <span className="text-blue-500 font-semibold cursor-pointer ">ดูรายละเอียดเพิ่มเติม</span>
         </Link>
       </div>
 
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
         <Link href="https://www.canva.com/design/DAFBNtufQJU/V8KHDO4imBfu8ntrVI2ZIg/view?utm_content=DAFBNtufQJU&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target='_blank'>
-            <img src="https://www.datocms-assets.com/48294/1660120496-usability-heuristics-5-most-used-usability-heuristics-wikimedia-commons.jpeg?auto=format" alt="Heuristic Evaluation" className="w-full h-auto mb-4 cursor-pointer" />
+            <img src="https://cms.boardmix.com/images/articles/user-personas-02.png" alt="UX Personas" className="w-full h-auto mb-4 cursor-pointer" />
         </Link>
         <h3 className="text-lg font-semibold mb-2">2. How to Create UX Personas </h3>
         <p className="text-gray-600 mb-9">วิธีสร้างบุคลิกผู้ใช้งาน เพื่อช่วยให้ทีมออกแบบเข้าใจผู้ใช้งานมากขึ้นและสามารถพัฒนาโซลูชันที่ตอบโจทย์ผู้ใช้ได้ดีขึ้น</p>
