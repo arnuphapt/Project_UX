@@ -21,6 +21,19 @@ export default function learn() {
     <span className="text-blue-500 font-semibold cursor-pointer">ดูรายละเอียดเพิ่มเติม</span>
   </Link>
 </div>
+
+<div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
+  <Link href="Learn/Business_Model_Canvas">
+    <img src="https://thewisdom.co/wp-content/uploads/2021/08/business-model-canvas-1024x714.jpg" alt="BMC" className="w-full h-auto mb-4 cursor-pointer" />
+  </Link>
+  <h3 className="text-lg font-semibold mb-2 ">Lecture2. UX Strategy : Business Model Canvas</h3>
+  <p className="text-gray-600 mb-4">เครื่องมือที่ช่วยวางแผนและออกแบบกลยุทธ์ทางธุรกิจ โดยเน้นการสร้างประสบการณ์ที่ตอบโจทย์ผู้ใช้งาน </p>
+  <Link href="Learn/Business_Model_Canvas">
+    <span className="text-blue-500 font-semibold cursor-pointer">ดูรายละเอียดเพิ่มเติม</span>
+  </Link>
+</div>
+
+
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
   <Link href="Learn/Graphics_Design">
     <img src="https://www.flottmanco.com/wp-content/uploads/2016/01/designprinciples.jpg" alt="Principles of Graphics Design" className="w-full h-64 mb-4 cursor-pointer" />
