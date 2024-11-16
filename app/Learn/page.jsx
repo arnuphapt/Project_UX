@@ -13,9 +13,9 @@ export default function learn() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8  ">
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
   <Link href="Learn/Introduction_to_course">
-    <img src="https://media.licdn.com/dms/image/C4D12AQGgET1oMhCJUA/article-cover_image-shrink_600_2000/0/1520179633562?e=2147483647&v=beta&t=d3Ip2NRdiXGEUO2LXRm3EIjuXITNCZV1_S5HIicIuPo" alt="Seven Principles" className="w-full h-64 mb-4 cursor-pointer" />
+    <img src="/banner_intro.png" alt="Seven Principles" className="w-full h-auto mb-4 cursor-pointer" />
   </Link>
-  <h3 className="text-lg font-semibold mb-2 mt-9">Lecture1.  Introduction to course</h3>
+  <h3 className="text-lg font-semibold mb-2 mt-20">Lecture1.  Introduction to course</h3>
   <p className="text-gray-600 mb-4">การแนะนำหลักสูตร</p>
   <Link href="Learn/Introduction_to_course">
     <span className="text-blue-500 font-semibold cursor-pointer">ดูรายละเอียดเพิ่มเติม</span>
