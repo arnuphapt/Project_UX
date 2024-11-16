@@ -9,8 +9,18 @@ export default function learn() {
 
       <h2 className="text-xl font-semibold mb-4 ml-6">User Experience Design</h2>
       <p className="text-gray-700 mb-8 ml-6">CP352002 :: User Experience Design </p>
-
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8  ">
+      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
+  <Link href="Learn/Introduction_to_course">
+    <img src="https://media.licdn.com/dms/image/C4D12AQGgET1oMhCJUA/article-cover_image-shrink_600_2000/0/1520179633562?e=2147483647&v=beta&t=d3Ip2NRdiXGEUO2LXRm3EIjuXITNCZV1_S5HIicIuPo" alt="Seven Principles" className="w-full h-64 mb-4 cursor-pointer" />
+  </Link>
+  <h3 className="text-lg font-semibold mb-2 mt-9">Lecture1.  Introduction to course</h3>
+  <p className="text-gray-600 mb-4">การแนะนำหลักสูตร</p>
+  <Link href="Learn/Introduction_to_course">
+    <span className="text-blue-500 font-semibold cursor-pointer">ดูรายละเอียดเพิ่มเติม</span>
+  </Link>
+</div>
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
   <Link href="Learn/Graphics_Design">
     <img src="https://www.flottmanco.com/wp-content/uploads/2016/01/designprinciples.jpg" alt="Principles of Graphics Design" className="w-full h-64 mb-4 cursor-pointer" />
