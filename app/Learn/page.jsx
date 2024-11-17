@@ -33,6 +33,17 @@ export default function learn() {
   </Link>
 </div>
 
+<div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
+  <Link href="Learn/Value_Proposition_Canvas">
+    <img src="/VPC.png" alt="VPC" className="w-full h-auto mb-4 cursor-pointer" />
+  </Link>
+  <h3 className="text-lg font-semibold mb-2 ">lecture3 UX Strategy : Value Proposition Canvas</h3>
+  <p className="text-gray-600 mb-4">เครื่องมือที่ช่วยวิเคราะห์และพัฒนาความสัมพันธ์ระหว่างสินค้า/บริการของธุรกิจ (Value Proposition) และความต้องการของลูกค้า (Customer Segment)</p>
+  <Link href="Learn/Value_Proposition_Canvas">
+    <span className="text-blue-500 font-semibold cursor-pointer">ดูรายละเอียดเพิ่มเติม</span>
+  </Link>
+</div>
+
 
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
   <Link href="Learn/Graphics_Design">
