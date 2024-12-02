@@ -5,11 +5,10 @@ import FilterBar from '../Filter/Filterbar';
 import Sorting from '../Filter/Sorting';
 import FilterSection from '../Filter/FilterSection';
 import FilterYears from '../Filter/FilterYears';
+import AdminCard from '../Adminpost';
+import { Pagination, CircularProgress } from "@nextui-org/react";
 
-import { Pagination } from "@nextui-org/react";
-import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
-
-function PinList({ listOfPins }) {
+function PinList({ listOfPins, isLoading = false }) {
     const [selectedTech, setSelectedTech] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('default');
@@ -29,7 +28,6 @@ function PinList({ listOfPins }) {
     }, [selectedTech, searchQuery, selectedSection, selectedPeriod, sortBy, resetPage]);
 
     const filteredAndSortedPins = useMemo(() => {
-        // Step 1: Filter pins
         const filtered = listOfPins.filter(pin => {
             const matchesTech = selectedTech.length === 0 || selectedTech.some(tech => pin.techList.includes(tech));
             const matchesSearchQuery = pin.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -51,7 +49,6 @@ function PinList({ listOfPins }) {
             return matchesTech && matchesSearchQuery && matchesSection && matchesPeriod;
         });
 
-        // Step 2: Group by user and get the latest post for each user
         const latestPinsByUser = filtered.reduce((acc, pin) => {
             if (!acc[pin.userName] || pin.timestamp > acc[pin.userName].timestamp) {
                 acc[pin.userName] = pin;
@@ -59,7 +56,6 @@ function PinList({ listOfPins }) {
             return acc;
         }, {});
 
-        // Step 3: Convert back to array and sort
         return Object.values(latestPinsByUser).sort((a, b) => {
             switch (sortBy) {
                 case 'default':
@@ -92,38 +88,26 @@ function PinList({ listOfPins }) {
         setCurrentPage(page);
     };
 
+
     return (
         <div className="mt-7 px-5">
             <div className="flex justify-center items-center mb-10">
-            <Card className="max-w-[400px]">
-      <CardHeader className="flex gap-3">
-        <Image
-          alt="nextui logo"
-          height={40}
-          radius="sm"
-          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-          width={40}
-        />
-        <div className="flex flex-col">
-          <p className="text-md">Admin</p>
-          <p className="text-small text-default-500">Admin </p>
-        </div>
-      </CardHeader>
-      <Divider/>
-      <CardBody>
-        <p>ขณะนี้เหลือเวลาอีก 4 วันจนกว่าจะหมดเวลาสอบ</p>
-      </CardBody>
-      <Divider/>
-      <CardFooter>
-        <Link
-          isExternal
-          showAnchorIcon
-          href="https://github.com/nextui-org/nextui"
-        >
-          See more
-        </Link>
-      </CardFooter>
-    </Card>
+            {isLoading ? (
+                    <div className="col-span-full flex justify-center items-center h-64">
+                        <CircularProgress 
+                            size="lg" 
+                            color="primary" 
+                            label="Loading admin posts..." 
+                            aria-label="Loading posts"
+                        />
+                    </div>
+                ) : currentPins.length > 0 ? (
+                        <AdminCard />
+                ) : (
+                    <div className="col-span-full text-center text-gray-500">
+                        No post found
+                    </div>
+                )}
             </div>
             <div className="flex justify-center items-center mb-10">
                 <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
@@ -136,7 +120,16 @@ function PinList({ listOfPins }) {
             </div>
 
             <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                {currentPins.length > 0 ? (
+                {isLoading ? (
+                    <div className="col-span-full flex justify-center items-center h-64">
+                        <CircularProgress 
+                            size="lg" 
+                            color="primary" 
+                            label="Loading posts..." 
+                            aria-label="Loading posts"
+                        />
+                    </div>
+                ) : currentPins.length > 0 ? (
                     currentPins.map((item) => (
                         <PinItem key={item.id} pin={item} />
                     ))
@@ -145,7 +138,7 @@ function PinList({ listOfPins }) {
                         No post found
                     </div>
                 )}
-            </div>
+            </div>  
 
             {filteredAndSortedPins.length > 0 && (
                 <div className="flex justify-center mt-10">
