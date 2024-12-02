@@ -166,7 +166,7 @@ export default function learn() {
 <img src="https://buildingtheblog.com/wp-content/uploads/2020/05/women-men-favorite-colors.jpg" alt="Principles of Graphics Design" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-10 " />
 <img src="https://buildingtheblog.com/wp-content/uploads/2020/05/least-favorite-colors-by-gender-1.jpg" alt="Principles of Graphics Design" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-10 " />
 
-<ul class="list-disc p-5"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
+<ul className="list-disc p-5"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 text-blue-500 font-semibold  mt-4"> <a href=" https://www.canva.com/design/DAFl41uHJqU/xcxPvuXmTsbYi1PvmKXIJA/view?utm_content=DAFl41uHJqU&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target="_blank">สไลด์เนื้อหาเพิ่มเติม</a></li>
           <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://www.youtube.com/playlist?list=PLj63OwXv6t5QBPvu2qqL2BzMFFQuJwxY1" target="_blank">VDO ประกอบการสอน ทฤษฏีกราฟิกส์เพื่อการออกแบบ</a></li>
           <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://www.youtube.com/watch?v=_2LLXnUdUIc " target="_blank">การออกแบบกราฟิกเริ่มต้น " สี "</a></li>
