@@ -8,4 +8,5 @@
 - bun add @nextui-org/react framer-motion
 - npm install @react-stately/data
 - npm i react-firebase-hooks
+- npm install react-slick slick-carousel lucide-react
 ## bun run dev
