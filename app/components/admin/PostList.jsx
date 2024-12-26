@@ -14,14 +14,27 @@ import {
   Pagination,
   Spinner,
   getKeyValue,
-  Button
+  Button,
+  Input,
+  Select,
+  SelectItem
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
+import { Search } from "lucide-react";
 
 const PostList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 10;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [filters, setFilters] = useState({
+    section: new Set([])
+  });
+  const [filterOptions, setFilterOptions] = useState({
+    section: []
+  });
+  
   const router = useRouter();
 
   const list = useAsyncList({
@@ -32,8 +45,23 @@ const PostList = () => {
         const postsList = postsSnapshot.docs.map((doc, index) => ({
           id: doc.id,
           ...doc.data(),
-          no: index + 1, // Add number for each post
+          no: index + 1,
         }));
+
+        // Extract unique sections and sort them numerically
+        const sections = [...new Set(postsList.map(post => post.section).filter(Boolean))]
+          .sort((a, b) => {
+            // Extract numbers from section strings and compare
+            const numA = parseInt(a.match(/\d+/)[0]);
+            const numB = parseInt(b.match(/\d+/)[0]);
+            return numA - numB;
+          });
+
+        setFilterOptions({
+          section: sections.map(section => ({ key: section, label: section }))
+        });
+
+        setFilteredItems(postsList);
         setIsLoading(false);
         return {
           items: postsList,
@@ -59,6 +87,31 @@ const PostList = () => {
     },
   });
 
+  useEffect(() => {
+    // Filter items based on search query and selected filters
+    const filtered = list.items.filter((item) => {
+      const searchTerm = searchQuery.toLowerCase();
+      const matchesSearch = 
+        item.title?.toLowerCase().includes(searchTerm) ||
+        item.userName?.toLowerCase().includes(searchTerm) ||
+        item.section?.toLowerCase().includes(searchTerm) ||
+        item.email?.toLowerCase().includes(searchTerm);
+
+      const matchesSection = filters.section.size === 0 || filters.section.has(item.section);
+
+      return matchesSearch && matchesSection;
+    });
+
+    setFilteredItems(filtered);
+    setCurrentPage(1); // Reset to first page when filtering
+  }, [searchQuery, filters, list.items]);
+
+  const handleFilterChange = (selectedValues) => {
+    setFilters({
+      section: new Set(selectedValues)
+    });
+  };
+
   const navigateToPost = (userName, postId) => {
     if (userName && postId) {
       router.push(`/post/${userName}/${postId}`);
@@ -67,9 +120,8 @@ const PostList = () => {
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = list.items.slice(indexOfFirstPost, indexOfLastPost);
-
-  const totalPages = Math.ceil(list.items.length / postsPerPage);
+  const currentPosts = filteredItems.slice(indexOfFirstPost, indexOfLastPost);
+  const totalPages = Math.ceil(filteredItems.length / postsPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -77,6 +129,31 @@ const PostList = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center mb-4">
+        <Input
+          isClearable
+          className="w-full md:w-[44%]"
+          placeholder="Search by title, user, section, or email..."
+          startContent={<Search className="text-default-300" />}
+          value={searchQuery}
+          onClear={() => setSearchQuery("")}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <Select
+          label="Filter by Section"
+          selectionMode="multiple"
+          placeholder="Select sections"
+          className="w-full md:w-[30%]"
+          selectedKeys={filters.section}
+          onSelectionChange={handleFilterChange}
+        >
+          {filterOptions.section.map((section) => (
+            <SelectItem key={section.key} value={section.key}>
+              {section.label}
+            </SelectItem>
+          ))}
+        </Select>
+      </div>
       <Table
         aria-label="Post Data Table with sorting"
         sortDescriptor={list.sortDescriptor}
@@ -113,15 +190,13 @@ const PostList = () => {
               </TableCell>
               <TableCell>{getKeyValue(item, 'section') || "N/A"}</TableCell>
               <TableCell>
-                
-              <Button
-               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-              onClick={() => window.open(item.link)}
-              aria-label="Button for open destination link"
-            >
-              Open Url
-            </Button>
-
+                <Button
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                  onClick={() => window.open(item.link)}
+                  aria-label="Button for open destination link"
+                >
+                  Open Url
+                </Button>
               </TableCell>
               <TableCell>
                 <button

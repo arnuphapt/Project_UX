@@ -13,14 +13,18 @@ import {
   User,
   Pagination,
   Spinner,
-  getKeyValue
+  getKeyValue,
+  Input
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
+import { Search } from "lucide-react";
 
 const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
   const router = useRouter();
 
   const list = useAsyncList({
@@ -55,6 +59,7 @@ const UserList = () => {
         const totalItems = combinedData.length;
         const newUsersPerPage = Math.ceil(totalItems / Math.ceil(totalItems / 10));
         setUsersPerPage(newUsersPerPage);
+        setFilteredItems(combinedData);
 
         setIsLoading(false);
         return {
@@ -81,6 +86,21 @@ const UserList = () => {
     },
   });
 
+  useEffect(() => {
+    // Filter items based on search query
+    const filtered = list.items.filter((item) => {
+      const searchTerm = searchQuery.toLowerCase();
+      return (
+        (item.studentId?.toLowerCase().includes(searchTerm) || '') ||
+        item.userName?.toLowerCase().includes(searchTerm) ||
+        item.section?.toLowerCase().includes(searchTerm) ||
+        item.role?.toLowerCase().includes(searchTerm)
+      );
+    });
+    setFilteredItems(filtered);
+    setCurrentPage(1); // Reset to first page when searching
+  }, [searchQuery, list.items]);
+
   const navigateToProfile = (email) => {
     if (email) {
       router.push(`/users/${email}`);
@@ -89,9 +109,8 @@ const UserList = () => {
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = list.items.slice(indexOfFirstUser, indexOfLastUser);
-
-  const totalPages = Math.ceil(list.items.length / usersPerPage);
+  const currentUsers = filteredItems.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(filteredItems.length / usersPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -99,6 +118,17 @@ const UserList = () => {
 
   return (
     <div className="container mx-auto p-4">
+      <div className="mb-4">
+        <Input
+          isClearable
+          className="w-full sm:max-w-[44%]"
+          placeholder="Search by name, student ID, section, or role..."
+          startContent={<Search className="text-default-300" />}
+          value={searchQuery}
+          onClear={() => setSearchQuery("")}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
       <Table
         aria-label="User Data Table with sorting"
         sortDescriptor={list.sortDescriptor}
@@ -108,7 +138,6 @@ const UserList = () => {
         }}
       >
         <TableHeader>
-          <TableColumn key="no" allowsSorting>No.</TableColumn>
           <TableColumn key="studentId" allowsSorting>Student ID</TableColumn>
           <TableColumn key="userName" allowsSorting>NAME</TableColumn>
           <TableColumn key="section" allowsSorting>SECTION</TableColumn>
@@ -122,7 +151,6 @@ const UserList = () => {
         >
           {(item) => (
             <TableRow key={item.id}>
-              <TableCell>{item.no}</TableCell>
               <TableCell>{item.studentId || "N/A"}</TableCell>
               <TableCell>
                 <User

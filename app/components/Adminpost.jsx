@@ -17,7 +17,7 @@ const AdminCarousel = () => {
         const q = query(
           collection(db, "admin-posts"), 
           orderBy("createdAt", "desc"), 
-          limit(3)  // เพิ่มจำนวนโพสต์ที่ดึงมากขึ้น
+          limit(3)
         );
 
         const querySnapshot = await getDocs(q);
@@ -68,25 +68,29 @@ const AdminCarousel = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 3000,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
+    centerMode: true,
+    centerPadding: "0px", // ทำให้ slide อยู่ตรงกลางพอดี
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: "0px"
         }
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: "0px"
         }
       }
     ]
@@ -105,45 +109,46 @@ const AdminCarousel = () => {
     });
   };
 
-
   return (
-    <div className="container mx-auto px-4 relative max-w-6xl">
+    <div className="container mx-auto px-4 relative max-w-3xl">
       <Slider {...settings}>
         {adminPosts.map((post) => (
-          <div key={post.id} className="p-2">
-            <Card className="max-w-[400px] h-full">
-              <CardHeader className="flex gap-3">
-                <Avatar 
-                  isBordered 
-                  radius="full" 
-                  size="md" 
-                  src={post.authorImage} 
-                  alt={`${post.authorName}'s avatar`}
-                />
-                <div className="flex flex-col">
-                  <p className="text-md font-bold">{post.authorName}</p>
-                  <p className="text-small text-default-500">{post.authorEmail}</p>
-                </div>
-              </CardHeader>
-              <Divider />
-              <CardBody className="flex-grow">
-                <h3 className="font-bold mb-2 text-lg">{post.title}</h3>
-                <p className="mb-2 flex-grow line-clamp-3">{post.content}</p>
-                <p className="text-sm text-default-500 mt-2">
-                  โพสต์เมื่อ: {formatDate(post.createdAt)}
-                </p>
-              </CardBody>
-              <Divider />
-              <CardFooter>
-                <Link
-                  isExternal
-                  showAnchorIcon
-                  href="https://github.com/nextui-org/nextui"
-                >
-                  ดูเพิ่มเติม
-                </Link>
-              </CardFooter>
-            </Card>
+          <div key={post.id} className="px-2">
+            <div className="flex justify-center">
+              <Card className="w-full max-w-md">
+                <CardHeader className="flex gap-3">
+                  <Avatar 
+                    isBordered 
+                    radius="full" 
+                    size="md" 
+                    src={post.authorImage} 
+                    alt={`${post.authorName}'s avatar`}
+                  />
+                  <div className="flex flex-col">
+                    <p className="text-md font-bold">{post.authorName}</p>
+                    <p className="text-small text-default-500">{post.authorEmail}</p>
+                  </div>
+                </CardHeader>
+                <Divider />
+                <CardBody className="flex-grow">
+                  <h3 className="font-bold mb-2 text-lg">{post.title}</h3>
+                  <p className="mb-2 flex-grow line-clamp-3">{post.content}</p>
+                  <p className="text-sm text-default-500 mt-2">
+                    โพสต์เมื่อ: {formatDate(post.createdAt)}
+                  </p>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <Link
+                    isExternal
+                    showAnchorIcon
+                    href="https://github.com/nextui-org/nextui"
+                  >
+                    ดูเพิ่มเติม
+                  </Link>
+                </CardFooter>
+              </Card>
+            </div>
           </div>
         ))}
       </Slider>
