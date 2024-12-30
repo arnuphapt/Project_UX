@@ -103,10 +103,10 @@ function Header() {
           </button>
           <div className='hidden md:flex items-center gap-3'>
             
-            <Button variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-gray-200' : ''}`} 
+            <Button variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-primary/10 text-primary' : ''}`} 
               onClick={() => router.push('/')}>Home</Button>
 
-            <Button variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-gray-200' : ''}`} 
+            <Button variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-primary/10 text-primary' : ''}`} 
               onClick={() => router.push('/Learn')}>Learn</Button>
             <Dropdown>
               <DropdownTrigger>
@@ -131,7 +131,7 @@ function Header() {
                     alt='user-image'
                     width={60}
                     height={60}
-                    className={`hover:bg-gray-300 p-2 rounded-full cursor-pointer ${isActive('/users/' + session.user.email) ? 'bg-gray-200' : ''}`} 
+                    className={`hover:bg-gray-300 p-2 rounded-full cursor-pointer ${isActive('/users/' + session.user.email) ? 'bg-primary/10 text-primary' : ''}`} 
                     style={{ maxWidth: "100%", height: "auto" }}
                   />
                 </DropdownTrigger>
@@ -163,6 +163,7 @@ function Header() {
                     onClick={() => router.push('/adminurachat389/Dashboard')}
                     startContent={<RiAdminLine className="text-[25px]"/>}
                     className="text-blue-600"
+                    showDivider
                   >
                     DASHBOARD
                   </DropdownItem>
@@ -172,7 +173,7 @@ function Header() {
                   className="text-danger"
                   color="danger"
                   description="Logout"
-                  showDivider
+                  
                   onClick={handleLogout}
                   startContent={<IoIosLogOut className="text-[25px]"/>}
                 >

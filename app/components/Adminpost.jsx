@@ -17,7 +17,7 @@ const AdminCarousel = () => {
         const q = query(
           collection(db, "admin-posts"), 
           orderBy("createdAt", "desc"), 
-          limit(3)
+          limit(5)
         );
 
         const querySnapshot = await getDocs(q);
@@ -142,7 +142,7 @@ const AdminCarousel = () => {
                   <Link
                     isExternal
                     showAnchorIcon
-                    href="https://github.com/nextui-org/nextui"
+                    href={post.link}
                   >
                     ดูเพิ่มเติม
                   </Link>

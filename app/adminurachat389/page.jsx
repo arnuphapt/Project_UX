@@ -11,35 +11,118 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [errors, setErrors] = useState({ email: '', password: '' });
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
   const router = useRouter();
   const { data: session, status } = useSession();
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
+  // Validation functions
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      return 'อีเมลจำเป็นต้องระบุ';
+    }
+    if (!emailRegex.test(email)) {
+      return 'รูปแบบอีเมลไม่ถูกต้อง';
+    }
+    return '';
+  };
+
+  const validatePassword = (password) => {
+    if (!password) {
+      return 'รหัสผ่านจำเป็นต้องระบุ';
+    }
+    if (password.length < 6) {
+      return 'รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร';
+    }
+
+    return '';
+  };
+
+  // Handle input changes with validation
+  const handleEmailChange = (e) => {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    setErrors(prev => ({
+      ...prev,
+      email: validateEmail(newEmail)
+    }));
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setErrors(prev => ({
+      ...prev,
+      password: validatePassword(newPassword)
+    }));
+  };
+
   const handleSignIn = async (e) => {
     e.preventDefault();
+
+    // Validate all fields before submission
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+
+    setErrors({
+      email: emailError,
+      password: passwordError
+    });
+
+    // If there are any errors, don't proceed with sign in
+    if (emailError || passwordError) {
+      return;
+    }
+
+    // Check against predefined credentials
+    const validEmail = "admin@kkumail.com";
+    
     try {
+      // First check if email matches
+      if (email !== validEmail) {
+        setErrors(prev => ({
+          ...prev,
+          email: 'อีเมลไม่ถูกต้อง',
+          general: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง'
+        }));
+        return;
+      }
+
+      // If email matches, proceed with Firebase authentication
       const res = await signInWithEmailAndPassword(email, password);
-      console.log({ res });
-      sessionStorage.setItem('user', true);
-      setEmail('');
-      setPassword('');
-      router.push('/adminurachat389/Dashboard');
+      
+      if (res) {
+        console.log({ res });
+        sessionStorage.setItem('user', true);
+        setEmail('');
+        setPassword('');
+        router.push('/adminurachat389/Dashboard');
+      } else {
+        setErrors(prev => ({
+          ...prev,
+          password: 'รหัสผ่านไม่ถูกต้อง',
+          general: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง'
+        }));
+      }
     } catch (e) {
       console.error(e);
+      setErrors(prev => ({
+        ...prev,
+        general: 'อีเมลหรือรหัสผ่านไม่ถูกต้อง'
+      }));
     }
   };
 
   useEffect(() => {
-    // Only redirect if we're certain about the authentication status
     if (status === "unauthenticated") {
       router.push("/api/auth/signin");
       return;
     }
 
     if (status === "authenticated") {
-      // Check both session existence and admin role
       if (!session?.user?.role) {
         console.error("No role found in session");
         router.push("/unauthorized");
@@ -54,7 +137,6 @@ const SignIn = () => {
     }
   }, [session, status, router]);
 
-  // Show loading state while checking authentication
   if (status === "loading") {
     return (
       <div className="flex min-h-full items-center justify-center">
@@ -63,7 +145,6 @@ const SignIn = () => {
     );
   }
 
-  // Only render the form if user is authenticated and is admin
   if (session?.user?.role === "admin") {
     return (
       <div className="flex min-h-full bg-background items-center justify-center mt-32 p-4">
@@ -80,8 +161,10 @@ const SignIn = () => {
               variant="underlined"
               placeholder="Enter your email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailChange}
               className="max-w-xs text-white pb-4"
+              errorMessage={errors.email}
+              isInvalid={!!errors.email}
             />
 
             <Input
@@ -104,9 +187,15 @@ const SignIn = () => {
               }
               type={isVisible ? "text" : "password"}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               className="max-w-xs text-white pb-4"
+              errorMessage={errors.password}
+              isInvalid={!!errors.password}
             />
+
+            {errors.general && (
+              <p className="text-red-500 text-sm mt-2">{errors.general}</p>
+            )}
 
             <Button color="primary" type="submit">
               Sign In

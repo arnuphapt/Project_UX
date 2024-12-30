@@ -148,7 +148,7 @@ function PinList({ listOfPins, isLoading = false }) {
                         total={totalPages} 
                         page={currentPage}
                         onChange={handlePageChange} 
-                        variant='bordered'
+                        variant='light'
                     />
                 </div>
             )}
