@@ -138,15 +138,20 @@ const AdminCarousel = () => {
                   </p>
                 </CardBody>
                 <Divider />
-                <CardFooter>
-                  <Link
-                    isExternal
-                    showAnchorIcon
-                    href={post.link}
-                  >
-                    ดูเพิ่มเติม
-                  </Link>
-                </CardFooter>
+            <CardFooter>
+              {post.link ? (
+                <Link
+                  isExternal
+                  showAnchorIcon
+                  href={post.link}
+                  className="text-primary"
+                >
+                  ดูเพิ่มเติม
+                </Link>
+              ) : (
+                <span className="text-default-400">ไม่มีลิงก์เพิ่มเติม</span>
+              )}
+            </CardFooter>
               </Card>
             </div>
           </div>

@@ -17,10 +17,14 @@ import {
   Button,
   Input,
   Select,
-  SelectItem
+  SelectItem,
+  Link,
+  Tooltip
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
 import { Search } from "lucide-react";
+import { FaEye } from "react-icons/fa";
+import { MdOutlineLink } from "react-icons/md";
 
 const PostList = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -167,7 +171,6 @@ const PostList = () => {
           <TableColumn key="title" allowsSorting>Title</TableColumn>
           <TableColumn key="userName" allowsSorting>User</TableColumn>
           <TableColumn key="section" allowsSorting>Section</TableColumn>
-          <TableColumn key="viewCount" allowsSorting>Link</TableColumn>
           <TableColumn>Action</TableColumn>
         </TableHeader>
         <TableBody 
@@ -189,22 +192,28 @@ const PostList = () => {
                 />
               </TableCell>
               <TableCell>{getKeyValue(item, 'section') || "N/A"}</TableCell>
+
               <TableCell>
-                <Button
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                <Tooltip content="Link">
+              <Link color="foreground"
+              className="cursor-pointer p-4"
                   onClick={() => window.open(item.link)}
                   aria-label="Button for open destination link"
                 >
-                  Open Url
-                </Button>
-              </TableCell>
-              <TableCell>
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
-                  onClick={() => navigateToPost(item.userName, item.id)}
-                >
-                  View
-                </button>
+                  <MdOutlineLink className="text-xl"/>
+                </Link>
+                </Tooltip>
+                <Tooltip content="View post">
+
+                <Link color="foreground"
+                   className="cursor-pointer p-4"
+
+                   onClick={() => navigateToPost(item.userName, item.id)}
+                   >
+                  <FaEye className="text-xl"/>
+                </Link>
+                </Tooltip>
+
               </TableCell>
             </TableRow>
           )}

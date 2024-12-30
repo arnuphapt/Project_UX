@@ -14,10 +14,13 @@ import {
   Pagination,
   Spinner,
   getKeyValue,
-  Input
+  Input,
+  Link,
+  Tooltip
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
 import { Search } from "lucide-react";
+import { FaEye } from "react-icons/fa";
 
 const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -164,12 +167,14 @@ const UserList = () => {
               <TableCell>{getKeyValue(item, 'section')}</TableCell>
               <TableCell>{getKeyValue(item, 'role')}</TableCell>
               <TableCell>
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+                <Tooltip content="View User">
+                <Link color="foreground"
+                className="cursor-pointer"
                   onClick={() => navigateToProfile(item.email)}
                 >
-                  View
-                </button>
+                  <FaEye className="text-xl"/>
+                </Link>
+                </Tooltip>
               </TableCell>
             </TableRow>
           )}

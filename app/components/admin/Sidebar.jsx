@@ -10,6 +10,7 @@ import { AiOutlineDatabase } from "react-icons/ai";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { CiLogin } from "react-icons/ci";
 import CreatePost from './Createpost';
+import { GoDatabase } from "react-icons/go";
 
 export default function AdminSidebar() {
   const [user, loading] = useAuthState(auth);
@@ -104,6 +105,11 @@ export default function AdminSidebar() {
             href="/adminurachat389/PostList"
             icon={AiOutlineDatabase}
             label="Posts"
+          />
+          <MenuItem
+          href="/adminurachat389/AdminList"
+          icon={GoDatabase}
+          label="AdminPosts"
           />
           <MenuItem 
             href="#"
