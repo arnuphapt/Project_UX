@@ -1,26 +1,60 @@
-import React from 'react';
+// FilterYears.js
+import React, { useEffect, useState } from 'react';
 import { Tabs, Tab } from '@nextui-org/react';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '../../Shared/firebaseConfig';
 
 function FilterYears({ selectedPeriod, setSelectedPeriod }) {
-    const periods = [
-        { label: '1/67', value: '1/67' },
-        { label: '2/67', value: '2/67' },
-    ];
+  const [filters, setFilters] = useState([]);
 
-    return (
-        <Tabs
-            aria-label="Filter by Years"
-            selectedKey={selectedPeriod}
-            onSelectionChange={setSelectedPeriod}
-            variant="flat"
-        >
-<Tab key="" title="All Years" />
-{periods.map((period) => (
-    <Tab key={period.value} title={period.label} />
-))}
+  useEffect(() => {
+    const fetchFilters = async () => {
+      try {
+        const q = query(collection(db, 'filterdata'), orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const filtersData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setFilters(filtersData);
+      } catch (error) {
+        console.error('Error fetching filters:', error);
+      }
+    };
 
-        </Tabs>
-    );
+    fetchFilters();
+  }, []);
+
+  const formatDateRange = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    return `${start.toLocaleDateString('th-TH', { 
+      year: '2-digit',
+      month: 'short'
+    })} - ${end.toLocaleDateString('th-TH', { 
+      year: '2-digit',
+      month: 'short'
+    })}`;
+  };
+
+  return (
+    <Tabs
+      aria-label="Filter by Years"
+      selectedKey={selectedPeriod}
+      onSelectionChange={setSelectedPeriod}
+      variant="flat"
+      className="max-w-md"
+    >
+      <Tab key="" title="All" />
+      {filters.map((filter) => (
+        <Tab 
+          key={filter.id} 
+          title={filter.name}
+          description={formatDateRange(filter.startDate, filter.endDate)}
+        />
+      ))}
+    </Tabs>
+  );
 }
 
 export default FilterYears;

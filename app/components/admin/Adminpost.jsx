@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../Shared/firebaseConfig";
 import { collection, getDocs, orderBy, query, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Divider,
-  Link,
+  Card, 
+  CardHeader, 
+  CardBody, 
+  CardFooter, 
+  Divider, 
+  Link, 
   Avatar,
   Dropdown,
   DropdownTrigger,
@@ -25,12 +25,14 @@ import {
   CircularProgress
 } from "@nextui-org/react";
 import { MoreVertical, Edit, Trash2 } from 'lucide-react';
-import { ToastContainer,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import CreatePost from './Createpost';
 
 const AdminPosts = () => {
   const [adminPosts, setAdminPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen: isEditOpen, onOpen: onEditOpen, onOpenChange: onEditOpenChange } = useDisclosure();
+  const { isOpen: isCreateOpen, onOpen: onCreateOpen, onClose: onCreateClose } = useDisclosure();
   const [selectedPost, setSelectedPost] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [editForm, setEditForm] = useState({
@@ -71,7 +73,7 @@ const AdminPosts = () => {
       content: post.content,
       link: post.link || ""
     });
-    onOpen();
+    onEditOpen();
   };
 
   const handleDelete = async (postId) => {
@@ -79,7 +81,7 @@ const AdminPosts = () => {
       try {
         await deleteDoc(doc(db, "admin-posts", postId));
         toast.success("Post deleted successfully!");
-        fetchAdminPosts(); // รีเฟรชข้อมูล
+        fetchAdminPosts();
       } catch (error) {
         console.error("Error deleting post:", error);
         toast.error("เกิดข้อผิดพลาดในการลบโพสต์");
@@ -98,15 +100,19 @@ const AdminPosts = () => {
       });
 
       toast.success("Post updated successfully!");
-      fetchAdminPosts(); // รีเฟรชข้อมูล
+      fetchAdminPosts();
       onClose();
     } catch (error) {
       console.error("Error updating post:", error);
       toast.error("เกิดข้อผิดพลาดในการอัปเดตโพสต์");
-    }
-    finally {
+    } finally {
       setIsSaving(false);
     }
+  };
+
+  const handleCreateClose = () => {
+    onCreateClose();
+    fetchAdminPosts(); // รีเฟรชข้อมูลหลังจากสร้างโพสต์ใหม่
   };
 
   const formatDate = (timestamp) => {
@@ -133,17 +139,26 @@ const AdminPosts = () => {
           />
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    
-    <div className="container mx-auto px-4 py-8">
-            <ToastContainer position="bottom-center" autoClose={2000} />
-      
+    <div className="container mx-auto px-4 py-4">
+      <ToastContainer position="bottom-center" autoClose={2000} />
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold">All Post</h2>
+        <Button 
+          color="primary" 
+          onPress={onCreateOpen}
+        >
+          Create new post
+        </Button>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {adminPosts.map((post) => (
           <Card key={post.id} className="w-full">
+            {/* ... Card content remains the same ... */}
             <CardHeader className="flex justify-between items-center">
               <div className="flex gap-3">
                 <Avatar
@@ -217,8 +232,8 @@ const AdminPosts = () => {
 
       {/* Edit Modal */}
       <Modal
-        isOpen={isOpen}
-        onOpenChange={onOpenChange}
+        isOpen={isEditOpen}
+        onOpenChange={onEditOpenChange}
         size="2xl"
       >
         <ModalContent>
@@ -253,15 +268,15 @@ const AdminPosts = () => {
                   color="danger"
                   variant="light"
                   onPress={onClose}
-                  isDisabled={isSaving}  // ปิดปุ่ม Close ระหว่าง saving
+                  isDisabled={isSaving}
                 >
                   Close
                 </Button>
                 <Button
                   color="primary"
                   onPress={() => handleSaveEdit(onClose)}
-                  isLoading={isSaving}   // แสดง loading spinner
-                  isDisabled={isSaving}  // ปิดปุ่มระหว่าง saving
+                  isLoading={isSaving}
+                  isDisabled={isSaving}
                 >
                   {isSaving ? "Saving..." : "Save"}
                 </Button>
@@ -270,6 +285,12 @@ const AdminPosts = () => {
           )}
         </ModalContent>
       </Modal>
+
+      {/* Create Post Modal */}
+      <CreatePost 
+        isOpen={isCreateOpen} 
+        onClose={handleCreateClose}
+      />
     </div>
   );
 };

@@ -7,10 +7,9 @@ import { useEffect, useState } from 'react';
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { AiOutlineDatabase } from "react-icons/ai";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { CiLogin } from "react-icons/ci";
-import CreatePost from './Createpost';
 import { GoDatabase } from "react-icons/go";
+import { CiFilter } from "react-icons/ci";
 
 export default function AdminSidebar() {
   const [user, loading] = useAuthState(auth);
@@ -18,15 +17,6 @@ export default function AdminSidebar() {
   const pathname = usePathname();
   const [isClient, setIsClient] = useState(false);
   const [userSession, setUserSession] = useState(null);
-  const [showCreatePost, setShowCreatePost] = useState(false);
-
-  const handleOpenCreatePost = () => {
-    setShowCreatePost(true);
-  };
-
-  const handleCloseCreatePost = () => {
-    setShowCreatePost(false);
-  };
 
   useEffect(() => {
     setIsClient(true);
@@ -111,12 +101,12 @@ export default function AdminSidebar() {
           icon={GoDatabase}
           label="AdminPosts"
           />
-          <MenuItem 
-            href="#"
-            icon={HiOutlinePencilSquare}
-            label="Create Admin Posts"
-            onClick={handleOpenCreatePost}
+          <MenuItem
+          href="/adminurachat389/FilterManager"
+          icon={CiFilter}
+          label="FilterManager"
           />
+
         </nav>
       </div>
 
@@ -131,9 +121,6 @@ export default function AdminSidebar() {
         </Button>
       </div>
 
-      {showCreatePost && (
-        <CreatePost isOpen={showCreatePost} onClose={handleCloseCreatePost} />
-      )}
     </aside>
   );
 }

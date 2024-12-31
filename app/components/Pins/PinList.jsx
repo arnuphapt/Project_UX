@@ -7,6 +7,8 @@ import FilterSection from '../Filter/FilterSection';
 import FilterYears from '../Filter/FilterYears';
 import AdminCard from '../Adminpost';
 import { Pagination, CircularProgress } from "@nextui-org/react";
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '../../Shared/firebaseConfig';
 
 function PinList({ listOfPins, isLoading = false }) {
     const [selectedTech, setSelectedTech] = useState([]);
@@ -15,7 +17,26 @@ function PinList({ listOfPins, isLoading = false }) {
     const [selectedSection, setSelectedSection] = useState('');
     const [selectedPeriod, setSelectedPeriod] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const [filters, setFilters] = useState([]);
     const pinsPerPage = 18;
+
+    // Fetch filters from Firebase
+    useEffect(() => {
+        const fetchFilters = async () => {
+            try {
+                const q = query(collection(db, 'filterdata'), orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+                const filtersData = querySnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                setFilters(filtersData);
+            } catch (error) {
+                console.error('Error fetching filters:', error);
+            }
+        };
+        fetchFilters();
+    }, []);
 
     const sections = useMemo(() => [...new Set(listOfPins.map(pin => pin.section))], [listOfPins]);
 
@@ -35,15 +56,18 @@ function PinList({ listOfPins, isLoading = false }) {
                 (pin.userName && pin.userName.toLowerCase().includes(searchQuery.toLowerCase()));
             const matchesSection = selectedSection === '' || pin.section === selectedSection;
 
+            // Check if post date is within selected filter period
             const matchesPeriod = (() => {
-                if (selectedPeriod === '1/67') {
-                    const month = pin.timestamp?.toDate().getMonth() + 1;
-                    return month >= 6 && month <= 10;
-                } else if (selectedPeriod === '2/67') {
-                    const month = pin.timestamp?.toDate().getMonth() + 1;
-                    return month >= 11 || month <= 4;
-                }
-                return true;
+                if (!selectedPeriod || selectedPeriod === '') return true;
+
+                const selectedFilter = filters.find(f => f.id === selectedPeriod);
+                if (!selectedFilter) return true;
+
+                const postDate = pin.timestamp?.toDate();
+                const filterStartDate = new Date(selectedFilter.startDate);
+                const filterEndDate = new Date(selectedFilter.endDate);
+
+                return postDate >= filterStartDate && postDate <= filterEndDate;
             })();
 
             return matchesTech && matchesSearchQuery && matchesSection && matchesPeriod;
@@ -76,7 +100,7 @@ function PinList({ listOfPins, isLoading = false }) {
                     return b.timestamp?.toDate() - a.timestamp?.toDate();
             }
         });
-    }, [listOfPins, selectedTech, searchQuery, selectedSection, selectedPeriod, sortBy]);
+    }, [listOfPins, selectedTech, searchQuery, selectedSection, selectedPeriod, sortBy, filters]);
 
     const indexOfLastPin = currentPage * pinsPerPage;
     const indexOfFirstPin = indexOfLastPin - pinsPerPage;
@@ -115,7 +139,10 @@ function PinList({ listOfPins, isLoading = false }) {
             <FilterBar selectedTech={selectedTech} setSelectedTech={setSelectedTech} />
             <div className="flex justify-between items-center mb-4">
                 <FilterSection sections={sections} selectedSection={selectedSection} setSelectedSection={setSelectedSection} />
-                <FilterYears selectedPeriod={selectedPeriod} setSelectedPeriod={setSelectedPeriod} />
+                <FilterYears 
+                    selectedPeriod={selectedPeriod} 
+                    setSelectedPeriod={setSelectedPeriod}
+                />
                 <Sorting sortBy={sortBy} setSortBy={setSortBy} />
             </div>
 
