@@ -1,4 +1,3 @@
-// FilterYears.js
 import React, { useEffect, useState } from 'react';
 import { Tabs, Tab } from '@nextui-org/react';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
@@ -45,7 +44,7 @@ function FilterYears({ selectedPeriod, setSelectedPeriod }) {
       variant="flat"
       className="max-w-md"
     >
-      <Tab key="" title="All" />
+      <Tab key="" title="All Periods" />
       {filters.map((filter) => (
         <Tab 
           key={filter.id} 
