@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../Shared/firebaseConfig";
 import { collection, getDocs, orderBy, query, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import {
-  Card, 
-  CardHeader, 
-  CardBody, 
-  CardFooter, 
-  Divider, 
-  Link, 
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Divider,
+  Link,
   Avatar,
   Dropdown,
   DropdownTrigger,
@@ -22,7 +22,7 @@ import {
   Input,
   Textarea,
   useDisclosure,
-  CircularProgress
+  Spinner
 } from "@nextui-org/react";
 import { MoreVertical, Edit, Trash2 } from 'lucide-react';
 import { ToastContainer, toast } from "react-toastify";
@@ -112,7 +112,7 @@ const AdminPosts = () => {
 
   const handleCreateClose = () => {
     onCreateClose();
-    fetchAdminPosts(); // รีเฟรชข้อมูลหลังจากสร้างโพสต์ใหม่
+    fetchAdminPosts();
   };
 
   const formatDate = (timestamp) => {
@@ -127,108 +127,102 @@ const AdminPosts = () => {
     });
   };
 
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-center items-center h-full min-h-screen">
-          <CircularProgress
-            aria-label="Loading student information..."
-            size="lg"
-            color='primary'
-            label="Loading post..."
-          />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="container mx-auto px-4 py-4">
+    <div className="p-4 space-y-4">
       <ToastContainer position="bottom-center" autoClose={2000} />
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-xl font-bold">All Post</h2>
-        <Button 
-          color="primary" 
-          onPress={onCreateOpen}
+        <Button
+          className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white " onPress={onCreateOpen}
         >
           Create new post
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {adminPosts.map((post) => (
-          <Card key={post.id} className="w-full">
-            {/* ... Card content remains the same ... */}
-            <CardHeader className="flex justify-between items-center">
-              <div className="flex gap-3">
-                <Avatar
-                  isBordered
-                  radius="full"
-                  size="md"
-                  src={post.authorImage}
-                  alt={`${post.authorName}'s avatar`}
-                />
-                <div className="flex flex-col">
-                  <p className="text-md font-bold">{post.authorName}</p>
-                  <p className="text-small text-default-500">{post.authorEmail}</p>
+      {isLoading ? (
+        <div className="min-h-[200px] flex justify-center items-center">
+          <Spinner
+            size="lg"
+            color="primary"
+            label="Loading posts..."
+          />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {adminPosts.map((post) => (
+            <Card key={post.id} className="w-full">
+              <CardHeader className="flex justify-between items-center">
+                <div className="flex gap-3">
+                  <Avatar
+                    isBordered
+                    radius="full"
+                    size="md"
+                    src={post.authorImage}
+                    alt={`${post.authorName}'s avatar`}
+                  />
+                  <div className="flex flex-col">
+                    <p className="text-md font-bold">{post.authorName}</p>
+                    <p className="text-small text-default-500">{post.authorEmail}</p>
+                  </div>
                 </div>
-              </div>
-              <Dropdown>
-                <DropdownTrigger>
-                  <Button
-                    isIconOnly
-                    variant="light"
-                    className="text-default-400"
+                <Dropdown>
+                  <DropdownTrigger>
+                    <Button
+                      isIconOnly
+                      variant="light"
+                      className="text-default-400"
+                    >
+                      <MoreVertical size={20} />
+                    </Button>
+                  </DropdownTrigger>
+                  <DropdownMenu aria-label="Post actions">
+                    <DropdownItem
+                      key="edit"
+                      startContent={<Edit size={18} />}
+                      onPress={() => handleEdit(post)}
+                    >
+                      Edit
+                    </DropdownItem>
+                    <DropdownItem
+                      key="delete"
+                      className="text-danger"
+                      color="danger"
+                      startContent={<Trash2 size={18} />}
+                      onPress={() => handleDelete(post.id)}
+                    >
+                      Delete
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </CardHeader>
+              <Divider />
+              <CardBody className="flex-grow">
+                <h3 className="font-bold mb-2 text-lg">{post.title}</h3>
+                <p className="mb-2 flex-grow line-clamp-3">{post.content}</p>
+                <p className="text-sm text-default-500 mt-2">
+                  โพสต์เมื่อ: {formatDate(post.createdAt)}
+                </p>
+              </CardBody>
+              <Divider />
+              <CardFooter>
+                {post.link ? (
+                  <Link
+                    isExternal
+                    showAnchorIcon
+                    href={post.link}
+                    className="text-primary"
                   >
-                    <MoreVertical size={20} />
-                  </Button>
-                </DropdownTrigger>
-                <DropdownMenu aria-label="Post actions">
-                  <DropdownItem
-                    key="edit"
-                    startContent={<Edit size={18} />}
-                    onPress={() => handleEdit(post)}
-                  >
-                    Edit
-                  </DropdownItem>
-                  <DropdownItem
-                    key="delete"
-                    className="text-danger"
-                    color="danger"
-                    startContent={<Trash2 size={18} />}
-                    onPress={() => handleDelete(post.id)}
-                  >
-                    Delete
-                  </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </CardHeader>
-            <Divider />
-            <CardBody className="flex-grow">
-              <h3 className="font-bold mb-2 text-lg">{post.title}</h3>
-              <p className="mb-2 flex-grow line-clamp-3">{post.content}</p>
-              <p className="text-sm text-default-500 mt-2">
-                โพสต์เมื่อ: {formatDate(post.createdAt)}
-              </p>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-              {post.link ? (
-                <Link
-                  isExternal
-                  showAnchorIcon
-                  href={post.link}
-                  className="text-primary"
-                >
-                  ดูเพิ่มเติม
-                </Link>
-              ) : (
-                <span className="text-default-400">ไม่มีลิงก์เพิ่มเติม</span>
-              )}
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+                    See More
+                  </Link>
+                ) : (
+                  <span className="text-default-400">No additional links
+                  </span>
+                )}
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      )}
 
       {/* Edit Modal */}
       <Modal
@@ -287,8 +281,8 @@ const AdminPosts = () => {
       </Modal>
 
       {/* Create Post Modal */}
-      <CreatePost 
-        isOpen={isCreateOpen} 
+      <CreatePost
+        isOpen={isCreateOpen}
         onClose={handleCreateClose}
       />
     </div>

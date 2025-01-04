@@ -146,10 +146,11 @@ const AdminCarousel = () => {
                   href={post.link}
                   className="text-primary"
                 >
-                  ดูเพิ่มเติม
+                  See More
                 </Link>
               ) : (
-                <span className="text-default-400">ไม่มีลิงก์เพิ่มเติม</span>
+                <span className="text-default-400">No additional links
+                </span>
               )}
             </CardFooter>
               </Card>
