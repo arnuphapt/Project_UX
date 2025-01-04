@@ -109,9 +109,9 @@ export default function CreatePost({ isOpen, onClose }) {
           />
         </ModalBody>
         <ModalFooter>
-          <Button onClick={onClose} variant="light">Cancel</Button>
+          <Button onPress={onClose} variant="light">Cancel</Button>
           <Button 
-            onClick={handleSave} 
+            onPress={handleSave} 
             isLoading={loading}
             color="primary"
           >

@@ -54,7 +54,7 @@ export default function AdminSidebar() {
     return (
       <Link
         href={href}
-        onClick={onClick}
+        onPress={onClick}
         className={`relative flex w-full items-center gap-2 rounded-lg px-4 py-3 text-md font-medium transition-all duration-200 group
           ${isActive 
             ? 'bg-primary/10 text-primary before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-primary' 
@@ -71,12 +71,9 @@ export default function AdminSidebar() {
     <aside className="fixed inset-y-0 left-0 z-10 flex w-14 flex-col border-r bg-background sm:w-64 shadow-md">
       <div className="flex h-14 shrink-0 items-center justify-center p-11">
         <Link href="/" className="hidden items-center text-xl font-semibold sm:flex">
+        <MdOutlineDashboard className="h-6 w-6" />
           ADMIN PAGE
         </Link>
-        <Button variant="ghost" size="icon" className="sm:hidden">
-          <MdOutlineDashboard className="h-6 w-6" />
-          <span className="sr-only">Toggle menu</span>
-        </Button>
       </div>
 
       <div className="flex flex-1 flex-col overflow-y-auto">
@@ -111,10 +108,13 @@ export default function AdminSidebar() {
       </div>
 
       <div className="flex shrink-0 border-t px-4 py-6">
-        <Button 
-          variant="ghost" 
-          className="w-full justify-start gap-2 text-muted-foreground hover:bg-gray-100 hover:text-foreground" 
-          onClick={handleSignOut}
+        <Button
+                  color="danger"
+
+          variant="bordered" 
+          className="w-full justify-start gap-2 " 
+          onPress={handleSignOut}
+
         >
           <CiLogin className="h-5 w-5" />
           Logout
