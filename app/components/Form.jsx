@@ -128,14 +128,14 @@ function Form({ studentId, section }) {
   return (
     <div className='bg-white p-6 md:p-8 lg:p-12 xl:p-16 rounded-2xl '>
       <div className='flex items-center justify-between mb-6'>
-      <Button variant="light" isIconOnly size='lg' className='text-[25px]' onClick={() => router.push("/")}>
+      <Button variant="light" isIconOnly size='lg' className='text-[25px]' onPress={() => router.push("/")}>
 
         <HiArrowSmallLeft/>
           </Button>
         <Button className='font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg'
           size='xl'
           color="primary"
-          onClick={onSave}
+          onPress={onSave}
           isLoading={loading}
           auto
         >

@@ -104,10 +104,10 @@ function Header() {
           <div className='hidden md:flex items-center gap-3'>
             
             <Button variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-primary/10 text-primary' : ''}`} 
-              onClick={() => router.push('/')}>Home</Button>
+              onPress={() => router.push('/')}>Home</Button>
 
             <Button variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-primary/10 text-primary' : ''}`} 
-              onClick={() => router.push('/Learn')}>Learn</Button>
+              onPress={() => router.push('/Learn')}>Learn</Button>
             <Dropdown>
               <DropdownTrigger>
                 <Button variant='light' className='font-semibold text-[16px]'>Tools</Button>
@@ -120,7 +120,7 @@ function Header() {
                 <DropdownItem href="https://miro.com/" color="default">miro</DropdownItem>
               </DropdownMenu>
             </Dropdown>
-            <Button size="md" className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg" onClick={onCreateClick}>
+            <Button size="md" className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg" onPress={onCreateClick}>
               Create Posts
             </Button>
             <Dropdown>
@@ -136,21 +136,21 @@ function Header() {
                   />
                 </DropdownTrigger>
               ) : (
-                <Button variant='light' className='font-semibold text-[16px]' onClick={signIn}>
+                <Button variant='light' className='font-semibold text-[16px]' onPress={signIn}>
                   Login
                 </Button>
               )}
               <DropdownMenu variant="flat" aria-label="Dropdown menu with description">
                 <DropdownItem
                   description="User Profile"
-                  onClick={() => router.push('/users/' + session.user.email)}
+                  onPress={() => router.push('/users/' + session.user.email)}
                   startContent={<CiUser className="text-[25px]"/>}
                 >
                   Profile
                 </DropdownItem>
                 <DropdownItem
                   description="Create Your Posts"
-                  onClick={onCreateClick}                  
+                  onPress={onCreateClick}                  
                   startContent={<CiEdit className="text-[25px]"/>}
                 >
                   Create Posts
@@ -160,7 +160,7 @@ function Header() {
                 {session?.user && isAdmin(session.user.email) && (
                   <DropdownItem
                     description="Admin Dashboard"
-                    onClick={() => router.push('/adminurachat389/Dashboard')}
+                    onPress={() => router.push('/adminurachat389/Dashboard')}
                     startContent={<RiAdminLine className="text-[25px]"/>}
                     className="text-blue-600"
                     showDivider
@@ -174,7 +174,7 @@ function Header() {
                   color="danger"
                   description="Logout"
                   
-                  onClick={handleLogout}
+                  onPress={handleLogout}
                   startContent={<IoIosLogOut className="text-[25px]"/>}
                 >
                   Logout
@@ -187,25 +187,25 @@ function Header() {
 
       {/* Mobile Menu */}
       <div className={`flex flex-col items-center bg-white shadow-md ${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
-        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/'); setIsMenuOpen(false); }}>Home</button>
-        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/Learn'); setIsMenuOpen(false); }}>Learn</button>
-        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={onCreateClick}>Create</button>
+        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={() => { router.push('/'); setIsMenuOpen(false); }}>Home</button>
+        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={() => { router.push('/Learn'); setIsMenuOpen(false); }}>Learn</button>
+        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={onCreateClick}>Create</button>
         {session?.user && (
-          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/users/' + session.user.email); setIsMenuOpen(false); }}>Profile</button>
+          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={() => { router.push('/users/' + session.user.email); setIsMenuOpen(false); }}>Profile</button>
         )}
         {/* Show Dashboard in mobile menu only for admin users */}
         {session?.user && isAdmin(session.user.email) && (
           <button 
             className='text-[16px] text-blue-600 m-2 p-1 hover:border-b-2 border-blue-600 font-medium'
-            onClick={() => { router.push('/adminurachat389/Dashboard'); setIsMenuOpen(false); }}
+            onPress={() => { router.push('/adminurachat389/Dashboard'); setIsMenuOpen(false); }}
           >
             Dashboard
           </button>
         )}
         {session?.user ? (
-          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={handleLogout}>Logout</button>
+          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={handleLogout}>Logout</button>
         ) : (
-          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={signIn}>Login</button>
+          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={signIn}>Login</button>
         )}
       </div>
     </div>

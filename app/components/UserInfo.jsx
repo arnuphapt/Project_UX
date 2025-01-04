@@ -123,7 +123,7 @@ function UserInfo({ userInfo }) {
         {isPostOwner && (
           <Button 
             className='bg-gray-200 p-2 px-3 font-semibold rounded-full' 
-            onClick={handleOpen} 
+            onPress={handleOpen} 
             isDisabled={infoLoading}  // Disable button while loading
           >
             {studentId ? 'Edit Profile' : 'Add Student Info'}
@@ -131,7 +131,7 @@ function UserInfo({ userInfo }) {
         )}
 
         {isPostOwner && (
-          <Button className='bg-gray-200 p-2 px-3 font-semibold rounded-full' onClick={handleLogout}>Logout</Button>
+          <Button className='bg-gray-200 p-2 px-3 font-semibold rounded-full' onPress={handleLogout}>Logout</Button>
         )}
       </div>
 
@@ -183,10 +183,10 @@ function UserInfo({ userInfo }) {
             </Select>
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" variant="light" onClick={handleClose}>
+            <Button color="danger" variant="light" onPress={handleClose}>
               Close
             </Button>
-            <Button color="primary" onClick={handleSave} isLoading={loading} className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white">
+            <Button color="primary" onPress={handleSave} isLoading={loading} className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white">
               {loading ? 'Loading...' : 'Save'}
             </Button>
           </ModalFooter>

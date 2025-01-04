@@ -275,17 +275,7 @@ const PostList = () => {
             </SelectItem>
           ))}
         </Select>
-        {selectedKeys.size > 0 && (
-          <Button 
-            color="danger" 
-            variant="flat"
-            onPress={onOpen}
-            className="ml-4"
-            startContent={<Trash2 size={16} />}
-          >
-            Delete Selected
-          </Button>
-        )}
+
                 <Select
           label="Filter by Period"
           placeholder="Select time period"
@@ -300,6 +290,17 @@ const PostList = () => {
             </SelectItem>
           ))}
         </Select>
+        {selectedKeys.size > 0 && (
+          <Button 
+            color="danger" 
+            variant="flat"
+            onPress={onOpen}
+            className="ml-4"
+            startContent={<Trash2 size={16} />}
+          >
+            Delete Selected
+          </Button>
+        )}
       </div>
 
       <Modal isOpen={isOpen} onClose={onClose}>

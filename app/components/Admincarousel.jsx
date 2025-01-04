@@ -66,8 +66,6 @@ const AdminCarousel = () => {
   // Carousel Settings
   const settings = {
     dots: true,
-    infinite: true,
-    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     prevArrow: <PrevArrow />,
@@ -115,7 +113,7 @@ const AdminCarousel = () => {
         {adminPosts.map((post) => (
           <div key={post.id} className="px-2">
             <div className="flex justify-center">
-              <Card className="w-full max-w-md">
+              <Card className="w-full max-w-md" >
                 <CardHeader className="flex gap-3">
                   <Avatar 
                     isBordered 

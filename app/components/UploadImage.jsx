@@ -122,7 +122,7 @@ function UploadImage({ setFile, currentImageUrl, postId, onUploadComplete }) {
           />
           <Button
             type='button'
-            onClick={handleRemoveImage}
+            onPress={handleRemoveImage}
             color='danger'
             className='absolute top-2 right-2 text-white'
             aria-label='Remove image'

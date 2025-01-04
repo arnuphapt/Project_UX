@@ -16,7 +16,12 @@ import {
   getKeyValue,
   Input,
   Link,
-  Tooltip
+  Tooltip,
+  Select,
+  SelectItem,
+  Card,
+  CardBody,
+  Chip
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
 import { Search } from "lucide-react";
@@ -28,6 +33,12 @@ const UserList = () => {
   const [usersPerPage, setUsersPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
+  const [filters, setFilters] = useState({
+    section: new Set([]),
+    role: new Set([])
+  });
+
+
   const router = useRouter();
 
   const list = useAsyncList({
@@ -57,6 +68,8 @@ const UserList = () => {
             role: student && student.studentId ? "student" : "guest",
           };
         });
+
+
 
         // Adjust users per page based on total items
         const totalItems = combinedData.length;
@@ -90,19 +103,29 @@ const UserList = () => {
   });
 
   useEffect(() => {
-    // Filter items based on search query
     const filtered = list.items.filter((item) => {
       const searchTerm = searchQuery.toLowerCase();
-      return (
+      const matchesSearch = 
         (item.studentId?.toLowerCase().includes(searchTerm) || '') ||
         item.userName?.toLowerCase().includes(searchTerm) ||
         item.section?.toLowerCase().includes(searchTerm) ||
-        item.role?.toLowerCase().includes(searchTerm)
-      );
+        item.role?.toLowerCase().includes(searchTerm);
+
+      const matchesSection = filters.section.size === 0 || filters.section.has(item.section);
+      const matchesRole = filters.role.size === 0 || filters.role.has(item.role);
+
+      return matchesSearch && matchesSection && matchesRole;
     });
     setFilteredItems(filtered);
-    setCurrentPage(1); // Reset to first page when searching
-  }, [searchQuery, list.items]);
+    setCurrentPage(1);
+  }, [searchQuery, filters, list.items]);
+
+  const handleFilterChange = (filterType, selectedValues) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: new Set(selectedValues)
+    }));
+  };
 
   const navigateToProfile = (email) => {
     if (email) {
@@ -121,31 +144,58 @@ const UserList = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="mb-4">
+      <h1 className="text-black text-2xl font-bold mb-4">All Accounts</h1>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center mb-4">
         <Input
           isClearable
-          className="w-full sm:max-w-[44%]"
+          label="Search Bar"
+          className="w-full md:w-[44%]"
           placeholder="Search by name, student ID, section, or role..."
           startContent={<Search className="text-default-300" />}
           value={searchQuery}
           onClear={() => setSearchQuery("")}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        <div className="flex gap-2 flex-wrap md:flex-nowrap">
+          <Select
+            label="Filter by Section"
+            selectionMode="multiple"
+            placeholder="Select sections"
+            className="w-[200px]"
+            selectedKeys={filters.section}
+            onSelectionChange={(keys) => handleFilterChange('section', keys)}
+          >
+            <SelectItem key="1" value="1"> 1</SelectItem>
+            <SelectItem key="2" value="2"> 2</SelectItem>
+            <SelectItem key="3" value="3"> 3</SelectItem>
+            <SelectItem key="4" value="4"> 4</SelectItem>
+          </Select>
+          <Select
+            label="Filter by Role"
+            selectionMode="multiple"
+            placeholder="Select roles"
+            className="w-[200px]"
+            selectedKeys={filters.role}
+            onSelectionChange={(keys) => handleFilterChange('role', keys)}
+          >
+            <SelectItem key="student" value="student">Student</SelectItem>
+            <SelectItem key="guest" value="guest">Guest</SelectItem>
+          </Select>
+        </div>
       </div>
+
+      {/* Table */}
       <Table
         aria-label="User Data Table with sorting"
         sortDescriptor={list.sortDescriptor}
         onSortChange={list.sort}
-        classNames={{
-          table: "min-h-[400px]",
-        }}
       >
         <TableHeader>
           <TableColumn key="studentId" allowsSorting>Student ID</TableColumn>
           <TableColumn key="userName" allowsSorting>NAME</TableColumn>
           <TableColumn key="section" allowsSorting>SECTION</TableColumn>
           <TableColumn key="role" allowsSorting>ROLE</TableColumn>
-          <TableColumn>ACTION</TableColumn>
+          <TableColumn>Actions</TableColumn>
         </TableHeader>
         <TableBody 
           items={currentUsers}
@@ -168,18 +218,21 @@ const UserList = () => {
               <TableCell>{getKeyValue(item, 'role')}</TableCell>
               <TableCell>
                 <Tooltip content="View User">
-                <Link color="foreground"
-                className="cursor-pointer"
-                  onClick={() => navigateToProfile(item.email)}
-                >
-                  <FaEye className="text-xl"/>
-                </Link>
+                  <Link 
+                    color="foreground"
+                    className="cursor-pointer"
+                    onPress={() => navigateToProfile(item.email)}
+                  >
+                    <FaEye className="text-xl"/>
+                  </Link>
                 </Tooltip>
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
+
+      {/* Pagination */}
       <div className="flex w-full justify-center">
         <Pagination
           isCompact

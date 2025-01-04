@@ -223,7 +223,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
           isIconOnly 
           size='lg' 
           className='text-[25px] mb-2' 
-          onClick={() => router.push("/")} 
+          onPress={() => router.push("/")} 
           aria-label="Button with Cross for back to homepage"
         >
           <RxCross1 />
@@ -247,7 +247,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
                 <DropdownItem key="edit" onPress={onOpen} description="Allow you to Edit the post">
                   Edit 
                 </DropdownItem>
-                <DropdownItem key="delete" className="text-danger" color="danger" onClick={handleDeleteClick} description="Permanently delete the post">
+                <DropdownItem key="delete" className="text-danger" color="danger" onPress={handleDeleteClick} description="Permanently delete the post">
                   Delete 
                 </DropdownItem>
               </DropdownMenu>
@@ -309,7 +309,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
               radius="full" 
               size='lg' 
               className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg mt-5"
-              onClick={() => window.open(pinDetail.link)}
+              onPress={() => window.open(pinDetail.link)}
               aria-label="Button for open destination link"
             >
               Open Url

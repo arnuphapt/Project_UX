@@ -133,7 +133,7 @@ function CommentSection({
                         </Button>
                         <Button
                           type='button'
-                          onClick={() => setEditingCommentId(null)}
+                          onPress={() => setEditingCommentId(null)}
                           className='p-2 bg-gray-500 text-white'
                         >
                           Cancel
@@ -159,10 +159,10 @@ function CommentSection({
                               </Button>
                             </DropdownTrigger>
                             <DropdownMenu variant="flat" aria-label="Dropdown menu with shortcut"> 
-                              <DropdownItem onClick={() => startEditing(comment.id, comment.text)}  description="Allow you to Edit the comment">
+                              <DropdownItem onPress={() => startEditing(comment.id, comment.text)}  description="Allow you to Edit the comment">
                                 Edit
                               </DropdownItem>
-                              <DropdownItem onClick={() => handleCommentDelete(comment.id)} key="delete" className="text-danger" color="danger" description="Permanently delete the comment">
+                              <DropdownItem onPress={() => handleCommentDelete(comment.id)} key="delete" className="text-danger" color="danger" description="Permanently delete the comment">
                                 Delete
                               </DropdownItem>
                             </DropdownMenu>

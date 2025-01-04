@@ -5,7 +5,8 @@ import FilterBar from '../Filter/Filterbar';
 import Sorting from '../Filter/Sorting';
 import FilterSection from '../Filter/FilterSection';
 import FilterYears from '../Filter/FilterYears';
-import AdminCard from '../Adminpost';
+import Adminpost from '../Admincarousel';
+import PinCarousel from './PinCarousel';
 import { Pagination, CircularProgress } from "@nextui-org/react";
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../../Shared/firebaseConfig';
@@ -126,7 +127,7 @@ function PinList({ listOfPins, isLoading = false }) {
                         />
                     </div>
                 ) : currentPins.length > 0 ? (
-                        <AdminCard />
+                        <Adminpost />
                 ) : (
                     <div className="col-span-full text-center text-gray-500">
                         No post found
