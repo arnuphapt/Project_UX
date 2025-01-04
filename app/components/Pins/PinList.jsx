@@ -6,7 +6,6 @@ import Sorting from '../Filter/Sorting';
 import FilterSection from '../Filter/FilterSection';
 import FilterYears from '../Filter/FilterYears';
 import Adminpost from '../Admincarousel';
-import PinCarousel from './PinCarousel';
 import { Pagination, CircularProgress } from "@nextui-org/react";
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../../Shared/firebaseConfig';
