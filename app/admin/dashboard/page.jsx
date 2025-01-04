@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Sidebar from "../../components/admin/Sidebar";
-import Dashboardd from "../../components/admin/Dashboardd";
+import Sidebar from "../../components/admincomponent/Sidebar";
+import Dashboardd from "../../components/admincomponent/Dashboardd";
 export default function App() {
 
     return (

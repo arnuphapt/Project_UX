@@ -9,7 +9,6 @@ import Adminpost from '../Admincarousel';
 import { Pagination, CircularProgress } from "@nextui-org/react";
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../../Shared/firebaseConfig';
-
 function PinList({ listOfPins, isLoading = false }) {
     const [selectedTech, setSelectedTech] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');

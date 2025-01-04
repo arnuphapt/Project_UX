@@ -90,7 +90,8 @@ export default function Home() {
                                 <ModalFooter className="flex flex-col items-stretch gap-2">
                                     <div className="flex items-center justify-between">
                                         <Checkbox onValueChange={handleDoNotShowAgain}>ไม่แสดงหน้านี้อีก</Checkbox>
-                                        <Button color="primary" onPress={handleok}>
+                                        <Button color="primary" onPress={handleok} aria-label="ok button"
+                                        >
                                             OK
                                         </Button>
                                     </div>

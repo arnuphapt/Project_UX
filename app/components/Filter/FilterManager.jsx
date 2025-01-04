@@ -27,10 +27,16 @@ const FilterManager = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [filters, setFilters] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Changed to true initially
-  const [isSaving, setIsSaving] = useState(false); // Added separate saving state
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
   const [editingFilter, setEditingFilter] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { 
+    isOpen: isDeleteModalOpen, 
+    onOpen: onDeleteModalOpen, 
+    onClose: onDeleteModalClose 
+  } = useDisclosure();
+  const [filterToDelete, setFilterToDelete] = useState(null);
 
   const fetchFilters = async () => {
     setIsLoading(true);
@@ -99,21 +105,26 @@ const FilterManager = () => {
     onOpen();
   };
 
-  const handleDelete = async (filterId) => {
-    if (!window.confirm('คุณแน่ใจหรือไม่ที่จะลบ Filter นี้?')) {
-      return;
-    }
+  const handleOpenDelete = (filter) => {
+    setFilterToDelete(filter);
+    onDeleteModalOpen();
+  };
+
+  const handleDelete = async () => {
+    if (!filterToDelete) return;
 
     setIsSaving(true);
     try {
-      await deleteDoc(doc(db, 'filterdata', filterId));
+      await deleteDoc(doc(db, 'filterdata', filterToDelete.id));
       toast.success('ลบ Filter สำเร็จ');
       fetchFilters();
+      onDeleteModalClose();
     } catch (error) {
       console.error('Error deleting filter:', error);
       toast.error('เกิดข้อผิดพลาดในการลบข้อมูล');
     } finally {
       setIsSaving(false);
+      setFilterToDelete(null);
     }
   };
 
@@ -138,15 +149,15 @@ const FilterManager = () => {
     <div className="p-4 space-y-4">
       <ToastContainer position="bottom-center" autoClose={2000} />
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold">All Filter</h2>
+      <h1 className="text-black text-2xl font-bold">All Filter</h1>
         <Button
-          className='font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white' onPress={onOpen}
+          className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white"
+          onPress={onOpen}
         >
           Add new Filter
         </Button>
       </div>
 
-      {/* Filter Cards Grid with Loading State */}
       {isLoading ? (
         <div className="min-h-[200px] flex justify-center items-center">
           <Spinner
@@ -185,7 +196,7 @@ const FilterManager = () => {
                       className="text-danger"
                       color="danger"
                       startContent={<Trash2 size={16} />}
-                      onPress={() => handleDelete(filter.id)}
+                      onPress={() => handleOpenDelete(filter)}
                     >
                       Delete
                     </DropdownItem>
@@ -221,7 +232,6 @@ const FilterManager = () => {
                   placeholder="Name"
                   value={filterName}
                   onChange={(e) => setFilterName(e.target.value)}
-                  className="mb-4"
                 />
                 <div className="flex flex-col gap-4">
                   <Input
@@ -254,6 +264,43 @@ const FilterManager = () => {
                   isDisabled={isSaving}
                 >
                   {isSaving ? "Saving..." : "Save"}
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onOpenChange={onDeleteModalClose}
+        size="sm"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+              Confirm Delete
+              </ModalHeader>
+              <ModalBody>
+                <p>Are you sure you want to delete this filter? This action cannot be undone.</p>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="default"
+                  variant="light"
+                  onPress={onClose}
+                  isDisabled={isSaving}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  color="danger"
+                  onPress={handleDelete}
+                  isLoading={isSaving}
+                >
+                  Delete
                 </Button>
               </ModalFooter>
             </>

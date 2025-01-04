@@ -99,7 +99,7 @@ const SignIn = () => {
         sessionStorage.setItem('user', true);
         setEmail('');
         setPassword('');
-        router.push('/adminurachat389/Dashboard');
+        router.push('/admin/dashboard');
       } else {
         setErrors(prev => ({
           ...prev,

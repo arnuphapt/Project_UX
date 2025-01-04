@@ -23,7 +23,7 @@ const UnauthorizedError = () => {
           
           <div className="flex flex-col sm:flex-row gap-4">
             <Button
-              onClick={() => router.push('/')}
+              onPress={() => router.push('/')}
               variant="default"
               className="bg-blue-600 hover:bg-blue-700"
             >
@@ -31,7 +31,7 @@ const UnauthorizedError = () => {
             </Button>
             
             <Button
-              onClick={() => router.push('/')}
+              onPress={() => router.push('/')}
               variant="outline"
               className="border-gray-300 hover:bg-gray-100"
             >

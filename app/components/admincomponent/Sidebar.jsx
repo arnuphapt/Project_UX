@@ -26,7 +26,7 @@ export default function AdminSidebar() {
 
   useEffect(() => {
     if (isClient && !loading && !user && !userSession) {
-      router.push('/adminurachat389');
+      router.push('/admin');
     }
   }, [user, loading, userSession, router, isClient]);
 
@@ -36,7 +36,7 @@ export default function AdminSidebar() {
       if (window?.sessionStorage) {
         window.sessionStorage.removeItem('user');
       }
-      router.push('/adminurachat389');
+      router.push('/admin');
     } catch (error) {
       console.error('Error signing out:', error);
     }
@@ -79,27 +79,27 @@ export default function AdminSidebar() {
       <div className="flex flex-1 flex-col overflow-y-auto">
         <nav className="flex flex-col gap-1 px-3 py-6">
           <MenuItem 
-            href="/adminurachat389/Dashboard"
+            href="/admin/dashboard"
             icon={MdOutlineDashboard}
             label="Dashboard"
           />
           <MenuItem 
-            href="/adminurachat389/UserList"
+            href="/admin/userlist"
             icon={FaRegUser}
             label="Users"
           />
           <MenuItem 
-            href="/adminurachat389/PostList"
+            href="/admin/postlist"
             icon={AiOutlineDatabase}
             label="Posts"
           />
           <MenuItem
-          href="/adminurachat389/AdminList"
+          href="/admin/adminlist"
           icon={GoDatabase}
           label="AdminPosts"
           />
           <MenuItem
-          href="/adminurachat389/FilterManager"
+          href="/admin/filtermanager"
           icon={CiFilter}
           label="FilterManager"
           />

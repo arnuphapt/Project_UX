@@ -6,10 +6,12 @@ import { db } from "../Shared/firebaseConfig";
 import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Avatar } from "@nextui-org/react";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const AdminCarousel = () => {
   const [adminPosts, setAdminPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAdminPosts = async () => {
@@ -36,6 +38,10 @@ const AdminCarousel = () => {
 
     fetchAdminPosts();
   }, []);
+
+  const handleCardClick = (postId) => {
+    router.push(`/adminpost`);
+  };
 
   // Custom Previous Arrow
   const PrevArrow = (props) => {
@@ -71,7 +77,7 @@ const AdminCarousel = () => {
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
     centerMode: true,
-    centerPadding: "0px", // ทำให้ slide อยู่ตรงกลางพอดี
+    centerPadding: "0px",
     responsive: [
       {
         breakpoint: 1024,
@@ -113,7 +119,11 @@ const AdminCarousel = () => {
         {adminPosts.map((post) => (
           <div key={post.id} className="px-2">
             <div className="flex justify-center">
-              <Card className="w-full max-w-md" >
+              <Card 
+                className="w-full max-w-md cursor-pointer hover:shadow-lg transition-shadow"
+                onClick={() => handleCardClick(post.id)}
+                isPressable
+              >
                 <CardHeader className="flex gap-3">
                   <Avatar 
                     isBordered 
@@ -136,21 +146,21 @@ const AdminCarousel = () => {
                   </p>
                 </CardBody>
                 <Divider />
-            <CardFooter>
-              {post.link ? (
-                <Link
-                  isExternal
-                  showAnchorIcon
-                  href={post.link}
-                  className="text-primary"
-                >
-                  See More
-                </Link>
-              ) : (
-                <span className="text-default-400">No additional links
-                </span>
-              )}
-            </CardFooter>
+                <CardFooter>
+                  {post.link ? (
+                    <Link
+                      isExternal
+                      showAnchorIcon
+                      href={post.link}
+                      className="text-primary"
+                      onClick={(e) => e.stopPropagation()} // Prevent card click when clicking the link
+                    >
+                      See More
+                    </Link>
+                  ) : (
+                    <span className="text-default-400">No additional links</span>
+                  )}
+                </CardFooter>
               </Card>
             </div>
           </div>

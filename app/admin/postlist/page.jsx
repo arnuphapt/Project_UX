@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import Sidebar from "../../components/admin/Sidebar";
-import FilterManager from "../../components/Filter/FilterManager";
+import Sidebar from "../../components/admincomponent/Sidebar";
+import PostList from "../../components/admincomponent/PostList";
 export default function App() {
 
     return (
@@ -11,10 +11,9 @@ export default function App() {
         <Sidebar />
       </div>
       <div className="flex-1 pl-14 sm:pl-64"> {/* matches sidebar width */}
-        <main className="p-4">     
-           <FilterManager/>
-           </main>
-
+        <main className="p-4">          
+             <PostList/>
+             </main>
            </div>
         </div>
     );
