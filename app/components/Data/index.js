@@ -22,15 +22,7 @@ const Technology=[
     {
         id:6,
         name:'Figma'
-    },
-    {
-        id:7,
-        name:'Canva'
-    },
-    {
-        id:8,
-        name:'Example'
-    },
+    }
 ]
 
 export default{
