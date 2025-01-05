@@ -46,7 +46,7 @@ export default function learn() {
 
 <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
   <Link href="Learn/WireFrame&Graphics">
-    <img src="https://uizard.io/static/dd6752e6face7dd5fa64599cbc7dbb48/a8e47/27e2cf1da349fbe6cf7d3452cd5bfdc7f557bf7b-1440x835.png" alt="wireframe" className="w-full h-auto mb-4 cursor-pointer" />
+    <img src="https://cdn.careerfoundry.com/en/wp-content/uploads/old-blog-uploads/mid-fidelity-wireframe-for-a-mobile-app-1.jpg" alt="wireframe" className="w-full h-auto mb-4 cursor-pointer" />
   </Link>
   <h3 className="text-lg font-semibold mb-2 ">lecture4 UX Designer : Wireframe & Graphics</h3>
   <p className="text-gray-600 mb-4"> คือเครื่องมือหรือแบบร่างที่ใช้ในการวางโครงสร้างและการออกแบบสำหรับเว็บไซต์, แอปพลิเคชัน หรือระบบดิจิทัลต่างๆ ก่อนที่จะเริ่มการพัฒนาเต็มรูปแบบ</p>
