@@ -290,7 +290,7 @@ const PostList = () => {
             </SelectItem>
           ))}
         </Select>
-        {selectedKeys.size > 0 && (
+        {(selectedKeys.size > 0 || selectedKeys === "all") && (
           <Button 
             color="danger" 
             variant="flat"
@@ -367,7 +367,7 @@ const PostList = () => {
           <TableColumn key="userName" allowsSorting>User</TableColumn>
           <TableColumn key="section" allowsSorting>Section</TableColumn>
           <TableColumn key="timestamp" allowsSorting>Posted At</TableColumn>
-          <TableColumn>Actions</TableColumn>
+          <TableColumn></TableColumn>
         </TableHeader>
         <TableBody 
           items={currentPosts}

@@ -26,7 +26,6 @@ import {
 import { useAsyncList } from "@react-stately/data";
 import { Search } from "lucide-react";
 import { FaEye } from "react-icons/fa";
-import AdminEmailManagement from '../AdminEmailManagement'
 const UserList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -184,20 +183,19 @@ const UserList = () => {
         </div>
       </div>
 
-<AdminEmailManagement/>
-
       {/* Table */}
       <Table
         aria-label="User Data Table with sorting"
         sortDescriptor={list.sortDescriptor}
         onSortChange={list.sort}
+        selectionMode="single"
       >
         <TableHeader>
           <TableColumn key="studentId" allowsSorting>Student ID</TableColumn>
-          <TableColumn key="userName" allowsSorting>NAME</TableColumn>
-          <TableColumn key="section" allowsSorting>SECTION</TableColumn>
-          <TableColumn key="role" allowsSorting>ROLE</TableColumn>
-          <TableColumn>Actions</TableColumn>
+          <TableColumn key="userName" allowsSorting>Name</TableColumn>
+          <TableColumn key="section" allowsSorting>Section</TableColumn>
+          <TableColumn key="role" allowsSorting>Role</TableColumn>
+          <TableColumn></TableColumn>
         </TableHeader>
         <TableBody 
           items={currentUsers}

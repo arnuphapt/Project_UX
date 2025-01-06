@@ -10,6 +10,7 @@ import { AiOutlineDatabase } from "react-icons/ai";
 import { CiLogin } from "react-icons/ci";
 import { GoDatabase } from "react-icons/go";
 import { CiFilter } from "react-icons/ci";
+import { MdOutlineManageAccounts } from "react-icons/md";
 
 export default function AdminSidebar() {
   const [user, loading] = useAuthState(auth);
@@ -103,7 +104,11 @@ export default function AdminSidebar() {
           icon={CiFilter}
           label="FilterManager"
           />
-
+          <MenuItem
+          href="/admin/adminmanager"
+          icon={MdOutlineManageAccounts}
+          label="Admin Management"
+          />
         </nav>
       </div>
 

@@ -60,7 +60,8 @@ const FilterManager = () => {
     fetchFilters();
   }, []);
 
-  const handleSaveFilter = async (onClose) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!filterName.trim() || !startDate || !endDate) {
       toast.error('กรุณากรอกชื่อ Filter และเลือกช่วงเวลา');
       return;
@@ -83,11 +84,7 @@ const FilterManager = () => {
         toast.success('เพิ่ม Filter สำเร็จ');
       }
 
-      setFilterName('');
-      setStartDate('');
-      setEndDate('');
-      setEditingFilter(null);
-      onClose();
+      handleModalClose();
       fetchFilters();
     } catch (error) {
       console.error('Error saving filter:', error);
@@ -146,13 +143,14 @@ const FilterManager = () => {
   };
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="container mx-auto p-4">
       <ToastContainer position="bottom-center" autoClose={2000} />
       <div className="flex justify-between items-center mb-6">
       <h1 className="text-black text-2xl font-bold">All Filter</h1>
         <Button
           className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white"
           onPress={onOpen}
+          isDisabled={isLoading}
         >
           Add new Filter
         </Button>
@@ -220,56 +218,63 @@ const FilterManager = () => {
 
       {/* Add/Edit Modal */}
       <Modal isOpen={isOpen} onOpenChange={handleModalClose}>
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader>
-                {editingFilter ? 'Edit Filter' : 'Add New Filter'}
-              </ModalHeader>
-              <ModalBody>
-                <Input
-                  label="Filter Name"
-                  placeholder="Name"
-                  value={filterName}
-                  onChange={(e) => setFilterName(e.target.value)}
-                />
-                <div className="flex flex-col gap-4">
-                  <Input
-                    type="date"
-                    label="Start Date"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                  />
-                  <Input
-                    type="date"
-                    label="End Date"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  color="danger"
-                  variant="light"
-                  onPress={onClose}
-                  isDisabled={isSaving}
-                >
-                  Close
-                </Button>
-                <Button
-                  color="primary"
-                  onPress={() => handleSaveFilter(onClose)}
-                  isLoading={isSaving}
-                  isDisabled={isSaving}
-                >
-                  {isSaving ? "Saving..." : "Save"}
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
+    <ModalContent>
+      {(onClose) => (
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(e);
+        }}>
+          <ModalHeader>
+            {editingFilter ? 'Edit Filter' : 'Add New Filter'}
+          </ModalHeader>
+          <ModalBody>
+            <div className="space-y-4">
+              <Input
+                label="Filter Name"
+                placeholder="Name"
+                value={filterName}
+                onChange={(e) => setFilterName(e.target.value)}
+                isRequired
+              />
+              <Input
+                type="date"
+                label="Start Date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                isRequired
+              />
+              <Input
+                type="date"
+                label="End Date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                isRequired
+              />
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              color="danger"
+              variant="light"
+              onPress={onClose}
+              isDisabled={isSaving}
+              type="button"
+            >
+              Close
+            </Button>
+            <Button
+              color="primary"
+              type="submit"
+              isLoading={isSaving}
+              isDisabled={isSaving}
+            >
+              {isSaving ? "Saving..." : "Save"}
+            </Button>
+          </ModalFooter>
+        </form>
+      )}
+    </ModalContent>
+  </Modal>
 
       {/* Delete Confirmation Modal */}
       <Modal

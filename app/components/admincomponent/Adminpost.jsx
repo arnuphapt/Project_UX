@@ -137,7 +137,9 @@ const AdminPosts = () => {
     }
   };
 
-  const handleSubmit = async (onClose) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
     if (!session?.user) {
       toast.error('You must be logged in to manage posts');
       return;
@@ -177,7 +179,7 @@ const AdminPosts = () => {
         toast.success("Post updated successfully!");
       }
       fetchAdminPosts();
-      onClose();
+      onModalClose();
     } catch (error) {
       console.error("Error managing post:", error);
       toast.error(modalMode === 'create' ? 
@@ -202,13 +204,14 @@ const AdminPosts = () => {
   };
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="container mx-auto p-4">
       <ToastContainer position="bottom-center" autoClose={2000} />
       <div className="flex justify-between items-center mb-6">
       <h1 className="text-black text-2xl font-bold">All Posts</h1>
         <Button
           className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white"
           onPress={handleOpenCreate}
+          isDisabled={isLoading}
         >
           Create new post
         </Button>
@@ -300,68 +303,75 @@ const AdminPosts = () => {
 
       {/* Create/Edit Modal */}
       <Modal
-        isOpen={isModalOpen}
-        onOpenChange={onModalClose}
-        size="2xl"
-      >
-        <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                {modalMode === 'create' ? 'Create New Post' : 'Edit Post'}
-              </ModalHeader>
-              <ModalBody>
-                <Input
-                  type="text"
-                  name="title"
-                  label="Title"
-                  placeholder="Enter post title"
-                  value={formData.title}
-                  onChange={handleInputChange}
-                />
-                <Textarea
-                  name="content"
-                  label="Content"
-                  placeholder="Write your post content"
-                  value={formData.content}
-                  onChange={handleInputChange}
-                  minRows={3}
-                />
-                <Input
-                  type="url"
-                  name="link"
-                  label="Link (Optional)"
-                  placeholder="Enter URL"
-                  value={formData.link}
-                  onChange={handleInputChange}
-                  startContent={<LinkIcon className="text-default-400" size={18} />}
-                />
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  color="danger"
-                  variant="light"
-                  onPress={onClose}
-                  isDisabled={isProcessing}
-                >
-                  Close
-                </Button>
-                <Button
-                  color="primary"
-                  onPress={() => handleSubmit(onClose)}
-                  isLoading={isProcessing}
-                  isDisabled={isProcessing}
-                >
-                  {isProcessing ? 
-                    (modalMode === 'create' ? 'Creating...' : 'Saving...') : 
-                    (modalMode === 'create' ? 'Create' : 'Save')}
-                </Button>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-
+    isOpen={isModalOpen}
+    onOpenChange={onModalClose}
+    size="2xl"
+  >
+    <ModalContent>
+      {(onClose) => (
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(e);
+        }}>
+          <ModalHeader className="flex flex-col gap-1">
+            {modalMode === 'create' ? 'Create New Post' : 'Edit Post'}
+          </ModalHeader>
+          <ModalBody>
+            <div className="space-y-4">
+              <Input
+                type="text"
+                name="title"
+                label="Title"
+                placeholder="Enter post title"
+                value={formData.title}
+                onChange={handleInputChange}
+                isRequired
+              />
+              <Textarea
+                name="content"
+                label="Content"
+                placeholder="Write your post content"
+                value={formData.content}
+                onChange={handleInputChange}
+                minRows={3}
+                isRequired
+              />
+              <Input
+                type="url"
+                name="link"
+                label="Link (Optional)"
+                placeholder="Enter URL"
+                value={formData.link}
+                onChange={handleInputChange}
+                startContent={<LinkIcon className="text-default-400" size={18} />}
+              />
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              color="danger"
+              variant="light"
+              onPress={onClose}
+              isDisabled={isProcessing}
+              type="button"
+            >
+              Close
+            </Button>
+            <Button
+              color="primary"
+              type="submit"
+              isLoading={isProcessing}
+              isDisabled={isProcessing}
+            >
+              {isProcessing ? 
+                (modalMode === 'create' ? 'Creating...' : 'Saving...') : 
+                (modalMode === 'create' ? 'Create' : 'Save')}
+            </Button>
+          </ModalFooter>
+        </form>
+      )}
+    </ModalContent>
+  </Modal>
       {/* Delete Confirmation Modal */}
       <Modal
         isOpen={isDeleteModalOpen}
