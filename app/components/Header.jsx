@@ -9,28 +9,35 @@ import { CiUser, CiEdit } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 import { FiMenu, FiX } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
-import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Input } from '@nextui-org/react';
+import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getAdminEmails } from '../utils/adminEmail';
 
 function Header() {
   const { data: session } = useSession();
   const router = useRouter();
   const db = getFirestore(app);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [adminEmails, setAdminEmails] = useState([]);
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
   
-  // Function to check if user is admin
+  // Function to check if user is admin using Firestore data
   const isAdmin = (email) => {
-    const adminEmailsString = process.env.NEXT_PUBLIC_ALLOWED_ADMIN_EMAILS;
-    if (!adminEmailsString || !email) return false;
-    
-    const adminEmails = adminEmailsString.split(',').map(email => email.trim());
+    if (!email || !adminEmails.length) return false;
     return adminEmails.includes(email);
   };
 
   useEffect(() => {
+    // Fetch admin emails when component mounts
+    const fetchAdminEmails = async () => {
+      const emails = await getAdminEmails();
+      setAdminEmails(emails);
+    };
+    
+    fetchAdminEmails();
     saveUserInfo();
   }, [session]);
 
@@ -44,6 +51,7 @@ function Header() {
     }
   };
 
+  // Rest of the component remains the same...
   const onCreateClick = () => {
     if (session) {
       router.push('/post-builder');
@@ -52,29 +60,34 @@ function Header() {
     }
   };
 
-  const handleLogout = () => {
-    if (window.confirm("Are you sure you want to log out?")) {
-      const logoutPromise = new Promise((resolve) => {
-        setTimeout(resolve, 1000);
-      });
+  const handleLogoutClick = () => {
+    setIsLogoutModalOpen(true);
+  };
 
-      toast.promise(logoutPromise, {
-        pending: 'Logging out...',
-        success: 'You have been logged out!',
-        error: 'Logout failed!',
-      }, {
-        position: "bottom-center",
-        hideProgressBar: true,
-        autoClose: 3000,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });
-      setTimeout(() => {
-        signOut();
-      }, 2000);
-    }
+  const handleLogoutConfirm = () => {
+    setIsLogoutModalOpen(false);
+    
+    const logoutPromise = new Promise((resolve) => {
+      setTimeout(resolve, 1000);
+    });
+
+    toast.promise(logoutPromise, {
+      pending: 'Logging out...',
+      success: 'You have been logged out!',
+      error: 'Logout failed!',
+    }, {
+      position: "bottom-center",
+      hideProgressBar: true,
+      autoClose: 3000,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+    });
+    
+    setTimeout(() => {
+      signOut();
+    }, 2000);
   };
 
   const toggleMenu = () => {
@@ -103,14 +116,14 @@ function Header() {
           </button>
           <div className='hidden md:flex items-center gap-3'>
             
-            <Button variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-primary/10 text-primary' : ''}`} 
+            <Button aria-label="Home button" variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-primary/10 text-primary' : ''}`} 
               onPress={() => router.push('/')}>Home</Button>
 
-            <Button variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-primary/10 text-primary' : ''}`} 
+            <Button aria-label="Learn button" variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-primary/10 text-primary' : ''}`} 
               onPress={() => router.push('/Learn')}>Learn</Button>
             <Dropdown>
               <DropdownTrigger>
-                <Button variant='light' className='font-semibold text-[16px]'>Tools</Button>
+                <Button variant='light' className='font-semibold text-[16px]' aria-label="Tools button">Tools</Button>
               </DropdownTrigger>
               <DropdownMenu>
                 <DropdownItem href="https://www.figma.com/" color="default">figma</DropdownItem>
@@ -120,7 +133,7 @@ function Header() {
                 <DropdownItem href="https://miro.com/" color="default">miro</DropdownItem>
               </DropdownMenu>
             </Dropdown>
-            <Button size="md" className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg" onPress={onCreateClick}>
+            <Button size="md" className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg" onPress={onCreateClick} aria-label="Create button">
               Create Posts
             </Button>
             <Dropdown>
@@ -136,7 +149,7 @@ function Header() {
                   />
                 </DropdownTrigger>
               ) : (
-                <Button variant='light' className='font-semibold text-[16px]' onPress={signIn}>
+                <Button variant='light' className='font-semibold text-[16px]' onPress={signIn} aria-label="Login button">
                   Login
                 </Button>
               )}
@@ -160,7 +173,7 @@ function Header() {
                 {session?.user && isAdmin(session.user.email) && (
                   <DropdownItem
                     description="Admin Dashboard"
-                    onPress={() => router.push('/adminurachat389/Dashboard')}
+                    onPress={() => router.push('/admin/dashboard')}
                     startContent={<RiAdminLine className="text-[25px]"/>}
                     className="text-blue-600"
                     showDivider
@@ -173,8 +186,7 @@ function Header() {
                   className="text-danger"
                   color="danger"
                   description="Logout"
-                  
-                  onPress={handleLogout}
+                  onPress={handleLogoutClick}
                   startContent={<IoIosLogOut className="text-[25px]"/>}
                 >
                   Logout
@@ -187,27 +199,48 @@ function Header() {
 
       {/* Mobile Menu */}
       <div className={`flex flex-col items-center bg-white shadow-md ${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
-        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={() => { router.push('/'); setIsMenuOpen(false); }}>Home</button>
-        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={() => { router.push('/Learn'); setIsMenuOpen(false); }}>Learn</button>
-        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={onCreateClick}>Create</button>
+        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/'); setIsMenuOpen(false); }}>Home</button>
+        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/Learn'); setIsMenuOpen(false); }}>Learn</button>
+        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={onCreateClick}>Create</button>
         {session?.user && (
-          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={() => { router.push('/users/' + session.user.email); setIsMenuOpen(false); }}>Profile</button>
+          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/users/' + session.user.email); setIsMenuOpen(false); }}>Profile</button>
         )}
-        {/* Show Dashboard in mobile menu only for admin users */}
         {session?.user && isAdmin(session.user.email) && (
           <button 
             className='text-[16px] text-blue-600 m-2 p-1 hover:border-b-2 border-blue-600 font-medium'
-            onPress={() => { router.push('/adminurachat389/Dashboard'); setIsMenuOpen(false); }}
+            onClick={() => { router.push('/adminurachat389/Dashboard'); setIsMenuOpen(false); }}
           >
             Dashboard
           </button>
         )}
         {session?.user ? (
-          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={handleLogout}>Logout</button>
+          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={handleLogoutClick}>Logout</button>
         ) : (
-          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onPress={signIn}>Login</button>
+          <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={signIn}>Login</button>
         )}
       </div>
+
+      {/* Logout Confirmation Modal */}
+      <Modal 
+        isOpen={isLogoutModalOpen} 
+        onClose={() => setIsLogoutModalOpen(false)}
+        placement="center"
+      >
+        <ModalContent>
+          <ModalHeader>Confirm Logout</ModalHeader>
+          <ModalBody>
+            Are you sure you want to log out?
+          </ModalBody>
+          <ModalFooter>
+            <Button variant="light" onPress={() => setIsLogoutModalOpen(false)} aria-label="Cancel button">
+              Cancel
+            </Button>
+            <Button color="danger" onPress={handleLogoutConfirm} aria-label="Logout button">
+              Logout
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 }

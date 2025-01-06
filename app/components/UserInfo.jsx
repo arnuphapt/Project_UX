@@ -4,24 +4,41 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Input, Select, SelectItem, Badge, Avatar } from "@nextui-org/react";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
-import { app } from '../Shared/firebaseConfig'; // Adjust path based on your project structure
+import { app } from '../Shared/firebaseConfig';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams } from 'next/navigation';
-import { FaUser, FaEnvelope, FaIdCard ,FaCheck} from 'react-icons/fa'; // Import React Icons
+import { FaUser, FaEnvelope, FaIdCard, FaCheck } from 'react-icons/fa';
+import { getAdminEmails } from '../utils/adminEmail';
 
 function UserInfo({ userInfo }) {
   const [isOpen, setIsOpen] = useState(false);
   const [studentId, setStudentId] = useState('');
   const [section, setSection] = useState('');
-  const [infoLoading, setInfoLoading] = useState(true);  // State to track loading of student info
+  const [infoLoading, setInfoLoading] = useState(true);
   const router = useRouter();
   const { data: session } = useSession();
   const db = getFirestore(app);
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
-  const adminEmails = process.env.NEXT_PUBLIC_ALLOWED_ADMIN_EMAILS;
-  const isPostOwner = adminEmails.includes(session?.user?.email) || session?.user?.email === userInfo.email;
+  const [adminEmails, setAdminEmails] = useState([]);
+  const [isPostOwner, setIsPostOwner] = useState(false);
+
+  useEffect(() => {
+    const loadAdminEmails = async () => {
+      const emails = await getAdminEmails();
+      setAdminEmails(emails);
+    };
+    loadAdminEmails();
+  }, []);
+
+  // Update isPostOwner when adminEmails or session changes
+  useEffect(() => {
+    setIsPostOwner(
+      adminEmails.includes(session?.user?.email) || 
+      session?.user?.email === userInfo.email
+    );
+  }, [adminEmails, session?.user?.email, userInfo.email]);
 
   useEffect(() => {
     fetchStudentInfo();
@@ -42,7 +59,7 @@ function UserInfo({ userInfo }) {
     } catch (error) {
       console.error("Error fetching student info: ", error);
     } finally {
-      setInfoLoading(false);  // Set loading state to false once fetching is complete
+      setInfoLoading(false);
     }
   };
 
@@ -124,7 +141,7 @@ function UserInfo({ userInfo }) {
           <Button 
             className='bg-gray-200 p-2 px-3 font-semibold rounded-full' 
             onPress={handleOpen} 
-            isDisabled={infoLoading}  // Disable button while loading
+            isDisabled={infoLoading}
           >
             {studentId ? 'Edit Profile' : 'Add Student Info'}
           </Button>
@@ -173,7 +190,7 @@ function UserInfo({ userInfo }) {
               size='lg'
               variant='underlined'
               label="Section"
-              defaultSelectedKeys={section}
+              defaultSelectedKeys={section ? [section] : []}
               onChange={(e) => setSection(e.target.value)}
             >
               <SelectItem key="1" value="1">1</SelectItem>

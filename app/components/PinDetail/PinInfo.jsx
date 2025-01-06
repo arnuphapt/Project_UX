@@ -10,6 +10,9 @@ import PinInfoModal from '../Editform';
 import { IoIosMore } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Edit, Trash2 } from 'lucide-react';
+import { getAdminEmails } from '../../utils/adminEmail';
+
 import { 
   Button, 
   Dropdown, 
@@ -42,9 +45,25 @@ function PinInfo({ pinDetail: initialPinDetail }) {
     onOpenChange: onDeleteModalChange 
   } = useDisclosure();
   const [pinDetail, setPinDetail] = useState(initialPinDetail);
-  const adminEmails = process.env.NEXT_PUBLIC_ALLOWED_ADMIN_EMAILS;
-  const isPostOwner = adminEmails.includes(session?.user?.email) || session?.user?.email === pinDetail.email;
+  const [adminEmails, setAdminEmails] = useState([]);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isPostOwner, setIsPostOwner] = useState(false);
+
+  useEffect(() => {
+    const loadAdminEmails = async () => {
+      const emails = await getAdminEmails();
+      setAdminEmails(emails);
+    };
+    loadAdminEmails();
+  }, []);
+
+  // Update isPostOwner when adminEmails or session changes
+  useEffect(() => {
+    setIsPostOwner(
+      adminEmails.includes(session?.user?.email) || 
+      session?.user?.email === pinDetail.email
+    );
+  }, [adminEmails, session?.user?.email, pinDetail.email]);
 
   const fetchPinData = async () => {
     try {
@@ -85,6 +104,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
     };
   }, [db, pinDetail.id, session?.user?.email]);
 
+  // Rest of the component methods remain the same
   const handleDelete = async () => {
     if (!isPostOwner) return;
 
@@ -244,10 +264,10 @@ function PinInfo({ pinDetail: initialPinDetail }) {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu variant="flat" aria-label="Dropdown menu with shortcut">
-                <DropdownItem key="edit" onPress={onOpen} description="Allow you to Edit the post">
+                <DropdownItem key="edit" onPress={onOpen} description="Allow you to Edit the post"  startContent={<Edit size={20} />}>
                   Edit 
                 </DropdownItem>
-                <DropdownItem key="delete" className="text-danger" color="danger" onPress={handleDeleteClick} description="Permanently delete the post">
+                <DropdownItem key="delete" className="text-danger" color="danger" onPress={handleDeleteClick} description="Permanently delete the post" startContent={<Trash2 size={20} />}>
                   Delete 
                 </DropdownItem>
               </DropdownMenu>
