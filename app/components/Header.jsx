@@ -10,8 +10,6 @@ import { IoIosLogOut } from "react-icons/io";
 import { FiMenu, FiX } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
 import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { getAdminEmails } from '../utils/adminEmail';
 
 function Header() {
@@ -24,14 +22,12 @@ function Header() {
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
   
-  // Function to check if user is admin using Firestore data
   const isAdmin = (email) => {
     if (!email || !adminEmails.length) return false;
     return adminEmails.includes(email);
   };
 
   useEffect(() => {
-    // Fetch admin emails when component mounts
     const fetchAdminEmails = async () => {
       const emails = await getAdminEmails();
       setAdminEmails(emails);
@@ -51,7 +47,6 @@ function Header() {
     }
   };
 
-  // Rest of the component remains the same...
   const onCreateClick = () => {
     if (session) {
       router.push('/post-builder');
@@ -66,28 +61,7 @@ function Header() {
 
   const handleLogoutConfirm = () => {
     setIsLogoutModalOpen(false);
-    
-    const logoutPromise = new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
-
-    toast.promise(logoutPromise, {
-      pending: 'Logging out...',
-      success: 'You have been logged out!',
-      error: 'Logout failed!',
-    }, {
-      position: "bottom-center",
-      hideProgressBar: true,
-      autoClose: 3000,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: false,
-      progress: undefined,
-    });
-    
-    setTimeout(() => {
-      signOut();
-    }, 2000);
+    signOut();
   };
 
   const toggleMenu = () => {
@@ -96,7 +70,6 @@ function Header() {
 
   return (
     <div className='relative'>
-      <ToastContainer />
       <div className='flex justify-between items-center p-4 shadow-md'>
         <div className='flex items-center gap-3'>
           <Image
@@ -169,7 +142,6 @@ function Header() {
                   Create Posts
                 </DropdownItem>
 
-                {/* Only show Dashboard for admin users */}
                 {session?.user && isAdmin(session.user.email) && (
                   <DropdownItem
                     description="Admin Dashboard"
@@ -227,9 +199,9 @@ function Header() {
         placement="center"
       >
         <ModalContent>
-          <ModalHeader>Confirm Logout</ModalHeader>
+          <ModalHeader className="flex flex-col gap-1">Confirm Logout</ModalHeader>
           <ModalBody>
-            Are you sure you want to log out?
+            <p>Do you want to log out?</p>
           </ModalBody>
           <ModalFooter>
             <Button variant="light" onPress={() => setIsLogoutModalOpen(false)} aria-label="Cancel button">

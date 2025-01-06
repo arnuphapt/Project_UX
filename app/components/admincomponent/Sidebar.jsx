@@ -87,22 +87,22 @@ export default function AdminSidebar() {
           <MenuItem 
             href="/admin/userlist"
             icon={FaRegUser}
-            label="Users"
+            label="Users List"
           />
           <MenuItem 
             href="/admin/postlist"
             icon={AiOutlineDatabase}
-            label="Posts"
+            label="Posts List"
           />
           <MenuItem
           href="/admin/adminlist"
           icon={GoDatabase}
-          label="AdminPosts"
+          label="Admin Posts"
           />
           <MenuItem
           href="/admin/filtermanager"
           icon={CiFilter}
-          label="FilterManager"
+          label="Filter Management"
           />
           <MenuItem
           href="/admin/adminmanager"
