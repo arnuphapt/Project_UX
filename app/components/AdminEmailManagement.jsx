@@ -208,17 +208,17 @@ const AdminEmailManagement = () => {
                 <div className="flex gap-2">
                   <Link
                     color='foreground'
-                    className="cursor-pointer p-4 text-xl"
+                    className="cursor-pointer p-4 "
                     onPress={() => handleOpenEdit(admin)}
                   >
-                    <RiEdit2Line/>
+                    <RiEdit2Line className='text-xl'/>
                   </Link>
                   <Link
                     color='danger'
                     className="cursor-pointer p-4 text-xl"
                     onPress={() => handleOpenDelete(admin)}
                   >
-                    <FaRegTrashAlt/>
+                    <FaRegTrashAlt  className='text-xl'/>
                   </Link>
                 </div>
               </TableCell>

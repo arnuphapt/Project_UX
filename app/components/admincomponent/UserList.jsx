@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { db } from "../../Shared/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import {
   Table,
   TableHeader,
@@ -19,26 +19,56 @@ import {
   Tooltip,
   Select,
   SelectItem,
-  Card,
-  CardBody,
-  Chip
+  Button,
+  Modal, 
+  ModalContent, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter,
+  useDisclosure
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
-import { Search } from "lucide-react";
+import { Search, Edit, Trash2 } from "lucide-react";
 import { FaEye } from "react-icons/fa";
+import { RiEdit2Line } from "react-icons/ri";
+
 const UserList = () => {
+  const {isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose} = useDisclosure();
+  const {isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose} = useDisclosure();
+  const [editingUser, setEditingUser] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage, setUsersPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
+  const [selectedKeys, setSelectedKeys] = useState(new Set([]));
   const [filters, setFilters] = useState({
     section: new Set([]),
     role: new Set([])
   });
 
-
   const router = useRouter();
+
+  const rowsPerPageOptions = [
+    { key: "5", value: "5" },
+    { key: "10", value: "10" },
+    { key: "15", value: "15" },
+    { key: "20", value: "20" },
+  ];
+
+  const getSelectionText = () => {
+    if (selectedKeys === "all") {
+      return `All ${filteredItems.length} users selected`;
+    }
+    if (selectedKeys.size === 0) {
+      return `Total ${filteredItems.length} users`;
+    }
+    if (selectedKeys.size === filteredItems.length) {
+      return `All ${filteredItems.length} users selected`;
+    }
+    return `${selectedKeys.size} of ${filteredItems.length} users selected`;
+  };
 
   const list = useAsyncList({
     async load({ signal }) {
@@ -68,14 +98,7 @@ const UserList = () => {
           };
         });
 
-
-
-        // Adjust users per page based on total items
-        const totalItems = combinedData.length;
-        const newUsersPerPage = Math.ceil(totalItems / Math.ceil(totalItems / 10));
-        setUsersPerPage(newUsersPerPage);
         setFilteredItems(combinedData);
-
         setIsLoading(false);
         return {
           items: combinedData,
@@ -132,6 +155,63 @@ const UserList = () => {
     }
   };
 
+    const handleEdit = async (values) => {
+    try {
+      if (!editingUser) return;
+
+      // Update user document
+      const userRef = doc(db, "user", editingUser.id);
+      await updateDoc(userRef, {
+        userName: values.userName,
+        email: values.email
+      });
+
+      // Update student-info document if it exists and section is changed
+      if (editingUser.role === "student") {
+        const studentInfoRef = doc(db, "student-info", editingUser.id);
+        await updateDoc(studentInfoRef, {
+          section: values.section,
+          studentId: values.studentId
+        });
+      }
+
+      await list.reload();
+      onEditClose();
+      setEditingUser(null);
+
+    } catch (error) {
+      console.error("Error updating user: ", error);
+    }
+  };
+
+  const handleEditClick = (user) => {
+    setEditingUser(user);
+    onEditOpen();
+  };
+
+  const handleDelete = async () => {
+    try {
+      setIsDeleting(true);
+      const selectedIds = Array.from(selectedKeys);
+      
+      for (const id of selectedIds) {
+        await deleteDoc(doc(db, "user", id));
+        // Also delete corresponding student-info if exists
+        const studentInfoRef = doc(db, "student-info", id);
+        await deleteDoc(studentInfoRef);
+      }
+
+      const result = await list.reload();
+      setSelectedKeys(new Set([]));
+      onDeleteClose();
+      
+    } catch (error) {
+      console.error("Error deleting documents: ", error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = filteredItems.slice(indexOfFirstUser, indexOfLastUser);
@@ -164,10 +244,10 @@ const UserList = () => {
             selectedKeys={filters.section}
             onSelectionChange={(keys) => handleFilterChange('section', keys)}
           >
-            <SelectItem key="1" value="1"> 1</SelectItem>
-            <SelectItem key="2" value="2"> 2</SelectItem>
-            <SelectItem key="3" value="3"> 3</SelectItem>
-            <SelectItem key="4" value="4"> 4</SelectItem>
+            <SelectItem key="1" value="1">1</SelectItem>
+            <SelectItem key="2" value="2">2</SelectItem>
+            <SelectItem key="3" value="3">3</SelectItem>
+            <SelectItem key="4" value="4">4</SelectItem>
           </Select>
           <Select
             label="Filter by Role"
@@ -181,14 +261,154 @@ const UserList = () => {
             <SelectItem key="guest" value="guest">Guest</SelectItem>
           </Select>
         </div>
+        {(selectedKeys.size > 0 || selectedKeys === "all") && (
+          <Button 
+            color="danger" 
+            variant="flat"
+            onPress={onDeleteOpen}
+            className="ml-4"
+            startContent={<Trash2 size={16} />}
+          >
+            Delete Selected
+          </Button>
+        )}
       </div>
 
-      {/* Table */}
+      <Modal isOpen={isDeleteOpen} onClose={onDeleteClose}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader>Confirm Deletion</ModalHeader>
+              <ModalBody>
+                Are you sure you want to delete {selectedKeys.size === filteredItems.length ? "all" : selectedKeys.size} selected users? This action cannot be undone.
+              </ModalBody>
+              <ModalFooter>
+                <Button variant="flat" onPress={onClose}>
+                  Cancel
+                </Button>
+                <Button 
+                  color="danger" 
+                  onPress={handleDelete}
+                  isLoading={isDeleting}
+                >
+                  Delete
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+      <Modal isOpen={isEditOpen} onClose={onEditClose} size="2xl">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader>Edit User</ModalHeader>
+              <ModalBody>
+                {editingUser && (
+                  <div className="flex flex-col gap-4">
+                    <Input
+                      label="Name"
+                      defaultValue={editingUser.userName}
+                      onChange={(e) => {
+                        setEditingUser(prev => ({
+                          ...prev,
+                          userName: e.target.value
+                        }));
+                      }}
+                      isDisabled
+                    />
+                    <Input
+                      label="Email"
+                      defaultValue={editingUser.email}
+                      onChange={(e) => {
+                        setEditingUser(prev => ({
+                          ...prev,
+                          email: e.target.value
+                        }));
+                      }}
+                      isDisabled
+                    />
+                    {editingUser.role === "student" && (
+                      <>
+                        <Input
+                          label="Student ID"
+                          defaultValue={editingUser.studentId}
+                          onChange={(e) => {
+                            setEditingUser(prev => ({
+                              ...prev,
+                              studentId: e.target.value
+                            }));
+                          }}
+                        />
+                        <Select
+                          label="Section"
+                          defaultSelectedKeys={[editingUser.section]}
+                          onChange={(e) => {
+                            setEditingUser(prev => ({
+                              ...prev,
+                              section: e.target.value
+                            }));
+                          }}
+                        >
+                          <SelectItem key="1" value="1">1</SelectItem>
+                          <SelectItem key="2" value="2">2</SelectItem>
+                          <SelectItem key="3" value="3">3</SelectItem>
+                          <SelectItem key="4" value="4">4</SelectItem>
+                        </Select>
+                      </>
+                    )}
+                  </div>
+                )}
+              </ModalBody>
+              <ModalFooter>
+                <Button variant="flat" onPress={onClose}>
+                  Cancel
+                </Button>
+                <Button 
+                  color="primary"
+                  onPress={() => handleEdit(editingUser)}
+                >
+                  Save Changes
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center gap-2">
+          <p className="text-gray-500 text-sm">{getSelectionText()}</p>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-500">Rows per page:</span>
+            <Select 
+              size="sm"
+              className="w-24"
+              value={usersPerPage.toString()}
+              onChange={(e) => setUsersPerPage(Number(e.target.value))}
+              defaultSelectedKeys={["10"]}
+            >
+              {rowsPerPageOptions.map((option) => (
+                <SelectItem key={option.key} value={option.value}>
+                  {option.key}
+                </SelectItem>
+              ))}
+            </Select>
+          </div>
+        </div>
+      </div>
+
       <Table
-        aria-label="User Data Table with sorting"
+        aria-label="User Data Table with sorting and selection"
         sortDescriptor={list.sortDescriptor}
         onSortChange={list.sort}
-        selectionMode="single"
+        selectionMode="multiple"
+        selectedKeys={selectedKeys}
+        onSelectionChange={setSelectedKeys}
       >
         <TableHeader>
           <TableColumn key="studentId" allowsSorting>Student ID</TableColumn>
@@ -217,22 +437,32 @@ const UserList = () => {
               <TableCell>{getKeyValue(item, 'section')}</TableCell>
               <TableCell>{getKeyValue(item, 'role')}</TableCell>
               <TableCell>
-                <Tooltip content="View User">
-                  <Link 
-                    color="foreground"
-                    className="cursor-pointer"
-                    onPress={() => navigateToProfile(item.email)}
-                  >
-                    <FaEye className="text-xl"/>
-                  </Link>
-                </Tooltip>
+                <div className="flex gap-4">
+                  <Tooltip content="View User">
+                    <Link 
+                      color="foreground"
+                      className="cursor-pointer px-4"
+                      onPress={() => navigateToProfile(item.email)}
+                    >
+                      <FaEye className="text-xl"/>
+                    </Link>
+                  </Tooltip>
+                  <Tooltip content="Edit User">
+                    <Link 
+                      color="foreground"
+                      className="cursor-pointer px-4"
+                      onPress={() => handleEditClick(item)}
+                    >
+                      <RiEdit2Line className="text-xl"/>
+                    </Link>
+                  </Tooltip>
+                </div>
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
 
-      {/* Pagination */}
       <div className="flex w-full justify-center">
         <Pagination
           isCompact
