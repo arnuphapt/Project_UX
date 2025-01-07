@@ -21,7 +21,8 @@ function Header() {
   const [adminEmails, setAdminEmails] = useState([]);
   const pathname = usePathname();
   const isActive = (path) => pathname === path;
-  
+  const [loading, setLoading] = useState(false);
+
   const isAdmin = (email) => {
     if (!email || !adminEmails.length) return false;
     return adminEmails.includes(email);
@@ -32,7 +33,7 @@ function Header() {
       const emails = await getAdminEmails();
       setAdminEmails(emails);
     };
-    
+
     fetchAdminEmails();
     saveUserInfo();
   }, [session]);
@@ -59,9 +60,14 @@ function Header() {
     setIsLogoutModalOpen(true);
   };
 
-  const handleLogoutConfirm = () => {
-    setIsLogoutModalOpen(false);
-    signOut();
+  const handleLogoutConfirm = async () => {
+    setLoading(true);
+    try {
+      await signOut();
+    } finally {
+      setLoading(false);
+      setIsLogoutModalOpen(false);
+    }
   };
 
   const toggleMenu = () => {
@@ -82,17 +88,17 @@ function Header() {
             style={{ maxWidth: "100%", height: "auto" }}
           />
         </div>
-              
+
         <div className='flex items-center gap-3'>
           <button aria-label="Button toggle menu for responsive" className="md:hidden" onClick={toggleMenu}>
             {isMenuOpen ? <FiX className='text-[30px]' /> : <FiMenu className='text-[30px]' />}
           </button>
           <div className='hidden md:flex items-center gap-3'>
-            
-            <Button aria-label="Home button" variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-primary/10 text-primary' : ''}`} 
+
+            <Button aria-label="Home button" variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-primary/10 text-primary' : ''}`}
               onPress={() => router.push('/')}>Home</Button>
 
-            <Button aria-label="Learn button" variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-primary/10 text-primary' : ''}`} 
+            <Button aria-label="Learn button" variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-primary/10 text-primary' : ''}`}
               onPress={() => router.push('/Learn')}>Learn</Button>
             <Dropdown>
               <DropdownTrigger>
@@ -117,7 +123,7 @@ function Header() {
                     alt='user-image'
                     width={60}
                     height={60}
-                    className={`hover:bg-gray-300 p-2 rounded-full cursor-pointer ${isActive('/users/' + session.user.email) ? 'bg-primary/10 text-primary' : ''}`} 
+                    className={`hover:bg-gray-300 p-2 rounded-full cursor-pointer ${isActive('/users/' + session.user.email) ? 'bg-primary/10 text-primary' : ''}`}
                     style={{ maxWidth: "100%", height: "auto" }}
                   />
                 </DropdownTrigger>
@@ -130,14 +136,14 @@ function Header() {
                 <DropdownItem
                   description="User Profile"
                   onPress={() => router.push('/users/' + session.user.email)}
-                  startContent={<CiUser className="text-[25px]"/>}
+                  startContent={<CiUser className="text-[25px]" />}
                 >
                   Profile
                 </DropdownItem>
                 <DropdownItem
                   description="Create Your Posts"
-                  onPress={onCreateClick}                  
-                  startContent={<CiEdit className="text-[25px]"/>}
+                  onPress={onCreateClick}
+                  startContent={<CiEdit className="text-[25px]" />}
                 >
                   Create Posts
                 </DropdownItem>
@@ -146,20 +152,20 @@ function Header() {
                   <DropdownItem
                     description="Admin Dashboard"
                     onPress={() => router.push('/admin/dashboard')}
-                    startContent={<RiAdminLine className="text-[25px]"/>}
+                    startContent={<RiAdminLine className="text-[25px]" />}
                     className="text-blue-600"
                     showDivider
                   >
                     DASHBOARD
                   </DropdownItem>
                 )}
-                
+
                 <DropdownItem
                   className="text-danger"
                   color="danger"
                   description="Logout"
                   onPress={handleLogoutClick}
-                  startContent={<IoIosLogOut className="text-[25px]"/>}
+                  startContent={<IoIosLogOut className="text-[25px]" />}
                 >
                   Logout
                 </DropdownItem>
@@ -178,7 +184,7 @@ function Header() {
           <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/users/' + session.user.email); setIsMenuOpen(false); }}>Profile</button>
         )}
         {session?.user && isAdmin(session.user.email) && (
-          <button 
+          <button
             className='text-[16px] text-blue-600 m-2 p-1 hover:border-b-2 border-blue-600 font-medium'
             onClick={() => { router.push('/adminurachat389/Dashboard'); setIsMenuOpen(false); }}
           >
@@ -193,8 +199,8 @@ function Header() {
       </div>
 
       {/* Logout Confirmation Modal */}
-      <Modal 
-        isOpen={isLogoutModalOpen} 
+      <Modal
+        isOpen={isLogoutModalOpen}
         onClose={() => setIsLogoutModalOpen(false)}
         placement="center"
       >
@@ -204,11 +210,21 @@ function Header() {
             <p>Do you want to log out?</p>
           </ModalBody>
           <ModalFooter>
-            <Button variant="light" onPress={() => setIsLogoutModalOpen(false)} aria-label="Cancel button">
+            <Button
+              variant="light"
+              onPress={() => setIsLogoutModalOpen(false)}
+              aria-label="Cancel button"
+              isDisabled={loading}
+            >
               Cancel
             </Button>
-            <Button color="danger" onPress={handleLogoutConfirm} aria-label="Logout button">
-              Logout
+            <Button
+              color="danger"
+              onPress={handleLogoutConfirm}
+              aria-label="Logout button"
+              isLoading={loading}
+            >
+              {loading ? 'Logging out...' : 'Logout'}
             </Button>
           </ModalFooter>
         </ModalContent>

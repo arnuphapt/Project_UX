@@ -19,8 +19,9 @@ import {
 } from '@nextui-org/react';
 import { db } from '../../Shared/firebaseConfig';
 import { collection, addDoc, getDocs, orderBy, query, doc, deleteDoc, updateDoc } from 'firebase/firestore';
-import { toast, ToastContainer } from 'react-toastify';
 import { MoreVertical, Edit, Trash2 } from 'lucide-react';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FilterManager = () => {
   const [filterName, setFilterName] = useState('');
@@ -50,7 +51,7 @@ const FilterManager = () => {
       setFilters(filtersData);
     } catch (error) {
       console.error('Error fetching filters:', error);
-      toast.error('เกิดข้อผิดพลาดในการโหลดข้อมูล');
+      toast.error('Error loading filters');
     } finally {
       setIsLoading(false);
     }
@@ -63,7 +64,7 @@ const FilterManager = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!filterName.trim() || !startDate || !endDate) {
-      toast.error('กรุณากรอกชื่อ Filter และเลือกช่วงเวลา');
+      toast.error('Please fill in all required fields');
       return;
     }
 
@@ -78,22 +79,21 @@ const FilterManager = () => {
 
       if (editingFilter) {
         await updateDoc(doc(db, 'filterdata', editingFilter.id), filterData);
-        toast.success('อัปเดต Filter สำเร็จ');
+        toast.success('Filter updated successfully');
       } else {
         await addDoc(collection(db, 'filterdata'), filterData);
-        toast.success('เพิ่ม Filter สำเร็จ');
+        toast.success('Filter added successfully');
       }
 
       handleModalClose();
       fetchFilters();
     } catch (error) {
       console.error('Error saving filter:', error);
-      toast.error('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+      toast.error('Error saving filter');
     } finally {
       setIsSaving(false);
     }
   };
-
   const handleEdit = (filter) => {
     setEditingFilter(filter);
     setFilterName(filter.name);
@@ -113,12 +113,12 @@ const FilterManager = () => {
     setIsSaving(true);
     try {
       await deleteDoc(doc(db, 'filterdata', filterToDelete.id));
-      toast.success('ลบ Filter สำเร็จ');
+      toast.success('Filter deleted successfully');
       fetchFilters();
       onDeleteModalClose();
     } catch (error) {
       console.error('Error deleting filter:', error);
-      toast.error('เกิดข้อผิดพลาดในการลบข้อมูล');
+      toast.error('Error deleting filter');
     } finally {
       setIsSaving(false);
       setFilterToDelete(null);
@@ -144,9 +144,20 @@ const FilterManager = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <ToastContainer position="bottom-center" autoClose={2000} />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="flex justify-between items-center mb-6">
-      <h1 className="text-black text-2xl font-bold">All Filter</h1>
+        <h1 className="text-black text-2xl font-bold">All Filter</h1>
         <Button
           className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white"
           onPress={onOpen}
@@ -218,63 +229,63 @@ const FilterManager = () => {
 
       {/* Add/Edit Modal */}
       <Modal isOpen={isOpen} onOpenChange={handleModalClose}>
-    <ModalContent>
-      {(onClose) => (
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(e);
-        }}>
-          <ModalHeader>
-            {editingFilter ? 'Edit Filter' : 'Add New Filter'}
-          </ModalHeader>
-          <ModalBody>
-            <div className="space-y-4">
-              <Input
-                label="Filter Name"
-                placeholder="Name"
-                value={filterName}
-                onChange={(e) => setFilterName(e.target.value)}
-                isRequired
-              />
-              <Input
-                type="date"
-                label="Start Date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                isRequired
-              />
-              <Input
-                type="date"
-                label="End Date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                isRequired
-              />
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              color="danger"
-              variant="light"
-              onPress={onClose}
-              isDisabled={isSaving}
-              type="button"
-            >
-              Close
-            </Button>
-            <Button
-              color="primary"
-              type="submit"
-              isLoading={isSaving}
-              isDisabled={isSaving}
-            >
-              {isSaving ? "Saving..." : "Save"}
-            </Button>
-          </ModalFooter>
-        </form>
-      )}
-    </ModalContent>
-  </Modal>
+        <ModalContent>
+          {(onClose) => (
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit(e);
+            }}>
+              <ModalHeader>
+                {editingFilter ? 'Edit Filter' : 'Add New Filter'}
+              </ModalHeader>
+              <ModalBody>
+                <div className="space-y-4">
+                  <Input
+                    label="Filter Name"
+                    placeholder="Name"
+                    value={filterName}
+                    onChange={(e) => setFilterName(e.target.value)}
+                    isRequired
+                  />
+                  <Input
+                    type="date"
+                    label="Start Date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    isRequired
+                  />
+                  <Input
+                    type="date"
+                    label="End Date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    isRequired
+                  />
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={onClose}
+                  isDisabled={isSaving}
+                  type="button"
+                >
+                  Close
+                </Button>
+                <Button
+                  color="primary"
+                  type="submit"
+                  isLoading={isSaving}
+                  isDisabled={isSaving}
+                >
+                  {isSaving ? "Saving..." : "Save"}
+                </Button>
+              </ModalFooter>
+            </form>
+          )}
+        </ModalContent>
+      </Modal>
 
       {/* Delete Confirmation Modal */}
       <Modal
@@ -286,7 +297,7 @@ const FilterManager = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-              Confirm Delete
+                Confirm Delete
               </ModalHeader>
               <ModalBody>
                 <p>Are you sure you want to delete this filter? This action cannot be undone.</p>
