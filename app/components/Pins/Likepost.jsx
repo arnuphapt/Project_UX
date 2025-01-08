@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import { app } from '../../Shared/firebaseConfig';
-import PinItem from '../Pins/PinItem';
+import PostItem from '../Pins/PostItem';
 
 const LikedPosts = ({ userEmail }) => {
   const db = getFirestore(app);
@@ -36,7 +36,7 @@ const LikedPosts = ({ userEmail }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4  px-5">
       {likedPosts.map(post => (
-        <PinItem key={post.id} pin={post} />
+        <PostItem key={post.id} pin={post} />
       ))}
     </div>
   );
