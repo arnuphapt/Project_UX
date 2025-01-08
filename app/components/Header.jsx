@@ -97,7 +97,8 @@ function Header() {
 
             <Button aria-label="Home button" variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-primary/10 text-primary' : ''}`}
               onPress={() => router.push('/')}>Home</Button>
-
+            <Button aria-label="Post button" variant='light' className={`font-semibold text-[16px] ${isActive('/post') ? 'bg-primary/10 text-primary' : ''}`}
+              onPress={() => router.push('/post')}>Posts</Button>
             <Button aria-label="Learn button" variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-primary/10 text-primary' : ''}`}
               onPress={() => router.push('/Learn')}>Learn</Button>
             <Dropdown>

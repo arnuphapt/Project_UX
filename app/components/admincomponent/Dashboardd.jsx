@@ -5,8 +5,8 @@ import { collection, getDocs, query } from "firebase/firestore";
 import {
   Card,
   CardBody,
-  Spinner,
-  Chip
+  Chip,
+  Skeleton
 } from "@nextui-org/react";
 import { Users, FileText, BookOpen, Filter, Mail } from 'lucide-react';
 
@@ -83,7 +83,6 @@ const Dashboard = () => {
         inactiveAdmins,
         adminRoles
       });
-
     } catch (error) {
       console.error("Error fetching stats:", error);
     } finally {
@@ -91,20 +90,27 @@ const Dashboard = () => {
     }
   };
 
+  const CardSkeleton = () => (
+    <Card>
+      <CardBody className="p-6">
+        <div className="space-y-3">
+          <Skeleton className="w-24 h-4 rounded-lg"/>
+          <Skeleton className="w-32 h-8 rounded-lg"/>
+          <div className="space-y-2">
+            <Skeleton className="w-40 h-6 rounded-lg"/>
+            <Skeleton className="w-40 h-6 rounded-lg"/>
+          </div>
+        </div>
+      </CardBody>
+    </Card>
+  );
+
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-6">Dashboard Overview</h2>
-      {isLoading ? (
-        <div className="min-h-[200px] flex justify-center items-center">
-          <Spinner
-            size="lg"
-            color="primary"
-            label="Loading..."
-          />
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Users Card */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Users Card */}
+        {isLoading ? <CardSkeleton /> : (
           <Card className="bg-blue-500">
             <CardBody className="p-6">
               <div className="flex justify-between items-start">
@@ -128,8 +134,10 @@ const Dashboard = () => {
               </div>
             </CardBody>
           </Card>
+        )}
 
-          {/* Posts Card */}
+        {/* Posts Card */}
+        {isLoading ? <CardSkeleton /> : (
           <Card className="bg-gray-800">
             <CardBody className="p-6">
               <div className="flex justify-between items-start">
@@ -158,8 +166,10 @@ const Dashboard = () => {
               </div>
             </CardBody>
           </Card>
+        )}
 
-          {/* Admin Posts Card */}
+        {/* Admin Posts Card */}
+        {isLoading ? <CardSkeleton /> : (
           <Card className="bg-green-500">
             <CardBody className="p-6">
               <div className="flex justify-between items-start">
@@ -176,8 +186,10 @@ const Dashboard = () => {
               </div>
             </CardBody>
           </Card>
+        )}
 
-          {/* Filters Card */}
+        {/* Filters Card */}
+        {isLoading ? <CardSkeleton /> : (
           <Card className="bg-purple-500">
             <CardBody className="p-6">
               <div className="flex justify-between items-start">
@@ -194,8 +206,10 @@ const Dashboard = () => {
               </div>
             </CardBody>
           </Card>
+        )}
 
-          {/* Admin Users Card */}
+        {/* Admin Users Card */}
+        {isLoading ? <CardSkeleton /> : (
           <Card className="bg-orange-500">
             <CardBody className="p-6">
               <div className="flex justify-between items-start">
@@ -231,8 +245,8 @@ const Dashboard = () => {
               </div>
             </CardBody>
           </Card>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
