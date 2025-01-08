@@ -1,185 +1,184 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
+import { Button, Skeleton } from "@nextui-org/react";
+import { Upload, ArrowUpRight, ChevronDown } from 'lucide-react';
 import PinItem from './PinItem';
-import SearchBar from '../Searchbar';
-import FilterBar from '../Filter/Filterbar';
-import Sorting from '../Filter/Sorting';
-import FilterSection from '../Filter/FilterSection';
-import FilterYears from '../Filter/FilterYears';
-import Adminpost from '../Admincarousel';
-import { Pagination, CircularProgress } from "@nextui-org/react";
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
-import { db } from '../../Shared/firebaseConfig';
-function PinList({ listOfPins, isLoading = false }) {
-    const [selectedTech, setSelectedTech] = useState([]);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [sortBy, setSortBy] = useState('default');
-    const [selectedSection, setSelectedSection] = useState('');
-    const [selectedPeriod, setSelectedPeriod] = useState('');
+import { useRouter } from 'next/navigation';
+import Profilecard from '../Profile Card'
+const LoadingSkeleton = () => (
+    <div className="rounded-xl">
+        <Skeleton className="rounded-xl">
+            <div className="h-[300px]"></div>
+        </Skeleton>
+    </div>
+);
+
+const PinList = ({ listOfPins, isLoading = false }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [filters, setFilters] = useState([]);
-    const pinsPerPage = 18;
+    const pinsPerPage = 6;
+    const router = useRouter();
+    const mostLikedSectionRef = useRef(null);
 
-    // Fetch filters from Firebase
-    useEffect(() => {
-        const fetchFilters = async () => {
-            try {
-                const q = query(collection(db, 'filterdata'), orderBy('createdAt', 'desc'));
-                const querySnapshot = await getDocs(q);
-                const filtersData = querySnapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
-                setFilters(filtersData);
-            } catch (error) {
-                console.error('Error fetching filters:', error);
-            }
-        };
-        fetchFilters();
-    }, []);
+    const scrollToMostLiked = () => {
+        mostLikedSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
 
-    const sections = useMemo(() => [...new Set(listOfPins.map(pin => pin.section))], [listOfPins]);
+    const sortedPins = useMemo(() => {
+        const allPins = [...listOfPins];
 
-    const resetPage = useCallback(() => {
-        setCurrentPage(1);
-    }, []);
-
-    useEffect(() => {
-        resetPage();
-    }, [selectedTech, searchQuery, selectedSection, selectedPeriod, sortBy, resetPage]);
-
-    const filteredAndSortedPins = useMemo(() => {
-        const filtered = listOfPins.filter(pin => {
-            const matchesTech = selectedTech.length === 0 || selectedTech.some(tech => pin.techList.includes(tech));
-            const matchesSearchQuery = pin.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                pin.techList.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase())) ||
-                (pin.userName && pin.userName.toLowerCase().includes(searchQuery.toLowerCase()));
-            const matchesSection = selectedSection === '' || pin.section === selectedSection;
-
-            // Check if post date is within selected filter period
-            const matchesPeriod = (() => {
-                if (!selectedPeriod || selectedPeriod === '') return true;
-
-                const selectedFilter = filters.find(f => f.id === selectedPeriod);
-                if (!selectedFilter) return true;
-
-                const postDate = pin.timestamp?.toDate();
-                const filterStartDate = new Date(selectedFilter.startDate);
-                const filterEndDate = new Date(selectedFilter.endDate);
-
-                return postDate >= filterStartDate && postDate <= filterEndDate;
-            })();
-
-            return matchesTech && matchesSearchQuery && matchesSection && matchesPeriod;
-        });
-
-        const latestPinsByUser = filtered.reduce((acc, pin) => {
+        const latestPinsByUser = allPins.reduce((acc, pin) => {
             if (!acc[pin.userName] || pin.timestamp > acc[pin.userName].timestamp) {
                 acc[pin.userName] = pin;
             }
             return acc;
         }, {});
 
-        return Object.values(latestPinsByUser).sort((a, b) => {
-            switch (sortBy) {
-                case 'default':
-                    return b.timestamp?.toDate() - a.timestamp?.toDate();
-                case 'Oldest posts':
-                    return a.timestamp?.toDate() - b.timestamp?.toDate();
-                case 'Most Liked':
-                    return (b.likes?.length || 0) - (a.likes?.length || 0);
-                case 'Most Viewed':
-                    return (b.viewCount || 0) - (a.viewCount || 0);
-                case 'Name A-Z':
-                    return a.title.localeCompare(b.title);
-                case 'Name Z-A':
-                    return b.title.localeCompare(a.title);
-                case 'userName':
-                    return a.userName.localeCompare(b.userName);
-                default:
-                    return b.timestamp?.toDate() - a.timestamp?.toDate();
-            }
-        });
-    }, [listOfPins, selectedTech, searchQuery, selectedSection, selectedPeriod, sortBy, filters]);
+        return Object.values(latestPinsByUser).sort((a, b) =>
+            b.timestamp?.toDate() - a.timestamp?.toDate()
+        );
+    }, [listOfPins]);
+
+    const mostLikedPins = useMemo(() => {
+        return [...sortedPins]
+            .sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0))
+            .slice(0, 3);
+    }, [sortedPins]);
 
     const indexOfLastPin = currentPage * pinsPerPage;
     const indexOfFirstPin = indexOfLastPin - pinsPerPage;
-    const currentPins = filteredAndSortedPins.slice(indexOfFirstPin, indexOfLastPin);
+    const currentPins = sortedPins.slice(indexOfFirstPin, indexOfLastPin);
 
-    const totalPages = Math.ceil(filteredAndSortedPins.length / pinsPerPage);
-
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
-
+    // Loading skeletons arrays
+    const mostLikedSkeletons = Array(3).fill(null);
+    const latestSkeletons = Array(6).fill(null);
 
     return (
-        <div className="mt-7 px-5">
-            <div className="flex justify-center items-center mb-10">
-            {isLoading ? (
-                    <div className="col-span-full flex justify-center items-center h-64">
-                        <CircularProgress 
-                            size="lg" 
-                            color="primary" 
-                            label="Loading admin posts..." 
-                            aria-label="Loading posts"
-                        />
+        <div className="max-w-[1920px] mx-auto px-4 md:px-6 lg:px-8">
+            {/* Hero Section */}
+            <section className="pt-20 pb-40 mb-60 relative">
+                <div className="flex flex-col items-center text-center">
+                    <div className="inline-block mb-4">
+                        <span className="px-4 py-2 text-sm bg-blue-100 text-blue-500 rounded-full">
+                            Share Your Work
+                        </span>
                     </div>
-                ) : currentPins.length > 0 ? (
-                        <Adminpost />
-                ) : (
-                    <div className="col-span-full text-center text-gray-500">
-                        No post found
+                    <h1 className="text-[80px] md:text-[120px] font-bold leading-none tracking-tighter mb-6 bg-gradient-to-tr from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                        UPLOAD
+                    </h1>
+                    <div className="max-w-2xl mx-auto mb-8">
+                        <p className="text-xl text-gray-600">
+                            Share your creative work with our community.
+                            Get inspired and inspire others through your designs.
+                        </p>
                     </div>
-                )}
-            </div>
-            <div className="flex justify-center items-center mb-10">
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            </div>
-            <FilterBar selectedTech={selectedTech} setSelectedTech={setSelectedTech} />
-            <div className="flex justify-between items-center mb-4">
-                <FilterSection sections={sections} selectedSection={selectedSection} setSelectedSection={setSelectedSection} />
-                <FilterYears 
-                    selectedPeriod={selectedPeriod} 
-                    setSelectedPeriod={setSelectedPeriod}
-                />
-                <Sorting sortBy={sortBy} setSortBy={setSortBy} />
-            </div>
-
-            <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                {isLoading ? (
-                    <div className="col-span-full flex justify-center items-center h-64">
-                        <CircularProgress 
-                            size="lg" 
-                            color="primary" 
-                            label="Loading posts..." 
-                            aria-label="Loading posts"
-                        />
+                    <div className="flex flex-col items-center gap-8">
+                        <div className="flex items-center gap-4">
+                            <Button
+                                onPress={() => router.push("/post-builder")}
+                                color="primary"
+                                variant="shadow"
+                                size="lg"
+                                endContent={<ArrowUpRight className="w-5 h-5" />}
+                                startContent={<Upload className="w-5 h-5" />}
+                                className="font-semibold bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg"
+                            >
+                                Start Upload
+                            </Button>
+                            <Button
+                                onPress={() => router.push("/post")}
+                                variant='bordered'
+                                size="lg"
+                                radius='full'
+                            >
+                                See More Work
+                            </Button>
+                        </div>
+                        <button
+                            onClick={scrollToMostLiked}
+                            className="flex flex-col mt-10 items-center gap-2 text-gray-500 hover:text-blue-500 transition-colors duration-300 group animate-bounce"
+                            disabled={isLoading}
+                        >
+                            <span className="text-sm">Scroll to explore</span>
+                            <ChevronDown className="w-6 h-6 group-hover:transform group-hover:translate-y-1 transition-transform" />
+                        </button>
                     </div>
-                ) : currentPins.length > 0 ? (
-                    currentPins.map((item) => (
-                        <PinItem key={item.id} pin={item} />
-                    ))
-                ) : (
-                    <div className="col-span-full text-center text-gray-500">
-                        No post found
-                    </div>
-                )}
-            </div>  
-
-            {filteredAndSortedPins.length > 0 && (
-                <div className="flex justify-center mt-10">
-                    <Pagination 
-                        size='lg' 
-                        showControls 
-                        total={totalPages} 
-                        page={currentPage}
-                        onChange={handlePageChange} 
-                        variant='light'
-                    />
                 </div>
-            )}
+            </section>
+
+            {/* Most Liked Section */}
+            <section ref={mostLikedSectionRef} className="mb-16 scroll-mt-8 -mt-20">
+                <div className="flex flex-col items-center mb-8">
+                    <div className="flex items-center gap-4 text-sm mb-2">
+                        <span>Post of the Day</span>
+                        <span className="px-2 py-1 bg-gray-200 rounded">Hall of frame</span>
+                        <span className="px-2 py-1 bg-gray-200 rounded">UX</span>
+                    </div>
+                    <h2 className="text-[80px] font-bold leading-tight tracking-tight uppercase text-center">
+                        Most Liked Posts
+                    </h2>
+                    <p className="text-xl text-gray-600 my-4">
+                        Share your creative work
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                    {isLoading ? (
+                        mostLikedSkeletons.map((_, index) => (
+                            <LoadingSkeleton key={`skeleton-${index}`} />
+                        ))
+                    ) : (
+                        mostLikedPins.map((pin) => (
+                            <PinItem key={pin.id} pin={pin} />
+                        ))
+                    )}
+                </div>
+
+                <div className="p-4 flex justify-center items-center my-10">
+                    <div className="flex items-center gap-2 text-lg">
+                        <span className="text-gray-600">Check out all posts</span>
+                        <span className="mx-2">→</span>
+                        <button
+                            onClick={() => router.push("/post")}
+                            className="text-gray-900 font-medium border-b-2 border-gray-900 hover:opacity-80 transition-opacity"
+                        >
+                            View Posts
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            {/* Latest Posts Section */}
+            <section>
+                <h2
+                    className="text-[40px] font-bold leading-tight tracking-tight my-10 cursor-pointer hover:text-blue-600 transition-colors"
+                    onClick={() => router.push("/post")}
+                >
+                    Latest Posts.
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                    {isLoading ? (
+                        latestSkeletons.map((_, index) => (
+                            <LoadingSkeleton key={`skeleton-latest-${index}`} />
+                        ))
+                    ) : (
+                        currentPins.map((pin) => (
+                            <PinItem key={pin.id} pin={pin} />
+                        ))
+                    )}
+                </div>
+            </section>
+            <div className="flex flex-col items-center my-20">
+                <div className="flex flex-col items-center my-20">
+                    <h2 className="text-[80px] font-bold leading-tight tracking-tight uppercase text-center">
+                        Top Contributors
+                    </h2>
+                    <p className="text-xl text-gray-600 mb-10">
+                        Our most active community members
+                    </p>
+                    <Profilecard listOfPins={listOfPins} />
+                </div>               
+            </div>
         </div>
     );
-}
+};
 
 export default PinList;
