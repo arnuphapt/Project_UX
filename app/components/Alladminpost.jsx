@@ -10,7 +10,8 @@ import {
   Divider,
   Link,
   Avatar,
-  Spinner
+  Spinner,
+  Badge
 } from "@nextui-org/react";
 
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -73,27 +74,28 @@ const AdminPosts = () => {
           />
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {adminPosts.map((post) => (
-            <Card key={post.id} className="w-full">
+            <Card key={post.id} className="w-full shadow-md">
               <CardHeader className="flex justify-between items-center">
                 <div className="flex gap-3">
+                <Badge color="success" content="" placement="bottom-right" shape="circle">
+
                   <Avatar
-                    isBordered
                     radius="full"
                     size="md"
                     src={post.authorImage}
                     alt={`${post.authorName}'s avatar`}
                   />
+                  </Badge>
                   <div className="flex flex-col">
                     <p className="text-md font-bold">{post.authorName}</p>
                     <p className="text-small text-default-500">{post.authorEmail}</p>
                   </div>
                 </div>
               </CardHeader>
-              <Divider />
               <CardBody className="flex-grow">
-                <h3 className="font-bold mb-2 text-lg">{post.title}</h3>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">{post.title}</h2>
                 <p className="mb-2 flex-grow line-clamp-3">{post.content}</p>
                 <p className="text-sm text-default-500 mt-2">
                   โพสต์เมื่อ: {formatDate(post.createdAt)}

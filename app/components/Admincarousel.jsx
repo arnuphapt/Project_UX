@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { db } from "../Shared/firebaseConfig";
 import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
-import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Avatar } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Avatar, Badge } from "@nextui-org/react";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
@@ -121,23 +121,24 @@ const AdminCarousel = () => {
             <div className="flex justify-center">
               <Card 
                 className="w-full max-w-md cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => handleCardClick(post.id)}
+                onPress={() => handleCardClick(post.id)}
                 isPressable
               >
                 <CardHeader className="flex gap-3">
-                  <Avatar 
-                    isBordered 
-                    radius="full" 
-                    size="md" 
-                    src={post.authorImage} 
+                <Badge color="success" content="" placement="bottom-right" shape="circle">
+
+                  <Avatar
+                    radius="full"
+                    size="md"
+                    src={post.authorImage}
                     alt={`${post.authorName}'s avatar`}
                   />
+                  </Badge>
                   <div className="flex flex-col">
                     <p className="text-md font-bold">{post.authorName}</p>
                     <p className="text-small text-default-500">{post.authorEmail}</p>
                   </div>
                 </CardHeader>
-                <Divider />
                 <CardBody className="flex-grow">
                   <h3 className="font-bold mb-2 text-lg">{post.title}</h3>
                   <p className="mb-2 flex-grow line-clamp-3">{post.content}</p>

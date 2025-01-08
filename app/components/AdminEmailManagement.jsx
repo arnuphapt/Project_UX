@@ -20,7 +20,8 @@ import {
   useDisclosure, 
   Chip, 
   Link,
-  Spinner
+  Spinner,
+  Tooltip
 } from "@nextui-org/react";
 import { RiEdit2Line } from "react-icons/ri";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -206,6 +207,8 @@ const AdminEmailManagement = () => {
               </TableCell>
               <TableCell>
                 <div className="flex gap-2">
+                <Tooltip content="Edit user">
+
                   <Link
                     color='foreground'
                     className="cursor-pointer p-4 "
@@ -213,6 +216,9 @@ const AdminEmailManagement = () => {
                   >
                     <RiEdit2Line className='text-xl'/>
                   </Link>
+                  </Tooltip>
+                  <Tooltip content="Delete user">
+
                   <Link
                     color='danger'
                     className="cursor-pointer p-4 text-xl"
@@ -220,6 +226,8 @@ const AdminEmailManagement = () => {
                   >
                     <FaRegTrashAlt  className='text-xl'/>
                   </Link>
+                  </Tooltip>
+
                 </div>
               </TableCell>
             </TableRow>
