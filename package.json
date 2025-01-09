@@ -13,6 +13,8 @@
     "@react-stately/data": "^3.11.7",
     "autoprefixer": "^10.4.19",
     "caniuse-lite": "^1.0.30001690",
+    "canvas": "^3.0.1",
+    "colorthief": "^2.6.0",
     "eslint-config-next": "^15.0.0",
     "firebase": "^10.14.1",
     "framer-motion": "^11.11.10",
@@ -28,6 +30,7 @@
     "react-icons": "^5.4.0",
     "react-slick": "^0.30.3",
     "react-toastify": "^10.0.6",
+    "react-type-animation": "^3.2.0",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
