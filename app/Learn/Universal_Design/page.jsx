@@ -119,7 +119,63 @@ export default function learn() {
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://medium.com/@yay.bouu/wcag-2-2-%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3-%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%99%E0%B8%97%E0%B8%B3-ux-ui-%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A3%E0%B8%B9%E0%B9%89-35b70dbc9b3f" target="_blank">Web Content Accessibility (WCAG) คืออะไร</a></li>     
 </ul>
 
+<div className="flex justify-center mt-10">
+      <ul className="flex space-x-2">
+    
+      <li>
+      <Link href="/Learn/Evaluation" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        ก่อนหน้า 
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Introduction_to_course" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        1 
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Business_Model_Canvas" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        2
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Value_Proposition_Canvas" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        3
+      </Link> 
+    </li>
+    <li>
+      <Link href="/Learn/WireFrame&Graphics" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        4
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Graphics_Design" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        5
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/7_Principles" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        6
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/8_GoldenRules" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        7
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Evaluation" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        8
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Universal_Design" className="bg-blue-500 text-white px-3 py-1 rounded">
+        9
+      </Link>
+    </li>
 
+    
+  </ul>
+</div>
 
 
 

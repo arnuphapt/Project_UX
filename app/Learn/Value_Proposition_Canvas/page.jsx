@@ -36,6 +36,69 @@ export default function learn() {
 
       </div>
       
+      <div className="flex justify-center mt-10">
+      <ul className="flex space-x-2">
+    
+      <li>
+      <Link href="/Learn/Business_Model_Canvas" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        ก่อนหน้า 
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Introduction_to_course" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        1 
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Business_Model_Canvas" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        2
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Value_Proposition_Canvas" className="bg-blue-500 text-white px-3 py-1 rounded">
+        3
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/WireFrame&Graphics" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        4
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Graphics_Design" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        5
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/7_Principles" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        6
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/8_GoldenRules" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        7
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Evaluation" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        8
+      </Link>
+    </li>
+    <li>
+      <Link href="/Learn/Universal_Design" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        9
+      </Link>
+    </li>
+
+    <li>
+      <Link href="/Learn/WireFrame&Graphics" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+        ถัดไป
+      </Link>
+    </li>
+  </ul>
+</div>
+      
+      
     </div>
     
   );
