@@ -97,8 +97,17 @@ function Header() {
 
             <Button aria-label="Home button" variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-primary/10 text-primary' : ''}`}
               onPress={() => router.push('/')}>Home</Button>
-            <Button aria-label="Post button" variant='light' className={`font-semibold text-[16px] ${isActive('/post') ? 'bg-primary/10 text-primary' : ''}`}
-              onPress={() => router.push('/post')}>Posts</Button>
+                          <Dropdown>
+              <DropdownTrigger>
+              <Button aria-label="Post button" variant='light' className={`font-semibold text-[16px] ${isActive('/post') ? 'bg-primary/10 text-primary' : ''}`}
+            >Posts</Button>           
+               </DropdownTrigger>
+              <DropdownMenu>
+                <DropdownItem onPress={() => router.push('/post')} color="default">Posts</DropdownItem>
+                <DropdownItem onPress={() => router.push('/post/hall_of_frame')} color="default">Hall of frame</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+
             <Button aria-label="Learn button" variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-primary/10 text-primary' : ''}`}
               onPress={() => router.push('/Learn')}>Learn</Button>
             <Dropdown>

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Card, CardBody, Avatar, Button } from "@nextui-org/react";
 import { Crown, Trophy, Star, Sparkles, Medal, TrendingUp, Eye, Heart, BarChart2 } from 'lucide-react';
-import { getFirestore, collection, onSnapshot, query, orderBy, limit } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { app } from '../Shared/firebaseConfig';
 
 const HallOfFame = () => {
@@ -11,11 +11,9 @@ const HallOfFame = () => {
   const db = getFirestore(app);
 
   useEffect(() => {
-    // Create a query to fetch posts ordered by timestamp
     const postsRef = collection(db, 'pinterest-post');
     const postsQuery = query(postsRef, orderBy('timestamp', 'desc'));
 
-    // Set up real-time listener
     const unsubscribe = onSnapshot(postsQuery, (snapshot) => {
       const fetchedPins = snapshot.docs.map(doc => ({
         id: doc.id,
@@ -28,47 +26,73 @@ const HallOfFame = () => {
       setLoading(false);
     });
 
-    // Cleanup subscription
     return () => unsubscribe();
   }, [db]);
 
   const topCreators = useMemo(() => {
+    // Calculate max values for normalization
+    const maxLikes = Math.max(...pins.map(pin => pin.likes?.length || 0));
+    const maxViews = Math.max(...pins.map(pin => pin.viewCount || 0));
+
     const creatorStats = pins.reduce((acc, pin) => {
       if (!acc[pin.userName]) {
+        // Initialize creator stats
+        const likes = pin.likes?.length || 0;
+        const views = pin.viewCount || 0;
+        
+        // Calculate normalized scores (0-1 range)
+        const normalizedLikes = maxLikes > 0 ? likes / maxLikes : 0;
+        const normalizedViews = maxViews > 0 ? views / maxViews : 0;
+        
+        // Combined score (70% likes, 30% views) - matching TopLikers scoring
+        const score = (normalizedLikes * 0.7) + (normalizedViews * 0.3);
+
         acc[pin.userName] = {
           userName: pin.userName,
           email: pin.email,
-          totalLikes: pin.likes?.length || 0,
-          totalViews: pin.viewCount || 0,
+          totalLikes: likes,
+          totalViews: views,
           totalPosts: 1,
-          averageLikesPerPost: pin.likes?.length || 0,
-          averageViewsPerPost: pin.viewCount || 0,
-          engagementRate: ((pin.likes?.length || 0) / (pin.viewCount || 1)) * 100,
+          score: score,
+          averageLikesPerPost: likes,
+          averageViewsPerPost: views,
+          engagementRate: (likes / (views || 1)) * 100,
           userImage: pin.userImage || '/api/placeholder/100/100',
           topPost: {
             imageLink: pin.image,
             title: pin.title,
-            likes: pin.likes?.length || 0,
-            views: pin.viewCount || 0
+            likes: likes,
+            views: views
           },
           topViewedPost: {
             imageLink: pin.image,
             title: pin.title,
-            views: pin.viewCount || 0,
-            likes: pin.likes?.length || 0
+            views: views,
+            likes: likes
           }
         };
       } else {
-        acc[pin.userName].totalLikes += (pin.likes?.length || 0);
-        acc[pin.userName].totalViews += (pin.viewCount || 0);
+        // Update existing creator stats
+        const newLikes = acc[pin.userName].totalLikes + (pin.likes?.length || 0);
+        const newViews = acc[pin.userName].totalViews + (pin.viewCount || 0);
         acc[pin.userName].totalPosts += 1;
         
-        // Update averages
-        acc[pin.userName].averageLikesPerPost = acc[pin.userName].totalLikes / acc[pin.userName].totalPosts;
-        acc[pin.userName].averageViewsPerPost = acc[pin.userName].totalViews / acc[pin.userName].totalPosts;
-        acc[pin.userName].engagementRate = (acc[pin.userName].totalLikes / acc[pin.userName].totalViews) * 100;
+        // Recalculate normalized scores
+        const normalizedLikes = maxLikes > 0 ? newLikes / maxLikes : 0;
+        const normalizedViews = maxViews > 0 ? newViews / maxViews : 0;
         
-        // Update top viewed post
+        // Update combined score
+        const newScore = (normalizedLikes * 0.7) + (normalizedViews * 0.3);
+        
+        // Update stats
+        acc[pin.userName].totalLikes = newLikes;
+        acc[pin.userName].totalViews = newViews;
+        acc[pin.userName].score = newScore;
+        acc[pin.userName].averageLikesPerPost = newLikes / acc[pin.userName].totalPosts;
+        acc[pin.userName].averageViewsPerPost = newViews / acc[pin.userName].totalPosts;
+        acc[pin.userName].engagementRate = (newLikes / (newViews || 1)) * 100;
+        
+        // Update top viewed post if current post has more views
         if ((pin.viewCount || 0) > acc[pin.userName].topViewedPost.views) {
           acc[pin.userName].topViewedPost = {
             imageLink: pin.image,
@@ -78,7 +102,7 @@ const HallOfFame = () => {
           };
         }
         
-        // Update top liked post
+        // Update top liked post if current post has more likes
         if ((pin.likes?.length || 0) > acc[pin.userName].topPost.likes) {
           acc[pin.userName].topPost = {
             imageLink: pin.image,
@@ -91,8 +115,9 @@ const HallOfFame = () => {
       return acc;
     }, {});
 
+    // Sort by score instead of just total likes
     return Object.values(creatorStats)
-      .sort((a, b) => b.totalLikes - a.totalLikes)
+      .sort((a, b) => b.score - a.score)
       .slice(0, 3);
   }, [pins]);
 
