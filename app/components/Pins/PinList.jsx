@@ -1,9 +1,10 @@
 import React, { useState, useMemo, useRef } from 'react';
-import { Button,Skeleton} from "@nextui-org/react";
-import { Upload, ArrowUpRight, ChevronDown,Github  } from 'lucide-react';
+import { Button, Skeleton } from "@nextui-org/react";
+import { Upload, ArrowUpRight, ChevronDown, Github } from 'lucide-react';
 import PinItem from './PinItem';
 import { useRouter } from 'next/navigation';
 import TopLike from '../TopLike';
+
 const LoadingSkeleton = () => (
     <div className="rounded-xl">
         <Skeleton className="rounded-xl">
@@ -28,13 +29,23 @@ const PinList = ({ listOfPins, isLoading = false }) => {
         return allPins.sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0));
     }, [listOfPins]);
 
+    // Sort all pins by views count
+    const sortedPinsByViews = useMemo(() => {
+        const allPins = [...listOfPins];
+        return allPins.sort((a, b) => (b.views || 0) - (a.views || 0));
+    }, [listOfPins]);
+
     // Top 3 most liked pins for the top section
     const topThreePins = useMemo(() => {
         return sortedPinsByLikes.slice(0, 3);
     }, [sortedPinsByLikes]);
 
-    // Get most liked pins per section/category (if you have categories)
-    // For now, we'll just get the next set of most liked pins
+    // Top 6 most viewed pins
+    const topViewedPins = useMemo(() => {
+        return sortedPinsByViews.slice(0, 6);
+    }, [sortedPinsByViews]);
+
+    // Get next set of most liked pins for trending section
     const nextMostLikedPins = useMemo(() => {
         const startIndex = (currentPage - 1) * pinsPerPage;
         return sortedPinsByLikes.slice(startIndex + 3, startIndex + pinsPerPage + 3);
@@ -47,7 +58,6 @@ const PinList = ({ listOfPins, isLoading = false }) => {
         <div className="max-w-[1920px] mx-auto px-4 md:px-6 lg:px-8">
             {/* Hero Section */}
             <section className="pt-16 sm:pt-20 pb-24 sm:pb-32 lg:pb-40 mb-32 sm:mb-40 lg:mb-60 relative">
-                {/* ... Hero section content remains the same ... */}
                 <div className="flex flex-col items-center text-center">
                     <div className="inline-block mb-4">
                         <span className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm bg-blue-100 text-blue-500 rounded-full">
@@ -148,14 +158,14 @@ const PinList = ({ listOfPins, isLoading = false }) => {
                 </div>
             </section>
 
-            {/* Trending Posts Section (Previously Latest Posts) */}
+
+            {/* Trending Posts Section */}
             <section>
                 <h2
                     className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight tracking-tight my-6 sm:my-10 cursor-pointer hover:text-blue-600 transition-colors"
                     onClick={() => router.push("/post")}
                 >
                     Trending Posts
-
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                     {isLoading ? (
@@ -170,9 +180,10 @@ const PinList = ({ listOfPins, isLoading = false }) => {
                 </div>
             </section>
 
-            <div className="flex flex-col items-center mt-20">
+            {/* Most Popular Members Section */}
+            <div className="flex flex-col items-center mt-32">
                 <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight uppercase text-center">
-                Most Popular Members
+                    Most Popular Members
                 </h2>
                 <p className="text-base sm:text-lg lg:text-xl text-gray-600 mt-3 mb-6 sm:mb-8 lg:mb-10">
                     Our most active community members
@@ -180,10 +191,11 @@ const PinList = ({ listOfPins, isLoading = false }) => {
                 <TopLike listOfPins={listOfPins} />
             </div>
 
-      
-      </div>
 
-    );
-};
 
-export default PinList;
+        </div>
+
+        );
+    };
+
+    export default PinList;
