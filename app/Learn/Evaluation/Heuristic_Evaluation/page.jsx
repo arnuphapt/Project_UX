@@ -12,13 +12,14 @@ export default function Learn() {
   return(
 <div className="flex">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-100 h-auto p-4 border-r border-gray-300">
+      <div className="  fixed w-64 bg-white h-full  p-4 mt-10  ">
         <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
         <ul className="space-y-4">
+          
           <li>
             <Link
               href="/Learn/Introduction_to_course"
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+              className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white  "
             >
               1. บทนำ (Introduction)
             </Link>
@@ -32,13 +33,18 @@ export default function Learn() {
               2. Business Model Canvas
             </Link>
           </li>
+          
+          
           <li>
-            <button
-              onClick={() => toggleSubmenu("ValuePropositionCanvas")}
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
-            >
-              3. Value Proposition Canvas
-            </button>
+          <button
+          onClick={() => {
+           toggleSubmenu("ValuePropositionCanvas");
+            window.location.href = "/Learn/Value_Proposition_Canvas"; // เปลี่ยนเส้นทาง
+            }}
+            className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+          >
+    3. Value Proposition Canvas
+  </button>
             {activeMenu === "ValuePropositionCanvas" && (
               <ul className="pl-8 mt-2 space-y-2">
                 <li>
@@ -68,8 +74,14 @@ export default function Learn() {
               4. Wireframe & Graphics
             </Link>
           </li>
+
+
+          
           <button
-              onClick={() => toggleSubmenu("Graphics_Design")}
+              onClick={() =>{
+                 toggleSubmenu("Graphics_Design");
+              window.location.href = "/Learn/Graphics_Design";
+              }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               5. Principles of Graphics Design
@@ -125,17 +137,20 @@ export default function Learn() {
 
           <li>
             <button
-              onClick={() => toggleSubmenu("Evaluation")}
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+             onClick={() => {
+              toggleSubmenu("Evaluation");
+              window.location.href = "/Learn/Evaluation/"; // เปลี่ยนเส้นทาง
+            }}
+              className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               8. Evaluation
             </button>
-           
+            
               <ul className="pl-8 mt-2 space-y-2">
                 <li>
                   <Link
                     href="/Learn/Evaluation/A_B_testing"
-                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                    className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white transition-colors"
                   >
                    1. A/B Testing
                   </Link>
@@ -162,12 +177,13 @@ export default function Learn() {
           </li>
         </ul>
       </div>
+
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
     
       
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-3xl font-bold mb-4 mt-10 ml-6">Heuristic Evaluation.</h2>
+      <h2 className="text-3xl font-bold mb-4 mt-10 ml-6">2. Heuristic Evaluation.</h2>
       <p className="text-gray-700 mb-12 ml-10">Heuristic Evaluation คือ วิธีการทดสอบความสามารถในการใช้งาน (Usability) ของผลิตภัณฑ์หรือระบบ เช่น เว็บไซต์หรือแอปพลิเคชัน โดยใช้หลักการหรือเกณฑ์ที่เรียกว่า 
         "Heuristics" ซึ่งเป็นหลักการที่ช่วยให้ผู้ประเมินสามารถตรวจสอบและระบุปัญหาที่อาจเกิดขึ้นในการออกแบบได้อย่างรวดเร็ว</p>
         <h3 className="text-xl font-semibold mb-2 ml-6">กระบวนการ Heuristic Evaluation ประกอบด้วยขั้นตอนหลัก ๆ ดังนี้: </h3>

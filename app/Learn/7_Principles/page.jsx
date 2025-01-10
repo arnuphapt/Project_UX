@@ -12,13 +12,14 @@ export default function Learn() {
   return(
 <div className="flex">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-100 h-auto p-4 border-r border-gray-300">
+      <div className="  fixed w-64 bg-white h-full  p-4 mt-10  ">
         <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
         <ul className="space-y-4">
+          
           <li>
             <Link
               href="/Learn/Introduction_to_course"
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white  "
             >
               1. บทนำ (Introduction)
             </Link>
@@ -29,16 +30,21 @@ export default function Learn() {
               href="/Learn/Business_Model_Canvas"
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
             >
-             2. Business Model Canvas
+              2. Business Model Canvas
             </Link>
           </li>
+          
+          
           <li>
-            <button
-              onClick={() => toggleSubmenu("ValuePropositionCanvas")}
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
-            >
-              3. Value Proposition Canvas
-            </button>
+          <button
+          onClick={() => {
+           toggleSubmenu("ValuePropositionCanvas");
+            window.location.href = "/Learn/Value_Proposition_Canvas"; // เปลี่ยนเส้นทาง
+            }}
+            className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+          >
+    3. Value Proposition Canvas
+  </button>
             {activeMenu === "ValuePropositionCanvas" && (
               <ul className="pl-8 mt-2 space-y-2">
                 <li>
@@ -68,8 +74,14 @@ export default function Learn() {
               4. Wireframe & Graphics
             </Link>
           </li>
+
+
+          
           <button
-              onClick={() => toggleSubmenu("Graphics_Design")}
+              onClick={() =>{
+                 toggleSubmenu("Graphics_Design");
+              window.location.href = "/Learn/Graphics_Design";
+              }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               5. Principles of Graphics Design
@@ -108,7 +120,7 @@ export default function Learn() {
           <li>
             <Link
               href="/Learn/7_Principles"
-              className="block px-4 py-2 rounded-lg bg-black text-white hover:bg-blue-500 hover:text-white transition-colors"
+              className="block px-4 py-2 rounded-lg bg-black text-white  hover:bg-blue-500 hover:text-white transition-colors"
             >
              6. Seven Principles
             </Link>
@@ -119,13 +131,17 @@ export default function Learn() {
               href="/Learn/8_GoldenRules"
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
             >
-            7. Eight Golden Rules
+             7. Eight Golden Rules
             </Link>
           </li>
 
           <li>
             <button
-              onClick={() => toggleSubmenu("Evaluation")}
+              onClick={() =>{
+
+               toggleSubmenu("Evaluation");
+               window.location.href = "/Learn/Evaluation";
+              }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               8. Evaluation
@@ -169,7 +185,7 @@ export default function Learn() {
     
      
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-3xl font-bold mb-4 mt-10 ml-6">7 principles</h2>
+      <h2 className="text-3xl font-bold mb-4 mt-10 ml-6">Lecture6. Seven Principles</h2>
       <p className="text-2xl font-semibold  mt-10 ml-10">เรียนรู้หลักการทั้งเจ็ดที่ช่วยทำให้เว็บไซต์ของคุณมีความน่าสนใจมากขึ้นโดย ดร. ซูซาน ไวน์เชงค์:</p>
         <h3 className=" font-semibold  text-gray-700 ml-10 mt-10">เริ่มจาก ดูวิดิโอ 7 principles that make your website more engaging และทำความเข้าใจ </h3>
         <div className="flex justify-center">

@@ -12,13 +12,14 @@ export default function Learn() {
   return(
 <div className="flex">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-100 h-auto p-4 border-r border-gray-300">
+      <div className="  fixed w-64 bg-white h-full  p-4 mt-10  ">
         <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
         <ul className="space-y-4">
+          
           <li>
             <Link
               href="/Learn/Introduction_to_course"
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+              className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white  "
             >
               1. บทนำ (Introduction)
             </Link>
@@ -32,13 +33,18 @@ export default function Learn() {
               2. Business Model Canvas
             </Link>
           </li>
+          
+          
           <li>
-            <button
-              onClick={() => toggleSubmenu("ValuePropositionCanvas")}
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
-            >
-              3. Value Proposition Canvas
-            </button>
+          <button
+          onClick={() => {
+           toggleSubmenu("ValuePropositionCanvas");
+            window.location.href = "/Learn/Value_Proposition_Canvas"; // เปลี่ยนเส้นทาง
+            }}
+            className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+          >
+    3. Value Proposition Canvas
+  </button>
             {activeMenu === "ValuePropositionCanvas" && (
               <ul className="pl-8 mt-2 space-y-2">
                 <li>
@@ -68,13 +74,19 @@ export default function Learn() {
               4. Wireframe & Graphics
             </Link>
           </li>
+
+
+          
           <button
-             
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+               onClick={() => {
+                toggleSubmenu("Graphics_Design");
+                window.location.href = "/Learn/Graphics_Design/"; // เปลี่ยนเส้นทาง
+              }}
+              className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               5. Principles of Graphics Design
             </button>
-           
+            
               <ul className="pl-8 mt-2 space-y-2">
                 <li>
                   <Link
@@ -125,7 +137,11 @@ export default function Learn() {
 
           <li>
             <button
-              onClick={() => toggleSubmenu("Evaluation")}
+              onClick={() =>{
+
+               toggleSubmenu("Evaluation");
+               window.location.href = "/Learn/Evaluation";
+              }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               8. Evaluation
@@ -168,9 +184,9 @@ export default function Learn() {
     
       
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-3xl font-semibold mb-4 mt-10 ml-6">3. COLOR THEORY</h2>
+      <h2 className="text-2xl font-semibold mb-4 mt-10 ml-6">3. COLOR THEORY</h2>
       <p className="text-gray-700 mb-12 ml-10">หรือทฤษฎีสี คือการศึกษาวิธีการที่สีต่างๆ สามารถทำงานร่วมกันและส่งผลต่อความรู้สึก การรับรู้ และการรับข้อมูลในงานออกแบบ โดยการใช้สีในทางที่ถูกต้องสามารถสร้างความสมดุลและความสวยงาม</p>
-<h3 className="text-2xl font-semibold mb-6 mt-6 ml-10">COLOR THEORY </h3>
+<h3 className="text-xl font-semibold mb-6 mt-6 ml-10">COLOR THEORY </h3>
 <img src="https://lthscomputerart.weebly.com/uploads/9/8/2/3/9823286/7397783_orig.jpg" alt="Principles of Graphics Design" className=" h-auto w-full max-w-xl mx-auto p-7  mb-6 " />
 <p className="text-gray-600 mb-4 ml-10" >สีเป็นองค์ประกอบที่สำคัญในงานออกแบบและศิลปะ เพราะมีผลกระทบต่อความรู้สึกและอารมณ์ของผู้รับชม ในทฤษฎีสี (Color Theory) มีหลายแนวทางในการจัดกลุ่มสีเพื่อนำมาใช้ในงานออกแบบ</p>
 <p className="text-gray-600 mb-4 ml-10" >สามารถอธิบายประเภทของการใช้สีในทฤษฎีสีได้ดังนี้ : </p>

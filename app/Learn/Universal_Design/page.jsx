@@ -12,13 +12,14 @@ export default function Learn() {
   return(
 <div className="flex">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-100 h-auto p-4 border-r border-gray-300">
+      <div className="  fixed w-64 bg-white h-full  p-4 mt-10  ">
         <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
         <ul className="space-y-4">
+          
           <li>
             <Link
               href="/Learn/Introduction_to_course"
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+              className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white  "
             >
               1. บทนำ (Introduction)
             </Link>
@@ -32,13 +33,18 @@ export default function Learn() {
               2. Business Model Canvas
             </Link>
           </li>
+          
+          
           <li>
-            <button
-              onClick={() => toggleSubmenu("ValuePropositionCanvas")}
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
-            >
-              3. Value Proposition Canvas
-            </button>
+          <button
+          onClick={() => {
+           toggleSubmenu("ValuePropositionCanvas");
+            window.location.href = "/Learn/Value_Proposition_Canvas"; // เปลี่ยนเส้นทาง
+            }}
+            className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+          >
+    3. Value Proposition Canvas
+  </button>
             {activeMenu === "ValuePropositionCanvas" && (
               <ul className="pl-8 mt-2 space-y-2">
                 <li>
@@ -68,8 +74,14 @@ export default function Learn() {
               4. Wireframe & Graphics
             </Link>
           </li>
+
+
+          
           <button
-              onClick={() => toggleSubmenu("Graphics_Design")}
+              onClick={() =>{
+                 toggleSubmenu("Graphics_Design");
+              window.location.href = "/Learn/Graphics_Design";
+              }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               5. Principles of Graphics Design
@@ -125,7 +137,11 @@ export default function Learn() {
 
           <li>
             <button
-              onClick={() => toggleSubmenu("Evaluation")}
+              onClick={() =>{
+
+               toggleSubmenu("Evaluation");
+               window.location.href = "/Learn/Evaluation";
+              }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               8. Evaluation
@@ -143,7 +159,7 @@ export default function Learn() {
                 <li>
                   <Link
                     href="/Learn/Evaluation/Heuristic_Evaluation"
-                    className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white transition-colors"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
                    2. Heuristic Evaluation
                   </Link>
@@ -162,14 +178,16 @@ export default function Learn() {
           </li>
         </ul>
       </div>
+
+
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-3xl font-bold mb-4 mt-10 ml-6">Universal Design -The Principles-</h2>
-        <h3 className="text-xl  font-semibold mb-2 ml-10">Universal Design คือ "การออกแบบและจัดวางสิ่งแวดล้อมเพื่อให้ทุกคนสามารถเข้าถึง เข้าใจ และใช้งานได้ในระดับสูงสุดเท่าที่จะเป็นไปได้ โดยไม่คำนึงถึงอายุ ขนาด หรือความพิการ " อ้างอิงจากพระราชบัญญัติความพิการของไอร์แลนด์ ปี 2005  </h3>
+      <h2 className="text-3xl font-semibold mb-4 mt-10 ml-6">Lecture9. Universal Design</h2>
+        <h3 className="text-xl   mb-2 ml-10">Universal Design คือ "การออกแบบและจัดวางสิ่งแวดล้อมเพื่อให้ทุกคนสามารถเข้าถึง เข้าใจ และใช้งานได้ในระดับสูงสุดเท่าที่จะเป็นไปได้ โดยไม่คำนึงถึงอายุ ขนาด หรือความพิการ " อ้างอิงจากพระราชบัญญัติความพิการของไอร์แลนด์ ปี 2005  </h3>
         <img src="/Universal_banner.png" alt="Universal_banner" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 " />
 
-          <h3 className="text-xl font-semibold mb-2 mt-6 ml-10">Universal Design -The Principles- มีทั้งหมด 7หัวข้อ ได้แก่ </h3>
+          <h3 className="text-xl  mb-4 mt-6 ml-10">Universal Design -The Principles- มีทั้งหมด 7หัวข้อ ได้แก่ </h3>
           <img src="/Principles_universal.png" alt="Principles_universal" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10 " />
         
           <ul class="list-disc p-5 ml-10  "> <span className="font-semibold  text-black ml-5 "> 1. Equitable Use (การใช้งานอย่างเสมอภาค) :</span> 

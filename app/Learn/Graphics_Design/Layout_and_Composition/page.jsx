@@ -13,13 +13,14 @@ export default function Learn() {
   return(
 <div className="flex">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-100 h-auto p-4 border-r border-gray-300">
+      <div className="  fixed w-64 bg-white h-full  p-4 mt-10  ">
         <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
         <ul className="space-y-4">
+          
           <li>
             <Link
               href="/Learn/Introduction_to_course"
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+              className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white  "
             >
               1. บทนำ (Introduction)
             </Link>
@@ -33,13 +34,18 @@ export default function Learn() {
               2. Business Model Canvas
             </Link>
           </li>
+          
+          
           <li>
-            <button
-              onClick={() => toggleSubmenu("ValuePropositionCanvas")}
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
-            >
-              3. Value Proposition Canvas
-            </button>
+          <button
+          onClick={() => {
+           toggleSubmenu("ValuePropositionCanvas");
+            window.location.href = "/Learn/Value_Proposition_Canvas"; // เปลี่ยนเส้นทาง
+            }}
+            className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+          >
+    3. Value Proposition Canvas
+  </button>
             {activeMenu === "ValuePropositionCanvas" && (
               <ul className="pl-8 mt-2 space-y-2">
                 <li>
@@ -69,9 +75,15 @@ export default function Learn() {
               4. Wireframe & Graphics
             </Link>
           </li>
+
+
+          
           <button
-             
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+              onClick={() => {
+                toggleSubmenu("Graphics_Design");
+                window.location.href = "/Learn/Graphics_Design/"; // เปลี่ยนเส้นทาง
+              }}
+              className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               5. Principles of Graphics Design
             </button>
@@ -96,14 +108,14 @@ export default function Learn() {
 		<li>
                   <Link
                     href="/Learn/Graphics_Design/Color_Theory"
-                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                    className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white transition-colors"
                   >
                     3. Color Theory
                   </Link>
                 </li>
 
               </ul>
-           
+            
          
           {/* Other main menu items */}
           <li>
@@ -126,7 +138,11 @@ export default function Learn() {
 
           <li>
             <button
-              onClick={() => toggleSubmenu("Evaluation")}
+              onClick={() =>{
+
+               toggleSubmenu("Evaluation");
+               window.location.href = "/Learn/Evaluation";
+              }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               8. Evaluation
@@ -163,13 +179,12 @@ export default function Learn() {
           </li>
         </ul>
       </div>
-
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
     
       
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-4xl font-semibold mb-4 mt-10 ml-6"> Layout And Composition</h2>
+      <h2 className="text-3xl font-semibold mb-4 mt-10 ml-6"> 1. Layout And Composition</h2>
       <p className="text-gray-600 mb-12 ml-10"> คือหลักการพื้นฐานในงานออกแบบ (Design) ที่เกี่ยวข้องกับการจัดองค์ประกอบต่างๆ ในงานให้มีความสมดุล น่าสนใจ และสื่อสารได้อย่างมีประสิทธิภาพ</p>
         <h3 className="text-xl font-semibold mb-2 ml-10">  สามารถแบ่งเป็น 3 หัวข้อได้แก่</h3>
           <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2056/posts/34238/image/19-10-04%20ART%20The%20Principles%20of%20DesignArtboard%201%20copy.jpg" alt="Principles of Graphics Design" className=" h-auto w-full max-w-3xl mx-auto p-5 mb-6" />

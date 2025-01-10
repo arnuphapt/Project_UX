@@ -12,13 +12,14 @@ export default function Learn() {
   return (
 <div className="flex">
       {/* Sidebar */}
-      <div className="w-64 bg-gray-100 h-auto p-4 border-r border-gray-300">
+      <div className="  fixed w-64 bg-white h-full  p-4 mt-10  ">
         <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
         <ul className="space-y-4">
+          
           <li>
             <Link
               href="/Learn/Introduction_to_course"
-              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+              className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white  "
             >
               1. บทนำ (Introduction)
             </Link>
@@ -32,29 +33,39 @@ export default function Learn() {
               2. Business Model Canvas
             </Link>
           </li>
+          
+          
           <li>
-            <button
-            className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
-            >3. Value Proposition Canvas
-            </button>
-            {/* แสดง Submenu ตลอดเวลา */}
-          <ul className="pl-8 mt-2 space-y-2">
-          <li>
-            <Link
-            href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX"
-            className="block px-4 py-2 rounded-lg bg-grey-500 hover:bg-blue-500 hover:text-white transition-colors "
-            >1. Customer Journey Maps in User Experience
-            </Link>
-          </li>  
-          <li>
-            <Link
-            href="/Learn/Value_Proposition_Canvas/VPC"
-            className="block px-4 py-2 rounded-lg bg-black text-white hover:bg-blue-500 hover:text-white"
-           >2. Value Proposition Canvas
-            </Link>
+          <button
+         onClick={() => {
+          toggleSubmenu("ValuePropositionCanvas");
+          window.location.href = "/Learn/Value_Proposition_Canvas"; // เปลี่ยนเส้นทาง
+        }}
+            className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+          >
+    3. Value Proposition Canvas
+  </button>
+            
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX"
+                    className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    1. Customer Journey Maps in User Experience
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Value_Proposition_Canvas/VPC"
+                    className="block px-4 py-2 rounded-lg  bg-black text-white hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    2. Value Proposition Canvas
+                  </Link>
+                </li>
+              </ul>
+            
           </li>
-        </ul>
-        </li>
           <li>
             <Link
               href="/Learn/WireFrame&Graphics"
@@ -63,8 +74,14 @@ export default function Learn() {
               4. Wireframe & Graphics
             </Link>
           </li>
+
+
+          
           <button
-              onClick={() => toggleSubmenu("Graphics_Design")}
+              onClick={() =>{
+                 toggleSubmenu("Graphics_Design");
+              window.location.href = "/Learn/Graphics_Design";
+              }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               5. Principles of Graphics Design
@@ -120,7 +137,11 @@ export default function Learn() {
 
           <li>
             <button
-              onClick={() => toggleSubmenu("Evaluation")}
+              onClick={() =>{
+
+               toggleSubmenu("Evaluation");
+               window.location.href = "/Learn/Evaluation";
+              }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               8. Evaluation
@@ -162,7 +183,7 @@ export default function Learn() {
     <div className="max-w-7xl mx-auto p-4">
       
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h3 className="text-2xl font-semibold mb-2 mt-8">Value Proposition Canvas</h3>
+      <h3 className="text-2xl font-semibold mb-2 mt-8 ml-6">2. Value Proposition Canvas</h3>
           
         <h3 className="text-xl  mb-2 mt-4 ml-10">ช่วยให้การตลาดเจาะลึกกลุ่มเป้าหมาย กลุ่มใหม่ กลุ่มใหม่ในกลุ่มใหม่ และลูกค้าที่มีหลายระดับได้อย่างแม่นยำ (CUSTOMER SEGMENT) เห็นคุณค่าทางธุรกิจได้ชัดเจน</h3>
         <img src="/VPC.png" alt="VPC" className=" h-auto w-full max-w-6xl mx-auto p-7  mb-6 mt-10  " />
@@ -235,7 +256,7 @@ export default function Learn() {
        
         
           
-<ul className="list-disc p-5 mt-20 mb-4"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
+<ul className="list-disc p-5 mt-20 mb-4 ml-6"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://drive.google.com/file/d/1TDhO7ExRsfZHxMSzotQOEkAMr07dH7lq/view?t=1s" target="_blank">VPC(VDO)</a></li>
           <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://martechmafia.net/strategy/from-business-model-canvas-to-value-proposition-design/" target="_blank">ตัวอย่าง VPC</a></li>
           
