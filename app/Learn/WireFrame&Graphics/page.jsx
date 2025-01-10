@@ -1,22 +1,184 @@
 
-import React from 'react';
-import Link from 'next/link';
-export default function learn() {
-  return (
-    <div className="max-w-7xl mx-auto p-4">
-    
-      <h2 className="text-4xl font-semibold mb-4 mt-20"> Wireframe & Graphics</h2>
-      
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h3 className="text-2xl font-semibold mb-2 mt-8">Wireframe คืออะไร ?</h3>
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+
+export default function Learn() {
+  const [activeMenu, setActiveMenu] = useState(null);
+
+  const toggleSubmenu = (menu) => {
+    setActiveMenu(activeMenu === menu ? null : menu);
+  };
+  return(
+
+<div className="flex">
+      {/* Sidebar */}
+      <div className="w-64 bg-gray-100 h-auto p-4 border-r border-gray-300">
+        <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
+        <ul className="space-y-4">
+          <li>
+            <Link
+              href="/Learn/Introduction_to_course"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+              1. บทนำ (Introduction)
+            </Link>
+          </li>
+         
+          <li>
+            <Link
+              href="/Learn/Business_Model_Canvas"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+              2. Business Model Canvas
+            </Link>
+          </li>
+          <li>
+            <button
+              onClick={() => toggleSubmenu("ValuePropositionCanvas")}
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              3. Value Proposition Canvas
+            </button>
+            {activeMenu === "ValuePropositionCanvas" && (
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    1. Customer Journey Maps in User Experience
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Value_Proposition_Canvas/VPC"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    2. Value Proposition Canvas
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+          <li>
+            <Link
+              href="/Learn/WireFrame&Graphics"
+              className="block px-4 py-2 rounded-lg bg-black text-white hover:bg-blue-500 hover:text-white transition-colors"
+            >
+              4. Wireframe & Graphics
+            </Link>
+          </li>
+          <button
+              onClick={() => toggleSubmenu("Graphics_Design")}
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              5. Principles of Graphics Design
+            </button>
+            {activeMenu === "Graphics_Design" && (
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Graphics_Design/Layout_and_Composition"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    1. Layout And Composition
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Graphics_Design/Psychology_Of_Color"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    2. The Psychology Of Color In Marketing And Branding
+                  </Link>
+                </li>
+		<li>
+                  <Link
+                    href="/Learn/Graphics_Design/Color_Theory"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    3. Color Theory
+                  </Link>
+                </li>
+
+              </ul>
+            )}
+         
+          {/* Other main menu items */}
+          <li>
+            <Link
+              href="/Learn/7_Principles"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             6. Seven Principles
+            </Link>
+          </li>
           
-        <h3 className="text-xl  mb-2 mt-4 ml-10">Wireframe คือเครื่องมือหรือแบบร่างที่ใช้ในการวางโครงสร้างและการออกแบบสำหรับเว็บไซต์, แอปพลิเคชัน หรือระบบดิจิทัลต่างๆ ก่อนที่จะเริ่มการพัฒนาเต็มรูปแบบ โดยมักจะนำเสนอในรูปแบบภาพสองมิติที่เรียบง่าย ซึ่งแสดงให้เห็นถึงองค์ประกอบหลัก ๆ</h3>
+          <li>
+            <Link
+              href="/Learn/8_GoldenRules"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             7. Eight Golden Rules
+            </Link>
+          </li>
+
+          <li>
+            <button
+              onClick={() => toggleSubmenu("Evaluation")}
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              8. Evaluation
+            </button>
+            {activeMenu === "Evaluation" && (
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Evaluation/A_B_testing"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                   1. A/B Testing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Evaluation/Heuristic_Evaluation"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                   2. Heuristic Evaluation
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          <li>
+            <Link
+              href="/Learn/Universal_Design"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             9. Universal Design -The Principles-
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+    
+      <div className="flex-1 p-6 ml-18">
+    <div className="max-w-7xl mx-auto p-4">
+      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
+      <h2 className="text-3xl font-bold  mb-2 mt-8 ml-6"> Wireframe & Graphics</h2>
+      <h3 className="text-2xl font-semibold mb-2 mt-8 ml-6">Wireframe คืออะไร ?</h3>
+          
+        <h3 className="text-xl  mb-2 mt-4 ml-10 text-gray-600">Wireframe คือเครื่องมือหรือแบบร่างที่ใช้ในการวางโครงสร้างและการออกแบบสำหรับเว็บไซต์, แอปพลิเคชัน หรือระบบดิจิทัลต่างๆ ก่อนที่จะเริ่มการพัฒนาเต็มรูปแบบ โดยมักจะนำเสนอในรูปแบบภาพสองมิติที่เรียบง่าย ซึ่งแสดงให้เห็นถึงองค์ประกอบหลัก ๆ</h3>
         <img src="/Wireframe.jpg" alt="Wireframe" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10  " />
-        <h3 className="text-2xl font-semibold mb-2 mt-4 ">WireFrame และ Prototypes ต่างกันอย่างไร ?</h3>
-        <h3 className="text-xl  mb-2 mt-4 ml-10">WireFrame และ Prototypes เป็นส่วนหนึ่งของกระบวนการออกแบบผลิตภัณฑ์ดิจิทัล เช่น เว็บไซต์หรือแอปพลิเคชัน แต่ทั้งสองมีจุดประสงค์และความละเอียดที่แตกต่างกันชัดเจน ดังนี้:</h3>
+        <h3 className="text-2xl font-semibold mb-2 mt-4 ml-10">WireFrame และ Prototypes ต่างกันอย่างไร ?</h3>
+        <h3 className="text-xl  mb-2 mt-4 ml-10 text-gray-600">WireFrame และ Prototypes เป็นส่วนหนึ่งของกระบวนการออกแบบผลิตภัณฑ์ดิจิทัล เช่น เว็บไซต์หรือแอปพลิเคชัน แต่ทั้งสองมีจุดประสงค์และความละเอียดที่แตกต่างกันชัดเจน ดังนี้:</h3>
         <img src="https://theproductmanager.com/wp-content/uploads/sites/4/2022/02/PRD-%E2%80%93-Keyword-%E2%80%93-prototyping-vs-wireframing-1200x630.png" alt="Wireframe" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10  " />
        
-        <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5"> WireFrame</span> 
+        <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-10"> WireFrame</span> 
           <p className="mb-2 text-gray-600 ml-20 mt-4"> Wireframe เป็นแบบร่างที่แสดงโครงสร้างพื้นฐานของหน้าจอหรือหน้าเว็บ โดยเน้นการจัดวางองค์ประกอบต่าง ๆ เช่น ตำแหน่งของเมนู, ปุ่ม, ข้อความ หรือรูปภาพ</p>
           <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">รายละเอียด :</span> 
           <ul class="list-none">
@@ -38,7 +200,7 @@ export default function learn() {
           </ul>
 
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5"> Prototype</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-10"> Prototype</span> 
           <p className="mb-2 text-gray-600 ml-20 mt-4"> Prototype เป็นเวอร์ชันจำลองที่มีรายละเอียดมากขึ้น แสดงให้เห็นว่าเว็บไซต์หรือแอปจะทำงานอย่างไร โดยมักรวมถึงการโต้ตอบและแอนิเมชัน</p>
           <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">รายละเอียด :</span> 
           <ul class="list-none">
@@ -61,8 +223,8 @@ export default function learn() {
 
 
 
-          <h3 className="text-2xl font-semibold mb-2 mt-4 ">Development with WireFrames :Types</h3>
-        <h3 className="text-xl  mb-2 mt-4 ml-10">คือกระบวนการพัฒนาผลิตภัณฑ์ดิจิทัล เช่น เว็บไซต์หรือแอปพลิเคชัน โดยมีการใช้ Wireframe เป็นเครื่องมือสำคัญในขั้นตอนการออกแบบและการวางแผนโครงสร้าง ซึ่งช่วยให้ทีมพัฒนาและผู้มีส่วนได้ส่วนเสียสามารถเข้าใจแนวคิดหลักของโปรเจกต์ได้ตั้งแต่เริ่มต้น ก่อนที่จะเริ่มการออกแบบหรือเขียนโค้ดจริง โดยแบ่งเป็น2อย่าง ได้แก่</h3>
+          <h3 className="text-2xl font-semibold mb-2 mt-4 ml-10 ">Development with WireFrames :Types</h3>
+        <h3 className="text-xl  mb-2 mt-4 ml-10 text-gray-600">คือกระบวนการพัฒนาผลิตภัณฑ์ดิจิทัล เช่น เว็บไซต์หรือแอปพลิเคชัน โดยมีการใช้ Wireframe เป็นเครื่องมือสำคัญในขั้นตอนการออกแบบและการวางแผนโครงสร้าง ซึ่งช่วยให้ทีมพัฒนาและผู้มีส่วนได้ส่วนเสียสามารถเข้าใจแนวคิดหลักของโปรเจกต์ได้ตั้งแต่เริ่มต้น ก่อนที่จะเริ่มการออกแบบหรือเขียนโค้ดจริง โดยแบ่งเป็น2อย่าง ได้แก่</h3>
         <img src="https://tigosoftware.com/sites/default/files/2023-11/wireframe.jpg" alt="Wireframe" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10  " />
        
         <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">1. Storyboard Wireframe</span> 
@@ -107,11 +269,11 @@ export default function learn() {
           
           </ul>
           <img src="/storyvsFuntional.png" alt="storyvsFuntional" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10  " />
-          <h3 className="text-2xl font-semibold mb-2 mt-10 ">Step For WireFraming </h3>
+          <h3 className="text-2xl font-semibold mb-2 mt-10 ml-10">Step For WireFraming </h3>
           <img src="/Stepforwireframe.png" alt="storyvsFuntional" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10  " />
           
           
-          <h3 className="text-2xl font-semibold mb-2 mt-10 ">Wireframe Tips </h3>
+          <h3 className="text-2xl font-semibold mb-2 mt-10 ml-10 ">Wireframe Tips </h3>
           
           <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">1. Keep them Simple</span> 
           
@@ -150,7 +312,7 @@ export default function learn() {
 
 
           
-<ul className="list-disc p-5 mt-20 mb-4"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
+<ul className="list-disc p-5 mt-20 ml-10"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://drive.google.com/drive/folders/1ycXvEYELJjxjI-YqKSlLWEfzQd_1EEpF" target="_blank">Video บันทึกการสอน</a></li>
           <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://drive.google.com/file/d/1FAkiQ_kq61iBOS-5qoM5SAbG1AEv-CAc/view" target="_blank">Gestal's Theory</a></li>
           
@@ -223,8 +385,8 @@ export default function learn() {
     </li>
   </ul>
 </div>
-
- 
+</div>
+</div>
 </div>
 </div>
   );

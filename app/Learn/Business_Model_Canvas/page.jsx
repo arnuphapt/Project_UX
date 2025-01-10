@@ -1,77 +1,234 @@
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-export default function learn() {
- 
- 
+import React, { useState } from "react";
+import Link from "next/link";
+
+export default function Learn() {
+  const [activeMenu, setActiveMenu] = useState(null);
+
+  const toggleSubmenu = (menu) => {
+    setActiveMenu(activeMenu === menu ? null : menu);
+  };
   return (
-    <div className="max-w-7xl mx-auto p-4">
-    
-      <h2 className="text-4xl font-semibold mb-10 mt-20">Lecture2. Business Model Canvas</h2>
-      
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-        <h3 className="text-3xl font-semibold mb-2">Business Model Canvas (BMC) </h3>
+<div className="flex">
+      {/* Sidebar */}
+      <div className="w-64 bg-gray-100 h-auto p-4 border-r border-gray-300">
+        <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
+        <ul className="space-y-4">
+          <li>
+            <Link
+              href="/Learn/Introduction_to_course"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+              1. บทนำ (Introduction)
+            </Link>
+          </li>
+         
+          <li>
+            <Link
+              href="/Learn/Business_Model_Canvas"
+              className="block px-4 py-2 rounded-lg bg-black text-white hover:bg-blue-500 hover:text-white"
+            >
+              2. Business Model Canvas
+            </Link>
+          </li>
+          <li>
+            <button
+              onClick={() => toggleSubmenu("ValuePropositionCanvas")}
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              3. Value Proposition Canvas
+            </button>
+            {activeMenu === "ValuePropositionCanvas" && (
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    1. Customer Journey Maps in User Experience
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Value_Proposition_Canvas/VPC"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    2. Value Proposition Canvas
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+          <li>
+            <Link
+              href="/Learn/WireFrame&Graphics"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+              4. Wireframe & Graphics
+            </Link>
+          </li>
+          <button
+              onClick={() => toggleSubmenu("Graphics_Design")}
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              5. Principles of Graphics Design
+            </button>
+            {activeMenu === "Graphics_Design" && (
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Graphics_Design/Layout_and_Composition"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    1. Layout And Composition
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Graphics_Design/Psychology_Of_Color"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    2. The Psychology Of Color In Marketing And Branding
+                  </Link>
+                </li>
+		<li>
+                  <Link
+                    href="/Learn/Graphics_Design/Color_Theory"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    3. Color Theory
+                  </Link>
+                </li>
+
+              </ul>
+            )}
+         
+          {/* Other main menu items */}
+          <li>
+            <Link
+              href="/Learn/7_Principles"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             6. Seven Principles
+            </Link>
+          </li>
+          
+          <li>
+            <Link
+              href="/Learn/8_GoldenRules"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             7. Eight Golden Rules
+            </Link>
+          </li>
+
+          <li>
+            <button
+              onClick={() => toggleSubmenu("Evaluation")}
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              8. Evaluation
+            </button>
+            {activeMenu === "Evaluation" && (
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Evaluation/A_B_testing"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                   1. A/B Testing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Evaluation/Heuristic_Evaluation"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                   2. Heuristic Evaluation
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          <li>
+            <Link
+              href="/Learn/Universal_Design"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             9. Universal Design -The Principles-
+            </Link>
+          </li>
+        </ul>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 p-6 ml-18">
+        <div className="max-w-7xl mx-auto bg-white shadow-md rounded-lg border border-gray-300">
+          <h1 className="text-2xl font-bold mb-4 m-6">Lecture 2 Business Model Canvas (BMC)</h1>
+          
         <div className="flex justify-center">
         
         <img src="/BMC.png" alt="BMC" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 " />
 
         </div>
-        <h3 className="text-2xl font-semibold mb-2">1. Business Model Canvas คืออะไร ? </h3>
-          <h3 className="text-l  mb-2 mt-6 ml-4">Business Model Canvas (BMC) คือเครื่องมือที่ใช้ในการวางแผนและวิเคราะห์โมเดลธุรกิจในรูปแบบที่เข้าใจง่ายและมีโครงสร้างชัดเจน ถูกพัฒนาโดย Alexander Osterwalder โดยแบ่งองค์ประกอบสำคัญออกเป็น 9 ส่วน เพื่อให้ครอบคลุมส่วนสำคัญ ๆ ต่อธุรกิจทุกประเภท
+        <h3 className="text-2xl font-semibold mb-2 ml-6">1. Business Model Canvas คืออะไร ? </h3>
+          <h3 className="text-l  mb-2 mt-6 ml-6">Business Model Canvas (BMC) คือเครื่องมือที่ใช้ในการวางแผนและวิเคราะห์โมเดลธุรกิจในรูปแบบที่เข้าใจง่ายและมีโครงสร้างชัดเจน ถูกพัฒนาโดย Alexander Osterwalder โดยแบ่งองค์ประกอบสำคัญออกเป็น 9 ส่วน เพื่อให้ครอบคลุมส่วนสำคัญ ๆ ต่อธุรกิจทุกประเภท
             การออกแบบ Business Model Canvas จำนวน 9 ส่วนนั้น เพื่อตอบคำถามสำคัญทางธุรกิจ คือ ทำอะไร(What) ทำเพื่อใคร(Who) ทำอย่างไร(How) ทำแล้วคุ้มค่าเพียงใด(Money) จากนั้นเขียนลงบนผืนผ้า Business Model Canvas (BMC) ขององค์กร  </h3>
             <img src="https://thewisdom.co/wp-content/uploads/2021/08/business-model-canvas-1024x714.jpg" alt="BMC" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 " />
 
-         <h3 className="text-xl font-semibold ml-4 mb-2">9 องค์ประกอบของ Business Model Canvas</h3>
+         <h3 className="text-xl font-semibold ml-6 mb-2">9 องค์ประกอบของ Business Model Canvas</h3>
           
           
-          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-4">1. กลุ่มลูกค้าเป้าหมาย ( Customer Segments ) :</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-6">1. กลุ่มลูกค้าเป้าหมาย ( Customer Segments ) :</span> 
           <li className=" text-gray-700 ml-10"> ใครคือกลุ่มเป้าหมายของธุรกิจ?</li>
           <li className="mb-2 text-gray-700 ml-10"> ธุรกิจให้คุณค่ากับกลุ่มลูกค้ากลุ่มไหน?</li>
           </ul>
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-4">2. คุณค่าของสินค้าและบริการที่นำเสนอ ( Value Propositions ) :</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-6">2. คุณค่าของสินค้าและบริการที่นำเสนอ ( Value Propositions ) :</span> 
           <li className=" text-gray-700 ml-10"> ธุรกิจเสนออะไรให้ลูกค้า?</li>
           <li className="mb-2 text-gray-700 ml-10"> สินค้าหรือบริการตอบสนองความต้องการของลูกค้าอย่างไร?</li>
           </ul>
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-4">3. ช่องทางการเข้าถึงลูกค้า ( Channels ) :</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-6">3. ช่องทางการเข้าถึงลูกค้า ( Channels ) :</span> 
           <li className=" text-gray-700 ml-10"> ธุรกิจจะเข้าถึงลูกค้าอย่างไร?</li>
           <li className="mb-2 text-gray-700 ml-10"> ช่องทางไหนที่ลูกค้าอยากให้ใช้?</li>
           </ul>
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-4">4. ความสัมพันธ์กับลูกค้า ( Customer Relationships ) :</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-6">4. ความสัมพันธ์กับลูกค้า ( Customer Relationships ) :</span> 
           <li className=" text-gray-700 ml-10"> ธุรกิจจะสร้างและรักษาความสัมพันธ์กับลูกค้าอย่างไร?</li>
           <li className="mb-2 text-gray-700 ml-10"> ลูกค้าคาดหวังการปฏิสัมพันธ์แบบไหน?</li>
           </ul>
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-4">5. รูปแบบของรายได้ ( Revenue Streams ) :</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-6">5. รูปแบบของรายได้ ( Revenue Streams ) :</span> 
           <li className=" text-gray-700 ml-10"> ธุรกิจสร้างรายได้จากไหน? </li>
           <li className="mb-2 text-gray-700 ml-10"> รูปแบบการจ่ายเงินคืออะไร (เช่น ขายตรง, ค่าสมาชิก)? </li>
           </ul>
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-4">6. ทรัพยากรสำคัญ ( Key Resources ) :</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-6">6. ทรัพยากรสำคัญ ( Key Resources ) :</span> 
           <li className=" text-gray-700 ml-10"> ธุรกิจต้องการอะไรเพื่อดำเนินงาน? </li>
           <li className="mb-2 text-gray-700 ml-10"> เช่น ทรัพยากรทางกายภาพ, เงินทุน, บุคลากร </li>
           </ul>
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-4">7. กิจกรรมหลัก ( Key Activities ) :</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-6">7. กิจกรรมหลัก ( Key Activities ) :</span> 
           <li className=" text-gray-700 ml-10"> ธุรกิจต้องทำอะไรเพื่อส่งมอบคุณค่า? </li>
           <li className="mb-2 text-gray-700 ml-10"> เช่น การผลิต, การตลาด, การจัดส่ง </li>
           </ul>
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-4">8. พันธมิตรหลัก ( Key Partnerships ) :</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-6">8. พันธมิตรหลัก ( Key Partnerships ) :</span> 
           <li className=" text-gray-700 ml-10"> ธุรกิจต้องการร่วมมือกับใครบ้าง? </li>
           <li className="mb-2 text-gray-700 ml-10"> ใครช่วยสนับสนุนหรือช่วยลดความเสี่ยง? </li>
           </ul>
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-4">9. โครงสร้างต้นทุน ( Cost Structure ) :</span> 
+          <ul class="list-disc p-5"> <span className="font-semibold  text-gray-600 ml-6">9. โครงสร้างต้นทุน ( Cost Structure ) :</span> 
           <li className=" text-gray-700 ml-10"> อะไรคือค่าใช้จ่ายหลักของธุรกิจ? </li>
           <li className="mb-2 text-gray-700 ml-10"> ต้นทุนไหนที่มีผลกระทบมากที่สุด? </li>
           </ul>
 
-          <h3 className="text-2xl font-semibold mb-2">2. วิธีการวิเคราะห์ความสัมพันธ์ </h3>
+          <h3 className="text-2xl font-semibold mb-2 ml-6">2. วิธีการวิเคราะห์ความสัมพันธ์ </h3>
           <h3 className="text-l  mb-2 mt-6 ml-4">เป็นการตรวจสอบว่าแต่ละองค์ประกอบเชื่อมโยงและส่งผลซึ่งกันและกันอย่างไร เพื่อให้ธุรกิจมีความสมดุลและสามารถดำเนินงานได้อย่างราบรื่น</h3>
-          <h3 className="text-l  font-semibold mb-2 mt-10 ml-4">1. ขั้นตอนการระบุกลุ่มลูกค้าเป้าหมายและผลิตภัณฑ์</h3>
+          <h3 className="text-l  font-semibold mb-2 mt-10 ml-6">1. ขั้นตอนการระบุกลุ่มลูกค้าเป้าหมายและผลิตภัณฑ์</h3>
           <img src="/GoalsandProduct.png" alt="BMC" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-6 " />
           <h3 className="text-l  text-red-500 mb-2 mt-10 ml-10">ข้อควรระวัง</h3>
           <h3 className="text-l  mb-2 mt-3 ml-10">คุณจะต้องแยกข้อมูลที่เกิดจากการสังเคราะห์และวิเคราะห์ข้อมูลจากการศึกษาพฤติกรรมกลุ่มลูกค้าเป้าหมายผ่าน Google, Facebook, IG, Website Shopping Online ก็เป็นอีกหนึ่งแหล่งข้อมูลในการวิเคราะห์กลุ่มลูกค้าเป้าหมายได้</h3>
@@ -82,7 +239,7 @@ export default function learn() {
         <h3 className="text-l  mb-2 mt-3 ml-10">คุณจะต้องสร้างผลิตภัณฑ์หรือบริการที่สนับสนุน ให้การช่วยเหลือลูกค้าตามที่ลูกค้าคาดหวังก่อนที่จะขายสินค้า/บริการให้กับลูกค้า เมื่อคุณรู้จักนิสัยของลูกค้าของคุณแล้ว คุณจำเป็นจะต้องเลือกช่องทางการสื่อสารที่กลุ่มลูกค้าเป้าหมายของคุณใช้อยู่เป็นประจำเพื่อให้เกิดความสะดวกในการสื่อสาร</h3>
         
         
-        <h3 className="text-l  font-semibold mb-2 mt-10 ml-4">2. ขั้นตอนการระบุความสัมพันธ์กับลูกค้า</h3>
+        <h3 className="text-l  font-semibold mb-2 mt-10 ml-10 ">2. ขั้นตอนการระบุความสัมพันธ์กับลูกค้า</h3>
             <img src="/CustomerRelationships.png" alt="BMC" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-6 " />
             <h3 className="text-l  text-red-500 mb-2 mt-10 ml-10">ข้อควรระวังการใส่ข้อมูลในตาราง</h3>
             <h3 className="text-l  mb-2 mt-3 ml-10">การนำระบบ Aftersales Services มาใช้ถือเป็นเรื่องดีที่จะทำให้ลูกค้ารู้สึกว่าเว็บไซต์ของคุณมีชีวิตและมีคนทำงานอยู่จริงๆ ไม่ได้เป็นแค่ระบบซื้อขายสินค้าเท่านั้น
@@ -93,7 +250,7 @@ export default function learn() {
 
 สมัยนี้มีระบบ Mobile Application, Chat Bot ที่ราคาถูกลง และมีความสะดวกในการใช้งานหลากหลายมากขึ้น</h3>
 
-        <h3 className="text-l  font-semibold mb-2 mt-10 ml-4">3. ขั้นตอนการระบุความสัมพันธ์โครงสร้างต้นทุน</h3>
+        <h3 className="text-l  font-semibold mb-2 mt-10 ml-10">3. ขั้นตอนการระบุความสัมพันธ์โครงสร้างต้นทุน</h3>
         <img src="/CostStructure.png" alt="BMC" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-6 " />
         <h3 className="text-l  text-red-500 mb-2 mt-10 ml-10">ข้อควรระวังการใส่ข้อมูลในตาราง</h3>
         <h3 className="text-l  mb-2 mt-3 ml-10">พิจารณาความคุ้มค่าก่อนตัดสินใจลงทุนในทรัพยากรต่างๆ ไม่ว่าจะเป็นเงิน อุปกรณ์-เครื่องมือ หรือ การฝึกอบรมพนักงาน ควรวิเคราะห์ให้รอบคอบว่าคุ้มค่าที่จะลงทุนไปหรือไม่
@@ -102,7 +259,7 @@ export default function learn() {
 
 ดังนั้นเมื่อประกอบการตัดสินใจ ควรไปวิเคราะห์รายละเอียดการลงทุนแต่ละรายการให้ละเอียด และดูงบประมาณโดยรวมของโครงการ เพราะตัวเลขทางบัญชีที่ปรากฏในงบดุลและงบกำไรขาดทุน อาจไม่เหมือนกับตัวเลขที่เกี่ยวข้องกับตัวเลข 2, 7, 8</h3>
 
-        <h3 className="text-l  font-semibold mb-2 mt-10 ml-4">4. ขั้นตอนการระบุความสัมพันธ์ลูกค้ากับรายได้</h3>
+        <h3 className="text-l  font-semibold mb-2 mt-10 ml-10">4. ขั้นตอนการระบุความสัมพันธ์ลูกค้ากับรายได้</h3>
         <img src="/Money.png" alt="BMC" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-6 " />
         <h3 className="text-l  text-red-500 mb-2 mt-10 ml-10">ข้อควรระวังการใส่ข้อมูลในตาราง</h3>
         <h3 className="text-l  mb-2 mt-3 ml-10">(ปริมาณสินค้าที่ขายได้ x ราคาต่อหน่วย) – (ต้นทุนขาย + ค่าใช้จ่ายในการขาย) = กำไรก่อนภาษี
@@ -118,7 +275,7 @@ export default function learn() {
         </ul>
 
 
-        <h3 className="text-2xl font-semibold mb-2 mt-10">3. วิธีการกรอกข้อมูล </h3>
+        <h3 className="text-2xl font-semibold mb-2 mt-10 ml-6">3. วิธีการกรอกข้อมูล </h3>
 
         <h3 className="text-l  font-semibold mb-2 mt-10 ml-10">1. ทำอะไร (What)</h3>
         <h3 className="text-l  mb-2 mt-3 ml-10"><span className="text-l  font-semibold">Value Propositions (VP):</span> หมายถึงคุณค่าและประโยชน์ที่มอบให้กับลูกค้าเป้าหมาย ทำให้เกิดการตัดสินใจเลือกใช้สินค้าหรือบริการของคุณ อาจเป็นนวัตกรรมใหม่ การแก้ไขปัญหาเดิมๆ หรือการเพิ่มคุณสมบัติพิเศษที่ทำให้เกิดความพึงพอใจ มักนำไปสู่การตัดสินใจเลือกสินค้าและบริการของคุณมากกว่าคู่แข่งรายอื่น</h3>
@@ -146,7 +303,7 @@ export default function learn() {
 
        
        
-        <h3 className="text-2xl font-semibold mb-2 mt-10">4. ข้อแตกต่างระหว่าง Business Plan VS Business Model Canvas</h3>
+        <h3 className="text-2xl font-semibold mb-2 mt-10 ml-6">4. ข้อแตกต่างระหว่าง Business Plan VS Business Model Canvas</h3>
         <h3 className="text-l  mb-2 mt-3 ml-10"><span className="text-l  font-semibold">Business Plan (แผนธุรกิจ): </span> หมายถึงการออกแบบวิธีการทำงานด้านธุรกิจอย่างละเอียดล่วงหน้า ประมาณ 3-5 ปี โดยผู้บริหารมีหน้าที่กำหนดรูปแบบการทำงาน วิธีการบริหารจัดการ และการพยากรณ์รายได้ที่คาดว่าจะเพิ่มขึ้นในอนาคต</h3>
         <h3 className="text-l  mb-2 mt-3 ml-10"><span className="text-l  font-semibold">Business Model Canvas :</span> หมายถึง การกำหนดรูปแบบธุรกิจและความเชื่อมโยงของ กระบวนการคิดหรือทำธุรกิจของเจ้าของกิจการทั้ง 9 องค์ประกอบให้จบภายในเอกสารแผ่นเดียว เพื่อนำข้อมูลที่ได้มีการวิเคราะห์แล้วจาก Business Model Canvas ไปสู่ Business Plan ต่อไป</h3>
 
@@ -162,7 +319,7 @@ export default function learn() {
 
 
 
-<ul class="list-disc p-5 mt-20 mb-4"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
+<ul class="list-disc p-5 mt-20 mb-4 ml-6"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://www.canva.com/design/DAFl46G9uf8/vjRHsxQ71HHE_SadIUWmmA/view?utm_content=DAFl46G9uf8&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target="_blank">สไลด์เนื้อหาเพิ่มเติม</a></li>
           <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://vcharkarn.com/article/business-model-canvas-%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%A7%E0%B8%B4%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%B0%E0%B8%AB%E0%B9%8C%E0%B8%98%E0%B8%B8%E0%B8%A3%E0%B8%81%E0%B8%B4%E0%B8%88-%E0%B8%9E/" target="_blank">ตัวอย่าง BMC</a></li>
           <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.youtube.com/watch?v=e0RoOmhxhj4" target="_blank">บันทึกการบรรยาย BMC (VDO clip)</a></li>
@@ -170,7 +327,7 @@ export default function learn() {
           
 </ul>
 
-<div className="flex justify-center mt-10">
+<div className="flex justify-center mt-10 m-6">
   <ul className="flex space-x-2">
     
       <li>
@@ -230,13 +387,10 @@ export default function learn() {
       </Link>
     </li>
   </ul>
-</div>
 
 </div>
-</div>
-  
-   );
- }
- 
-
-
+        </div>
+      </div>
+    </div>
+  );
+}
