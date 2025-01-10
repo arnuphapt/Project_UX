@@ -94,7 +94,7 @@ function PinItem({ pin }) {
           <div className="flex flex-grow gap-2 items-center">
             <div className="flex flex-col flex-1">
                 <div>
-                  <h4 className="text-black font-medium text-large truncate">{pin.title}</h4>
+                  <h4 className="text-black font-medium text-large truncate ">{pin.title}</h4>
                   <div className='flex mt-1'>
                     {pin.viewCount !== undefined && (
                       <div className="mr-3 text-sm text-black flex items-center">

@@ -15,7 +15,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Skeleton
+  Spinner
 } from '@nextui-org/react';
 import { db } from '../../Shared/firebaseConfig';
 import { collection, addDoc, getDocs, orderBy, query, doc, deleteDoc, updateDoc } from 'firebase/firestore';
@@ -32,27 +32,14 @@ const FilterManager = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [editingFilter, setEditingFilter] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { 
-    isOpen: isDeleteModalOpen, 
-    onOpen: onDeleteModalOpen, 
-    onClose: onDeleteModalClose 
+  const {
+    isOpen: isDeleteModalOpen,
+    onOpen: onDeleteModalOpen,
+    onClose: onDeleteModalClose
   } = useDisclosure();
   const [filterToDelete, setFilterToDelete] = useState(null);
 
-  const FilterCardSkeleton = () => (
-    <Card className="w-full">
-      <CardHeader className="flex justify-between items-center px-4 pt-4">
-        <Skeleton className="h-6 w-32 rounded-lg"/>
-        <Skeleton className="h-8 w-8 rounded-lg"/>
-      </CardHeader>
-      <CardBody className="px-4 py-2">
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-full rounded-lg"/>
-          <Skeleton className="h-4 w-full rounded-lg"/>
-        </div>
-      </CardBody>
-    </Card>
-  );
+
 
   const fetchFilters = async () => {
     setIsLoading(true);
@@ -182,14 +169,18 @@ const FilterManager = () => {
           Add new Filter
         </Button>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {isLoading ? (
-          Array(8).fill().map((_, index) => (
-            <FilterCardSkeleton key={index} />
-          ))
+      {isLoading ? (
+          <div className="min-h-[200px] flex justify-center items-center">
+            <Spinner
+              size="lg"
+              color="primary"
+              label="Loading posts..."
+            />
+          </div>
         ) : (
-          filters.map((filter) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+          {filters.map((filter) => (
             <Card key={filter.id} className="w-full">
               <CardHeader className="flex justify-between items-center px-4 pt-4">
                 <h3 className="text-lg font-semibold">{filter.name}</h3>
@@ -235,9 +226,9 @@ const FilterManager = () => {
                 </div>
               </CardBody>
             </Card>
-          ))
-        )}
+        ))}
       </div>
+          )}
 
       {/* Add/Edit Modal */}
       <Modal isOpen={isOpen} onOpenChange={handleModalClose}>

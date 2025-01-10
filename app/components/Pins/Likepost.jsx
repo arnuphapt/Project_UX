@@ -30,7 +30,7 @@ const LikedPosts = ({ userEmail }) => {
   }
 
   if (likedPosts.length === 0) {
-    return <p>No liked posts found Let's Like some post.</p>;
+    return <p className='px-5'>No liked posts found Let's Like some post.</p>;
   }
 
   return (
