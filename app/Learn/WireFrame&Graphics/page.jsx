@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -6,15 +5,18 @@ import Link from "next/link";
 
 export default function Learn() {
   const [activeMenu, setActiveMenu] = useState(null);
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleSubmenu = (menu) => {
     setActiveMenu(activeMenu === menu ? null : menu);
   };
-  return(
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+  return (
 
 <div className="flex">
-      {/* Sidebar */}
-      <div className="  fixed w-64 bg-white h-full  p-4 mt-10  ">
+      {/* Normal Sidebar */}
+      <div className=" hidden lg:block fixed w-64 bg-white h-full  p-4 mt-10  ">
         <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
         <ul className="space-y-4">
           
@@ -181,6 +183,188 @@ export default function Learn() {
         </ul>
       </div>
 
+         {/* Hamburger Dropdown for mobile */}
+         <div className="lg:hidden fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50">
+        <button
+          className="bg-blue-500 text-white p-3 rounded-full shadow-md"
+          onClick={toggleMobileMenu}
+        >
+         <img
+          src="/study_icon.png" // เปลี่ยน path ให้ตรงกับตำแหน่งไฟล์ของคุณ
+          alt="Menu"
+          className="w-6 h-6" // ปรับขนาดของไอคอนตามที่ต้องการ
+          />
+        </button>
+        {isMobileMenuOpen && (
+          <div className="absolute bottom-14 left-1/2 transform -translate-x-1/2 w-screen bg-white shadow-md rounded-lg p-4">
+            <ul className="space-y-4">
+              <li>
+                <Link
+                  href="/Learn/Introduction_to_course"
+                  className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white"
+                  onClick={toggleMobileMenu}
+                >
+                  1. บทนำ (Introduction)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/Learn/Business_Model_Canvas"
+                  className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  onClick={toggleMobileMenu}
+                >
+                  2. Business Model Canvas
+                </Link>
+              </li>
+              <li>
+                <button
+                 onClick={() =>{
+                  toggleSubmenu("Value_Proposition_Canvas");
+               window.location.href = "/Learn/Value_Proposition_Canvas";
+               }}
+                  className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+                >
+                  3. Value Proposition Canvas
+                </button>
+                {activeMenu === "ValuePropositionCanvas" && (
+                  <ul className="pl-8 mt-2 space-y-2">
+                    <li>
+                      <Link
+                        href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX"
+                        className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                        onClick={toggleMobileMenu}
+                      >
+                        1. Customer Journey Maps in User Experience
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/Learn/Value_Proposition_Canvas/VPC"
+                        className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                        onClick={toggleMobileMenu}
+                      >
+                        2. Value Proposition Canvas
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </li>
+              <li>
+            <Link
+              href="/Learn/WireFrame&Graphics"
+              className="block px-4 py-2 rounded-lg bg-black text-white hover:bg-blue-500 hover:text-white transition-colors"
+            >
+              4. Wireframe & Graphics
+            </Link>
+          </li>
+
+
+          
+          <button
+              onClick={() =>{
+                 toggleSubmenu("Graphics_Design");
+              window.location.href = "/Learn/Graphics_Design";
+              }}
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              5. Principles of Graphics Design
+            </button>
+            {activeMenu === "Graphics_Design" && (
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Graphics_Design/Layout_and_Composition"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    1. Layout And Composition
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Graphics_Design/Psychology_Of_Color"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    2. The Psychology Of Color In Marketing And Branding
+                  </Link>
+                </li>
+		<li>
+                  <Link
+                    href="/Learn/Graphics_Design/Color_Theory"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    3. Color Theory
+                  </Link>
+                </li>
+
+              </ul>
+            )}
+         
+          {/* Other main menu items */}
+          <li>
+            <Link
+              href="/Learn/7_Principles"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             6. Seven Principles
+            </Link>
+          </li>
+          
+          <li>
+            <Link
+              href="/Learn/8_GoldenRules"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             7. Eight Golden Rules
+            </Link>
+          </li>
+
+          <li>
+            <button
+              onClick={() =>{
+
+               toggleSubmenu("Evaluation");
+               window.location.href = "/Learn/Evaluation";
+              }}
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              8. Evaluation
+            </button>
+            {activeMenu === "Evaluation" && (
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Evaluation/A_B_testing"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                   1. A/B Testing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Evaluation/Heuristic_Evaluation"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                   2. Heuristic Evaluation
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
+
+          <li>
+            <Link
+              href="/Learn/Universal_Design"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             9. Universal Design -The Principles-
+            </Link>
+          </li>
+            </ul>
+          </div>
+        )}
+      </div>
+
+
     
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
@@ -195,8 +379,8 @@ export default function Learn() {
         <img src="https://theproductmanager.com/wp-content/uploads/sites/4/2022/02/PRD-%E2%80%93-Keyword-%E2%80%93-prototyping-vs-wireframing-1200x630.png" alt="Wireframe" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10  " />
        
         <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-10"> WireFrame</span> 
-          <p className="mb-2 text-gray-600 ml-20 mt-4"> Wireframe เป็นแบบร่างที่แสดงโครงสร้างพื้นฐานของหน้าจอหรือหน้าเว็บ โดยเน้นการจัดวางองค์ประกอบต่าง ๆ เช่น ตำแหน่งของเมนู, ปุ่ม, ข้อความ หรือรูปภาพ</p>
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">รายละเอียด :</span> 
+          <p className="mb-2 text-gray-600 ml-10 mt-4"> Wireframe เป็นแบบร่างที่แสดงโครงสร้างพื้นฐานของหน้าจอหรือหน้าเว็บ โดยเน้นการจัดวางองค์ประกอบต่าง ๆ เช่น ตำแหน่งของเมนู, ปุ่ม, ข้อความ หรือรูปภาพ</p>
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">รายละเอียด :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">ใช้เส้น, กล่อง และข้อความเรียบง่าย</li>
           <li class="before:content-['-'] before:mr-2">ไม่มีสี, ฟอนต์จริง หรือรูปภาพที่สมจริง</li>
@@ -204,7 +388,7 @@ export default function Learn() {
           </ul>
           </li>
 
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">จุดประสงค์ :</span> 
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">จุดประสงค์ :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">ใช้ในการวางโครงร่างและแสดงโครงสร้างข้อมูล</li>
           <li class="before:content-['-'] before:mr-2">เป็นเครื่องมือในการวางแผนและสื่อสารระหว่างทีม</li>
@@ -217,8 +401,8 @@ export default function Learn() {
 
 
           <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-10"> Prototype</span> 
-          <p className="mb-2 text-gray-600 ml-20 mt-4"> Prototype เป็นเวอร์ชันจำลองที่มีรายละเอียดมากขึ้น แสดงให้เห็นว่าเว็บไซต์หรือแอปจะทำงานอย่างไร โดยมักรวมถึงการโต้ตอบและแอนิเมชัน</p>
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">รายละเอียด :</span> 
+          <p className="mb-2 text-gray-600 ml-10 mt-4"> Prototype เป็นเวอร์ชันจำลองที่มีรายละเอียดมากขึ้น แสดงให้เห็นว่าเว็บไซต์หรือแอปจะทำงานอย่างไร โดยมักรวมถึงการโต้ตอบและแอนิเมชัน</p>
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">รายละเอียด :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">มีสี, ฟอนต์จริง, รูปภาพ และองค์ประกอบที่สมจริง</li>
           <li class="before:content-['-'] before:mr-2">รองรับการโต้ตอบ เช่น การคลิกปุ่มหรือการสลับหน้าจอ</li>
@@ -226,7 +410,7 @@ export default function Learn() {
           </ul>
           </li>
 
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">จุดประสงค์ :</span> 
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">จุดประสงค์ :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">ทดสอบประสบการณ์ผู้ใช้ (UX)</li>
           <li class="before:content-['-'] before:mr-2">สร้างความเข้าใจเกี่ยวกับการทำงานของระบบ</li>
@@ -244,8 +428,8 @@ export default function Learn() {
         <img src="https://tigosoftware.com/sites/default/files/2023-11/wireframe.jpg" alt="Wireframe" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10  " />
        
         <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">1. Storyboard Wireframe</span> 
-          <p className="mb-2 text-gray-600 ml-20 mt-4"> Storyboard Wireframe เป็นแบบร่างที่เน้นการเล่าเรื่อง (Storytelling) หรือแสดงลำดับการใช้งาน (User Flow) ผ่านหน้าจอหรือฟังก์ชันต่าง ๆ เพื่อให้เห็นภาพรวมว่าผู้ใช้งานจะโต้ตอบกับระบบอย่างไรตั้งแต่ต้นจนจบ</p>
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">จุดเด่น :</span> 
+          <p className="mb-2 text-gray-600 ml-10 mt-4"> Storyboard Wireframe เป็นแบบร่างที่เน้นการเล่าเรื่อง (Storytelling) หรือแสดงลำดับการใช้งาน (User Flow) ผ่านหน้าจอหรือฟังก์ชันต่าง ๆ เพื่อให้เห็นภาพรวมว่าผู้ใช้งานจะโต้ตอบกับระบบอย่างไรตั้งแต่ต้นจนจบ</p>
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">จุดเด่น :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">แสดง ลำดับเหตุการณ์ หรือขั้นตอนการทำงานในระบบ เช่น จากหน้าเข้าสู่ระบบไปยังหน้าหลัก และการทำงานของปุ่มต่าง ๆ</li>
           <li class="before:content-['-'] before:mr-2">เน้น การโฟกัสภาพรวม ว่าผู้ใช้จะเดินทางในระบบอย่างไร</li>
@@ -253,7 +437,7 @@ export default function Learn() {
           </ul>
           </li>
 
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">การใช้งาน :</span> 
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">การใช้งาน :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">เหมาะสำหรับขั้นตอนต้นของการพัฒนา</li>
           <li class="before:content-['-'] before:mr-2">ใช้ในการประชุมเพื่อสร้างความเข้าใจร่วมกันเกี่ยวกับโครงสร้างการเดินทางของผู้ใช้</li>
@@ -266,8 +450,8 @@ export default function Learn() {
 
 
           <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">2. Functional Wireframe</span> 
-          <p className="mb-2 text-gray-600 ml-20 mt-4"> Functional Wireframe เป็นแบบร่างที่เน้นการแสดงรายละเอียดเชิงลึกเกี่ยวกับฟังก์ชันการทำงาน (Functionality) ของแต่ละองค์ประกอบ เช่น ปุ่ม, ฟอร์ม หรือเมนู โดยแสดงให้เห็นว่าแต่ละส่วนจะทำงานอย่างไร</p>
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">จุดเด่น :</span> 
+          <p className="mb-2 text-gray-600 ml-10 mt-4"> Functional Wireframe เป็นแบบร่างที่เน้นการแสดงรายละเอียดเชิงลึกเกี่ยวกับฟังก์ชันการทำงาน (Functionality) ของแต่ละองค์ประกอบ เช่น ปุ่ม, ฟอร์ม หรือเมนู โดยแสดงให้เห็นว่าแต่ละส่วนจะทำงานอย่างไร</p>
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">จุดเด่น :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">แสดง รายละเอียดการทำงาน ของแต่ละองค์ประกอบ</li>
           <li class="before:content-['-'] before:mr-2">ระบุฟังก์ชันเฉพาะ เช่น "ปุ่มนี้เชื่อมไปหน้าไหน", "ฟอร์มนี้บันทึกข้อมูลลงฐานข้อมูลอย่างไร"</li>
@@ -275,7 +459,7 @@ export default function Learn() {
           </ul>
           </li>
 
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">การใช้งาน :</span> 
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">การใช้งาน :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">เหมาะสำหรับทีมพัฒนาและนักออกแบบ UI/UX</li>
           <li class="before:content-['-'] before:mr-2">ใช้สำหรับขั้นตอนกลางถึงปลายของการออกแบบ เพื่อเตรียมข้อมูลสำหรับการเขียนโค้ด</li>
@@ -293,16 +477,16 @@ export default function Learn() {
           
           <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">1. Keep them Simple</span> 
           
-          <li className="mb-2 text-gray-600 ml-20 mt-4"><span className="font-semibold  text-black ">อย่าทำให้ผู้ใช้ต้องคิดมาก :</span>  หมายถึงการออกแบบที่เข้าใจง่าย ไม่ซับซ้อน ผู้ใช้สามารถใช้งานได้ทันที</li>
-          <li className="mb-2 text-gray-600 ml-20 mt-4"><span className="font-semibold  text-black ">ง่ายต่อการเปลี่ยนแปลง :</span>  การออกแบบที่เรียบง่ายจะทำให้การปรับเปลี่ยนหรือแก้ไขในอนาคตเป็นเรื่องง่าย</li>
-          <li className="mb-2 text-gray-600 ml-20 mt-4"><span className="font-semibold  text-black ">เน้นเนื้อหา :</span>  การออกแบบควรเน้นที่การนำเสนอเนื้อหาสำคัญให้ชัดเจน ไม่รกตา</li>
-          <li className="mb-2 text-gray-600 ml-20 mt-4"><span className="font-semibold  text-black ">ความทันสมัย :</span>  การออกแบบที่ดีควรมีความคลาสสิก ไม่ตกยุค</li>
-          <li className="mb-2 text-gray-600 ml-20 mt-4"><span className="font-semibold  text-black ">สร้างแรงบันดาลใจ :</span>  การออกแบบควรกระตุ้นความรู้สึกและสร้างความประทับใจให้กับผู้ใช้งาน</li>
+          <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">อย่าทำให้ผู้ใช้ต้องคิดมาก :</span>  หมายถึงการออกแบบที่เข้าใจง่าย ไม่ซับซ้อน ผู้ใช้สามารถใช้งานได้ทันที</li>
+          <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">ง่ายต่อการเปลี่ยนแปลง :</span>  การออกแบบที่เรียบง่ายจะทำให้การปรับเปลี่ยนหรือแก้ไขในอนาคตเป็นเรื่องง่าย</li>
+          <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">เน้นเนื้อหา :</span>  การออกแบบควรเน้นที่การนำเสนอเนื้อหาสำคัญให้ชัดเจน ไม่รกตา</li>
+          <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">ความทันสมัย :</span>  การออกแบบที่ดีควรมีความคลาสสิก ไม่ตกยุค</li>
+          <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">สร้างแรงบันดาลใจ :</span>  การออกแบบควรกระตุ้นความรู้สึกและสร้างความประทับใจให้กับผู้ใช้งาน</li>
           
           </ul>
 
           <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">2. Use a grid</span> 
-          <li className="mb-2 text-gray-600 ml-20 mt-4"><span className="font-semibold  text-black ">Grid จะช่วยจัดระเบียบเนื้อหาของคุณ :</span>  หมายถึงการออกแบบที่เข้าใจง่าย ไม่ซับซ้อน ผู้ใช้สามารถใช้งานได้ทันที</li>
+          <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">Grid จะช่วยจัดระเบียบเนื้อหาของคุณ :</span>  หมายถึงการออกแบบที่เข้าใจง่าย ไม่ซับซ้อน ผู้ใช้สามารถใช้งานได้ทันที</li>
           </ul>
           <img src="/grid1.png" alt="grid" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10  " />
           <img src="/grid2.png" alt="grid" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10  " />
@@ -312,7 +496,7 @@ export default function Learn() {
          
          
           <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">4. Encourage feedback </span> 
-          <li className="mb-2 text-gray-600 ml-20 mt-4"><span className="font-semibold  text-black ">ทำให้ช่องให้ข้อเสนอแนะนั้นใช้งานง่ายที่สุดเท่าที่จะเป็นไปได้</span> มิฉะนั้น คุณจะพลาดข้อเสนอแนะที่ช่องนี้ถูกออกแบบมาเพื่อรวบรวม  </li>
+          <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">ทำให้ช่องให้ข้อเสนอแนะนั้นใช้งานง่ายที่สุดเท่าที่จะเป็นไปได้</span> มิฉะนั้น คุณจะพลาดข้อเสนอแนะที่ช่องนี้ถูกออกแบบมาเพื่อรวบรวม  </li>
           </ul>
           <img src="/feedback.png" alt="feedback" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10  " />
 
@@ -348,51 +532,13 @@ export default function Learn() {
         ก่อนหน้า 
       </Link>
     </li>
-    <li>
-      <Link href="/Learn/Introduction_to_course" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        1 
-      </Link>
-    </li>
-    <li>
-      <Link href="/Learn/Business_Model_Canvas" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        2
-      </Link>
-    </li>
-    <li>
-      <Link href="/Learn/Value_Proposition_Canvas" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        3
-      </Link> 
-    </li>
+    
     <li>
       <Link href="/Learn/WireFrame&Graphics" className="bg-blue-500 text-white px-3 py-1 rounded">
         4
       </Link>
     </li>
-    <li>
-      <Link href="/Learn/Graphics_Design" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        5
-      </Link>
-    </li>
-    <li>
-      <Link href="/Learn/7_Principles" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        6
-      </Link>
-    </li>
-    <li>
-      <Link href="/Learn/8_GoldenRules" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        7
-      </Link>
-    </li>
-    <li>
-      <Link href="/Learn/Evaluation" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        8
-      </Link>
-    </li>
-    <li>
-      <Link href="/Learn/Universal_Design" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        9
-      </Link>
-    </li>
+    
 
     <li>
       <Link href="/Learn/Graphics_Design" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">

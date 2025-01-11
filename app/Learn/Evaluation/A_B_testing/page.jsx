@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState } from "react";
@@ -6,14 +5,19 @@ import Link from "next/link";
 
 export default function Learn() {
   const [activeMenu, setActiveMenu] = useState(null);
-
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleSubmenu = (menu) => {
     setActiveMenu(activeMenu === menu ? null : menu);
   };
-  return(
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+  return (
+
 <div className="flex">
-      {/* Sidebar */}
-      <div className="  fixed w-64 bg-white h-full  p-4 mt-10  ">
+
+      {/* Normal Sidebar */}
+      <div className=" hidden lg:block fixed w-64 bg-white h-full  p-4 mt-10  ">
         <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
         <ul className="space-y-4">
           
@@ -138,10 +142,187 @@ export default function Learn() {
 
           <li>
             <button
-             onClick={() => {
+             onClick={() =>{
               toggleSubmenu("Evaluation");
-              window.location.href = "/Learn/Evaluation/"; // เปลี่ยนเส้นทาง
-            }}
+           window.location.href = "/Learn/Evaluation";
+           }}
+              className="block px-4 py-2 rounded-lg bg-black text-white hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              8. Evaluation
+            </button>
+            
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Evaluation/A_B_testing"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                   1. A/B Testing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Evaluation/Heuristic_Evaluation"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                   2. Heuristic Evaluation
+                  </Link>
+                </li>
+              </ul>
+            
+          </li>
+
+          <li>
+            <Link
+              href="/Learn/Universal_Design"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             9. Universal Design -The Principles-
+            </Link>
+          </li>
+        </ul>
+      </div>
+{/* Hamburger Dropdown for mobile */}
+<div className="lg:hidden fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50">
+        <button
+          className="bg-blue-500 text-white p-3 rounded-full shadow-md"
+          onClick={toggleMobileMenu}
+        >
+         <img
+          src="/study_icon.png" // เปลี่ยน path ให้ตรงกับตำแหน่งไฟล์ของคุณ
+          alt="Menu"
+          className="w-6 h-6" // ปรับขนาดของไอคอนตามที่ต้องการ
+          />
+        </button>
+        {isMobileMenuOpen && (
+          <div className="absolute bottom-14 left-1/2 transform -translate-x-1/2 w-screen bg-white shadow-md rounded-lg p-4">
+            <ul className="space-y-4">
+              <li>
+                <Link
+                  href="/Learn/Introduction_to_course"
+                  className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white"
+                  onClick={toggleMobileMenu}
+                >
+                  1. บทนำ (Introduction)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/Learn/Business_Model_Canvas"
+                  className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  onClick={toggleMobileMenu}
+                >
+                  2. Business Model Canvas
+                </Link>
+              </li>
+              <li>
+                <button
+                 onClick={() =>{
+                  toggleSubmenu("Value_Proposition_Canvas");
+               window.location.href = "/Learn/Value_Proposition_Canvas";
+               }}
+                  className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+                >
+                  3. Value Proposition Canvas
+                </button>
+                {activeMenu === "ValuePropositionCanvas" && (
+                  <ul className="pl-8 mt-2 space-y-2">
+                    <li>
+                      <Link
+                        href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX"
+                        className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                        onClick={toggleMobileMenu}
+                      >
+                        1. Customer Journey Maps in User Experience
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/Learn/Value_Proposition_Canvas/VPC"
+                        className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                        onClick={toggleMobileMenu}
+                      >
+                        2. Value Proposition Canvas
+                      </Link>
+                    </li>
+                  </ul>
+                )}
+              </li>
+              <li>
+            <Link
+              href="/Learn/WireFrame&Graphics"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+              4. Wireframe & Graphics
+            </Link>
+          </li>
+
+
+          
+          <button
+              onClick={() =>{
+                 toggleSubmenu("Graphics_Design");
+              window.location.href = "/Learn/Graphics_Design";
+              }}
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
+            >
+              5. Principles of Graphics Design
+            </button>
+            {activeMenu === "Graphics_Design" && (
+              <ul className="pl-8 mt-2 space-y-2">
+                <li>
+                  <Link
+                    href="/Learn/Graphics_Design/Layout_and_Composition"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    1. Layout And Composition
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/Learn/Graphics_Design/Psychology_Of_Color"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    2. The Psychology Of Color In Marketing And Branding
+                  </Link>
+                </li>
+		<li>
+                  <Link
+                    href="/Learn/Graphics_Design/Color_Theory"
+                    className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                  >
+                    3. Color Theory
+                  </Link>
+                </li>
+
+              </ul>
+            )}
+         
+          {/* Other main menu items */}
+          <li>
+            <Link
+              href="/Learn/7_Principles"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             6. Seven Principles
+            </Link>
+          </li>
+          
+          <li>
+            <Link
+              href="/Learn/8_GoldenRules"
+              className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+            >
+             7. Eight Golden Rules
+            </Link>
+          </li>
+
+          <li>
+            <button
+              onClick={() =>{
+                toggleSubmenu("Evaluation");
+             window.location.href = "/Learn/Evaluation";
+             }}
               className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
               8. Evaluation
@@ -177,7 +358,10 @@ export default function Learn() {
             </Link>
           </li>
         </ul>
+          </div>
+        )}
       </div>
+      
 
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4 ">
@@ -195,8 +379,8 @@ export default function Learn() {
           <img src="https://miro.medium.com/v2/resize:fit:1400/1*VhPfZIYkcnV-vWZYaAvgjg.jpeg" alt="A_B_Testing" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 " />
         
           <ul class="list-disc p-5 ml-6"> <span className="font-semibold  text-black ml-5">1. เป้าหมายของการทดสอบ (Goals) :</span> 
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">ความสำคัญ :</span> การกำหนดเป้าหมายชัดเจนจะทำให้ทราบว่าผลลัพธ์ที่คาดหวังคืออะไร ตัวอย่างเช่น เป้าหมายอาจเป็นการเพิ่มจำนวนคลิกปุ่มลงทะเบียน, เพิ่มอัตราการซื้อสินค้าจากหน้าเพจ, หรือปรับปรุงอัตราการมีส่วนร่วมกับเนื้อหา</li>
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">ตัวอย่างเป้าหมาย :</span> 
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">ความสำคัญ :</span> การกำหนดเป้าหมายชัดเจนจะทำให้ทราบว่าผลลัพธ์ที่คาดหวังคืออะไร ตัวอย่างเช่น เป้าหมายอาจเป็นการเพิ่มจำนวนคลิกปุ่มลงทะเบียน, เพิ่มอัตราการซื้อสินค้าจากหน้าเพจ, หรือปรับปรุงอัตราการมีส่วนร่วมกับเนื้อหา</li>
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">ตัวอย่างเป้าหมาย :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">เพิ่ม Conversion Rate บนหน้าเว็บขายสินค้า</li>
           <li class="before:content-['-'] before:mr-2">ลดอัตราการละทิ้งรถเข็นในหน้า checkout</li>
@@ -207,8 +391,8 @@ export default function Learn() {
           </ul>
 
           <ul class="list-disc p-5 ml-6"> <span className="font-semibold  text-black ml-5">2. ตัวแปรที่ใช้ในการทดสอบ (Variables) :</span> 
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">ความสำคัญ :</span> การเลือกตัวแปรที่จะทดสอบควรเป็นองค์ประกอบที่สามารถส่งผลกระทบต่อเป้าหมาย ตัวแปรที่ใช้ทดสอบใน A/B Testing อาจเป็นได้ทั้ง UI, UX, และข้อความที่ใช้ในหน้าเว็บ</li>
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">ตัวอย่างตัวแปร :</span> 
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">ความสำคัญ :</span> การเลือกตัวแปรที่จะทดสอบควรเป็นองค์ประกอบที่สามารถส่งผลกระทบต่อเป้าหมาย ตัวแปรที่ใช้ทดสอบใน A/B Testing อาจเป็นได้ทั้ง UI, UX, และข้อความที่ใช้ในหน้าเว็บ</li>
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">ตัวอย่างตัวแปร :</span> 
           <ul class="list-none">
           <li class="before:content-['-'] before:mr-2">สีหรือขนาดของปุ่ม CTA (Call to Action)</li>
           <li class="before:content-['-'] before:mr-2">การเปลี่ยนแปลงข้อความโฆษณาหรือ heading</li>
@@ -221,9 +405,9 @@ export default function Learn() {
           
           </ul>
           <ul class="list-disc p-5 ml-6"> <span className="font-semibold  text-black ml-5">3. กลุ่มตัวอย่างที่ใช้ในการทดสอบ (Sample Groups) :</span> 
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">ความสำคัญ :</span> การแบ่งกลุ่มตัวอย่างมีความสำคัญในการทำให้การทดสอบนั้นน่าเชื่อถือ โดยกลุ่มผู้ใช้จะถูกแบ่งออกเป็นสองกลุ่ม (หรือมากกว่า) เพื่อให้ได้รับประสบการณ์ที่แตกต่างกันตามแต่ละเวอร์ชันของการออกแบบ</li>
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">การเลือกกลุ่มตัวอย่าง :</span> ควรคำนึงถึงความหลากหลายและความสมดุล เพื่อให้ผลลัพธ์ที่ได้ไม่ลำเอียง กลุ่มตัวอย่างที่เลือกควรจะมีลักษณะเหมือนกันหรือมีพฤติกรรมการใช้งานใกล้เคียงกัน เช่น อายุ เพศ ตำแหน่งทางภูมิศาสตร์ หรือพฤติกรรมการใช้งานที่ผ่านมากับผลิตภัณฑ์</li>
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">ขนาดกลุ่มตัวอย่าง :</span>  การเลือกจำนวนคนที่มากพอจะทำให้ผลการทดสอบมีความน่าเชื่อถือมากขึ้น การมีขนาดกลุ่มตัวอย่างที่ใหญ่พอจะช่วยลดความคลาดเคลื่อนทางสถิติและทำให้ผลลัพธ์สามารถแปลความได้อย่างมั่นใจ</li>
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">ความสำคัญ :</span> การแบ่งกลุ่มตัวอย่างมีความสำคัญในการทำให้การทดสอบนั้นน่าเชื่อถือ โดยกลุ่มผู้ใช้จะถูกแบ่งออกเป็นสองกลุ่ม (หรือมากกว่า) เพื่อให้ได้รับประสบการณ์ที่แตกต่างกันตามแต่ละเวอร์ชันของการออกแบบ</li>
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">การเลือกกลุ่มตัวอย่าง :</span> ควรคำนึงถึงความหลากหลายและความสมดุล เพื่อให้ผลลัพธ์ที่ได้ไม่ลำเอียง กลุ่มตัวอย่างที่เลือกควรจะมีลักษณะเหมือนกันหรือมีพฤติกรรมการใช้งานใกล้เคียงกัน เช่น อายุ เพศ ตำแหน่งทางภูมิศาสตร์ หรือพฤติกรรมการใช้งานที่ผ่านมากับผลิตภัณฑ์</li>
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">ขนาดกลุ่มตัวอย่าง :</span>  การเลือกจำนวนคนที่มากพอจะทำให้ผลการทดสอบมีความน่าเชื่อถือมากขึ้น การมีขนาดกลุ่มตัวอย่างที่ใหญ่พอจะช่วยลดความคลาดเคลื่อนทางสถิติและทำให้ผลลัพธ์สามารถแปลความได้อย่างมั่นใจ</li>
           </ul>
           <img src="/cta.png" alt="A_B_Testing" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10 " />
 
@@ -232,7 +416,7 @@ export default function Learn() {
           <img src="https://www.searchenginejournal.com/wp-content/uploads/2023/08/best-landing-page-examples-64e6080f990bb-sej.png" alt="Landing page" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10 " />
 
           <ul class="list-disc p-5 ml-6"> <span className="font-semibold  text-black ml-5">2.1 จุดประสงค์ให้ชัดเจน :</span> 
-          <li className="mb-2 text-gray-600 ml-20"><span className="font-semibold  text-black ">ความสำคัญ :</span>กฏข้อแรกที่สำคัญที่สุดคือ "การโฟกัส" ไปที่จุดประสงค์เพียงแค่อย่างใดอย่างหนึ่ง คุณต้องตอบตัวเองให้ได้ก่อนว่า คุณต้องการจะใช้
+          <li className="mb-2 text-gray-600 ml-10"><span className="font-semibold  text-black ">ความสำคัญ :</span>กฏข้อแรกที่สำคัญที่สุดคือ "การโฟกัส" ไปที่จุดประสงค์เพียงแค่อย่างใดอย่างหนึ่ง คุณต้องตอบตัวเองให้ได้ก่อนว่า คุณต้องการจะใช้
           Landing Page ทำอะไร จะเก็บ E-mail List จะขายของ หรือ อยากจะให้คนลงทะเบียนเข้างานสัมมนา เป็นต้น</li>
         
           </ul>
@@ -250,11 +434,11 @@ export default function Learn() {
           </ul>
 
           <ul class="list-disc p-5 ml-6"> <span className="font-semibold  text-black ml-5">2.5 ถ้าจะยาว ต้องยาวแบบมีศิลปะ </span> 
-          <li className="mb-2 text-gray-600 ml-20"> วิธีการสร้าง Landing Page แบบยาวที่ดีนั้นจะต้องลงรายละเอียด, ต้องบิวท์ และ ต้องใส่ Call to action เป็นระยะ </li>
+          <li className="mb-2 text-gray-600 ml-10"> วิธีการสร้าง Landing Page แบบยาวที่ดีนั้นจะต้องลงรายละเอียด, ต้องบิวท์ และ ต้องใส่ Call to action เป็นระยะ </li>
           </ul>
 
           <ul class="list-disc p-5 ml-6"> <span className="font-semibold  text-black ml-5">2.6 ทดลอง </span> 
-          <li className="mb-2 text-gray-600 ml-20"> เทสต์อย่างน้อยที่สุด คือ 14 วัน </li>
+          <li className="mb-2 text-gray-600 ml-10"> เทสต์อย่างน้อยที่สุด คือ 14 วัน </li>
           </ul>
           
         
@@ -271,7 +455,18 @@ export default function Learn() {
           <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.cotactic.com/blog/what-is-bounce-rate/" target="_blank">What is Bounce-Rate?</a></li>
           
 </ul>
-
+{/* Pagination Section */}
+<div className="flex justify-center mt-10 mb-10">
+  <ul className="flex space-x-2">
+  <li>
+      <Link href="/Learn/Evaluation/Heuristic_Evaluation" className="bg-gray-300 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
+        ถัดไป
+      </Link>
+    </li>
+  
+    
+  </ul>
+</div>
 
 
 
