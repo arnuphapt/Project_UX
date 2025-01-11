@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
+
 export default function Learn() {
+  
   const [activeMenu, setActiveMenu] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleSubmenu = (menu) => {
@@ -12,15 +14,19 @@ export default function Learn() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+  
   return (
 
 <div className="flex">
 
       {/* Normal Sidebar */}
       <div className=" hidden lg:block fixed w-64 bg-white h-full  p-4 mt-10  ">
-        <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
-        <ul className="space-y-4">
-          
+        
+        <ul className="space-y-2">
+
+        <Link href="/Learn">
+        <h2 className="font-bold text-lg block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white">บทเรียน</h2>
+        </Link>
           <li>
             <Link
               href="/Learn/Introduction_to_course"
@@ -200,6 +206,9 @@ export default function Learn() {
         {isMobileMenuOpen && (
           <div className="absolute bottom-14 left-1/2 transform -translate-x-1/2 w-screen bg-white shadow-md rounded-lg p-4">
             <ul className="space-y-4">
+            <Link href="/Learn">
+        <h2 className="block px-4 py-2 rounded-lg  hover:bg-blue-500 hover:text-white">บทเรียน</h2>
+        </Link>
               <li>
                 <Link
                   href="/Learn/Introduction_to_course"
