@@ -101,7 +101,7 @@ const AwwardsPinItem = ({ pin }) => {
               {/* Action Buttons - Now at bottom right */}
               <div className="flex space-x-2 ml-4">
                 <button className="p-2 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/40 transition-colors">
-                  <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
                   </svg>
                 </button>
@@ -109,7 +109,7 @@ const AwwardsPinItem = ({ pin }) => {
                   onClick={handleLikeToggle}
                   className={`p-2 rounded-full ${hasLiked ? 'bg-red-500' : 'bg-white/20 backdrop-blur-sm hover:bg-white/40'} transition-colors`}
                 >
-                  <Heart className={`w-4 h-4 text-white ${hasLiked ? 'fill-white' : ''}`} />
+                  <Heart className={`w-6 h-6 text-white ${hasLiked ? 'fill-white' : ''}`} />
                 </button>
               </div>
             </div>

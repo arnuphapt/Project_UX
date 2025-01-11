@@ -2,29 +2,51 @@ import React, { useState, useEffect } from 'react';
 import { HiArrowUpCircle } from 'react-icons/hi2';
 import { Button, CircularProgress, Chip } from '@nextui-org/react';
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { useSession } from "next-auth/react";
 import { RxCross1 } from "react-icons/rx";
 
-// ประเภทของ UI elements ที่เราสนใจ
+// Logo characteristics
+const LOGO_CHARACTERISTICS = [
+  'wordmark', 'symbol', 'combination mark', 'emblem',
+  'minimalist', 'modern', 'vintage', 'geometric',
+  'abstract', 'mascot', 'lettermark', 'pictorial'
+];
+
+// Website components
+const WEBSITE_COMPONENTS = [
+  // Layout elements
+  'header', 'navbar', 'sidebar', 'footer', 'hero section',
+  'content area', 'grid layout', 'flex layout',
+  
+  // Interactive elements
+  'search bar', 'menu', 'dropdown', 'button', 'form',
+  'input field', 'checkbox', 'radio button',
+  
+  // Content elements
+  'card', 'carousel', 'slider', 'modal', 'popup',
+  'image gallery', 'video player', 'blog post',
+  
+  // Navigation
+  'breadcrumb', 'pagination', 'menu bar', 'tab navigation',
+  
+  // Common sections
+  'about section', 'contact form', 'pricing table',
+  'testimonial', 'feature section', 'CTA section'
+];
+
+// UI elements
 const UI_ELEMENTS = [
   'button', 'input', 'form', 'menu', 'navigation', 'sidebar', 'footer', 'header',
   'card', 'modal', 'dropdown', 'table', 'list', 'grid', 'carousel', 'slider',
   'chart', 'graph', 'icon', 'image', 'video', 'audio', 'map'
 ];
 
-// สีพื้นฐานที่เราสนใจ
+// Basic colors
 const BASIC_COLORS = [
   'white', 'black', 'gray', 'red', 'blue', 'green', 'yellow', 'purple',
   'pink', 'orange', 'brown', 'teal', 'cyan', 'indigo'
 ];
 
-// โทนสีที่เราสนใจ
-const COLOR_TONES = [
-  'dark', 'light', 'bright', 'pale', 'muted', 'vibrant', 'pastel', 'neutral',
-  'warm', 'cool', 'monochrome'
-];
-
-// ประเภทของการออกแบบ
+// Design types
 const DESIGN_TYPES = [
   'minimalist', 'modern', 'classic', 'flat', 'material', 'neumorphism',
   'glassmorphism', 'skeuomorphism', 'responsive', 'mobile', 'desktop', 'web'
@@ -39,13 +61,74 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
   const [uploadProgress, setUploadProgress] = useState(0);
   const [generatedTags, setGeneratedTags] = useState({
     colors: [],
-    tones: [],
     elements: [],
     designType: [],
-    text: []
+    text: [],
+    logoStyle: [],
+    webComponents: []
   });
-  const { data: session } = useSession();
+  const [logoAnalysis, setLogoAnalysis] = useState({
+    type: null,
+    metrics: null,
+    confidence: 0
+  });
+  const [websiteAnalysis, setWebsiteAnalysis] = useState({
+    layout: [],
+    components: [],
+    styleGuide: {
+      colors: [],
+      typography: [],
+      spacing: []
+    }
+  });
+  const [visibleTags, setVisibleTags] = useState({
+    colors: [],
+    elements: [],
+    designType: [],
+    text: [],
+    logoStyle: [],
+    webComponents: []
+  });
+  const getChipColor = (tag) => {
+    tag = tag.toLowerCase();
+    if (LOGO_CHARACTERISTICS.some(char => tag.includes(char))) return "warning";
+    if (WEBSITE_COMPONENTS.some(component => tag.includes(component))) return "info";
+    if (UI_ELEMENTS.some(element => tag.includes(element))) return "primary";
+    if (BASIC_COLORS.some(color => tag.includes(color))) return "secondary";
+    if (DESIGN_TYPES.some(type => tag.includes(type))) return "success";
+    return "default";
+  };
 
+  // Get all unique tags across all categories
+  const getAllTags = () => {
+    const allCategories = [
+      'elements', 'colors', 'designType', 'text', 'logoStyle', 'webComponents'
+    ];
+    
+    return allCategories.reduce((acc, category) => {
+      return [...acc, ...(visibleTags[category] || [])];
+    }, []);
+  };
+  useEffect(() => {
+    setVisibleTags(generatedTags);
+  }, [generatedTags]);
+
+  // Add handler for tag removal
+  const handleRemoveTag = (category, tagToRemove) => {
+    setVisibleTags(prev => ({
+      ...prev,
+      [category]: prev[category].filter(tag => tag !== tagToRemove)
+    }));
+    
+    // Update parent component if onTagsGenerated is provided
+    if (onTagsGenerated) {
+      const updatedTags = Object.values({
+        ...visibleTags,
+        [category]: visibleTags[category].filter(tag => tag !== tagToRemove)
+      }).flat();
+      onTagsGenerated(updatedTags);
+    }
+  };
   const VISION_API_URL = 'https://vision.googleapis.com/v1/images:annotate';
   const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_CLOUD_API_KEY;
 
@@ -56,8 +139,108 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
     }
   }, []);
 
+  const processWebDetection = (webDetection) => {
+    if (!webDetection) return [];
+    
+    const results = [];
+    
+    // Process web entities
+    if (webDetection.webEntities) {
+      results.push(...webDetection.webEntities
+        .filter(entity => entity.score > 0.5)
+        .map(entity => ({
+          type: 'web_entity',
+          description: entity.description,
+          score: entity.score
+        }))
+      );
+    }
+    
+    // Process full matched images
+    if (webDetection.fullMatchingImages) {
+      results.push(...webDetection.fullMatchingImages.map(match => ({
+        type: 'full_match',
+        url: match.url
+      })));
+    }
+    
+    // Process partial matched images
+    if (webDetection.partialMatchingImages) {
+      results.push(...webDetection.partialMatchingImages.map(match => ({
+        type: 'partial_match',
+        url: match.url
+      })));
+    }
+    
+    return results;
+  };
+
+  const analyzeLogo = (logoAnnotations) => {
+    if (!logoAnnotations || !Array.isArray(logoAnnotations)) return null;
+
+    const logoMetrics = {
+      hasText: false,
+      isSymbolic: false,
+      complexity: 'simple',
+      style: [],
+      dominantColors: []
+    };
+    
+    logoAnnotations.forEach(logo => {
+      if (!logo) return;
+
+      // Check for text presence
+      if (logo.description) {
+        logoMetrics.hasText = true;
+      }
+      
+      // Determine complexity based on description and bounds
+      if (logo.boundingPoly?.vertices?.length > 8) {
+        logoMetrics.complexity = 'complex';
+      } else if (logo.boundingPoly?.vertices?.length > 4) {
+        logoMetrics.complexity = 'medium';
+      }
+      
+      // Add confidence score
+      logoMetrics.confidence = logo.score || 0;
+      
+      // Determine if symbolic based on specific keywords
+      const symbolicKeywords = ['symbol', 'icon', 'emblem', 'pictorial'];
+      if (symbolicKeywords.some(keyword => 
+        logo.description?.toLowerCase().includes(keyword))) {
+        logoMetrics.isSymbolic = true;
+      }
+    });
+    
+    return logoMetrics;
+  };
+
+  const processLogoDetection = (logoAnnotations) => {
+    if (!logoAnnotations || !Array.isArray(logoAnnotations)) return [];
+    
+    return logoAnnotations
+      .filter(logo => logo.score > 0.5)
+      .map(logo => ({
+        description: logo.description,
+        confidence: logo.score,
+        boundingBox: logo.boundingPoly,
+        properties: analyzeLogo([logo])
+      }));
+  };
+
   const categorizeTag = (tag) => {
+    if (!tag) return 'text';
     tag = tag.toLowerCase();
+    
+    // Check Logo characteristics
+    if (LOGO_CHARACTERISTICS.some(char => tag.includes(char))) {
+      return 'logoStyle';
+    }
+    
+    // Check Website components
+    if (WEBSITE_COMPONENTS.some(component => tag.includes(component))) {
+      return 'webComponents';
+    }
     
     // Check UI elements
     if (UI_ELEMENTS.some(element => tag.includes(element))) {
@@ -67,11 +250,6 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
     // Check colors
     if (BASIC_COLORS.some(color => tag.includes(color))) {
       return 'colors';
-    }
-    
-    // Check color tones
-    if (COLOR_TONES.some(tone => tag.includes(tone))) {
-      return 'tones';
     }
     
     // Check design types
@@ -99,10 +277,12 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
               source: { imageUri: imageUrl }
             },
             features: [
-              { type: 'LABEL_DETECTION', maxResults: 10 },
-              { type: 'OBJECT_LOCALIZATION', maxResults: 10 },
-              { type: 'IMAGE_PROPERTIES', maxResults: 5 },
-              { type: 'TEXT_DETECTION' }
+              { type: 'LABEL_DETECTION', maxResults: 15 },
+              { type: 'OBJECT_LOCALIZATION', maxResults: 15 },
+              { type: 'IMAGE_PROPERTIES', maxResults: 10 },
+              { type: 'TEXT_DETECTION', maxResults: 15 },
+              { type: 'LOGO_DETECTION', maxResults: 10 },
+              { type: 'WEB_DETECTION', maxResults: 10 }
             ]
           }]
         })
@@ -118,15 +298,16 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
         throw new Error('Invalid response format from Vision API');
       }
       
+      const visionResponse = data.responses[0];
+      
       // Process labels and objects
-      const labels = data.responses[0]?.labelAnnotations?.map(label => label.description) || [];
-      const objects = data.responses[0]?.localizedObjectAnnotations?.map(obj => obj.name) || [];
+      const labels = visionResponse?.labelAnnotations?.map(label => label.description) || [];
+      const objects = visionResponse?.localizedObjectAnnotations?.map(obj => obj.name) || [];
       
       // Process colors
-      const colors = data.responses[0]?.imagePropertiesAnnotation?.dominantColors?.colors || [];
+      const colors = visionResponse?.imagePropertiesAnnotation?.dominantColors?.colors || [];
       const colorNames = colors.map(color => {
         const { red, green, blue } = color.color;
-        // Simple color naming logic
         if (red > 200 && green < 100 && blue < 100) return 'red';
         if (red < 100 && green > 200 && blue < 100) return 'green';
         if (red < 100 && green < 100 && blue > 200) return 'blue';
@@ -137,31 +318,66 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
       });
 
       // Process text
-      const texts = data.responses[0]?.textAnnotations?.[0]?.description?.split('\n') || [];
+      const texts = visionResponse?.textAnnotations?.[0]?.description?.split('\n') || [];
+      
+      // Process web detection
+      const webResults = processWebDetection(visionResponse.webDetection);
+      
+      // Process logo detection
+      const logoResults = processLogoDetection(visionResponse.logoAnnotations);
       
       // Combine all tags
-      const allTags = [...new Set([...labels, ...objects, ...colorNames, ...texts])];
+      const allTags = [...new Set([
+        ...labels, 
+        ...objects, 
+        ...colorNames, 
+        ...texts,
+        ...logoResults.map(r => r.description),
+        ...webResults.map(r => r.description)
+      ])].filter(Boolean);
       
       // Categorize tags
       const categorizedTags = {
         colors: [],
-        tones: [],
         elements: [],
         designType: [],
-        text: []
+        text: [],
+        logoStyle: [],
+        webComponents: []
       };
 
       allTags.forEach(tag => {
         const category = categorizeTag(tag);
-        if (!categorizedTags[category].includes(tag)) {
+        if (tag && !categorizedTags[category].includes(tag)) {
           categorizedTags[category].push(tag);
         }
       });
 
       setGeneratedTags(categorizedTags);
       
+      // Set logo analysis if available
+      if (logoResults.length > 0) {
+        setLogoAnalysis({
+          type: 'logo',
+          metrics: logoResults[0].properties,
+          confidence: Math.max(...logoResults.map(l => l.confidence || 0))
+        });
+      }
+      
+      // Set website analysis
+      setWebsiteAnalysis({
+        layout: categorizedTags.webComponents.filter(tag => 
+          tag.includes('layout') || tag.includes('section')),
+        components: categorizedTags.webComponents.filter(tag => 
+          !tag.includes('layout') && !tag.includes('section')),
+        styleGuide: {
+          colors: categorizedTags.colors,
+          typography: texts.filter(text => text && text.length > 2),
+          spacing: []
+        }
+      });
+      
       if (onTagsGenerated) {
-        // Flatten tags for parent component
         const flatTags = Object.values(categorizedTags).flat();
         onTagsGenerated(flatTags);
       }
@@ -185,12 +401,14 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
 
-    if (file && file.size > 5 * 1024 * 1024) {
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
       setError('File size exceeds 5 MB.');
       return;
     }
 
-    if (file && !file.type.startsWith('image/')) {
+    if (!file.type.startsWith('image/')) {
       setError('Only image files are allowed.');
       return;
     }
@@ -226,6 +444,7 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
           await analyzeImage(newImageUrl);
         } catch (error) {
           console.error('Error getting download URL:', error);
+          setError('Failed to get image URL after upload');
         } finally {
           setLoading(false);
           setUploadProgress(0);
@@ -241,10 +460,25 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
       setImageUrl(null);
       setGeneratedTags({
         colors: [],
-        tones: [],
         elements: [],
         designType: [],
-        text: []
+        text: [],
+        logoStyle: [],
+        webComponents: []
+      });
+      setLogoAnalysis({
+        type: null,
+        metrics: null,
+        confidence: 0
+      });
+      setWebsiteAnalysis({
+        layout: [],
+        components: [],
+        styleGuide: {
+          colors: [],
+          typography: [],
+          spacing: []
+        }
       });
       onUploadComplete(null);
       if (onTagsGenerated) {
@@ -258,7 +492,7 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
   return (
     <div className='flex flex-col h-full'>
       <div className='flex-1 bg-[#f5f5f5] border-[2px] border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center p-4'>
-        {!imageUrl ? (
+      {!imageUrl ? (
           <label
             htmlFor='dropzone-file'
             className='flex flex-col items-center justify-center cursor-pointer h-full w-full'
@@ -310,63 +544,30 @@ function SmartUploadImage({ setFile, currentImageUrl, postId, onUploadComplete, 
         {error && <p className='text-red-500 mt-2'>{error}</p>}
       </div>
       
-      {/* Generated Tags Section */}
-      {Object.keys(generatedTags).some(category => generatedTags[category].length > 0) && (
-        <div className='mt-4 space-y-3'>
-          {generatedTags.elements.length > 0 && (
-            <div>
-              <p className='text-sm font-medium text-gray-700 mb-2'>UI Elements:</p>
-              <div className='flex flex-wrap gap-2'>
-                {generatedTags.elements.map((tag, index) => (
-                  <Chip key={index} variant="flat" color="primary">{tag}</Chip>
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {generatedTags.colors.length > 0 && (
-            <div>
-              <p className='text-sm font-medium text-gray-700 mb-2'>Colors:</p>
-              <div className='flex flex-wrap gap-2'>
-                {generatedTags.colors.map((tag, index) => (
-                  <Chip key={index} variant="flat" color="secondary">{tag}</Chip>
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {generatedTags.tones.length > 0 && (
-            <div>
-              <p className='text-sm font-medium text-gray-700 mb-2'>Color Tones:</p>
-              <div className='flex flex-wrap gap-2'>
-                {generatedTags.tones.map((tag, index) => (
-                  <Chip key={index} variant="flat" color="warning">{tag}</Chip>
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {generatedTags.designType.length > 0 && (
-            <div>
-              <p className='text-sm font-medium text-gray-700 mb-2'>Design Style:</p>
-              <div className='flex flex-wrap gap-2'>
-                {generatedTags.designType.map((tag, index) => (
-                  <Chip key={index} variant="flat" color="success">{tag}</Chip>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {generatedTags.text.length > 0 && (
-            <div>
-              <p className='text-sm font-medium text-gray-700 mb-2'>Detected Text:</p>
-              <div className='flex flex-wrap gap-2'>
-                {generatedTags.text.slice(0, 5).map((tag, index) => (
-                  <Chip key={index} variant="flat" color="default">{tag}</Chip>
-                ))}
-              </div>
-            </div>
-          )}
+      {Object.values(visibleTags).some(category => category.length > 0) && (
+        <div className="mt-4">
+          <p className="text-sm font-medium text-gray-700 mb-2">Tags:</p>
+          <div className="flex flex-wrap gap-2">
+            {getAllTags().map((tag, index) => (
+              <Chip 
+                key={`${tag}-${index}`}
+                variant="flat"
+                color={getChipColor(tag)}
+                onClose={() => {
+                  // Find which category the tag belongs to
+                  const category = Object.keys(visibleTags).find(cat => 
+                    visibleTags[cat].includes(tag)
+                  );
+                  if (category) {
+                    handleRemoveTag(category, tag);
+                  }
+                }}
+                isCloseable
+              >
+                {tag}
+              </Chip>
+            ))}
+          </div>
         </div>
       )}
     </div>
