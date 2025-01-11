@@ -367,8 +367,8 @@ export default function Learn() {
     <div className="max-w-7xl mx-auto p-4 ">
     
     
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-2xl font-bold mb-4 mt-10 ml-6">1. A/B Testing.</h2>
+      <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
+      <h2 className="text-2xl font-bold mb-4 m-6">1. A/B Testing.</h2>
       <p className="text-gray-700 mb-10 ml-10">ใน A/B Testing นักออกแบบจะแบ่งกลุ่มผู้ใช้เป็นสองกลุ่ม โดยกลุ่มหนึ่งจะเห็นการออกแบบ A และอีกกลุ่มจะเห็นการออกแบบ B จากนั้นจะเก็บข้อมูลว่าผู้ใช้มีปฏิกิริยาอย่างไร เช่น คลิกปุ่มมากขึ้น มีส่วนร่วมกับเนื้อหามากขึ้น หรือทำตามเป้าหมายของเว็บไซต์หรือแอปได้ดีกว่าหรือไม่</p>
         <h3 className="text-xl font-semibold mb-2 ml-10">แบ่งเป็น 2 หัวข้อได้แก่</h3>
         <img src="/A_B_Testing.png" alt="A_B_Testing" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10 " />
@@ -455,17 +455,21 @@ export default function Learn() {
           <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.cotactic.com/blog/what-is-bounce-rate/" target="_blank">What is Bounce-Rate?</a></li>
           
 </ul>
-{/* Pagination Section */}
-<div className="flex justify-center mt-10 mb-10">
-  <ul className="flex space-x-2">
-  <li>
-      <Link href="/Learn/Evaluation/Heuristic_Evaluation" className="bg-gray-300 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
+ {/* Pagination Section */}
+ <div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
+  <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/Evaluation" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
+        ก่อนหน้า
+      </Link>
+    </li>
+    <li className="absolute right-0 bottom-0">
+      <Link href="/Learn/Evaluation/Heuristic_Evaluation" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ถัดไป
       </Link>
     </li>
-  
-    
   </ul>
+
 </div>
 
 

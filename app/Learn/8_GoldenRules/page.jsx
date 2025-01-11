@@ -367,8 +367,8 @@ export default function Learn() {
 
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-2xl font-bold mb-10 mt-10 ml-6">Lecture7. Eight Golden Rules</h2>
+      <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
+      <h2 className="text-2xl font-bold mb-4 m-6">Lecture7. Eight Golden Rules</h2>
         <h3 className="text-xl  mb-2 ml-6">Eight Golden Rules ของ Shneiderman’s จะช่วยทำให้การออกแบบอินเทอร์เฟซได้ดียิ่งขึ้น </h3>
         <img src="https://userpeek.com/wp-content/uploads/2023/02/Shneidermans-Eight-Golden-Rules-of-Interface-Design.png" alt="Design basics" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 " />
         <p className="text-gray-600 mb-4 ml-10" >ปฏิบัติตาม "กฎทอง 8 ประการในการออกแบบอินเทอร์เฟซ" ของ Ben Shneiderman หากคุณต้องการออกแบบอินเทอร์เฟซผู้ใช้ที่ยอดเยี่ยม มีประสิทธิภาพ และไม่สร้างความหงุดหงิด Apple, Google และ Microsoft เป็นเพียงบางส่วนของบริษัทที่ประสบความสำเร็จอย่างสูงซึ่งผลิตภัณฑ์ที่ได้รับการออกแบบอย่างดีของพวกเขาสะท้อนถึงกฎของ Shneiderman</p>
@@ -436,28 +436,21 @@ export default function Learn() {
           
 </ul>
 
-<div className="flex justify-center mt-10">
-      <ul className="flex space-x-2">
-    
-      <li>
-      <Link href="/Learn/7_Principles" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        ก่อนหน้า 
+{/* Pagination Section */}
+<div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
+  <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/7_Principles" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
+        ก่อนหน้า
       </Link>
     </li>
-    
-    <li>
-      <Link href="/Learn/8_GoldenRules" className="bg-blue-500 text-white px-3 py-1 rounded">
-        7
-      </Link>
-    </li>
-    
-
-    <li>
-      <Link href="/Learn/Evaluation" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+    <li className="absolute right-0 bottom-0">
+      <Link href="/Learn/Evaluation" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ถัดไป
       </Link>
     </li>
   </ul>
+
 </div>
 
 

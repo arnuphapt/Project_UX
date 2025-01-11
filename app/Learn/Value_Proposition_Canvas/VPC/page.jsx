@@ -365,11 +365,11 @@ export default function Learn() {
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
       
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h3 className="text-2xl font-semibold mb-2 mt-8 ml-6">2. Value Proposition Canvas</h3>
+      <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
+      <h3 className="text-2xl font-bold mb-4 m-6">2. Value Proposition Canvas</h3>
           
         <h3 className="text-xl  mb-2 mt-4 ml-10">ช่วยให้การตลาดเจาะลึกกลุ่มเป้าหมาย กลุ่มใหม่ กลุ่มใหม่ในกลุ่มใหม่ และลูกค้าที่มีหลายระดับได้อย่างแม่นยำ (CUSTOMER SEGMENT) เห็นคุณค่าทางธุรกิจได้ชัดเจน</h3>
-        <img src="/VPC.png" alt="VPC" className=" h-auto w-full max-w-6xl mx-auto p-7  mb-6 mt-10  " />
+        <img src="/VPC.png" alt="VPC" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10  " />
         <h3 className="text-xl  mb-2 mt-4 ml-10">สร้างคุณค่า ที่ตอบสนองความต้องการ และ เหนือความคาดหมาย</h3>
        
         <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">1. ลูกค้าคือใคร เช่น ประกอบอาชีพอะไร :</span> 
@@ -446,14 +446,14 @@ export default function Learn() {
           
 </ul>
 {/* Pagination Section */}
-<div className="flex justify-center mt-10 mb-10">
-  <ul className="flex space-x-2">
-  <li>
-      <Link href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX" className="bg-gray-300 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
+<div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
+    <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ก่อนหน้า
       </Link>
     </li>
-  
+    
   </ul>
 </div>
 

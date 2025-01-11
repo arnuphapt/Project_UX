@@ -16,7 +16,7 @@ export default function Learn() {
 
 <div className="flex">
       {/* Normal Sidebar */}
-      <div className=" hidden lg:block fixed w-64 bg-white h-full  p-4 mt-10  ">
+      <div className=" hidden lg:block fixed w-64 bg-white h-full  p-4 mt-5  ">
         <h2 className="text-xl font-bold mb-6 ml-3">บทเรียน</h2>
         <ul className="space-y-4">
           
@@ -360,7 +360,7 @@ export default function Learn() {
 
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
-      <h1 className="text-2xl font-bold mb-4">Lecture5. Principles of Graphics Design </h1>
+      <h1 className="text-2xl font-bold mb-4 m-6">Lecture5. Principles of Graphics Design </h1>
       <img src="/PO_GRAPHIC.png" alt="Evaluation" className=" h-auto w-full max-w-3xl mx-auto p-7 mt-10 mb-10  " />
      
       
@@ -412,28 +412,22 @@ export default function Learn() {
       </ul>
 
 
-      <div className="flex justify-center mt-10">
-      <ul className="flex space-x-2">
-    
-      <li>
-      <Link href="/Learn/WireFrame&Graphics" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        ก่อนหน้า 
-      </Link>
-    </li>
-    
-    <li>
-      <Link href="/Learn/Graphics_Design" className="bg-blue-500 text-white px-3 py-1 rounded">
-        5
-      </Link>
-    </li>
-    
+      <div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
 
-    <li>
-      <Link href="/Learn/7_Principles" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+  <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/WireFrame&Graphics" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
+        ก่อนหน้า
+      </Link>
+    </li>
+    
+    <li className="absolute right-0 bottom-0">
+      <Link href="/Learn/7_Principles" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ถัดไป
       </Link>
     </li>
   </ul>
+
 </div>
     </div>
     </div>

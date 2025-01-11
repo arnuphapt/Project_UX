@@ -368,8 +368,8 @@ export default function Learn() {
 
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-2xl font-bold mb-4 mt-10 ml-6">Lecture9. Universal Design</h2>
+      <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
+      <h2 className="text-2xl font-bold mb-4 m-6">Lecture9. Universal Design</h2>
         <h3 className="text-xl   mb-2 ml-10">Universal Design คือ "การออกแบบและจัดวางสิ่งแวดล้อมเพื่อให้ทุกคนสามารถเข้าถึง เข้าใจ และใช้งานได้ในระดับสูงสุดเท่าที่จะเป็นไปได้ โดยไม่คำนึงถึงอายุ ขนาด หรือความพิการ " อ้างอิงจากพระราชบัญญัติความพิการของไอร์แลนด์ ปี 2005  </h3>
         <img src="/Universal_banner.png" alt="Universal_banner" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 " />
 
@@ -481,16 +481,14 @@ export default function Learn() {
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://medium.com/@yay.bouu/wcag-2-2-%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3-%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%99%E0%B8%97%E0%B8%B3-ux-ui-%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A3%E0%B8%B9%E0%B9%89-35b70dbc9b3f" target="_blank">Web Content Accessibility (WCAG) คืออะไร</a></li>     
 </ul>
 
-<div className="flex justify-center mt-10">
-      <ul className="flex space-x-2">
-    
-      <li>
-      <Link href="/Learn/Evaluation" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        ก่อนหน้า 
+<div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
+    <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/Evaluation" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
+        ก่อนหน้า
       </Link>
     </li>
     
-
     
   </ul>
 </div>

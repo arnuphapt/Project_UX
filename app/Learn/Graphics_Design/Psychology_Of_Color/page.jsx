@@ -369,10 +369,10 @@ export default function Learn() {
     <div className="max-w-7xl mx-auto p-4">
     
       
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
+      <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
         
             
-          <h3 className="text-2xl font-semibold mb-2 mt-6 ml-6">2.THE PSYCHOLOGY OF COLOR IN MARKETING AND BRANDING </h3>
+          <h3 className="text-2xl font-bold mb-4 m-6">2.THE PSYCHOLOGY OF COLOR IN MARKETING AND BRANDING </h3>
           <img src="/gregory_ciotti.png" alt="Principles of Graphics Design" className=" h-auto w-full max-w-5xl mx-auto p-5 " />
           <p className="text-gray-600 ml-10 mb-4 mt-6"><span className="font-semibold text-black">คำอธิบาย :</span> การศึกษาเรื่องนี้โดยละเอียดนั้นมาจากงานวิจัยของ Joe Hallock เรื่อง "การกำหนดสี"
 ข้อมูลของ Hallock แสดงให้เห็นถึงความชอบในสีบางสีที่แตกต่างกันไปตามเพศ(โดยส่วนใหญ่ผู้ตอบแบบสอบถามมาจากสังคมตะวันตก)สิ่งสำคัญที่ต้องทราบคือ สภาพแวดล้อมของแต่ละบุคคล — และโดยเฉพาะอย่างยิ่งความรับรู้ทางวัฒนธรรม— มีบทบาทสำคัญในการกำหนดว่าสีใดเหมาะสมกับเพศใด</p>
@@ -460,21 +460,22 @@ export default function Learn() {
           <li className="mb-2 text-gray-700 ml-10">   การเลือกสีสามารถสร้างอารมณ์และความรู้สึกที่ผู้บริโภคมีต่อแบรนด์ได้ เช่น การใช้สีฟ้าสามารถทำให้รู้สึกเชื่อถือได้</li>
           </ul>
           {/* Pagination Section */}
-<div className="flex justify-center mt-10 mb-10">
-  <ul className="flex space-x-2">
-  <li>
-      <Link href="/Learn/Graphics_Design/Layout_and_Composition" className="bg-gray-300 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
+          <div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
+
+    <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/Graphics_Design/Layout_and_Composition" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ก่อนหน้า
       </Link>
     </li>
-    
 
-    <li>
-      <Link href="/Learn/Graphics_Design/Color_Theory" className="bg-gray-300 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
+    <li className="absolute right-0 bottom-0">
+      <Link href="/Learn/Graphics_Design/Color_Theory" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ถัดไป
       </Link>
     </li>
   </ul>
+
 </div>
 
 

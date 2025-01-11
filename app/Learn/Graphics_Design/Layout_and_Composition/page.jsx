@@ -369,8 +369,8 @@ export default function Learn() {
     <div className="max-w-7xl mx-auto p-4">
     
       
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-2xl font-semibold mb-4 mt-10 ml-6"> 1. Layout And Composition</h2>
+      <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
+      <h2 className="text-2xl font-bold mb-4 m-6"> 1. Layout And Composition</h2>
       <p className="text-gray-600 mb-12 ml-10"> คือหลักการพื้นฐานในงานออกแบบ (Design) ที่เกี่ยวข้องกับการจัดองค์ประกอบต่างๆ ในงานให้มีความสมดุล น่าสนใจ และสื่อสารได้อย่างมีประสิทธิภาพ</p>
         <h3 className="text-xl font-semibold mb-2 ml-10">  สามารถแบ่งเป็น 3 หัวข้อได้แก่</h3>
           <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=850/uploads/users/2056/posts/34238/image/19-10-04%20ART%20The%20Principles%20of%20DesignArtboard%201%20copy.jpg" alt="Principles of Graphics Design" className=" h-auto w-full max-w-3xl mx-auto p-5 mb-6" />
@@ -480,21 +480,20 @@ export default function Learn() {
           <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">การใช้งาน : </span> ใช้เพื่อสร้างความรู้สึกเรียบง่ายและให้ข้อมูลที่ชัดเจน</li>
           </ul>
           {/* Pagination Section */}
-<div className="flex justify-center mt-10 mb-10">
-  <ul className="flex space-x-2">
-  <li>
-      <Link href="/Learn/Graphics_Design" className="bg-gray-300 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
+          <div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
+  <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/Graphics_Design" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ก่อนหน้า
       </Link>
     </li>
-    
-
-    <li>
-      <Link href="/Learn/Graphics_Design/Psychology_Of_Color" className="bg-gray-300 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
+    <li className="absolute right-0 bottom-0">
+      <Link href="/Learn/Graphics_Design/Psychology_Of_Color" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ถัดไป
       </Link>
     </li>
   </ul>
+
 </div>
 
           

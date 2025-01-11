@@ -368,8 +368,8 @@ export default function Learn() {
     
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-2xl font-bold  mb-2 mt-8 ml-6">lecture4 UX Designer : Wireframe & Graphics</h2>
+      <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
+      <h2 className="text-2xl font-bold mb-4 m-6">Lecture4. UX Designer : Wireframe & Graphics</h2>
       <h3 className="text-2xl  mb-2 mt-8 ml-8">Wireframe คืออะไร ?</h3>
           
         <h3 className="text-xl  mb-2 mt-4 ml-10 text-gray-600">Wireframe คือเครื่องมือหรือแบบร่างที่ใช้ในการวางโครงสร้างและการออกแบบสำหรับเว็บไซต์, แอปพลิเคชัน หรือระบบดิจิทัลต่างๆ ก่อนที่จะเริ่มการพัฒนาเต็มรูปแบบ โดยมักจะนำเสนอในรูปแบบภาพสองมิติที่เรียบง่าย ซึ่งแสดงให้เห็นถึงองค์ประกอบหลัก ๆ</h3>
@@ -524,24 +524,17 @@ export default function Learn() {
 
 
 
-<div className="flex justify-center mt-10">
-      <ul className="flex space-x-2">
-    
-      <li>
-      <Link href="/Learn/Value_Proposition_Canvas" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        ก่อนหน้า 
-      </Link>
-    </li>
-    
-    <li>
-      <Link href="/Learn/WireFrame&Graphics" className="bg-blue-500 text-white px-3 py-1 rounded">
-        4
-      </Link>
-    </li>
-    
+<div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
 
-    <li>
-      <Link href="/Learn/Graphics_Design" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+  <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/Value_Proposition_Canvas" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
+        ก่อนหน้า
+      </Link>
+    </li>
+    
+    <li className="absolute right-0 bottom-0">
+      <Link href="/Learn/Graphics_Design" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ถัดไป
       </Link>
     </li>

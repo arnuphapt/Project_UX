@@ -369,8 +369,8 @@ export default function Learn() {
     <div className="max-w-7xl mx-auto p-4">
     
       
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-2xl font-semibold mb-4 mt-10 ml-6">3. COLOR THEORY</h2>
+      <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
+      <h2 className="text-2xl font-bold mb-4 m-6">3. COLOR THEORY</h2>
       <p className="text-gray-700 mb-12 ml-10">หรือทฤษฎีสี คือการศึกษาวิธีการที่สีต่างๆ สามารถทำงานร่วมกันและส่งผลต่อความรู้สึก การรับรู้ และการรับข้อมูลในงานออกแบบ โดยการใช้สีในทางที่ถูกต้องสามารถสร้างความสมดุลและความสวยงาม</p>
 <h3 className="text-xl font-semibold mb-6 mt-6 ml-10">COLOR THEORY </h3>
 <img src="https://lthscomputerart.weebly.com/uploads/9/8/2/3/9823286/7397783_orig.jpg" alt="Principles of Graphics Design" className=" h-auto w-full max-w-xl mx-auto p-7  mb-6 " />
@@ -412,16 +412,18 @@ export default function Learn() {
 <img src="https://buildingtheblog.com/wp-content/uploads/2020/05/least-favorite-colors-by-gender-1.jpg" alt="Principles of Graphics Design" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-10 " />
 
 {/* Pagination Section */}
-<div className="flex justify-center mt-10 mb-10">
-  <ul className="flex space-x-2">
-  <li>
-      <Link href="/Learn/Graphics_Design/Psychology_Of_Color" className="bg-gray-300 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
-        ก่อนหน้า
+<div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
+
+    <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/Graphics_Design/Psychology_Of_Color" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
+       ก่อนหน้า
       </Link>
     </li>
-  
+
     
   </ul>
+
 </div>
 
 

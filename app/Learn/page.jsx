@@ -111,7 +111,7 @@ export default function Learn() {
 
           {/* Card 3 */}
           <div className="bg-white shadow-md rounded-lg p-6 text-left flex flex-col h-full">
-            <h3 className="text-xl font-semibold text-green-600 mb-2">lecture3 UX Strategy : Value Proposition Canvas</h3>
+            <h3 className="text-xl font-semibold text-green-600 mb-2">Lecture3 UX Strategy : Value Proposition Canvas</h3>
             <Link href="Learn/Value_Proposition_Canvas">
               <img src="/VPC.png" alt="VPC" className="w-full h-auto mb-4 cursor-pointer" />
             </Link>
@@ -130,7 +130,7 @@ export default function Learn() {
           {showMore && (
             <>
             <div className="bg-white shadow-md rounded-lg p-6 text-left flex flex-col h-full">
-            <h3 className="text-xl font-semibold text-purple-600 mb-2">lecture4 UX Designer : Wireframe & Graphics</h3>
+            <h3 className="text-xl font-semibold text-purple-600 mb-2">Lecture4 UX Designer : Wireframe & Graphics</h3>
             <Link href="Learn/WireFrame&Graphics">
               <img src="https://cdn.careerfoundry.com/en/wp-content/uploads/old-blog-uploads/mid-fidelity-wireframe-for-a-mobile-app-1.jpg" alt="wireframe" className="w-full h-auto mb-4 cursor-pointer" />
             </Link>

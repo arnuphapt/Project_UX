@@ -371,8 +371,8 @@ export default function Learn() {
     <div className="max-w-7xl mx-auto p-4">
     
      
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-2xl font-bold mb-4 mt-10 ml-6">Lecture6. Seven Principles</h2>
+      <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
+      <h2 className="text-2xl font-bold mb-4 m-6">Lecture6. Seven Principles</h2>
       <p className="text-xl   mt-10 ml-10">เรียนรู้หลักการทั้งเจ็ดที่ช่วยทำให้เว็บไซต์ของคุณมีความน่าสนใจมากขึ้นโดย ดร. ซูซาน ไวน์เชงค์:</p>
         <h3 className=" font-semibold  text-gray-700 ml-10 mt-10">เริ่มจาก ดูวิดิโอ 7 principles that make your website more engaging และทำความเข้าใจ </h3>
         <div className="flex justify-center">
@@ -442,28 +442,21 @@ export default function Learn() {
           
 </ul>
 
-<div className="flex justify-center mt-10">
-      <ul className="flex space-x-2">
-    
-      <li>
-      <Link href="/Learn/Graphics_Design" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
-        ก่อนหน้า 
+{/* Pagination Section */}
+<div className="relative mt-10">
+  <ul className="flex justify-between items-center relative">
+  <li className="absolute left-0 bottom-0">
+      <Link href="/Learn/Graphics_Design" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
+        ก่อนหน้า
       </Link>
     </li>
-    
-    <li>
-      <Link href="/Learn/7_Principles" className="bg-blue-500 text-white px-3 py-1 rounded">
-        6
-      </Link>
-    </li>
-   
-
-    <li>
-      <Link href="/Learn/8_GoldenRules" className="bg-gray-300 px-3 py-1 rounded hover:bg-gray-400">
+    <li className="absolute right-0 bottom-0">
+      <Link href="/Learn/8_GoldenRules" className="bg-gray-300 hover:bg-blue-500 hover:text-white px-3 py-1 rounded ">
         ถัดไป
       </Link>
     </li>
   </ul>
+
 </div>
 
 
