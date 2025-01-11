@@ -97,17 +97,8 @@ function Header() {
 
             <Button aria-label="Home button" variant='light' className={`font-semibold text-[16px] ${isActive('/') ? 'bg-primary/10 text-primary' : ''}`}
               onPress={() => router.push('/')}>Home</Button>
-                          <Dropdown>
-              <DropdownTrigger>
               <Button aria-label="Post button" variant='light' className={`font-semibold text-[16px] ${isActive('/post') ? 'bg-primary/10 text-primary' : ''}`}
-            >Posts</Button>           
-               </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem onPress={() => router.push('/post')} color="default">Posts</DropdownItem>
-                <DropdownItem onPress={() => router.push('/post/hall_of_frame')} color="default">Hall of frame</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-
+              onPress={() => router.push('/post')}>Posts</Button>           
             <Button aria-label="Learn button" variant='light' className={`font-semibold text-[16px] ${isActive('/Learn') ? 'bg-primary/10 text-primary' : ''}`}
               onPress={() => router.push('/Learn')}>Learn</Button>
             <Dropdown>
@@ -166,7 +157,7 @@ function Header() {
                     className="text-blue-600"
                     showDivider
                   >
-                    DASHBOARD
+                    Dashboard
                   </DropdownItem>
                 )}
 
@@ -196,7 +187,7 @@ function Header() {
         {session?.user && isAdmin(session.user.email) && (
           <button
             className='text-[16px] text-blue-600 m-2 p-1 hover:border-b-2 border-blue-600 font-medium'
-            onClick={() => { router.push('/adminurachat389/Dashboard'); setIsMenuOpen(false); }}
+            onClick={() => { router.push('/admin'); setIsMenuOpen(false); }}
           >
             Dashboard
           </button>

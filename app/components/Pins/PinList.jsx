@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef } from 'react';
 import { Button, Skeleton } from "@nextui-org/react";
-import { Upload, ArrowUpRight, ChevronDown, Github } from 'lucide-react';
+import { Upload, ArrowUpRight, ChevronDown, Award } from 'lucide-react';
 import PinItem from './PinItem';
 import { useRouter } from 'next/navigation';
 import TopLike from '../TopLike';
@@ -40,10 +40,6 @@ const PinList = ({ listOfPins, isLoading = false }) => {
         return sortedPinsByLikes.slice(0, 3);
     }, [sortedPinsByLikes]);
 
-    // Top 6 most viewed pins
-    const topViewedPins = useMemo(() => {
-        return sortedPinsByViews.slice(0, 6);
-    }, [sortedPinsByViews]);
 
     // Get next set of most liked pins for trending section
     const nextMostLikedPins = useMemo(() => {
@@ -51,7 +47,6 @@ const PinList = ({ listOfPins, isLoading = false }) => {
         return sortedPinsByLikes.slice(startIndex + 3, startIndex + pinsPerPage + 3);
     }, [sortedPinsByLikes, currentPage]);
 
-    const mostLikedSkeletons = Array(3).fill(null);
     const sectionSkeletons = Array(6).fill(null);
 
     return (
@@ -100,50 +95,17 @@ const PinList = ({ listOfPins, isLoading = false }) => {
                             onClick={scrollToMostLiked}
                             className="flex flex-col mt-8 sm:mt-10 items-center gap-2 text-gray-500 hover:text-blue-500 transition-colors duration-300 group animate-bounce"
                             disabled={isLoading}
+                            
                         >
                             <span className="text-xs sm:text-sm">Scroll to explore</span>
                             <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 group-hover:transform group-hover:translate-y-1 transition-transform" />
                         </button>
                     </div>
-                </div>
+                </div >
             </section>
-
-            {/* Most Liked Section */}
-            <section ref={mostLikedSectionRef} className="mb-12 sm:mb-16 scroll-mt-8 -mt-16 sm:-mt-20">
-                <div className="flex flex-col items-center mb-6 sm:mb-8">
-                    <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 text-xs sm:text-sm mb-2">
-                        <span>Top Rated Posts</span>
-                        <span className="px-2 py-1 bg-gray-200 rounded">Hall of Frame</span>
-                        <span className="px-2 py-1 bg-gray-200 rounded">Most Popular</span>
-                    </div>
-                    <h2 className="flex items-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight uppercase text-center">
-                        Most Liked Posts
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            viewBox="0 0 24 24" 
-                            fill="currentColor" 
-                            className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 ml-4 text-blue-500 animate-pulse"
-                        >
-                            <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
-                        </svg>
-                    </h2>
-                    <p className="text-base sm:text-lg lg:text-xl text-gray-600 my-3 sm:my-4">
-                        Our most loved creations
-                    </p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                    {isLoading ? (
-                        mostLikedSkeletons.map((_, index) => (
-                            <LoadingSkeleton key={`skeleton-${index}`} />
-                        ))
-                    ) : (
-                        topThreePins.map((pin) => (
-                            <PinItem key={pin.id} pin={pin} />
-                        ))
-                    )}
-                </div>
-
+            {/* Most Popular Members Section */}
+            <div ref={mostLikedSectionRef}   className="flex flex-col items-center mt-32 ">
+                <TopLike listOfPins={listOfPins} />
                 <div className="p-4 flex justify-center items-center my-8 sm:my-10">
                     <div className="flex items-center gap-2 text-base sm:text-lg">
                         <span className="text-gray-600">Check out all posts</span>
@@ -156,7 +118,8 @@ const PinList = ({ listOfPins, isLoading = false }) => {
                         </button>
                     </div>
                 </div>
-            </section>
+            </div>
+
 
 
             {/* Trending Posts Section */}
@@ -180,16 +143,6 @@ const PinList = ({ listOfPins, isLoading = false }) => {
                 </div>
             </section>
 
-            {/* Most Popular Members Section */}
-            <div className="flex flex-col items-center mt-32">
-                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight uppercase text-center">
-                    Most Popular Members
-                </h2>
-                <p className="text-base sm:text-lg lg:text-xl text-gray-600 mt-3 mb-6 sm:mb-8 lg:mb-10">
-                    Our most active community members
-                </p>
-                <TopLike listOfPins={listOfPins} />
-            </div>
 
 
 
