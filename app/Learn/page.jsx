@@ -17,11 +17,11 @@ export default function Learn() {
     'User Experience Design',
     
   ]}
-  speed={30}
-  style={{ fontSize: '4em' }}
+ style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', lineHeight: '1.2' }}
+        className="font-bold text-center break-words"
   
 />
-          <p className="text-2xl font-semibold mb-6">
+          <p className="text-2xl font-semibold mb-6 mt-5">
             มาทำความรู้จักเนื้อหาในรายวิชา
           </p>
           <p className="text-xl mb-6">
