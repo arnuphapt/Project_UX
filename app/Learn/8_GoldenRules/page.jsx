@@ -48,7 +48,7 @@ export default function Learn() {
             }}
             className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
           >
-    3. Value Proposition Canvas
+    3. Value Proposition Canvas <span className="ml-2">▼</span>
   </button>
             {activeMenu === "ValuePropositionCanvas" && (
               <ul className="pl-8 mt-2 space-y-2">
@@ -57,7 +57,7 @@ export default function Learn() {
                     href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    1. Customer Journey Maps in User Experience
+                     <span className="ml-2">►</span> 1. Customer Journey Maps in User Experience
                   </Link>
                 </li>
                 <li>
@@ -65,7 +65,7 @@ export default function Learn() {
                     href="/Learn/Value_Proposition_Canvas/VPC"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    2. Value Proposition Canvas
+                     <span className="ml-2">►</span> 2. Value Proposition Canvas
                   </Link>
                 </li>
               </ul>
@@ -89,7 +89,7 @@ export default function Learn() {
               }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
-              5. Principles of Graphics Design
+              5. Principles of Graphics Design <span className="ml-2">▼</span>
             </button>
             {activeMenu === "Graphics_Design" && (
               <ul className="pl-8 mt-2 space-y-2">
@@ -98,7 +98,7 @@ export default function Learn() {
                     href="/Learn/Graphics_Design/Layout_and_Composition"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    1. Layout And Composition
+                     <span className="ml-2">►</span> 1. Layout And Composition
                   </Link>
                 </li>
                 <li>
@@ -106,7 +106,7 @@ export default function Learn() {
                     href="/Learn/Graphics_Design/Psychology_Of_Color"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    2. The Psychology Of Color In Marketing And Branding
+                     <span className="ml-2">►</span> 2. The Psychology Of Color In Marketing And Branding
                   </Link>
                 </li>
 		<li>
@@ -114,7 +114,7 @@ export default function Learn() {
                     href="/Learn/Graphics_Design/Color_Theory"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    3. Color Theory
+                     <span className="ml-2">►</span> 3. Color Theory
                   </Link>
                 </li>
 
@@ -149,7 +149,7 @@ export default function Learn() {
               }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
-              8. Evaluation
+              8. Evaluation <span className="ml-2">▼</span>
             </button>
             {activeMenu === "Evaluation" && (
               <ul className="pl-8 mt-2 space-y-2">
@@ -158,7 +158,7 @@ export default function Learn() {
                     href="/Learn/Evaluation/A_B_testing"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                   1. A/B Testing
+                    <span className="ml-2">►</span> 1. A/B Testing
                   </Link>
                 </li>
                 <li>
@@ -166,7 +166,7 @@ export default function Learn() {
                     href="/Learn/Evaluation/Heuristic_Evaluation"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                   2. Heuristic Evaluation
+                    <span className="ml-2">►</span> 2. Heuristic Evaluation
                   </Link>
                 </li>
               </ul>
@@ -225,7 +225,7 @@ export default function Learn() {
                }}
                   className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
                 >
-                  3. Value Proposition Canvas
+                  3. Value Proposition Canvas <span className="ml-2">▼</span>
                 </button>
                 {activeMenu === "ValuePropositionCanvas" && (
                   <ul className="pl-8 mt-2 space-y-2">
@@ -235,7 +235,7 @@ export default function Learn() {
                         className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                         onClick={toggleMobileMenu}
                       >
-                        1. Customer Journey Maps in User Experience
+                         <span className="ml-2">►</span> 1. Customer Journey Maps in User Experience
                       </Link>
                     </li>
                     <li>
@@ -244,7 +244,7 @@ export default function Learn() {
                         className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                         onClick={toggleMobileMenu}
                       >
-                        2. Value Proposition Canvas
+                         <span className="ml-2">►</span> 2. Value Proposition Canvas
                       </Link>
                     </li>
                   </ul>
@@ -268,7 +268,7 @@ export default function Learn() {
               }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
-              5. Principles of Graphics Design
+              5. Principles of Graphics Design <span className="ml-2">▼</span>
             </button>
             {activeMenu === "Graphics_Design" && (
               <ul className="pl-8 mt-2 space-y-2">
@@ -277,7 +277,7 @@ export default function Learn() {
                     href="/Learn/Graphics_Design/Layout_and_Composition"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    1. Layout And Composition
+                     <span className="ml-2">►</span> 1. Layout And Composition
                   </Link>
                 </li>
                 <li>
@@ -285,7 +285,7 @@ export default function Learn() {
                     href="/Learn/Graphics_Design/Psychology_Of_Color"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    2. The Psychology Of Color In Marketing And Branding
+                     <span className="ml-2">►</span> 2. The Psychology Of Color In Marketing And Branding
                   </Link>
                 </li>
 		<li>
@@ -293,7 +293,7 @@ export default function Learn() {
                     href="/Learn/Graphics_Design/Color_Theory"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    3. Color Theory
+                     <span className="ml-2">►</span> 3. Color Theory
                   </Link>
                 </li>
 
@@ -328,7 +328,7 @@ export default function Learn() {
               }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
-              8. Evaluation
+              8. Evaluation <span className="ml-2">▼</span>
             </button>
             {activeMenu === "Evaluation" && (
               <ul className="pl-8 mt-2 space-y-2">
@@ -337,7 +337,7 @@ export default function Learn() {
                     href="/Learn/Evaluation/A_B_testing"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                   1. A/B Testing
+                    <span className="ml-2">►</span> 1. A/B Testing
                   </Link>
                 </li>
                 <li>
@@ -345,7 +345,7 @@ export default function Learn() {
                     href="/Learn/Evaluation/Heuristic_Evaluation"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                   2. Heuristic Evaluation
+                    <span className="ml-2">►</span> 2. Heuristic Evaluation
                   </Link>
                 </li>
               </ul>
@@ -368,8 +368,8 @@ export default function Learn() {
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
       <div className="bg-white shadow-md rounded-lg p-6 border border-gray-300">
-      <h2 className="text-3xl font-bold mb-10 mt-10 ml-6">Lecture7. Eight Golden Rules</h2>
-        <h3 className="text-xl font-semibold mb-2 ml-6">Eight Golden Rules ของ Shneiderman’s จะช่วยทำให้การออกแบบอินเทอร์เฟซได้ดียิ่งขึ้น </h3>
+      <h2 className="text-2xl font-bold mb-10 mt-10 ml-6">Lecture7. Eight Golden Rules</h2>
+        <h3 className="text-xl  mb-2 ml-6">Eight Golden Rules ของ Shneiderman’s จะช่วยทำให้การออกแบบอินเทอร์เฟซได้ดียิ่งขึ้น </h3>
         <img src="https://userpeek.com/wp-content/uploads/2023/02/Shneidermans-Eight-Golden-Rules-of-Interface-Design.png" alt="Design basics" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 " />
         <p className="text-gray-600 mb-4 ml-10" >ปฏิบัติตาม "กฎทอง 8 ประการในการออกแบบอินเทอร์เฟซ" ของ Ben Shneiderman หากคุณต้องการออกแบบอินเทอร์เฟซผู้ใช้ที่ยอดเยี่ยม มีประสิทธิภาพ และไม่สร้างความหงุดหงิด Apple, Google และ Microsoft เป็นเพียงบางส่วนของบริษัทที่ประสบความสำเร็จอย่างสูงซึ่งผลิตภัณฑ์ที่ได้รับการออกแบบอย่างดีของพวกเขาสะท้อนถึงกฎของ Shneiderman</p>
         <div className="flex justify-center">

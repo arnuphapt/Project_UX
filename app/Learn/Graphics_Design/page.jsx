@@ -47,7 +47,7 @@ export default function Learn() {
             }}
             className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
           >
-    3. Value Proposition Canvas
+    3. Value Proposition Canvas <span className="ml-2">▼</span>
   </button>
             {activeMenu === "ValuePropositionCanvas" && (
               <ul className="pl-8 mt-2 space-y-2">
@@ -56,7 +56,7 @@ export default function Learn() {
                     href="/Learn/Value_Proposition_Canvas/Customer_Journey_Maps_in_UX"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    1. Customer Journey Maps in User Experience
+                    <span className="ml-2">►</span> 1. Customer Journey Maps in User Experience
                   </Link>
                 </li>
                 <li>
@@ -64,7 +64,7 @@ export default function Learn() {
                     href="/Learn/Value_Proposition_Canvas/VPC"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    2. Value Proposition Canvas
+                   <span className="ml-2">►</span> 2. Value Proposition Canvas
                   </Link>
                 </li>
               </ul>
@@ -85,7 +85,7 @@ export default function Learn() {
               
               className="block px-4 py-2 rounded-lg bg-black text-white hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
-              5. Principles of Graphics Design
+              5. Principles of Graphics Design <span className="ml-2">▼</span>
             </button>
             
               <ul className="pl-8 mt-2 space-y-2">
@@ -94,7 +94,7 @@ export default function Learn() {
                     href="/Learn/Graphics_Design/Layout_and_Composition"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    1. Layout And Composition
+                    <span className="ml-2">►</span> 1. Layout And Composition
                   </Link>
                 </li>
                 <li>
@@ -102,7 +102,7 @@ export default function Learn() {
                     href="/Learn/Graphics_Design/Psychology_Of_Color"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    2. The Psychology Of Color In Marketing And Branding
+                    <span className="ml-2">►</span> 2. The Psychology Of Color In Marketing And Branding
                   </Link>
                 </li>
 		<li>
@@ -110,7 +110,7 @@ export default function Learn() {
                     href="/Learn/Graphics_Design/Color_Theory"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                    3. Color Theory
+                    <span className="ml-2">►</span> 3. Color Theory
                   </Link>
                 </li>
 
@@ -145,7 +145,7 @@ export default function Learn() {
               }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
-              8. Evaluation
+              8. Evaluation <span className="ml-2">▼</span>
             </button>
             {activeMenu === "Evaluation" && (
               <ul className="pl-8 mt-2 space-y-2">
@@ -154,7 +154,7 @@ export default function Learn() {
                     href="/Learn/Evaluation/A_B_testing"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                   1. A/B Testing
+                   <span className="ml-2">►</span> 1. A/B Testing
                   </Link>
                 </li>
                 <li>
@@ -162,7 +162,7 @@ export default function Learn() {
                     href="/Learn/Evaluation/Heuristic_Evaluation"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                   2. Heuristic Evaluation
+                   <span className="ml-2">►</span> 2. Heuristic Evaluation
                   </Link>
                 </li>
               </ul>
@@ -221,7 +221,7 @@ export default function Learn() {
                }}
                   className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
                 >
-                  3. Value Proposition Canvas
+                  3. Value Proposition Canvas <span className="ml-2">▼</span>
                 </button>
                 {activeMenu === "ValuePropositionCanvas" && (
                   <ul className="pl-8 mt-2 space-y-2">
@@ -231,7 +231,7 @@ export default function Learn() {
                         className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                         onClick={toggleMobileMenu}
                       >
-                        1. Customer Journey Maps in User Experience
+                        <span className="ml-2">►</span> 1. Customer Journey Maps in User Experience
                       </Link>
                     </li>
                     <li>
@@ -240,7 +240,7 @@ export default function Learn() {
                         className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                         onClick={toggleMobileMenu}
                       >
-                        2. Value Proposition Canvas
+                        <span className="ml-2">►</span> 2. Value Proposition Canvas
                       </Link>
                     </li>
                   </ul>
@@ -261,7 +261,7 @@ export default function Learn() {
     
     className="block px-4 py-2 rounded-lg bg-black text-white hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
   >
-    5. Principles of Graphics Design
+    5. Principles of Graphics Design <span className="ml-2">▼</span>
   </button>
   
     <ul className="pl-8 mt-2 space-y-2">
@@ -270,7 +270,7 @@ export default function Learn() {
           href="/Learn/Graphics_Design/Layout_and_Composition"
           className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
         >
-          1. Layout And Composition
+          <span className="ml-2">►</span> 1. Layout And Composition
         </Link>
       </li>
       <li>
@@ -278,7 +278,7 @@ export default function Learn() {
           href="/Learn/Graphics_Design/Psychology_Of_Color"
           className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
         >
-          2. The Psychology Of Color In Marketing And Branding
+          <span className="ml-2">►</span> 2. The Psychology Of Color In Marketing And Branding
         </Link>
       </li>
 <li>
@@ -286,7 +286,7 @@ export default function Learn() {
           href="/Learn/Graphics_Design/Color_Theory"
           className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
         >
-          3. Color Theory
+          <span className="ml-2">►</span> 3. Color Theory
         </Link>
       </li>
 
@@ -320,7 +320,7 @@ export default function Learn() {
               }}
               className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors w-full text-left"
             >
-              8. Evaluation
+              8. Evaluation <span className="ml-2">▼</span>
             </button>
             {activeMenu === "Evaluation" && (
               <ul className="pl-8 mt-2 space-y-2">
@@ -329,7 +329,7 @@ export default function Learn() {
                     href="/Learn/Evaluation/A_B_testing"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                   1. A/B Testing
+                   <span className="ml-2">►</span> 1. A/B Testing
                   </Link>
                 </li>
                 <li>
@@ -337,7 +337,7 @@ export default function Learn() {
                     href="/Learn/Evaluation/Heuristic_Evaluation"
                     className="block px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                   >
-                   2. Heuristic Evaluation
+                   <span className="ml-2">►</span> 2. Heuristic Evaluation
                   </Link>
                 </li>
               </ul>
