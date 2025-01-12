@@ -382,29 +382,38 @@ export default function Learn() {
       {/* Main Content */}
       <div className="flex-1 p-6 ml-18">
         <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
-          <h1 className="text-2xl font-bold mb-4 m-6">Lecture1. Introduction to course</h1>
-          <img
-        src="/introlec1.png"
-        alt="Introduction to course"
-        className="h-auto w-full max-w-4xl mx-auto p-7 mt-10 mb-10"
-      />
+          <h1 className="text-2xl font-bold mb-4 m-6 text-center text-blue-600">Lecture1. Introduction to course</h1>
 
-      <h2 className="ml-6 mb-8 mt-20 ">
+          <div className="flex justify-center">
+        
+        
+        <div className="md:w-1/2 mb-5 mt-5">
+        <img
+          src="/introlec1.png"
+          alt="Introduction to course"
+          className="w-full h-auto max-w-2xl mx-auto p-4 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+          />
+        </div>
+
+        </div>
+         
+
+      <h2 className="font-semibold ml-6 mb-8 mt-20 ">
         อย่างแรกเรามาทำความเข้าใจเบื้องต้นเกี่ยวกับบทนำ โดยการรับชมวิดิโอ User experience (Ux) Intro Course กันก่อนดีกว่า
       </h2>
       <iframe
-        className="w-full max-w-2xl h-96 mt-10 mb-10 m-auto"
+        className="w-full max-w-2xl h-96 mt-10 mb-10 m-auto rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105"
         src="https://www.youtube.com/embed/2QQQtiFwXjU"
         title="YouTube video"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
 
-      <h2 className="ml-6 mb-8 mt-20">
+      <h2 className="font-semibold ml-6 mb-8 mt-20">
         หากอยากรู้จักอาชีพที่เกี่ยวกับ User experience (Ux) /User Interface (UI) สามารถเข้ารับชมเพิ่มเติมได้ที่
       </h2>
       <iframe
-        className="w-full max-w-2xl h-96 mt-10 mb-10 m-auto"
+        className="w-full max-w-2xl h-96 mt-10 mb-10 m-auto rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105"
         src="https://www.youtube.com/embed/AysUmUEbvsQ"
         title="YouTube video"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

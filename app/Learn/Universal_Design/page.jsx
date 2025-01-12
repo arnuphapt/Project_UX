@@ -374,105 +374,117 @@ export default function Learn() {
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto p-4">
       <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
-      <h2 className="text-2xl font-bold mb-4 m-6">Lecture9. Universal Design</h2>
-        <h3 className="text-xl   mb-2 ml-10">Universal Design คือ "การออกแบบและจัดวางสิ่งแวดล้อมเพื่อให้ทุกคนสามารถเข้าถึง เข้าใจ และใช้งานได้ในระดับสูงสุดเท่าที่จะเป็นไปได้ โดยไม่คำนึงถึงอายุ ขนาด หรือความพิการ " อ้างอิงจากพระราชบัญญัติความพิการของไอร์แลนด์ ปี 2005  </h3>
-        <img src="/Universal_banner.png" alt="Universal_banner" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 " />
+      <h2 className="text-2xl font-bold mb-4 m-6 text-center text-blue-600">Lecture9. Universal Design</h2>
+        <h3 className="text-gray-700 mb-12 mt-10 text-center">Universal Design คือ "การออกแบบและจัดวางสิ่งแวดล้อมเพื่อให้ทุกคนสามารถเข้าถึง เข้าใจ และใช้งานได้ในระดับสูงสุดเท่าที่จะเป็นไปได้ โดยไม่คำนึงถึงอายุ ขนาด หรือความพิการ " อ้างอิงจากพระราชบัญญัติความพิการของไอร์แลนด์ ปี 2005  </h3>
+        <img src="/Universal_banner.png" alt="Universal_banner" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
 
-          <h3 className="text-xl  mb-4 mt-6 ml-10">Universal Design -The Principles- มีทั้งหมด 7หัวข้อ ได้แก่ </h3>
-          <img src="/Principles_universal.png" alt="Principles_universal" className=" h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10 " />
+          <h3 className="text-xl font-semibold  mb-4 mt-6 ml-10">Universal Design -The Principles- มีทั้งหมด 7หัวข้อ ได้แก่ </h3>
+          <img src="/Principles_universal.png" alt="Principles_universal" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
         
           <ul class="list-disc p-5 ml-10  "> <span className="font-semibold  text-black ml-5 "> 1. Equitable Use (การใช้งานอย่างเสมอภาค) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่ไม่กีดกันผู้ใช้ใดๆ และทำให้ทุกคนสามารถเข้าถึงได้อย่างเท่าเทียม โดยไม่จำเป็นต้องปรับเปลี่ยนการใช้งานเป็นพิเศษสำหรับกลุ่มใดกลุ่มหนึ่ง</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> เว็บไซต์ที่มีฟังก์ชันให้ผู้ใช้สามารถเลือกเปลี่ยนภาษาเป็นภาษาที่ตนเองถนัด จะทำให้ผู้ใช้จากหลากหลายประเทศสามารถใช้งานได้สะดวกและได้รับประสบการณ์การใช้งานที่ไม่ต่างกัน</li>
-          <img src="/Uquitable.png" alt="10 Usability Heuristics" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-4 mt-4" />
+          <img src="/Uquitable.png" alt="10 Usability Heuristics" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
          
           
           <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 2. Flexibility in Use (ความยืดหยุ่นในการใช้งาน) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่รองรับความต้องการและความชอบที่หลากหลายของผู้ใช้ สามารถปรับเปลี่ยนได้ตามความสะดวกของแต่ละบุคคล</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> หากต้องการสมัครแพ็คเกจบนเว็บไซต์ควร มี แพ็คเกจให้ผู้ใช้เลือกได้เหมาะกับการใช้งานของผู้ใช้</li>
-          <img src="/Flexibility_inuse.png" alt="Flexibility_inuse" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-3 mt-4" />
+          <img src="/Flexibility_inuse.png" alt="Flexibility_inuse" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
          
           
           <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 3. Simple and Intuitive Use (ใช้งานง่าย ไม่ซับซ้อน) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่ผู้ใช้ทุกคนสามารถเข้าใจและใช้งานได้ง่ายโดยไม่จำเป็นต้องมีการเรียนรู้หรือมีประสบการณ์มาก่อน การใช้งานควรเป็นธรรมชาติและไม่ต้องใช้ความคิดมากเกินไป</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> การออกแบบระบบนำทางที่ชัดเจนและเข้าใจได้ง่าย เช่น เมนูที่เรียบง่าย ปุ่มที่มีการระบุฟังก์ชันชัดเจน</li>
-          <img src="/Simple_and_Intuitive.png" alt="Simple_and_Intuitive" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-4 mt-4" />
+          <img src="/Simple_and_Intuitive.png" alt="Simple_and_Intuitive" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
          
           
           <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 4. Perceptible Information (ข้อมูลเข้าใจง่าย แม้สำหรับผู้มีข้อจำกัดในการรับรู้) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่สามารถสื่อสารข้อมูลสำคัญไปยังผู้ใช้ทุกคน ไม่ว่าจะมีความบกพร่องทางการมองเห็น การได้ยิน หรือการรับรู้ในรูปแบบอื่นๆ ข้อมูลควรถูกนำเสนอผ่านหลายช่องทาง เพื่อให้มั่นใจว่าผู้ใช้สามารถเข้าใจได้</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> การใช้ข้อความ แถบสี เสียงแจ้งเตือน หรือการสั่นเตือน เพื่อสื่อสารเหตุการณ์สำคัญต่างๆ บนแอปพลิเคชัน</li>
-          <img src="https://media.licdn.com/dms/image/v2/D4E12AQFCkvDtdfdylA/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1674021851137?e=2147483647&v=beta&t=YR8Jk81u02bgzdpWtghjsc_Ujz6fWRj5lQJGwqQYg5Q" alt="Perceptible Information" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-4 mt-4" />
+          <img src="https://media.licdn.com/dms/image/v2/D4E12AQFCkvDtdfdylA/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1674021851137?e=2147483647&v=beta&t=YR8Jk81u02bgzdpWtghjsc_Ujz6fWRj5lQJGwqQYg5Q" alt="Perceptible Information" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
           
           <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 5. Low Physical Effort (ใช้แรงกายในการใช้งานน้อย) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่ลดความเหนื่อยล้าทางร่างกายและจิตใจในการใช้งานผลิตภัณฑ์หรือบริการ ผู้ใช้ควรจะสามารถดำเนินการต่างๆ ได้อย่างสะดวกสบายและไม่ต้องออกแรงมากเกินไป</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> Microsoft Word หรือโปรแกรมอื่นๆ ก็มี shortcuts เช่น กด "Ctrl + S" เพื่อบันทึกไฟล์ ซึ่งช่วยลดการเสียเวลาของผู้ใช้ในการบันทึกงานด้วยการคลิกที่เมนู</li>
-          <img src="https://i.ytimg.com/vi/TEikdLuKG5c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCD338UoXHu-cBi4kptIPFcvfpeNQ" alt="Low Physical Effort" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-4 mt-4" />
+          <img src="https://i.ytimg.com/vi/TEikdLuKG5c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCD338UoXHu-cBi4kptIPFcvfpeNQ" alt="Low Physical Effort" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
 
 
           <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 6. Tolerance for Error (ออกแบบที่ยอมรับความผิดพลาด ลดโอกาสเกิดความผิดพลาดร้ายแรง) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่ลดความเสี่ยงของการเกิดความผิดพลาด หรือเมื่อเกิดความผิดพลาดแล้วควรมีวิธีการกู้คืนหรือแก้ไขได้ง่าย</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> มีฟังก์ชัน "ยกเลิก" หรือ "ย้อนกลับ" (undo/redo) ในการกรอกข้อมูลที่ผิดพลาด หรือการแจ้งเตือนก่อนการดำเนินการที่อาจจะมีผลกระทบรุนแรง</li>
-          <img src="https://alliescomputing.com/cms-admin/resources/etd-tweet-imgage.jpg" alt="Tolerance for Error" className=" h-auto w-full max-w-xl mx-auto p-7  mb-4 mt-4" />
+          <img src="https://alliescomputing.com/cms-admin/resources/etd-tweet-imgage.jpg" alt="Tolerance for Error" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
           
           
           <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 7. Size and Space for Approach and Use (ขนาดและพื้นที่ที่เหมาะสมสำหรับการใช้งานโดยกลุ่มคนต่างๆ) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การจัดวางขนาดและพื้นที่ให้สามารถใช้งานได้ง่ายโดยไม่ว่าจะมีข้อจำกัดทางกายภาพ เช่น ความสูง น้ำหนัก หรือการเคลื่อนไหว ผู้ใช้ทุกคนควรสามารถเข้าถึงได้ไม่ว่าจะอยู่ในตำแหน่งใดหรือใช้ร่างกายส่วนไหน</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> เช่น Slack ถูกออกแบบให้สามารถใช้งานได้ง่ายทั้งบนเดสก์ท็อปและมือถือ โดยมีพื้นที่เพียงพอสำหรับการเข้าถึงส่วนต่างๆ เช่น ปุ่มและเมนูที่วางอย่างเหมาะสมสำหรับทั้งผู้ใช้เมาส์และผู้ใช้หน้าจอสัมผัส</li>
-          <img src="https://community.maryville.edu/servlet/rtaImage?eid=ka08X000000ORBJ&feoid=00N3600000RpYD2&refid=0EM8X000003pTp6" alt="Size and Space for Approach and Use" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-4 mt-4" />
+          <img src="https://community.maryville.edu/servlet/rtaImage?eid=ka08X000000ORBJ&feoid=00N3600000RpYD2&refid=0EM8X000003pTp6" alt="Size and Space for Approach and Use" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
           
-          <h3 className="text-xl font-semibold mb-2 mt-6 ml-6">"User-Centred Design" (การออกแบบที่ยึดผู้ใช้เป็นศูนย์กลาง) </h3>
-          <h3 className="text-xl font-semibold mb-2 ml-10">เน้นไปที่แนวคิดต่าง ๆ ในการออกแบบเพื่อให้ครอบคลุมและเข้าถึงกลุ่มคนหลากหลายลักษณะ ซึ่งรวมถึง: </h3>
+          <h3 className="text-xl font-semibold  mb-4 mt-6 ml-10">User-Centred Design (การออกแบบที่ยึดผู้ใช้เป็นศูนย์กลาง) </h3>
+          <h3 className="text-xl font-semibold  mb-4 mt-6 ml-10">เน้นไปที่แนวคิดต่าง ๆ ในการออกแบบเพื่อให้ครอบคลุมและเข้าถึงกลุ่มคนหลากหลายลักษณะ ซึ่งรวมถึง: </h3>
          
          
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5 ">1. Inclusive Design (การออกแบบที่ครอบคลุม) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> ออกแบบผลิตภัณฑ์และบริการเพื่อให้ทุกคนสามารถเข้าถึงและใช้งานได้ ไม่ว่าจะมีความสามารถหรือลักษณะทางกายภาพที่แตกต่างกัน</li>
-          </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-5">
+  {[
+    {
+      title: "1. Inclusive Design (การออกแบบที่ครอบคลุม)",
+      description: "ออกแบบผลิตภัณฑ์และบริการเพื่อให้ทุกคนสามารถเข้าถึงและใช้งานได้ ไม่ว่าจะมีความสามารถหรือลักษณะทางกายภาพที่แตกต่างกัน",
+    },
+    {
+      title: "2. Design for All (การออกแบบเพื่อทุกคน)",
+      description: "เน้นการสร้างสิ่งที่ทุกคนสามารถใช้ได้ ไม่ว่าผู้ใช้จะมีความแตกต่างทางร่างกาย วัย หรือความต้องการพิเศษอื่น ๆ",
+    },
+    {
+      title: "3. User Needs Design (การออกแบบตามความต้องการของผู้ใช้)",
+      description: "มุ่งเน้นการสร้างสิ่งที่ตอบสนองต่อความต้องการเฉพาะของกลุ่มผู้ใช้ที่เป็นเป้าหมายอย่างแท้จริง",
+    },
+    {
+      title: "4. User-Centred Design (การออกแบบที่ยึดผู้ใช้เป็นศูนย์กลาง)",
+      description: "กระบวนการออกแบบที่ให้ความสำคัญกับการศึกษาและเข้าใจพฤติกรรม ความต้องการ และความคาดหวังของผู้ใช้ก่อนการออกแบบผลิตภัณฑ์หรือบริการ",
+    },
+    {
+      title: "5. Human-Centred Design (การออกแบบที่ยึดมนุษย์เป็นศูนย์กลาง)",
+      description: "การออกแบบที่คำนึงถึงประสบการณ์และความเป็นอยู่ที่ดีของมนุษย์ในทุก ๆ ด้าน ไม่เพียงแค่การใช้งาน แต่รวมถึงความสบายและความสุขของผู้ใช้",
+    },
+    {
+      title: "6. Barrier-Free Design (การออกแบบที่ไม่มีสิ่งกีดขวาง)",
+      description: "มุ่งเน้นการออกแบบที่ลดหรือขจัดอุปสรรคที่ขัดขวางการเข้าถึงของผู้ใช้ เช่น การออกแบบสิ่งแวดล้อมที่เหมาะกับผู้ใช้รถเข็นหรือผู้สูงอายุ",
+    },
+    {
+      title: "7. Accessible Design (การออกแบบที่เข้าถึงได้)",
+      description: "สร้างสรรค์ผลิตภัณฑ์หรือบริการที่ผู้ใช้ทุกกลุ่มสามารถเข้าถึงได้ง่าย รวมถึงผู้ที่มีความบกพร่องทางกายภาพหรือทางประสาทสัมผัส",
+    },
+    {
+      title: "8. Adaptable Design (การออกแบบที่ปรับเปลี่ยนได้)",
+      description: "การออกแบบที่สามารถปรับแต่งให้เข้ากับความต้องการที่หลากหลายของผู้ใช้ หรือปรับเปลี่ยนตามสภาพแวดล้อมที่เปลี่ยนไป",
+    },
+    {
+      title: "9. Transgenerational Design (การออกแบบสำหรับหลายช่วงวัย)",
+      description: "ออกแบบผลิตภัณฑ์และบริการที่สามารถใช้งานได้โดยผู้คนทุกช่วงวัย ตั้งแต่เด็กไปจนถึงผู้สูงอายุ",
+    },
+    {
+      title: "10. Design for a Broader Average (การออกแบบที่เหมาะสมกับคนส่วนใหญ่)",
+      description: "มุ่งเน้นการออกแบบที่ไม่เจาะจงไปที่กลุ่มใดกลุ่มหนึ่ง แต่สามารถตอบสนองความต้องการของกลุ่มคนทั่วไปในสังคม",
+    },
+  ].map((item, index) => (
+    <div
+      key={index}
+      className="p-5 border rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow duration-300"
+    >
+      <h2 className="text-lg font-bold text-black mb-3">{item.title}</h2>
+      <p className="text-gray-600">{item.description}</p>
+    </div>
+  ))}
+</div>
 
-
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5 ">2. Design for All (การออกแบบเพื่อทุกคน) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-2" ><span className="font-semibold  text-black ">คำอธิบาย</span> เน้นการสร้างสิ่งที่ทุกคนสามารถใช้ได้ ไม่ว่าผู้ใช้จะมีความแตกต่างทางร่างกาย วัย หรือความต้องการพิเศษอื่น ๆ</li>
-          </ul>
-
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5 ">3. User Needs Design (การออกแบบตามความต้องการของผู้ใช้) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-2" ><span className="font-semibold  text-black ">คำอธิบาย</span> มุ่งเน้นการสร้างสิ่งที่ตอบสนองต่อความต้องการเฉพาะของกลุ่มผู้ใช้ที่เป็นเป้าหมายอย่างแท้จริง</li>
-          </ul>
-
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5 ">4. User-Centred Design (การออกแบบที่ยึดผู้ใช้เป็นศูนย์กลาง) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-2" ><span className="font-semibold  text-black ">คำอธิบาย</span> กระบวนการออกแบบที่ให้ความสำคัญกับการศึกษาและเข้าใจพฤติกรรม ความต้องการ และความคาดหวังของผู้ใช้ก่อนการออกแบบผลิตภัณฑ์หรือบริการ</li>
-          </ul>
-
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5 ">5. Human-Centred Design (การออกแบบที่ยึดมนุษย์เป็นศูนย์กลาง) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-2" ><span className="font-semibold  text-black ">คำอธิบาย</span> เการออกแบบที่คำนึงถึงประสบการณ์และความเป็นอยู่ที่ดีของมนุษย์ในทุก ๆ ด้าน ไม่เพียงแค่การใช้งาน แต่รวมถึงความสบายและความสุขของผู้ใช้</li>
-          </ul>
-
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5 ">6. Barrier-Free Design (การออกแบบที่ไม่มีสิ่งกีดขวาง) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-2" ><span className="font-semibold  text-black ">คำอธิบาย</span> มุ่งเน้นการออกแบบที่ลดหรือขจัดอุปสรรคที่ขัดขวางการเข้าถึงของผู้ใช้ เช่น การออกแบบสิ่งแวดล้อมที่เหมาะกับผู้ใช้รถเข็นหรือผู้สูงอายุ</li>
-          </ul>
-
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5 ">7. Accessible Design (การออกแบบที่เข้าถึงได้) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-2" ><span className="font-semibold  text-black ">คำอธิบาย</span> สร้างสรรค์ผลิตภัณฑ์หรือบริการที่ผู้ใช้ทุกกลุ่มสามารถเข้าถึงได้ง่าย รวมถึงผู้ที่มีความบกพร่องทางกายภาพหรือทางประสาทสัมผัส</li>
-          </ul>
-
-          <ul class="list-disc p-5 ml-10 "> <span className="font-semibold  text-black ml-5 ">8. Adaptable Design (การออกแบบที่ปรับเปลี่ยนได้) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-2" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่สามารถปรับแต่งให้เข้ากับความต้องการที่หลากหลายของผู้ใช้ หรือปรับเปลี่ยนตามสภาพแวดล้อมที่เปลี่ยนไป</li>
-          </ul>
-
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5 ">9. Transgenerational Design (การออกแบบสำหรับหลายช่วงวัย) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-2" ><span className="font-semibold  text-black ">คำอธิบาย</span> ออกแบบผลิตภัณฑ์และบริการที่สามารถใช้งานได้โดยผู้คนทุกช่วงวัย ตั้งแต่เด็กไปจนถึงผู้สูงอายุ</li>
-          </ul>
-
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5 ">10. Design for a Broader Average (การออกแบบที่เหมาะสมกับคนส่วนใหญ่) :</span> 
-          <li className="mb-2 text-gray-600 ml-10 mt-2" ><span className="font-semibold  text-black ">คำอธิบาย</span> มุ่งเน้นการออกแบบที่ไม่เจาะจงไปที่กลุ่มใดกลุ่มหนึ่ง แต่สามารถตอบสนองความต้องการของกลุ่มคนทั่วไปในสังคม </li>
-          </ul>
-          
         
           
 
