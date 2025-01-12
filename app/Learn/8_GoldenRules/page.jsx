@@ -17,7 +17,7 @@ export default function Learn() {
 <div className="flex">
 
       {/* Normal Sidebar */}
-      <div className=" hidden lg:block fixed w-64 bg-white h-full  p-4 mt-10  ">
+      <div className=" hidden 2xl:block fixed w-64 bg-white h-full  p-4 mt-10  ">
         
         <ul className="space-y-2">
         <Link href="/Learn">
@@ -188,7 +188,7 @@ export default function Learn() {
       </div>
 
         {/* Hamburger Dropdown for mobile */}
-        <div className="lg:hidden fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="2xl:hidden fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50">
         <button
           className="bg-blue-500 text-white p-3 rounded-full shadow-md"
           onClick={toggleMobileMenu}
