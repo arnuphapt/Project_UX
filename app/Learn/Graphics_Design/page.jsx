@@ -366,7 +366,7 @@ export default function Learn() {
 
       <div className="flex-1 p-6 ml-18">
     <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
-      <h1 className="text-2xl font-bold mb-4 m-6">Lecture5. Principles of Graphics Design </h1>
+      <h1 className="text-2xl font-bold mb-4 m-6 text-center text-blue-600">Lecture5. Principles of Graphics Design </h1>
       <img src="/PO_GRAPHIC.png" alt="Evaluation" className=" h-auto w-full max-w-3xl mx-auto p-7 mt-10 mb-10  " />
      
       

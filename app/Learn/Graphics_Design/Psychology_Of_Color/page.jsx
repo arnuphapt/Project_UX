@@ -378,59 +378,79 @@ export default function Learn() {
       <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
         
             
-          <h3 className="text-2xl font-bold mb-4 m-6">2.THE PSYCHOLOGY OF COLOR IN MARKETING AND BRANDING </h3>
-          <img src="/gregory_ciotti.png" alt="Principles of Graphics Design" className=" h-auto w-full max-w-5xl mx-auto p-5 " />
-          <p className="text-gray-600 ml-10 mb-4 mt-6"><span className="font-semibold text-black">คำอธิบาย :</span> การศึกษาเรื่องนี้โดยละเอียดนั้นมาจากงานวิจัยของ Joe Hallock เรื่อง "การกำหนดสี"
+          <h3 className="text-2xl font-bold mb-4 m-6 text-center text-blue-600">2.THE PSYCHOLOGY OF COLOR IN MARKETING AND BRANDING </h3>
+          <img src="/gregory_ciotti.png" alt="Principles of Graphics Design" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300" />
+          <p className="text-gray-600 ml-10 mb-4 mt-10"><span className="font-semibold text-black">คำอธิบาย :</span> การศึกษาเรื่องนี้โดยละเอียดนั้นมาจากงานวิจัยของ Joe Hallock เรื่อง "การกำหนดสี"
 ข้อมูลของ Hallock แสดงให้เห็นถึงความชอบในสีบางสีที่แตกต่างกันไปตามเพศ(โดยส่วนใหญ่ผู้ตอบแบบสอบถามมาจากสังคมตะวันตก)สิ่งสำคัญที่ต้องทราบคือ สภาพแวดล้อมของแต่ละบุคคล — และโดยเฉพาะอย่างยิ่งความรับรู้ทางวัฒนธรรม— มีบทบาทสำคัญในการกำหนดว่าสีใดเหมาะสมกับเพศใด</p>
 <p className="text-gray-600 mb-4 ml-10" >นี่คือผลการวิจัยของ Hallock: </p>
 <p className="text-gray-600 ml-10 mb-4 mt-6"><span className="font-semibold text-black">คำอธิบายเพิ่มเติม :</span> ข้อความนี้กล่าวถึงงานวิจัยของ Joe Hallock ที่ศึกษาเกี่ยวกับความเชื่อมโยงระหว่างสีและเพศ โดยเน้นย้ำว่าความชอบในสีนั้นไม่ได้เป็นเรื่องสากล แต่ยังได้รับอิทธิพลจากวัฒนธรรมและสภาพแวดล้อมของแต่ละบุคคลอีกด้วย
 
 หากมีข้อมูลเพิ่มเติมเกี่ยวกับผลการวิจัยของ Hallock เช่น สีที่ผู้ชายและผู้หญิงชอบ สีที่เป็นกลางทางเพศ หรือความแตกต่างของผลการวิจัยระหว่างวัฒนธรรมตะวันตกและตะวันออก สามารถนำมาวิเคราะห์และอธิบายเพิ่มเติมได้</p>
  
-
-<h3 className="text-2xl font-semibold ml-6 mt-20">การใช้สีในการตลาดและแบรนด์ </h3>
-          <img src="/color_branding.jpg" alt="Design basics" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 " />
-          <p className="text-gray-600 mb-4 ml-10" >การใช้จิตวิทยาของสีในการออกแบบเว็บไซต์สามารถเพิ่มประสิทธิภาพและประสบการณ์ของผู้ใช้ได้ โดยแต่ละสีมีความหมายและอารมณ์ที่แตกต่างกัน ซึ่งสามารถกระตุ้นความรู้สึกและพฤติกรรมของผู้เข้าชมได้</p>
+<div className="max-w-7xl mx-auto  bg-gray-100 shadow-md rounded-lg p-6   mt-10">
+<h3 className="text-2xl font-semibold ml-6 mt-20 text-blue-500 ">การใช้สีในการตลาดและแบรนด์ </h3>
+<p className="text-gray-600 mb-4 ml-10 mt-10" >การใช้จิตวิทยาของสีในการออกแบบเว็บไซต์สามารถเพิ่มประสิทธิภาพและประสบการณ์ของผู้ใช้ได้ โดยแต่ละสีมีความหมายและอารมณ์ที่แตกต่างกัน ซึ่งสามารถกระตุ้นความรู้สึกและพฤติกรรมของผู้เข้าชมได้</p>
+          <img src="/color_branding.jpg" alt="Design basics" className=" h-auto w-full max-w-xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
+         
           
-          <ul class="list-disc p-5 ml-6"> <span className="font-semibold text-red-600">สีแดง (Red) :</span> 
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">อารมณ์ : </span> ตื่นเต้น, กระตุ้น </li>
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">การใช้งาน : </span> สามารถใช้เพื่อดึงดูดความสนใจ เช่น ปุ่ม "ซื้อเดี๋ยวนี้" หรือส่วนที่สำคัญในหน้าเว็บ</li>
-          </ul>
- 
-          <ul class="list-disc p-5 ml-6"> <span className="font-semibold text-blue-600">สีน้ำเงิน (Blue) :</span> 
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">อารมณ์ : </span> สงบ, เชื่อถือได้ </li>
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">การใช้งาน : </span> เหมาะสำหรับเว็บไซต์ที่ต้องการสร้างความเชื่อมั่น เช่น ธนาคารหรือบริการทางการเงิน</li>
-          </ul>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-20 ">
+  {/* สีแดง */}
+  <ul className="list-disc p-5 ml-6 ">
+    <span className="font-semibold text-red-600">สีแดง (Red) :</span>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">อารมณ์ :</span> ตื่นเต้น, กระตุ้น</li>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">การใช้งาน :</span> สามารถใช้เพื่อดึงดูดความสนใจ เช่น ปุ่ม "ซื้อเดี๋ยวนี้" หรือส่วนที่สำคัญในหน้าเว็บ</li>
+  </ul>
 
-          <ul class="list-disc p-5 ml-6"> <span className="font-semibold text-green-600">สีเขียว (Green) :</span> 
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">อารมณ์ : </span> สดชื่น, เป็นธรรมชาติ</li>
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">การใช้งาน : </span> มักใช้ในเว็บไซต์ที่เกี่ยวกับสุขภาพและสิ่งแวดล้อม หรือเพื่อสื่อถึงความเจริญเติบโต</li>
-          </ul>
+  {/* สีน้ำเงิน */}
+  <ul className="list-disc p-5 ml-6">
+    <span className="font-semibold text-blue-600">สีน้ำเงิน (Blue) :</span>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">อารมณ์ :</span> สงบ, เชื่อถือได้</li>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">การใช้งาน :</span> เหมาะสำหรับเว็บไซต์ที่ต้องการสร้างความเชื่อมั่น เช่น ธนาคารหรือบริการทางการเงิน</li>
+  </ul>
 
-          <ul class="list-disc p-5 ml-6"> <span className="font-semibold text-yellow-600">สีเหลือง (Yellow) :</span> 
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">อารมณ์ : </span> ร่าเริง, กระตุ้น</li>
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">การใช้งาน : </span> ใช้เพื่อดึงดูดความสนใจและสร้างบรรยากาศที่เป็นบวก เช่น เว็บไซต์ที่เน้นความสนุกสนาน</li>
-          </ul>
+  {/* สีเขียว */}
+  <ul className="list-disc p-5 ml-6">
+    <span className="font-semibold text-green-600">สีเขียว (Green) :</span>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">อารมณ์ :</span> สดชื่น, เป็นธรรมชาติ</li>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">การใช้งาน :</span> มักใช้ในเว็บไซต์ที่เกี่ยวกับสุขภาพและสิ่งแวดล้อม หรือเพื่อสื่อถึงความเจริญเติบโต</li>
+  </ul>
 
-          <ul class="list-disc p-5 ml-6"> <span className="font-semibold text-orange-600">สีส้ม (Orange) :</span> 
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">อารมณ์ : </span> กระตุ้น, เป็นมิตร</li>
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">การใช้งาน : </span> เหมาะสำหรับการส่งเสริมการขายหรือกิจกรรมพิเศษ</li>
-          </ul>
+  {/* สีเหลือง */}
+  <ul className="list-disc p-5 ml-6">
+    <span className="font-semibold text-yellow-600">สีเหลือง (Yellow) :</span>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">อารมณ์ :</span> ร่าเริง, กระตุ้น</li>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">การใช้งาน :</span> ใช้เพื่อดึงดูดความสนใจและสร้างบรรยากาศที่เป็นบวก เช่น เว็บไซต์ที่เน้นความสนุกสนาน</li>
+  </ul>
 
-          <ul class="list-disc p-5 ml-6"> <span className="font-semibold text-purple-600">สีม่วง (Purple) :</span> 
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">อารมณ์ : </span>  หรูหรา, ลึกลับ</li>
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">การใช้งาน : </span> สามารถใช้ในเว็บไซต์ที่ต้องการสื่อถึงความหรูหราหรือความคิดสร้างสรรค์</li>
-          </ul>
+  {/* สีส้ม */}
+  <ul className="list-disc p-5 ml-6">
+    <span className="font-semibold text-orange-600">สีส้ม (Orange) :</span>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">อารมณ์ :</span> กระตุ้น, เป็นมิตร</li>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">การใช้งาน :</span> เหมาะสำหรับการส่งเสริมการขายหรือกิจกรรมพิเศษ</li>
+  </ul>
 
-          <ul class="list-disc p-5 ml-6"> <span className="font-semibold text-black">สีดำ (Black) :</span> 
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">อารมณ์ : </span>  ทันสมัย, มีอำนาจ</li>
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">การใช้งาน : </span> เหมาะสำหรับเว็บไซต์ที่ต้องการสร้างภาพลักษณ์ที่หรูหรา เช่น แบรนด์สินค้าหรูหรา</li>
-          </ul>
+  {/* สีม่วง */}
+  <ul className="list-disc p-5 ml-6">
+    <span className="font-semibold text-purple-600">สีม่วง (Purple) :</span>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">อารมณ์ :</span> หรูหรา, ลึกลับ</li>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">การใช้งาน :</span> สามารถใช้ในเว็บไซต์ที่ต้องการสื่อถึงความหรูหราหรือความคิดสร้างสรรค์</li>
+  </ul>
 
-          <ul class="list-disc p-5 ml-6"> <span className="font-semibold  text-gray-500"> สีขาว (White) :</span> 
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">อารมณ์ : </span>  สะอาด, เรียบง่าย</li>
-          <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">การใช้งาน : </span> ใช้เพื่อสร้างความรู้สึกเรียบง่ายและให้ข้อมูลที่ชัดเจน</li>
-          </ul>
+  {/* สีดำ */}
+  <ul className="list-disc p-5 ml-6">
+    <span className="font-semibold text-black">สีดำ (Black) :</span>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">อารมณ์ :</span> ทันสมัย, มีอำนาจ</li>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">การใช้งาน :</span> เหมาะสำหรับเว็บไซต์ที่ต้องการสร้างภาพลักษณ์ที่หรูหรา เช่น แบรนด์สินค้าหรูหรา</li>
+  </ul>
+
+  {/* สีขาว */}
+  <ul className="list-disc p-5 ml-6">
+    <span className="font-semibold text-gray-500">สีขาว (White) :</span>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">อารมณ์ :</span> สะอาด, เรียบง่าย</li>
+    <li className="mb-2 text-gray-700 ml-10"><span className="font-semibold text-gray-900">การใช้งาน :</span> ใช้เพื่อสร้างความรู้สึกเรียบง่ายและให้ข้อมูลที่ชัดเจน</li>
+  </ul>
+</div>
+</div>
          
 
 

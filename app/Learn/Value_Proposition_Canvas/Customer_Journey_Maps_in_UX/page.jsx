@@ -365,8 +365,7 @@ export default function Learn() {
           </li>
             </ul>
           </div>
-        )}
-      </div>
+        )}      </div>
 
 
     <div className="flex-1 p-6">
@@ -375,36 +374,78 @@ export default function Learn() {
       
       
       <div className="max-w-7xl mx-auto  bg-white shadow-md rounded-lg p-6 border border-gray-300 mt-10">
-      <h2 className="text-2xl font-bold mb-4 m-6">1. Customer Journey for Enhancing UX</h2>
-        <img src="/CXUX.png" alt="CXUX" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 border-solid border-2 border-black rounded-lg " />
+      <h2 className="text-2xl font-bold mb-4 m-6 text-center text-blue-600">1. Customer Journey for Enhancing UX</h2>
+       
+      <div className="flex justify-center">
+        <div className="md:w-1/2 mb-5 mt-5">
+        <img
+          src="/CXUX.png"
+          alt="CXUX"
+          className="w-full h-auto max-w-2xl mx-auto p-4 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+          />
+        </div>
+        </div>
 
-          <h3 className="text-xl font-semibold mb-2 mt-12 ml-6">Customer Journey for Enhancing UX</h3>
+        <div className="max-w-7xl mx-auto  bg-gray-200 shadow-md rounded-lg p-6   mt-10">
+          <h3 className="text-xl font-semibold mb-2 mt-12 ml-6 text-blue-600">Customer Journey for Enhancing UX</h3>
           
-          <h3 className="text-xl  mb-2 mt-6 ml-10">Customer Journey คือการเดินทางของกลุ่มเป้าหมายตั้งแต่พบ
+          <h3 className=" mb-2 mt-6 ml-10">Customer Journey คือการเดินทางของกลุ่มเป้าหมายตั้งแต่พบ
 สินค้าหรือบริการค้นหาสินค้าหรือบริการไปจนถึงการซื้อสินค้าหรือบริการของเรา รายละเอียดนั้น สามารถดูได้ที่ภาพประกอบ</h3>
-          <img src="/CTJ.png" alt="CTJ" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 " />
-        
+          
+          <div className="flex justify-center">
+        <div className="md:w-1/2 mb-5 mt-5">
+        <img
+          src="/CTJ.png"
+          alt="CTJ"
+          className="w-full h-auto max-w-2xl mx-auto p-4 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+          />
+        </div>
+        </div>
         <h3 className="text-l  mb-2 mt-3 ml-10"><span className="text-l  font-semibold ">1. การรับรู้ :</span> คือ การที่กลุ่มเป้าหมายของเราพบเห็นสินค้าของเราหรือโฆษณาสินค้าหรือบริการของเรา</h3>
         <h3 className="text-l  mb-2 mt-3 ml-10"><span className="text-l  font-semibold ">2. การค้นหาข้อมูล :</span> คือ การที่กลุ่มเป้าหมายเริ่มสนใจสินค้าหรือบริการของเราแล้วค้นหาสินค้าหรือบริการนั้นจากเว็บของเรา, Fanpageของเราหรือจาก SearchEngine เพื่ออยากรู้รายละเอียดเพิ่มเติมและนำไปสู่การปิดการขาย</h3>
         <h3 className="text-l  mb-2 mt-3 ml-10"><span className="text-l  font-semibold ">3. ตัดสินใจซื้อ :</span> การที่กลุ่มเป้าหมายอยากที่จะซื้อสินค้าหรือบริการของเราแล้ว โดยอาจจะซื้อจากทางเว็บไซต์ หรือหน้าร้าน หรือทางที่ลูกค้าสะดวก</h3>
         <h3 className="text-l  mb-2 mt-3 ml-10"><span className="text-l  font-semibold ">4. ซื้อซ้ำ :</span> คือการที่ที่ลูกค้ากลุ่มเป้าหมาย ประทับใจในสินค้าหรือบริการของเรา แล้วยินดีที่จะซื้อสินค้าหรือบริการของเราอีก</h3>
+        </div>
+        <h3 className="text-xl font-semibold mb-2 mt-20 ml-10 text-blue-600">Customer Journey Maps</h3>
+       
+        <div className="flex justify-center">
+        <div className="md:w-1/2 mb-5 mt-5">
+        <img
+          src="/CJM.png"
+          alt="Customer Journey Maps"
+          className="w-full h-auto max-w-2xl mx-auto p-4 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300"
+          />
+        </div>
+        </div>
 
-        <h3 className="text-2xl font-semibold mb-2 mt-12 ml-6">Customer Journey Maps</h3>
-        <img src="/CJM.png" alt="Customer Journey Maps" className="h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10" />
-        <iframe 
-    className="w-full max-w-2xl h-96 mt-10 mb-10 m-auto" 
-    src="https://www.youtube.com/embed/gfVq-DBa17s" 
-    title="YouTube video" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowFullScreen>
-        </iframe>
-        <ul className="list-disc  ml-10  mb-4"> <span className="font-semibold  text-black"> สำคัญอย่างไร</span> 
-        <li className="mb-2 ml-6 " >ผู้บริโภคของเราเขาได้มาสัมผัสกับสินค้าบริการ หรือ การตลาดที่เราได้นำเสนอออกไปอย่างไรบ้าง อะไรคือจุดที่เขารู้ สึกประทับใจ อะไรคือจุดที่เขารู้สึกไม่พอใจกับบริการของเรา</li>
-        <li className="mb-2 ml-6 " >Harvard Business Review ในปี 2010 (“Using CustomerMaps to Improve Customer Experience” by Adam
-Richardson) ได้ให้คำนิยาม Customer Journey Map ว่าเป็น idea ง่ายๆ อย่างเช่น diagram ที่แสดงให้เห็นว่าผู้บริโภคได้เข้ามาสัมผัสองค์กรของคุณอย่างไรบ้าง ไม่ว่าจะเป็น สินค้า บริการ การเข้าไปสัมผัสในโลกของOnline การใช้บริการในร้านค้า ซึ่งทั้งหมดนี้ จะเรียกว่า Touch Points ที่ลูกค้ามาสัมผัสกับเรา ยิ่งถ้าเราออกแบบ Touch Points ยิ่งมากเท่าไหร่ การเข้าใจ Customer Journey Map ก็จะมีความซับซ้อนมากยิ่งขึ้น</li>
-</ul>
-<img src="/24.png" alt="Customer Journey Maps" className="h-auto w-full max-w-4xl mx-auto p-7  mb-6 mt-10" />
-<img src="/25.png" alt="Customer Journey Maps" className="h-auto w-full max-w-5xl mx-auto p-7  mb-6 mt-10" />
+  <div className="flex flex-col md:flex-row items-center gap-8 mt-20 mb-20 ">
+  {/* Left content */}
+  <div className="flex-1">
+    <h3 className="text-l font-semibold mb-2 ml-10">สำคัญอย่างไร</h3>
+    <ul className="list-disc ml-10 mb-4">
+      <li className="mb-2 ml-6">ผู้บริโภคของเราเขาได้มาสัมผัสกับสินค้าบริการ หรือ การตลาดที่เราได้นำเสนอออกไปอย่างไรบ้าง อะไรคือจุดที่เขารู้สึกประทับใจ อะไรคือจุดที่เขารู้สึกไม่พอใจกับบริการของเรา</li>
+      <li className="mb-2 ml-6">
+        Harvard Business Review ในปี 2010 (“Using CustomerMaps to Improve Customer Experience” by Adam Richardson) ได้ให้คำนิยาม Customer Journey Map ว่าเป็น idea ง่ายๆ อย่างเช่น diagram ที่แสดงให้เห็นว่าผู้บริโภคได้เข้ามาสัมผัสองค์กรของคุณอย่างไรบ้าง ไม่ว่าจะเป็น สินค้า บริการ การเข้าไปสัมผัสในโลกของOnline การใช้บริการในร้านค้า ซึ่งทั้งหมดนี้ จะเรียกว่า Touch Points ที่ลูกค้ามาสัมผัสกับเรา ยิ่งถ้าเราออกแบบ Touch Points ยิ่งมากเท่าไหร่ การเข้าใจ Customer Journey Map ก็จะมีความซับซ้อนมากยิ่งขึ้น
+      </li>
+    </ul>
+  </div>
+
+  {/* Right content */}
+  <div className="flex-1">
+    <iframe
+      className="w-full h-96 max-w-full rounded-xl shadow-xl"
+      src="https://www.youtube.com/embed/gfVq-DBa17s"
+      title="YouTube video"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowFullScreen
+    ></iframe>
+  </div>
+</div>
+
+       
+       
+<img src="/24.png" alt="Customer Journey Maps" className="h-auto w-full max-w-5xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300" />
+<img src="/25.png" alt="Customer Journey Maps" className="h-auto w-full max-w-5xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300" />
           
 <ul className="list-disc p-5 mt-20 mb-4 ml-6"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://drive.google.com/file/d/1DoA0a41RPTgTWFHsGUbQD_LqE7t5Zln_/view" target="_blank">Customer Journey Maps (slide)</a></li>
