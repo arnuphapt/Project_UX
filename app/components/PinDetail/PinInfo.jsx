@@ -243,7 +243,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
           isIconOnly 
           size='lg' 
           className='text-[25px] mb-2' 
-          onPress={() => router.push("/")} 
+          onPress={() => router.push("/post")} 
           aria-label="Button with Cross for back to homepage"
         >
           <RxCross1 />

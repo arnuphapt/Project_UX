@@ -6,7 +6,8 @@ import { app } from '@/app/Shared/firebaseConfig'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
 import Breadcrumbs from '../../../components/Breadcrumbs'
-import Pin from '../../../components/Pins/Pin' // Import the Pin component
+import Image from 'next/image'
+import Link from 'next/link'
 
 function PinDetail({ params }) {
   const router = useRouter();
@@ -50,7 +51,7 @@ function PinDetail({ params }) {
     const pins = [];
     querySnapshot.forEach((doc) => {
       if (doc.id !== params.pinId) { // Exclude the current pin
-        pins.push(doc.data());
+        pins.push({ ...doc.data(), id: doc.id });
       }
     });
     setListOfPins(pins);
@@ -58,20 +59,37 @@ function PinDetail({ params }) {
 
   return (
     <>
-      {pinDetail ?
+      {pinDetail ? (
         <div className='bg-white p-3 md:p-12 rounded-2xl md:px-24 lg:px-36'>
           <Breadcrumbs />
           <div className='shadow-2xl rounded-2xl p-3 md:p-7 lg:p-12 xl:pd-16'>
             <PinInfo pinDetail={pinDetail} />
           </div>
-          {listOfPins.length > 0 && 
-            <div className='mt-10'>
-              <h2 className="text-2xl font-bold mb-4">{pinDetail.userName}'s More Post</h2>
-              <Pin listOfPins={listOfPins} userInfo={{ userName: pinDetail.userName, email: pinDetail.email }} />
+
+          {/* More Posts Section */}
+          {listOfPins.length > 0 && (
+            <div className='mt-12'>
+              <h2 className='text-2xl font-bold mb-6'>More from {pinDetail.userName}</h2>
+              <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+                {listOfPins.map((pin) => (
+                  <Link href={`/post/${pin.userName}/${pin.id}`} key={pin.id}>
+                    <div className='relative group cursor-pointer'>
+                      <div className='relative w-full pb-[100%] rounded-2xl overflow-hidden'>
+                        <Image
+                          src={pin.image}
+                          alt={pin.title}
+                          fill={true}
+                          className='object-cover group-hover:scale-105 transition-transform duration-300'
+                        />
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          }
+          )}
         </div>
-        : null}
+      ) : null}
     </>
   )
 }
