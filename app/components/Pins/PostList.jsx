@@ -156,7 +156,7 @@ function PinList({ listOfPins, isLoading = false }) {
 
             {/* Search and Filter Section */}
             <div className="flex justify-center items-center mb-10">
-                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} listOfPins={listOfPins} />
             </div>
             <FilterBar selectedTech={selectedTech} setSelectedTech={setSelectedTech} />
             <div className="flex justify-between items-center mb-4">
