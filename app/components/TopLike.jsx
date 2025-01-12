@@ -228,7 +228,7 @@ const TopLikers = ({ listOfPins, isLoading = false }) => {
           <div className="absolute top-4 right-4 z-30">
             <div className="bg-yellow-500 text-white px-3 py-1 rounded-full shadow-lg flex items-center gap-2">
               <Crown className="w-4 h-4" />
-              <span className="text-sm font-semibold">Top Post</span>
+              <span className="text-sm font-semibold">Best Post</span>
             </div>
           </div>
         )}
@@ -309,10 +309,10 @@ const TopLikers = ({ listOfPins, isLoading = false }) => {
           <span className="absolute top-4 -right-8">
             <Star className="w-6 h-6 text-yellow-400 animate-pulse" />
           </span>
-          <h2 className="text-6xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent uppercase ">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent uppercase ">
             Hall of fame
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 my-3 sm:my-5">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 my-3 sm:my-4">
                         Our most loved creations
                     </p>
 
@@ -386,35 +386,29 @@ const TopLikers = ({ listOfPins, isLoading = false }) => {
 
                       </h3>
                         <p className='text-sm font-semibold mb-2'>Section {user.section}</p>
-                      <div className="grid grid-cols-2 gap-4 mb-4">
+                      <div className="grid grid-cols-3 gap-4 my-4">
                         {renderStatistic(
                           <Heart className={`w-4 h-4 ${index === 0 ? 'text-red-500' : 'text-red-400'}`} />,
                           user.likeCount,
                           'Total Likes',
                           `${index === 0 ? 'text-red-600' : 'text-red-500'}`
                         )}
-                        {renderStatistic(
+                        {renderStatistic( 
                           <Eye className={`w-4 h-4 ${index === 0 ? 'text-blue-500' : 'text-blue-400'}`} />,
                           user.viewCount,
                           'Total Views',
                           `${index === 0 ? 'text-blue-600' : 'text-blue-500'}`
                         )}
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        {renderStatistic(
-                          <BarChart2 className={`w-4 h-4 ${index === 0 ? 'text-green-500' : 'text-green-400'}`} />,
-                          user.averageLikesPerPost,
-                          'Avg Likes/Post',
-                          `${index === 0 ? 'text-green-600' : 'text-green-500'}`
-                        )}
-                        {renderStatistic(
-                          <Sparkles className={`w-4 h-4 ${index === 0 ? 'text-amber-500' : 'text-amber-400'}`} />,
+                                                {renderStatistic(
+                          <BarChart2 className={`w-4 h-4 ${index === 0 ? 'text-amber-500' : 'text-amber-400'}`} />,
                           user.postsInteracted ,
                           'Total Posts',
                           `${index === 0 ? 'text-amber-600' : 'text-amber-500'}`
                         )}
                       </div>
+
+
+
                     </div>
                   </CardBody>
                 </Card>
