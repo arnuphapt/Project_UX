@@ -4,9 +4,9 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer className="bg-white ">
-      <div className='flex justify-center items-center p-2 mt-10'>
+      <div className='flex justify-center items-center py-6'>
         <div className=' items-center gap-3'>
-        <p className=" text-md mb-5">College of Computing Khon Kaen University 
+        <p className=" text-md ">College of Computing Khon Kaen University 
         </p>
         </div>
 

@@ -47,7 +47,7 @@ function Profile({ params }) {
     <div className=" mb-10 px-10">
       {userInfo && (
         <div>
-          <div className="mb-10">
+          <div>
             <UserInfo userInfo={userInfo} />
           </div>
           <UserPosts userInfo={userInfo} />
