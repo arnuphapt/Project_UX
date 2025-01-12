@@ -208,7 +208,8 @@ function Header() {
         <ModalContent>
           <ModalHeader className="flex flex-col gap-1">Confirm Logout</ModalHeader>
           <ModalBody>
-            <p>Do you want to log out?</p>
+            <p>Are you sure you want to log out?
+            </p>
           </ModalBody>
           <ModalFooter>
             <Button
