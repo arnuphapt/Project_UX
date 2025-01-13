@@ -120,7 +120,7 @@ function PinInfo({ pinDetail: initialPinDetail }) {
       await deleteDoc(doc(db, 'pinterest-post', pinDetail.id));
 
       toast.success("Post deleted successfully!");
-      router.push('/');
+      router.push('/post');
     } catch (error) {
       toast.error("Error deleting post and comments. Please try again.");
       console.error("Error deleting document and comments: ", error);
