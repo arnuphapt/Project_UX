@@ -400,10 +400,10 @@ const TopLikers = ({ listOfPins, isLoading = false }) => {
                           `${index === 0 ? 'text-blue-600' : 'text-blue-500'}`
                         )}
                                                 {renderStatistic(
-                          <BarChart2 className={`w-4 h-4 ${index === 0 ? 'text-amber-500' : 'text-amber-400'}`} />,
+                          <BarChart2 className={`w-4 h-4 ${index === 0 ? 'text-amber-500' : 'text-slate-500	'}`} />,
                           user.postsInteracted ,
                           'Total Posts',
-                          `${index === 0 ? 'text-amber-600' : 'text-amber-500'}`
+                          `${index === 0 ? 'text-amber-500' : 'text-slate-500	'}`
                         )}
                       </div>
 

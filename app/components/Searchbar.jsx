@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure } from "@nextui-org/react";
-import { Search, Tag, Layout ,SlidersHorizontal } from 'lucide-react';
+import { Search, Tag, Layout, SlidersHorizontal } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
@@ -40,21 +40,56 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
       .sort((a, b) => b.count - a.count);
   }, [listOfPins]);
 
-  const filteredPins = React.useMemo(() => {
-    if (!selectedTag && !selectedSection) return [];
-    
-    return listOfPins.filter(pin => {
-      const matchesTag = selectedTag ? 
-        pin.techList?.includes(selectedTag)
-        : true;
+  // Filter tags and sections based on search query
+  const filteredTagCounts = React.useMemo(() => {
+    if (!modalSearchQuery) return tagCounts;
+    return tagCounts.filter(({ tag }) => 
+      tag.toLowerCase().includes(modalSearchQuery.toLowerCase())
+    );
+  }, [tagCounts, modalSearchQuery]);
 
-      const matchesSection = selectedSection ?
-        pin.section === selectedSection
-        : true;
-     
-      return matchesTag && matchesSection;
-    });
-  }, [listOfPins, selectedTag, selectedSection]);
+  const filteredSectionCounts = React.useMemo(() => {
+    if (!modalSearchQuery) return sectionCounts;
+    return sectionCounts.filter(({ section }) => 
+      section.toLowerCase().includes(modalSearchQuery.toLowerCase())
+    );
+  }, [sectionCounts, modalSearchQuery]);
+
+  const filteredPins = React.useMemo(() => {
+    const searchLower = modalSearchQuery.toLowerCase();
+    
+    // First, filter by search query if it exists
+    let searchedPins = listOfPins;
+    if (modalSearchQuery) {
+      searchedPins = listOfPins.filter(pin => (
+        pin.title?.toLowerCase().includes(searchLower) ||
+        pin.userName?.toLowerCase().includes(searchLower) ||
+        pin.section?.toLowerCase().includes(searchLower) ||
+        pin.techList?.some(tech => tech.toLowerCase().includes(searchLower))
+      ));
+    }
+    
+    // Then apply category-specific filters
+    switch (selectedCategory) {
+      case 'trending':
+        return modalSearchQuery ? searchedPins : [];
+        
+      case 'tags':
+        if (selectedTag) {
+          return searchedPins.filter(pin => pin.techList?.includes(selectedTag));
+        }
+        return modalSearchQuery ? searchedPins : [];
+        
+      case 'sections':
+        if (selectedSection) {
+          return searchedPins.filter(pin => pin.section === selectedSection);
+        }
+        return modalSearchQuery ? searchedPins : [];
+        
+      default:
+        return [];
+    }
+  }, [listOfPins, selectedTag, selectedSection, selectedCategory, modalSearchQuery]);
 
   const handleTagSelect = (tag) => {
     if (selectedTag === tag) {
@@ -131,7 +166,7 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                   autoFocus
                   startContent={<Search size={20} />}
                   size="lg"
-                  placeholder="Type to search..."
+                  placeholder="Search tags and sections..."
                   variant="bordered"
                   value={modalSearchQuery}
                   onChange={(e) => setModalSearchQuery(e.target.value)}
@@ -147,7 +182,6 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                           key={category.key}
                           onClick={() => {
                             if (selectedCategory === category.key) {
-                              // Reset everything if clicking the same category
                               setSelectedCategory('trending');
                               setSelectedTag(null);
                               setSelectedSection(null);
@@ -158,7 +192,6 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                               setSelectedTag(null);
                               setSelectedSection(null);
                               setShowPosts(false);
-                              setModalSearchQuery('');
                             }
                           }}
                           className={`w-full text-left px-4 py-2 rounded-lg mb-1 transition-colors flex items-center gap-2 ${
@@ -201,8 +234,8 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                       </div>
                     ) : selectedCategory === 'tags' ? (
                       <div className="flex flex-col">
-                        <h3 className="text-base font-medium mb-4">Tags</h3>
-                        {tagCounts.map(({ tag, count }) => (
+                        <h3 className="text-base font-medium mb-4">Tags ({filteredTagCounts.length})</h3>
+                        {filteredTagCounts.map(({ tag, count }) => (
                           <button
                             key={tag}
                             onClick={() => handleTagSelect(tag)}
@@ -215,11 +248,14 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                             <span className="text-gray-500 text-sm">{count}</span>
                           </button>
                         ))}
+                        {filteredTagCounts.length === 0 && (
+                          <p className="text-gray-500 text-center py-4">No matching tags found</p>
+                        )}
                       </div>
                     ) : selectedCategory === 'sections' ? (
                       <div className="flex flex-col">
-                        <h3 className="text-base font-medium mb-4">Sections</h3>
-                        {sectionCounts.map(({ section, count }) => (
+                        <h3 className="text-base font-medium mb-4">Sections ({filteredSectionCounts.length})</h3>
+                        {filteredSectionCounts.map(({ section, count }) => (
                           <button
                             key={section}
                             onClick={() => handleSectionSelect(section)}
@@ -232,6 +268,43 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                             <span className="text-gray-500 text-sm">{count}</span>
                           </button>
                         ))}
+                        {filteredSectionCounts.length === 0 && (
+                          <p className="text-gray-500 text-center py-4">No matching sections found</p>
+                        )}
+                      </div>
+                    ) : selectedCategory === 'trending' ? (
+                      <div className="flex flex-col">
+                        {modalSearchQuery ? (
+                          <>
+                            <p className="text-gray-500 mb-4">
+                              Found {filteredPins.length} posts matching "{modalSearchQuery}"
+                            </p>
+                            <div className="flex flex-col divide-y">
+                              {filteredPins.map((pin) => (
+                                <div 
+                                  key={pin.id}
+                                  onClick={() => router.push(`/post/${pin.userName}/${pin.id}`)}
+                                  className="flex items-center justify-between py-3 hover:bg-gray-50 cursor-pointer"
+                                >
+                                  <div className="flex flex-col gap-1">
+                                    <h3 className="text-base font-medium">{pin.title}</h3>
+                                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                                      <span>{pin.userName}</span>
+                                      <span>Section {pin.section}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                            {filteredPins.length === 0 && (
+                              <p className="text-gray-500 text-center py-4">No posts found matching your search</p>
+                            )}
+                          </>
+                        ) : (
+                          <div className="text-center text-gray-500 py-8">
+                            Type to search posts
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <div className="text-center text-gray-500 py-8">
