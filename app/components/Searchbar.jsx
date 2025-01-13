@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure } from "@nextui-org/react";
-import { Search, Tag, Layout, SlidersHorizontal } from 'lucide-react';
+import { Search, Tag, Layout, SlidersHorizontal,Clock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
@@ -126,6 +126,15 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
     { key: "tags", label: "By Tags", icon: <Tag size={18} /> },
     { key: "sections", label: "By Sections", icon: <Layout size={18} /> }
   ];
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return "N/A";
+    const date = timestamp.toDate();
+    return new Intl.DateTimeFormat('th-TH', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+    }).format(date);
+  };
 
   return (
     <div className="p-2 w-full md:w-2/5 flex items-center">
@@ -226,6 +235,10 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                                 <div className="flex items-center gap-4 text-sm text-gray-500">
                                   <span>{pin.userName}</span>
                                   <span>Section {pin.section}</span>
+                                  <div className="flex items-center gap-1">
+            <Clock size={14} />
+            <span>{formatTimestamp(pin.timestamp)}</span>
+          </div>
                                 </div>
                               </div>
                             </div>
@@ -291,6 +304,7 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                                     <div className="flex items-center gap-4 text-sm text-gray-500">
                                       <span>{pin.userName}</span>
                                       <span>Section {pin.section}</span>
+
                                     </div>
                                   </div>
                                 </div>
