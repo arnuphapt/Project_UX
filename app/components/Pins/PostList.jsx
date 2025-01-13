@@ -10,6 +10,7 @@ import { Pagination, Skeleton } from "@nextui-org/react";
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../../Shared/firebaseConfig';
 import Breadcrumbs from '../Breadcrumbs';
+
 const PostSkeleton = () => (
     <div className="w-full space-y-3">
         <Skeleton className="w-full rounded-lg">
@@ -99,14 +100,7 @@ function PinList({ listOfPins, isLoading = false }) {
             return matchesTech && matchesSearchQuery && matchesSection && matchesPeriod;
         });
 
-        const latestPinsByUser = filtered.reduce((acc, pin) => {
-            if (!acc[pin.userName] || pin.timestamp > acc[pin.userName].timestamp) {
-                acc[pin.userName] = pin;
-            }
-            return acc;
-        }, {});
-
-        return Object.values(latestPinsByUser).sort((a, b) => {
+        return filtered.sort((a, b) => {
             switch (sortBy) {
                 case 'default':
                     return b.timestamp?.toDate() - a.timestamp?.toDate();
