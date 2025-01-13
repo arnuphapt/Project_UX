@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure } from "@nextui-org/react";
-import { Search, Tag, Layout, SlidersHorizontal,Clock } from 'lucide-react';
+import { Search, Tag, Layout, SlidersHorizontal, Clock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
@@ -12,7 +12,13 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
   const [showPosts, setShowPosts] = React.useState(false);
   const router = useRouter();
 
-  // Extract unique tags and count their occurrences
+  // Sort function for timestamps
+  const sortByTimestamp = (a, b) => {
+    if (!a.timestamp || !b.timestamp) return 0;
+    return b.timestamp.toDate() - a.timestamp.toDate();
+  };
+
+  // Rest of the hooks remain the same
   const tagCounts = React.useMemo(() => {
     const counts = {};
     listOfPins.forEach(pin => {
@@ -27,7 +33,6 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
       .sort((a, b) => b.count - a.count);
   }, [listOfPins]);
 
-  // Extract unique sections and count their occurrences
   const sectionCounts = React.useMemo(() => {
     const counts = {};
     listOfPins.forEach(pin => {
@@ -40,7 +45,6 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
       .sort((a, b) => b.count - a.count);
   }, [listOfPins]);
 
-  // Filter tags and sections based on search query
   const filteredTagCounts = React.useMemo(() => {
     if (!modalSearchQuery) return tagCounts;
     return tagCounts.filter(({ tag }) => 
@@ -70,27 +74,37 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
     }
     
     // Then apply category-specific filters
+    let result = [];
     switch (selectedCategory) {
       case 'trending':
-        return modalSearchQuery ? searchedPins : [];
+        result = modalSearchQuery ? searchedPins : [];
+        break;
         
       case 'tags':
         if (selectedTag) {
-          return searchedPins.filter(pin => pin.techList?.includes(selectedTag));
+          result = searchedPins.filter(pin => pin.techList?.includes(selectedTag));
+        } else {
+          result = modalSearchQuery ? searchedPins : [];
         }
-        return modalSearchQuery ? searchedPins : [];
+        break;
         
       case 'sections':
         if (selectedSection) {
-          return searchedPins.filter(pin => pin.section === selectedSection);
+          result = searchedPins.filter(pin => pin.section === selectedSection);
+        } else {
+          result = modalSearchQuery ? searchedPins : [];
         }
-        return modalSearchQuery ? searchedPins : [];
+        break;
         
       default:
-        return [];
+        result = [];
     }
+
+    // Sort by timestamp (newest first)
+    return result.sort(sortByTimestamp);
   }, [listOfPins, selectedTag, selectedSection, selectedCategory, modalSearchQuery]);
 
+  // Rest of the component remains the same
   const handleTagSelect = (tag) => {
     if (selectedTag === tag) {
       setSelectedTag(null);
@@ -126,6 +140,7 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
     { key: "tags", label: "By Tags", icon: <Tag size={18} /> },
     { key: "sections", label: "By Sections", icon: <Layout size={18} /> }
   ];
+
   const formatTimestamp = (timestamp) => {
     if (!timestamp) return "N/A";
     const date = timestamp.toDate();
@@ -183,7 +198,6 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                 />
 
                 <div className="flex gap-6">
-                  {/* Sidebar Navigation */}
                   <div className="w-64 shrink-0 border-r">
                     <nav className="pr-4">
                       {categories.map((category) => (
@@ -216,7 +230,6 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                     </nav>
                   </div>
 
-                  {/* Content Area */}
                   <div className="flex-grow">
                     {showPosts ? (
                       <div className="flex flex-col">
@@ -236,9 +249,9 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                                   <span>{pin.userName}</span>
                                   <span>Section {pin.section}</span>
                                   <div className="flex items-center gap-1">
-            <Clock size={14} />
-            <span>{formatTimestamp(pin.timestamp)}</span>
-          </div>
+                                    <Clock size={14} />
+                                    <span>{formatTimestamp(pin.timestamp)}</span>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -304,7 +317,10 @@ const SearchModal = ({ listOfPins = [], searchQuery, setSearchQuery }) => {
                                     <div className="flex items-center gap-4 text-sm text-gray-500">
                                       <span>{pin.userName}</span>
                                       <span>Section {pin.section}</span>
-
+                                      <div className="flex items-center gap-1">
+                                        <Clock size={14} />
+                                        <span>{formatTimestamp(pin.timestamp)}</span>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
