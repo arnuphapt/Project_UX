@@ -59,10 +59,10 @@ const PinList = ({ listOfPins, isLoading = false }) => {
                             Share Your Work
                         </span>
                     </div>
-                    <h1 className="uppercase text-6xl sm:text-6xl md:text-7xl lg:text-9xl font-bold leading-none tracking-tighter bg-gradient-to-tr from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                    <h1 className="uppercase text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-none tracking-tighter bg-gradient-to-tr from-cyan-500 to-blue-500 bg-clip-text text-transparent">
                         User Expepience
                     </h1>
-                    <h1 className="p-2 text-6xl sm:text-6xl md:text-7xl lg:text-5xl font-bold leading-none tracking-tighter mb-4 sm:mb-6 bg-gradient-to-tr from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                    <h1 className="p-2 text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold leading-none tracking-tighter mb-4 sm:mb-6 bg-gradient-to-tr from-cyan-500 to-blue-500 bg-clip-text text-transparent">
                         Community Share
                     </h1>
                     <div className="max-w-xl sm:max-w-2xl mx-auto mb-6 sm:mb-8">

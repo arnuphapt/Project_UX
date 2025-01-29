@@ -2,21 +2,18 @@
 import React from "react";
 import Sidebar from "../../components/admincomponent/Sidebar";
 import Dashboardd from "../../components/admincomponent/Dashboardd";
+
 export default function App() {
-
-    return (
-        <div className="flex min-h-screen bg-gray-100">
-                  <div className="fixed inset-y-0 left-0">
-
-           <Sidebar/>
-           </div>
-
-           <div className="flex-1 pl-14 sm:pl-64"> {/* matches sidebar width */}
-           <main className="p-4">
-                       <Dashboardd/>
-                       </main>
-
-           </div>
-        </div>
-    );
+  return (
+    <div className="flex min-h-screen bg-gray-100">
+      <Sidebar />
+      
+      {/* Main content area */}
+      <div className="flex-1 sm:pl-64"> {/* Sidebar width on desktop */}
+        <main className="p-4 pt-16 sm:pt-4"> {/* Added top padding for mobile menu button */}
+          <Dashboardd />
+        </main>
+      </div>
+    </div>
+  );
 }

@@ -30,10 +30,9 @@ import {
   Tab
 } from "@nextui-org/react";
 import { useAsyncList } from "@react-stately/data";
-import { Search } from "lucide-react";
+import { Search,Trash2,Heart } from "lucide-react";
 import { FaEye } from "react-icons/fa";
 import { MdOutlineLink } from "react-icons/md";
-import { Trash2 } from 'lucide-react';
 
 const PostList = () => {
   const {isOpen, onOpen, onClose} = useDisclosure();
@@ -72,17 +71,6 @@ const PostList = () => {
     }).format(date);
   };
 
-  const formatDateRange = (startDate, endDate) => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    return `${start.toLocaleDateString('th-TH', { 
-      year: '2-digit',
-      month: 'short'
-    })} - ${end.toLocaleDateString('th-TH', { 
-      year: '2-digit',
-      month: 'short'
-    })}`;
-  };
 
   // Fetch date filters
   useEffect(() => {
@@ -119,13 +107,21 @@ const PostList = () => {
   const list = useAsyncList({
     async load({ signal }) {
       try {
-        const postsCollection = collection(db, "pinterest-post");
-        const postsSnapshot = await getDocs(postsCollection);
-        const postsList = postsSnapshot.docs.map((doc, index) => ({
-          id: doc.id,
-          ...doc.data(),
-          no: index + 1,
-        }));
+        const q = query(
+          collection(db, "pinterest-post"),
+          orderBy("timestamp", "desc")
+        );
+        const postsSnapshot = await getDocs(q);
+        const postsList = postsSnapshot.docs.map((doc, index) => {
+          const data = doc.data();
+          const likesCount = data.likes ? Object.keys(data.likes).length : 0;
+          return {
+            id: doc.id,
+            ...data,
+            likesCount,
+            no: index + 1,
+          };
+        });
 
         const sections = [...new Set(postsList.map(post => post.section).filter(Boolean))]
           .sort((a, b) => {
@@ -366,8 +362,9 @@ const PostList = () => {
           <TableColumn key="title" allowsSorting>Title</TableColumn>
           <TableColumn key="userName" allowsSorting>User</TableColumn>
           <TableColumn key="section" allowsSorting>Section</TableColumn>
+          <TableColumn key="likesCount" allowsSorting>Likes</TableColumn>
           <TableColumn key="timestamp" allowsSorting>Posted At</TableColumn>
-          <TableColumn></TableColumn>
+          <TableColumn>Actions</TableColumn>
         </TableHeader>
         <TableBody 
           items={currentPosts}
@@ -388,6 +385,12 @@ const PostList = () => {
                 />
               </TableCell>
               <TableCell>{getKeyValue(item, 'section') || "N/A"}</TableCell>
+              <TableCell>
+                <div className="flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-danger" />
+                  <span>{item.likesCount}</span>
+                </div>
+              </TableCell>
               <TableCell>{formatTimestamp(item.timestamp)}</TableCell>
               <TableCell>
                 <Tooltip content="Link">

@@ -4,7 +4,6 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/footer";
 import Provider from "./Provider";
-import { SpeedInsights } from "@vercel/speed-insights/next"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,7 +23,6 @@ export default function RootLayout({
           <Header />
           <main className="min-h-screen">
             {children}
-            <SpeedInsights />
           </main>
           <Footer />
         </Provider>

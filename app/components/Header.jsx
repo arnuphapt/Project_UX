@@ -179,6 +179,7 @@ function Header() {
       {/* Mobile Menu */}
       <div className={`flex flex-col items-center bg-white shadow-md ${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/'); setIsMenuOpen(false); }}>Home</button>
+        <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/post'); setIsMenuOpen(false); }}>Post</button>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={() => { router.push('/Learn'); setIsMenuOpen(false); }}>Learn</button>
         <button className='text-[16px] text-black m-2 p-1 hover:border-b-2 border-black' onClick={onCreateClick}>Create</button>
         {session?.user && (

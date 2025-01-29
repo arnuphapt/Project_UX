@@ -6,15 +6,12 @@ import Adminpost from "../../components/admincomponent/Adminpost";
 
 export default function App() {
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar */}
-      <div className="fixed inset-y-0 left-0">
-        <Sidebar />
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 pl-14 sm:pl-64"> {/* matches sidebar width */}
-        <main className="p-4">
+    <div className="flex min-h-screen bg-gray-100">
+      <Sidebar />
+      
+      {/* Main content area */}
+      <div className="flex-1 sm:pl-64"> {/* Sidebar width on desktop */}
+        <main className="p-4 pt-16 sm:pt-4"> {/* Added top padding for mobile menu button */}
           <Adminpost />
         </main>
       </div>

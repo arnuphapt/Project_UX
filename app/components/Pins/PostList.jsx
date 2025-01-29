@@ -10,7 +10,7 @@ import { Pagination, Skeleton } from "@nextui-org/react";
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../../Shared/firebaseConfig';
 import Breadcrumbs from '../Breadcrumbs';
-
+import FilterModal from '../filter'
 const PostSkeleton = () => (
     <div className="w-full space-y-3">
         <Skeleton className="w-full rounded-lg">
@@ -24,7 +24,7 @@ const PostSkeleton = () => (
                 <div className="h-3"></div>
             </Skeleton>
             <div className="flex items-center gap-2">
-                <Skeleton className="w-8 h-8 rounded-full"/>
+                <Skeleton className="w-8 h-8 rounded-full" />
                 <Skeleton className="w-24 rounded-lg">
                     <div className="h-3"></div>
                 </Skeleton>
@@ -134,7 +134,7 @@ function PinList({ listOfPins, isLoading = false }) {
 
     return (
         <div className="mt-7 px-5">
-            <Breadcrumbs/>
+            <Breadcrumbs />
             {/* Admin Post Section */}
             <div className="flex justify-center items-center mb-10 cursor-pointer">
                 {isLoading ? (
@@ -154,12 +154,15 @@ function PinList({ listOfPins, isLoading = false }) {
             </div>
             <FilterBar selectedTech={selectedTech} setSelectedTech={setSelectedTech} />
             <div className="flex justify-between items-center mb-4">
-                <FilterSection sections={sections} selectedSection={selectedSection} setSelectedSection={setSelectedSection} />
-                <FilterYears 
-                    selectedPeriod={selectedPeriod} 
+                <FilterModal
+                    sections={sections}
+                    selectedSection={selectedSection}
+                    setSelectedSection={setSelectedSection}
+                    selectedPeriod={selectedPeriod}
                     setSelectedPeriod={setSelectedPeriod}
+                    sortBy={sortBy}
+                    setSortBy={setSortBy}
                 />
-                <Sorting sortBy={sortBy} setSortBy={setSortBy} />
             </div>
 
             {/* Posts Grid */}
@@ -177,17 +180,17 @@ function PinList({ listOfPins, isLoading = false }) {
                         No post found
                     </div>
                 )}
-            </div>  
+            </div>
 
             {/* Pagination */}
             {filteredAndSortedPins.length > 0 && !isLoading && (
                 <div className="flex justify-center mt-10">
-                    <Pagination 
-                        size='lg' 
-                        showControls 
-                        total={totalPages} 
+                    <Pagination
+                        size='lg'
+                        showControls
+                        total={totalPages}
                         page={currentPage}
-                        onChange={handlePageChange} 
+                        onChange={handlePageChange}
                         variant='light'
                     />
                 </div>
