@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 import Breadcrumbs from '../../../components/Breadcrumbs'
 import Image from 'next/image'
 import Link from 'next/link'
-
+import RecommendedPosts from '../../../components/Pins/RecommendedPosts'
 function PinDetail({ params }) {
   const router = useRouter();
   const db = getFirestore(app);
@@ -23,22 +23,18 @@ function PinDetail({ params }) {
     const docRef = doc(db, 'pinterest-post', params.pinId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      const data = docSnap.data();
+      const data = { ...docSnap.data(), id: docSnap.id };
       setPinDetail(data);
 
       // Check if the user has already viewed this pin
       const hasViewed = Cookies.get(`viewed-${params.pinId}`);
       if (!hasViewed) {
-        // Mark the pin as viewed for this user
         Cookies.set(`viewed-${params.pinId}`, 'true', { expires: 365 });
-
-        // Update the view count in the database
         await updateDoc(docRef, {
           viewCount: (data.viewCount || 0) + 1
         });
       }
 
-      // Fetch more pins from the same user
       getUserPins(data.email);
     } else {
       console.log("No such document!");
@@ -50,7 +46,7 @@ function PinDetail({ params }) {
     const querySnapshot = await getDocs(q);
     const pins = [];
     querySnapshot.forEach((doc) => {
-      if (doc.id !== params.pinId) { // Exclude the current pin
+      if (doc.id !== params.pinId) {
         pins.push({ ...doc.data(), id: doc.id });
       }
     });
@@ -65,6 +61,9 @@ function PinDetail({ params }) {
           <div className='shadow-2xl rounded-2xl p-3 md:p-7 lg:p-12 xl:pd-16'>
             <PinInfo pinDetail={pinDetail} />
           </div>
+
+          {/* Recommended Posts Section */}
+          <RecommendedPosts currentPost={pinDetail} maxPosts={4} />
 
           {/* More Posts Section */}
           {listOfPins.length > 0 && (
