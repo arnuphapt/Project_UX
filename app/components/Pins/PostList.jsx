@@ -166,7 +166,7 @@ function PinList({ listOfPins, isLoading = false }) {
             </div>
 
             {/* Posts Grid */}
-            <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+            <div className="scroll-ml-6 snap-start grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-6">
                 {isLoading ? (
                     Array(pinsPerPage).fill(null).map((_, index) => (
                         <PostSkeleton key={`skeleton-${index}`} />

@@ -56,17 +56,6 @@ export default function Home() {
         }
     }
 
-    const handleDoNotShowAgain = () => {
-        // Set current time in local storage
-        localStorage.setItem("modalTimestamp", new Date().toISOString());
-    };
-
-    const handleok = () => {
-        // Set current time in local storage
-        setShowModal(false);
-        onOpenChange(false);
-    };
-
     return (
             <div className="p-4">
                 <PostList 
