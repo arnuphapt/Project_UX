@@ -398,24 +398,24 @@ export default function Learn() {
           <p className="text-xl font-semibold mt-10 ml-10 mb-10" > 7 หลักการทำให้เว็บไซต์ของคุณน่าสนใจยิ่งขึ้น ตามที่อธิบายโดย Dr Susan Weinschenck จาก Human Factors International</p>
           
           
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black">1. ทางเลือกมากเกินไป? (Too Many Choices?) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black">1. ทางเลือกมากเกินไป? (Too Many Choices?) :</span> 
           <li className="mb-2 text-gray-700 ml-6">  เว็บไซต์ของคุณอาจจะเต็มไปด้วยตัวเลือกที่มากเกินไปจนทำให้ผู้เข้าชมสับสนได้หรือไม่? แทนที่จะพยายามบอกทุกอย่างที่เราทำ ลองกลั่นกรองดูว่าสิ่งไหนที่เป็นหัวใจหลักของธุรกิจเรา แล้วทำให้มันเด่นขึ้นมา ส่วนสิ่งที่ไม่จำเป็นก็อาจจะตัดทิ้งไปบ้าง</li>
           </ul>
 
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black">2. การยืนยันทางสังคม? (Social Validation?) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black">2. การยืนยันทางสังคม? (Social Validation?) :</span> 
           <li className="mb-2 text-gray-700 ml-6">  คำชม คำวิจารณ์ และกรณีศึกษาจากลูกค้าจริงช่วยสร้างความเชื่อมั่นได้มาก คำรับรองเหล่านี้ควรจะกระจายอยู่ทั่วทั้งเว็บไซต์ ไม่ใช่แค่ซ่อนอยู่ในหน้าเดียว ลองใส่เนื้อหาที่ทำให้ผู้เข้าชมรู้สึกเชื่อมโยงได้ เช่น รูปภาพหรือวิดีโอของลูกค้าที่พวกเขาอาจเห็นตัวเองเป็นแบบนั้น</li>
           </ul>
 
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black">3. สร้างความรู้สึกเร่งด่วน? (Scarcity?) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black">3. สร้างความรู้สึกเร่งด่วน? (Scarcity?) :</span> 
           <li className="mb-2 text-gray-700 ml-6">  การเพิ่มความรู้สึกว่าของจะหมดหรือเวลาจำกัด อาจจะช่วยกระตุ้นให้คนตัดสินใจเร็วขึ้นได้ ลองคิดดูว่าคุณจะทำให้ข้อเสนอหรือบริการของคุณดูมีค่าและหายากขึ้นได้อย่างไร โดยไม่ทำให้ผู้เข้าชมรู้สึกว่ากำลังโดนบังคับหรือหลอกลวง</li>
           </ul>
 
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black">4. อาหาร, เซ็กส์ หรืออันตราย? (Food, Sex or Danger?) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black">4. อาหาร, เซ็กส์ หรืออันตราย? (Food, Sex or Danger?) :</span> 
           <li className="mb-2 text-gray-700 ml-6"> ในธุรกิจ นี่หมายถึงความเสี่ยงและผลกระทบที่ลูกค้าของเราจะต้องเผชิญหากไม่ใช้ผลิตภัณฑ์และบริการของเรา? เราจำเป็นต้องชัดเจนและให้ข้อมูลเกี่ยวกับอันตรายที่ลูกค้าจะต้องเผชิญหากพวกเขาไม่ทำอะไรหรือไม่? เราควรทำให้หมวดหมู่ชัดเจนยิ่งขึ้น เช่น หมวดหมู่ของสินค้าที่แสดงนั้นได้แบ่ง เพศอย่างชัดเจนหรือไม่ เรากำลังแก้ปัญหาอะไร? เรากำลังให้แนวทางแก้ไขอะไรบ้าง?</li>
           
           </ul>
 
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black">5. สิ่งนำสายตา (Power of Faces?) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black">5. สิ่งนำสายตา (Power of Faces?) :</span> 
           <li className="mb-2 text-gray-700 ml-6">  Fusiform Facial Area(FFA)</li>
           <li className="mb-2 text-gray-700 ml-6">  Always Focus On The Eyes</li>
           <ul className="mb-2 text-gray-700 ml-6">  
@@ -426,11 +426,11 @@ export default function Learn() {
           </ul>
          
 
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black">6. เล่าเรื่องที่ดึงดูดใจ? (Story?) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black">6. เล่าเรื่องที่ดึงดูดใจ? (Story?) :</span> 
           <li className="mb-2 text-gray-700 ml-6">  เว็บไซต์ของเรามีข้อมูลเพียงพอเกี่ยวกับการนำทางของลูกค้าหรือไม่? เราอาจจะมุ่งเน้นไปที่การบอกว่าทำอะไรได้บ้าง โดยไม่มีข้อมูลเกี่ยวกับวิธีการและประโยชน์หรือเปล่า? เราควรแนะนำกรณีศึกษาหรือแบบอย่างเพิ่มเติมที่ผู้เข้าชมสามารถเกี่ยวข้องได้หรือไม่? เช่น แนะนำสามช่วง 'ก่อน-ระหว่าง-หลัง' ได้ถูกอธิบายอย่างชัดเจนในเว็บไซต์ของเราหรือไม่?</li>
           </ul>
 
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black">7. ความมุ่งมั่น? (Commitment?) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black">7. ความมุ่งมั่น? (Commitment?) :</span> 
           <li className="mb-2 text-gray-700 ml-6">  เมื่อมีคนใหม่เข้ามาในเว็บไซต์ อย่าขออะไรที่ใหญ่โตจากพวกเขาในทันที ลองเสนอการกระทำเล็ก ๆ ที่ง่าย ๆ แต่มีคุณค่า เช่น การกรอกฟอร์มเล็ก ๆ หรือดาวน์โหลดเนื้อหาฟรี ซึ่งจะช่วยสร้างความมั่นใจให้กับพวกเขาก่อน</li>
           </ul>
 
@@ -438,11 +438,11 @@ export default function Learn() {
 
 
           
-<ul class="list-disc p-5 mt-20 mb-4 ml-10"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
+<ul className="list-disc p-5 mt-20 mb-4 ml-10"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://www.canva.com/design/DAFl446JtCc/OOex2FRMsn-e5Y4jx9EC4Q/view?utm_content=DAFl446JtCc&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target="_blank">สไลด์เนื้อหาเพิ่มเติม</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.nbsl.org.uk/business-bullets/marketing/115-7-principles-to-get-more-enquiries-from-your-website" target="_blank">7 Principles To Get More Enquiries From Your Website</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.canva.com/help/using-canva-to-create-products-for-sale/#:~:text=Trademarks%20and%20logos,%2C%20basic%20shapes%20and%20lines)." target="_blank">ใช้ Canva ออกแบบผลิตภัณฑ์ดิจิทัลและผลิตภัณฑ์จริงสำหรับขาย</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://storage.kku.ac.th/share.cgi?ssid=51ea144f51a24acb8975b0fbca950caa" target="_blank">Ux_Design (E-book)</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.nbsl.org.uk/business-bullets/marketing/115-7-principles-to-get-more-enquiries-from-your-website" target="_blank" rel="noreferrer">7 Principles To Get More Enquiries From Your Website</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.canva.com/help/using-canva-to-create-products-for-sale/#:~:text=Trademarks%20and%20logos,%2C%20basic%20shapes%20and%20lines)." target="_blank" rel="noreferrer">ใช้ Canva ออกแบบผลิตภัณฑ์ดิจิทัลและผลิตภัณฑ์จริงสำหรับขาย</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://storage.kku.ac.th/share.cgi?ssid=51ea144f51a24acb8975b0fbca950caa" target="_blank" rel="noreferrer">Ux_Design (E-book)</a></li>
           
 </ul>
 

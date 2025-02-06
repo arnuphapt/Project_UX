@@ -454,35 +454,35 @@ export default function Learn() {
          
 
 
-          <ul class="list-disc p-2 pt-20 ml-6"> <span className="font-semibold text-black">การสร้างความแตกต่าง :</span> 
+          <ul className="list-disc p-2 pt-20 ml-6"> <span className="font-semibold text-black">การสร้างความแตกต่าง :</span> 
           <li className="mb-2 text-gray-700 ml-10">   สีสามารถช่วยแบรนด์แยกแยะตัวเองจากคู่แข่งได้ ตัวอย่างเช่น สีแดงที่ใช้ในแบรนด์ต่างๆ มักจะสื่อถึงความกระตือรือร้นและพลัง</li>
           </ul>
 
-          <ul class="list-disc p-2 ml-6"> <span className="font-semibold text-black">สร้างการรับรู้ของแบรนด์ :</span> 
+          <ul className="list-disc p-2 ml-6"> <span className="font-semibold text-black">สร้างการรับรู้ของแบรนด์ :</span> 
           <li className="mb-2 text-gray-700 ml-10">   การใช้สีที่เหมาะสมช่วยให้ผู้บริโภคจดจำแบรนด์ได้ง่ายขึ้น ตัวอย่างเช่น สีเขียวที่ใช้ในแบรนด์ Whole Foods ช่วยให้ผู้บริโภคคิดถึงสินค้าสุขภาพและธรรมชาติ</li>
           </ul>
 
-          <ul class="list-disc p-2 ml-6"> <span className="font-semibold text-black">กระตุ้นการตัดสินใจ :</span> 
+          <ul className="list-disc p-2 ml-6"> <span className="font-semibold text-black">กระตุ้นการตัดสินใจ :</span> 
           <li className="mb-2 text-gray-700 ml-10">   สีบางสีสามารถกระตุ้นให้ผู้บริโภคตัดสินใจซื้อเร็วขึ้น เช่น การใช้สีแดงในโปรโมชั่นลดราคา เพราะมันสื่อถึงความเร่งด่วน</li>
           </ul>
 
-          <ul class="list-disc p-2 ml-6"> <span className="font-semibold text-black">การสร้างอารมณ์และความรู้สึก :</span> 
+          <ul className="list-disc p-2 ml-6"> <span className="font-semibold text-black">การสร้างอารมณ์และความรู้สึก :</span> 
           <li className="mb-2 text-gray-700 ml-10">   การเลือกสีสามารถสร้างอารมณ์และความรู้สึกที่ผู้บริโภคมีต่อแบรนด์ได้ เช่น การใช้สีฟ้าสามารถทำให้รู้สึกเชื่อถือได้</li>
           </ul>
 
-          <ul class="list-disc p-2 ml-6"> <span className="font-semibold text-black">การสร้างความแตกต่าง :</span> 
+          <ul className="list-disc p-2 ml-6"> <span className="font-semibold text-black">การสร้างความแตกต่าง :</span> 
           <li className="mb-2 text-gray-700 ml-10">   สีสามารถช่วยแบรนด์แยกแยะตัวเองจากคู่แข่งได้ ตัวอย่างเช่น สีแดงที่ใช้ในแบรนด์ต่างๆ มักจะสื่อถึงความกระตือรือร้นและพลัง</li>
           </ul>
 
-          <ul class="list-disc p-2 ml-6"> <span className="font-semibold text-black">สร้างการรับรู้ของแบรนด์ :</span> 
+          <ul className="list-disc p-2 ml-6"> <span className="font-semibold text-black">สร้างการรับรู้ของแบรนด์ :</span> 
           <li className="mb-2 text-gray-700 ml-10">   การใช้สีที่เหมาะสมช่วยให้ผู้บริโภคจดจำแบรนด์ได้ง่ายขึ้น ตัวอย่างเช่น สีเขียวที่ใช้ในแบรนด์ Whole Foods ช่วยให้ผู้บริโภคคิดถึงสินค้าสุขภาพและธรรมชาติ</li>
           </ul>
 
-          <ul class="list-disc p-2 ml-6"> <span className="font-semibold text-black">กระตุ้นการตัดสินใจ :</span> 
+          <ul className="list-disc p-2 ml-6"> <span className="font-semibold text-black">กระตุ้นการตัดสินใจ :</span> 
           <li className="mb-2 text-gray-700 ml-10">   สีบางสีสามารถกระตุ้นให้ผู้บริโภคตัดสินใจซื้อเร็วขึ้น เช่น การใช้สีแดงในโปรโมชั่นลดราคา เพราะมันสื่อถึงความเร่งด่วน</li>
           </ul>
 
-          <ul class="list-disc p-2 ml-6"> <span className="font-semibold text-black">การสร้างอารมณ์และความรู้สึก :</span> 
+          <ul className="list-disc p-2 ml-6"> <span className="font-semibold text-black">การสร้างอารมณ์และความรู้สึก :</span> 
           <li className="mb-2 text-gray-700 ml-10">   การเลือกสีสามารถสร้างอารมณ์และความรู้สึกที่ผู้บริโภคมีต่อแบรนด์ได้ เช่น การใช้สีฟ้าสามารถทำให้รู้สึกเชื่อถือได้</li>
           </ul>
           {/* Pagination Section */}

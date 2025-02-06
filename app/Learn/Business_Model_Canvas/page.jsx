@@ -649,10 +649,10 @@ export default function Learn() {
 
 
 
-<ul class="list-disc p-5 mt-20 mb-4 ml-6"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
+<ul className="list-disc p-5 mt-20 mb-4 ml-6"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://www.canva.com/design/DAFl46G9uf8/vjRHsxQ71HHE_SadIUWmmA/view?utm_content=DAFl46G9uf8&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target="_blank">สไลด์เนื้อหาเพิ่มเติม</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://vcharkarn.com/article/business-model-canvas-%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%A7%E0%B8%B4%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%B0%E0%B8%AB%E0%B9%8C%E0%B8%98%E0%B8%B8%E0%B8%A3%E0%B8%81%E0%B8%B4%E0%B8%88-%E0%B8%9E/" target="_blank">ตัวอย่าง BMC</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.youtube.com/watch?v=e0RoOmhxhj4" target="_blank">บันทึกการบรรยาย BMC (VDO clip)</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://vcharkarn.com/article/business-model-canvas-%E0%B9%81%E0%B8%9C%E0%B8%99%E0%B8%A7%E0%B8%B4%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%B0%E0%B8%AB%E0%B9%8C%E0%B8%98%E0%B8%B8%E0%B8%A3%E0%B8%81%E0%B8%B4%E0%B8%88-%E0%B8%9E/" target="_blank" rel="noreferrer">ตัวอย่าง BMC</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.youtube.com/watch?v=e0RoOmhxhj4" target="_blank" rel="noreferrer">บันทึกการบรรยาย BMC (VDO clip)</a></li>
           
           
 </ul>

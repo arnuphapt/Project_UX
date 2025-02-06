@@ -552,7 +552,7 @@ export default function Learn() {
           
           <h3 className="text-xl font-semibold mb-2 mt-20 ml-10 ">Wireframe Tips </h3>
           
-          <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">1. Keep them Simple</span> 
+          <ul className="list-disc p-5"> <span className="font-semibold  text-black ml-5">1. Keep them Simple</span> 
           
           <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">อย่าทำให้ผู้ใช้ต้องคิดมาก :</span>  หมายถึงการออกแบบที่เข้าใจง่าย ไม่ซับซ้อน ผู้ใช้สามารถใช้งานได้ทันที</li>
           <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">ง่ายต่อการเปลี่ยนแปลง :</span>  การออกแบบที่เรียบง่ายจะทำให้การปรับเปลี่ยนหรือแก้ไขในอนาคตเป็นเรื่องง่าย</li>
@@ -562,17 +562,17 @@ export default function Learn() {
           
           </ul>
 
-          <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">2. Use a grid</span> 
+          <ul className="list-disc p-5"> <span className="font-semibold  text-black ml-5">2. Use a grid</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">Grid จะช่วยจัดระเบียบเนื้อหาของคุณ :</span>  หมายถึงการออกแบบที่เข้าใจง่าย ไม่ซับซ้อน ผู้ใช้สามารถใช้งานได้ทันที</li>
           </ul>
           <img src="/grid1.png" alt="grid" className="h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300  " />
           <img src="/grid2.png" alt="grid" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300  " />
           
-          <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">3. Short sharp annotation </span>คำอธิบายจะไม่ยาวเกินไป แต่จะสั้นและตรงประเด็น </ul>
+          <ul className="list-disc p-5"> <span className="font-semibold  text-black ml-5">3. Short sharp annotation </span>คำอธิบายจะไม่ยาวเกินไป แต่จะสั้นและตรงประเด็น </ul>
           <img src="/shortSharp.png" alt="shortSharp" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300  " />
          
          
-          <ul class="list-disc p-5"> <span className="font-semibold  text-black ml-5">4. Encourage feedback </span> 
+          <ul className="list-disc p-5"> <span className="font-semibold  text-black ml-5">4. Encourage feedback </span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4"><span className="font-semibold  text-black ">ทำให้ช่องให้ข้อเสนอแนะนั้นใช้งานง่ายที่สุดเท่าที่จะเป็นไปได้</span> มิฉะนั้น คุณจะพลาดข้อเสนอแนะที่ช่องนี้ถูกออกแบบมาเพื่อรวบรวม  </li>
           </ul>
           <img src="/feedback.png" alt="feedback" className=" h-auto w-full max-w-3xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300  " />
@@ -591,7 +591,7 @@ export default function Learn() {
           
 <ul className="list-disc p-5 mt-20 ml-10"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://drive.google.com/drive/folders/1ycXvEYELJjxjI-YqKSlLWEfzQd_1EEpF" target="_blank">Video บันทึกการสอน</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://drive.google.com/file/d/1FAkiQ_kq61iBOS-5qoM5SAbG1AEv-CAc/view" target="_blank">Gestal's Theory</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://drive.google.com/file/d/1FAkiQ_kq61iBOS-5qoM5SAbG1AEv-CAc/view" target="_blank" rel="noreferrer">Gestal's Theory</a></li>
           
           
 </ul>

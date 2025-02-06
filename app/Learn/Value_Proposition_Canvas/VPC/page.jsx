@@ -475,7 +475,7 @@ export default function Learn() {
           
 <ul className="list-disc p-5 mt-20 mb-4 ml-6"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://drive.google.com/file/d/1TDhO7ExRsfZHxMSzotQOEkAMr07dH7lq/view?t=1s" target="_blank">VPC(VDO)</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://martechmafia.net/strategy/from-business-model-canvas-to-value-proposition-design/" target="_blank">ตัวอย่าง VPC</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://martechmafia.net/strategy/from-business-model-canvas-to-value-proposition-design/" target="_blank" rel="noreferrer">ตัวอย่าง VPC</a></li>
           
           
 </ul>

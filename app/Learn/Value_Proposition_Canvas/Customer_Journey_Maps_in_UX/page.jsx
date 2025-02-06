@@ -449,7 +449,7 @@ export default function Learn() {
           
 <ul className="list-disc p-5 mt-20 mb-4 ml-6"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://drive.google.com/file/d/1DoA0a41RPTgTWFHsGUbQD_LqE7t5Zln_/view" target="_blank">Customer Journey Maps (slide)</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.booksfree.org/wp-content/uploads/2022/03/UX-Strategy_-How-to-Devise-Innovative-Digital-Products-that-People-Want_booksfree.org_.pdf?fbclid=IwAR2Kj0oiLC6TxJOM3xEjb8X8JeEFxVzJf5caiAdORwbDQSrwKzwqsUQiI4o" target="_blank">ตำรา Customer Journey Maps หน้า 244(PDF 258)</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://www.booksfree.org/wp-content/uploads/2022/03/UX-Strategy_-How-to-Devise-Innovative-Digital-Products-that-People-Want_booksfree.org_.pdf?fbclid=IwAR2Kj0oiLC6TxJOM3xEjb8X8JeEFxVzJf5caiAdORwbDQSrwKzwqsUQiI4o" target="_blank" rel="noreferrer">ตำรา Customer Journey Maps หน้า 244(PDF 258)</a></li>
           
           
 </ul>

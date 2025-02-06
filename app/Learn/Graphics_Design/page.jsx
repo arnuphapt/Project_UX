@@ -410,10 +410,10 @@ export default function Learn() {
       </div>
       <ul className="list-disc p-5 mt-12 ml-10"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
       <li className="mb-2 ml-6 text-blue-500 font-semibold  mt-4"> <a href=" https://www.canva.com/design/DAFl41uHJqU/xcxPvuXmTsbYi1PvmKXIJA/view?utm_content=DAFl41uHJqU&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target="_blank">สไลด์เนื้อหาเพิ่มเติม</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://www.youtube.com/playlist?list=PLj63OwXv6t5QBPvu2qqL2BzMFFQuJwxY1" target="_blank">VDO ประกอบการสอน ทฤษฏีกราฟิกส์เพื่อการออกแบบ</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://www.youtube.com/watch?v=_2LLXnUdUIc " target="_blank">การออกแบบกราฟิกเริ่มต้น " สี "</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://youtu.be/Qj1FK8n7WgY?si=qayYdkzFPvNIyMCF&t=480" target="_blank">ตัวอย่างของการใช้สี Understanding Color (นาทีที่ 8)</a></li>
-          <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://www.cssmania.com/colors/" target="_blank">Most common colors used in CSS Mania screenshots.</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://www.youtube.com/playlist?list=PLj63OwXv6t5QBPvu2qqL2BzMFFQuJwxY1" target="_blank" rel="noreferrer">VDO ประกอบการสอน ทฤษฏีกราฟิกส์เพื่อการออกแบบ</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://www.youtube.com/watch?v=_2LLXnUdUIc " target="_blank" rel="noreferrer">การออกแบบกราฟิกเริ่มต้น " สี "</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://youtu.be/Qj1FK8n7WgY?si=qayYdkzFPvNIyMCF&t=480" target="_blank" rel="noreferrer">ตัวอย่างของการใช้สี Understanding Color (นาทีที่ 8)</a></li>
+          <li className="mb-2 ml-6 text-blue-500 font-semibold "> <a href="https://www.cssmania.com/colors/" target="_blank" rel="noreferrer">Most common colors used in CSS Mania screenshots.</a></li>
           
       </ul>
 

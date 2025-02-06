@@ -483,7 +483,7 @@ export default function Learn() {
         <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold">
           <a
             href="https://www.youtube.com/playlist?list=PLiwVA5qjDkicrRkWfrKcDiktwiizwTG7c"
-            target="_blank"
+            target="_blank" rel="noreferrer"
           >
             People in UX (VDO Playlist - รวม 20 นาที)
           </a>
@@ -491,7 +491,7 @@ export default function Learn() {
         <li className="mb-2 ml-6 text-blue-500 font-semibold">
           <a
             href="https://www.youtube.com/playlist?list=PLiwVA5qjDkiddFIFN5chvhtFcLYAKsMlg"
-            target="_blank"
+            target="_blank" rel="noreferrer"
           >
             Persona (Clip VDO - 2 clips รวม 12 นาที)
           </a>

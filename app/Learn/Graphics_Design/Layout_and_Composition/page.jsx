@@ -392,7 +392,7 @@ export default function Learn() {
           <h3 className="text-xl font-semibold mb-2 ml-10 mt-20">TYPOGRAPHY คืออะไร ? </h3>
           <p className="text-gray-600 mb-4 ml-10" >Typography เป็นหนึ่งในหลักการที่สำคัญของการออกแบบกราฟิก ซึ่งเกี่ยวข้องกับการจัดวางและเลือกใช้ตัวอักษรในงานออกแบบเพื่อสร้างความสวยงามและการสื่อสารที่มีประสิทธิภาพ  </p>
           <h3 className="text-xl font-semibold mb-2 ml-10 mt-10 ">Concrpts for professional การใช้ตัวอักษรอย่างมืออาชีพ</h3>
-          <ul class="list-disc p-5">
+          <ul className="list-disc p-5">
           <li className="mb-2 text-gray-700 ml-10 mt-5"> <span className="font-semibold text-gray-900 ">เลือกฟอนต์ (Font Selection): </span> การเลือกฟอนต์ที่เหมาะสมสามารถมีผลต่อความรู้สึกและอารมณ์ของงานออกแบบ ฟอนต์แต่ละประเภทมีลักษณะเฉพาะที่สื่อความหมายต่างกัน </li>
           <img src="https://bs-uploads.toptal.io/blackfish-uploads/components/open_graph_image/9108229/og_image/optimized/image_13__2_-83c5503bc85e35c3f05f0b596573e811.png" alt="Design basics" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300  " />
           
@@ -423,7 +423,7 @@ export default function Learn() {
           <h3 className="text-xl font-semibold mb-10 mt-10 ml-10">Think like a designer ( คิดเหมือนนักออกแบบ ) </h3>
           <img src="https://sophiegleasonviscom.wordpress.com/wp-content/uploads/2015/06/principles-of-design-grey-2880px_paperleaf.jpg" alt="Design basics" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300" />
 
-          <ul class="list-disc p-5">
+          <ul className="list-disc p-5">
           <li className="mb-2 text-gray-700 ml-10"> <span className="font-semibold text-gray-900">ความใกล้ชิด (Proximity) : </span> การเลือกฟอนต์ที่เหมาะสมสามารถมีผลต่อความรู้สึกและอารมณ์ของงานออกแบบ ฟอนต์แต่ละประเภทมีลักษณะเฉพาะที่สื่อความหมายต่างกัน </li>
           
           

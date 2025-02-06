@@ -381,48 +381,48 @@ export default function Learn() {
           <h3 className="text-xl font-semibold  mb-4 mt-6 ml-10">Universal Design -The Principles- มีทั้งหมด 7หัวข้อ ได้แก่ </h3>
           <img src="/Principles_universal.png" alt="Principles_universal" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
         
-          <ul class="list-disc p-5 ml-10  "> <span className="font-semibold  text-black ml-5 "> 1. Equitable Use (การใช้งานอย่างเสมอภาค) :</span> 
+          <ul className="list-disc p-5 ml-10  "> <span className="font-semibold  text-black ml-5 "> 1. Equitable Use (การใช้งานอย่างเสมอภาค) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่ไม่กีดกันผู้ใช้ใดๆ และทำให้ทุกคนสามารถเข้าถึงได้อย่างเท่าเทียม โดยไม่จำเป็นต้องปรับเปลี่ยนการใช้งานเป็นพิเศษสำหรับกลุ่มใดกลุ่มหนึ่ง</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> เว็บไซต์ที่มีฟังก์ชันให้ผู้ใช้สามารถเลือกเปลี่ยนภาษาเป็นภาษาที่ตนเองถนัด จะทำให้ผู้ใช้จากหลากหลายประเทศสามารถใช้งานได้สะดวกและได้รับประสบการณ์การใช้งานที่ไม่ต่างกัน</li>
           <img src="/Uquitable.png" alt="10 Usability Heuristics" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
          
           
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 2. Flexibility in Use (ความยืดหยุ่นในการใช้งาน) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 2. Flexibility in Use (ความยืดหยุ่นในการใช้งาน) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่รองรับความต้องการและความชอบที่หลากหลายของผู้ใช้ สามารถปรับเปลี่ยนได้ตามความสะดวกของแต่ละบุคคล</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> หากต้องการสมัครแพ็คเกจบนเว็บไซต์ควร มี แพ็คเกจให้ผู้ใช้เลือกได้เหมาะกับการใช้งานของผู้ใช้</li>
           <img src="/Flexibility_inuse.png" alt="Flexibility_inuse" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
          
           
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 3. Simple and Intuitive Use (ใช้งานง่าย ไม่ซับซ้อน) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 3. Simple and Intuitive Use (ใช้งานง่าย ไม่ซับซ้อน) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่ผู้ใช้ทุกคนสามารถเข้าใจและใช้งานได้ง่ายโดยไม่จำเป็นต้องมีการเรียนรู้หรือมีประสบการณ์มาก่อน การใช้งานควรเป็นธรรมชาติและไม่ต้องใช้ความคิดมากเกินไป</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> การออกแบบระบบนำทางที่ชัดเจนและเข้าใจได้ง่าย เช่น เมนูที่เรียบง่าย ปุ่มที่มีการระบุฟังก์ชันชัดเจน</li>
           <img src="/Simple_and_Intuitive.png" alt="Simple_and_Intuitive" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
          
           
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 4. Perceptible Information (ข้อมูลเข้าใจง่าย แม้สำหรับผู้มีข้อจำกัดในการรับรู้) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 4. Perceptible Information (ข้อมูลเข้าใจง่าย แม้สำหรับผู้มีข้อจำกัดในการรับรู้) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่สามารถสื่อสารข้อมูลสำคัญไปยังผู้ใช้ทุกคน ไม่ว่าจะมีความบกพร่องทางการมองเห็น การได้ยิน หรือการรับรู้ในรูปแบบอื่นๆ ข้อมูลควรถูกนำเสนอผ่านหลายช่องทาง เพื่อให้มั่นใจว่าผู้ใช้สามารถเข้าใจได้</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> การใช้ข้อความ แถบสี เสียงแจ้งเตือน หรือการสั่นเตือน เพื่อสื่อสารเหตุการณ์สำคัญต่างๆ บนแอปพลิเคชัน</li>
           <img src="https://media.licdn.com/dms/image/v2/D4E12AQFCkvDtdfdylA/article-inline_image-shrink_400_744/article-inline_image-shrink_400_744/0/1674021851137?e=2147483647&v=beta&t=YR8Jk81u02bgzdpWtghjsc_Ujz6fWRj5lQJGwqQYg5Q" alt="Perceptible Information" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
           
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 5. Low Physical Effort (ใช้แรงกายในการใช้งานน้อย) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 5. Low Physical Effort (ใช้แรงกายในการใช้งานน้อย) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่ลดความเหนื่อยล้าทางร่างกายและจิตใจในการใช้งานผลิตภัณฑ์หรือบริการ ผู้ใช้ควรจะสามารถดำเนินการต่างๆ ได้อย่างสะดวกสบายและไม่ต้องออกแรงมากเกินไป</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> Microsoft Word หรือโปรแกรมอื่นๆ ก็มี shortcuts เช่น กด "Ctrl + S" เพื่อบันทึกไฟล์ ซึ่งช่วยลดการเสียเวลาของผู้ใช้ในการบันทึกงานด้วยการคลิกที่เมนู</li>
           <img src="https://i.ytimg.com/vi/TEikdLuKG5c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCD338UoXHu-cBi4kptIPFcvfpeNQ" alt="Low Physical Effort" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
 
 
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 6. Tolerance for Error (ออกแบบที่ยอมรับความผิดพลาด ลดโอกาสเกิดความผิดพลาดร้ายแรง) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 6. Tolerance for Error (ออกแบบที่ยอมรับความผิดพลาด ลดโอกาสเกิดความผิดพลาดร้ายแรง) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การออกแบบที่ลดความเสี่ยงของการเกิดความผิดพลาด หรือเมื่อเกิดความผิดพลาดแล้วควรมีวิธีการกู้คืนหรือแก้ไขได้ง่าย</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> มีฟังก์ชัน "ยกเลิก" หรือ "ย้อนกลับ" (undo/redo) ในการกรอกข้อมูลที่ผิดพลาด หรือการแจ้งเตือนก่อนการดำเนินการที่อาจจะมีผลกระทบรุนแรง</li>
           <img src="https://alliescomputing.com/cms-admin/resources/etd-tweet-imgage.jpg" alt="Tolerance for Error" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
           </ul>
           
           
-          <ul class="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 7. Size and Space for Approach and Use (ขนาดและพื้นที่ที่เหมาะสมสำหรับการใช้งานโดยกลุ่มคนต่างๆ) :</span> 
+          <ul className="list-disc p-5 ml-10"> <span className="font-semibold  text-black ml-5"> 7. Size and Space for Approach and Use (ขนาดและพื้นที่ที่เหมาะสมสำหรับการใช้งานโดยกลุ่มคนต่างๆ) :</span> 
           <li className="mb-2 text-gray-600 ml-10 mt-4" ><span className="font-semibold  text-black ">คำอธิบาย</span> การจัดวางขนาดและพื้นที่ให้สามารถใช้งานได้ง่ายโดยไม่ว่าจะมีข้อจำกัดทางกายภาพ เช่น ความสูง น้ำหนัก หรือการเคลื่อนไหว ผู้ใช้ทุกคนควรสามารถเข้าถึงได้ไม่ว่าจะอยู่ในตำแหน่งใดหรือใช้ร่างกายส่วนไหน</li>
           <li className="mb-2 text-gray-600 ml-10" ><span className="font-semibold  text-black ">ตัวอย่าง</span> เช่น Slack ถูกออกแบบให้สามารถใช้งานได้ง่ายทั้งบนเดสก์ท็อปและมือถือ โดยมีพื้นที่เพียงพอสำหรับการเข้าถึงส่วนต่างๆ เช่น ปุ่มและเมนูที่วางอย่างเหมาะสมสำหรับทั้งผู้ใช้เมาส์และผู้ใช้หน้าจอสัมผัส</li>
           <img src="https://community.maryville.edu/servlet/rtaImage?eid=ka08X000000ORBJ&feoid=00N3600000RpYD2&refid=0EM8X000003pTp6" alt="Size and Space for Approach and Use" className=" h-auto w-full max-w-2xl mx-auto p-7  mb-6 mt-10 rounded-xl shadow-xl transform hover:scale-105 transition-all duration-300 " />
@@ -492,9 +492,9 @@ export default function Learn() {
 
 
           
-<ul class="list-disc p-5 mt-20 mb-4 ml-6"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
+<ul className="list-disc p-5 mt-20 mb-4 ml-6"> <span className="font-semibold  text-black"> สามารถศึกษาเพิ่มเติมได้ที่  :</span> 
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://www.canva.com/design/DAFl4y4lvDc/u3kAjwtMk4H_pD95aLc5mA/view?utm_content=DAFl4y4lvDc&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink" target="_blank">สไลด์เนื้อหาเพิ่มเติม</a></li>
-<li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://pubhtml5.com/ccmq/brlm/%E0%B8%84%E0%B8%B9%E0%B9%88%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B9%80%E0%B8%9E%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%84%E0%B8%99_Universal_Design-_UD/" target="_blank">Universal Design(หนังสือ)</a></li>
+<li className="mb-2 ml-6 text-blue-500 font-semibold"> <a href="https://pubhtml5.com/ccmq/brlm/%E0%B8%84%E0%B8%B9%E0%B9%88%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%E0%B9%80%E0%B8%9E%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%97%E0%B8%B8%E0%B8%81%E0%B8%84%E0%B8%99_Universal_Design-_UD/" target="_blank" rel="noreferrer">Universal Design(หนังสือ)</a></li>
 <li className="mb-2 ml-6 mt-4 text-blue-500 font-semibold"> <a href=" https://medium.com/@yay.bouu/wcag-2-2-%E0%B8%84%E0%B8%B7%E0%B8%AD%E0%B8%AD%E0%B8%B0%E0%B9%84%E0%B8%A3-%E0%B9%84%E0%B8%A1%E0%B9%88%E0%B8%97%E0%B8%B3%E0%B8%84%E0%B8%99%E0%B8%97%E0%B8%B3-ux-ui-%E0%B8%84%E0%B8%A7%E0%B8%A3%E0%B8%95%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A3%E0%B8%B9%E0%B9%89-35b70dbc9b3f" target="_blank">Web Content Accessibility (WCAG) คืออะไร</a></li>     
 </ul>
 
