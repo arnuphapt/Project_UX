@@ -3,7 +3,7 @@ import PostItem from './PostItem';
 import SearchBar from '../Searchbar';
 import FilterBar from '../Filter/Filterbar';
 import Adminpost from '../Admincarousel';
-import { Pagination, Skeleton } from "@nextui-org/react";
+import { Pagination, Skeleton } from "@heroui/react";
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../../Shared/firebaseConfig';
 import Breadcrumbs from '../Breadcrumbs';

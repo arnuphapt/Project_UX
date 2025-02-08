@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useRef } from 'react';
-import { Button, Skeleton } from "@nextui-org/react";
+import { Button, Skeleton } from "@heroui/react";
 import { Upload, ArrowUpRight, ChevronDown, Award } from 'lucide-react';
 import PinItem from './PinItem';
 import { useRouter } from 'next/navigation';

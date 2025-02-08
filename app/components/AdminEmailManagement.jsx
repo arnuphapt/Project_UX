@@ -22,7 +22,7 @@ import {
   Link,
   Spinner,
   Tooltip
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { RiEdit2Line } from "react-icons/ri";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';

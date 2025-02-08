@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup } from "@nextui-org/react";
+import { Button, ButtonGroup } from "@heroui/react";
 import { FaProjectDiagram, FaPencilRuler, FaPaintBrush } from 'react-icons/fa';
 
 import { MdViewQuilt } from 'react-icons/md';

@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react"
 import { getFirestore, doc, getDoc } from "firebase/firestore"
 import { app } from '../Shared/firebaseConfig'
 import { useRouter } from 'next/navigation'
-import { CircularProgress } from "@nextui-org/react"
+import { CircularProgress } from "@heroui/react"
 import  Breadcrumbs  from '../components/Breadcrumbs'
 function PinBuilder() {
   const [studentId, setStudentId] = useState('')

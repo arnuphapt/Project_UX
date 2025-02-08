@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import UploadImage from './UploadImage';
 import { Input, Button, Modal, ModalContent, ModalBody, 
-  ModalFooter, ModalHeader, Select, SelectItem, Chip } from "@nextui-org/react";
+  ModalFooter, ModalHeader, Select, SelectItem, Chip } from "@heroui/react";
 
 const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
   const [title, setTitle] = useState(pinDetail.title);

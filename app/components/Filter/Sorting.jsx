@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@heroui/react";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 function Sorting({ sortBy, setSortBy }) {
@@ -15,7 +15,7 @@ function Sorting({ sortBy, setSortBy }) {
   };
 
   return (
-    <Dropdown isOpen={isOpen} onOpenChange={setIsOpen} >
+    (<Dropdown isOpen={isOpen} onOpenChange={setIsOpen} >
       <DropdownTrigger>
         <Button className="capitalize"
           variant="bordered" endContent={isOpen ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}>
@@ -35,7 +35,7 @@ function Sorting({ sortBy, setSortBy }) {
         <DropdownItem key="Name Z-A">Name Z-A</DropdownItem>
         <DropdownItem key="userName">User Name Alphabet</DropdownItem>
       </DropdownMenu>
-    </Dropdown>
+    </Dropdown>)
   );
 }
 

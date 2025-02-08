@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, Tab } from '@nextui-org/react';
+import { Tabs, Tab } from "@heroui/react";
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../../Shared/firebaseConfig';
 

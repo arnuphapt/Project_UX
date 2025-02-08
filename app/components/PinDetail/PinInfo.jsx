@@ -27,7 +27,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { RxCross1 } from "react-icons/rx";
 
 function PinInfo({ pinDetail: initialPinDetail }) {

@@ -9,7 +9,7 @@ import { CiUser, CiEdit } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 import { FiMenu, FiX } from "react-icons/fi";
 import { RiAdminLine } from "react-icons/ri";
-import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
+import { Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/react";
 import { getAdminEmails } from '../utils/adminEmail';
 
 function Header() {

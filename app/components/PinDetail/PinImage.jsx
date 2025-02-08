@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Skeleton } from '@nextui-org/react';
+import { Skeleton } from "@heroui/react";
 
 const PLACEHOLDER = '/Images/placeholder.jpg';
 

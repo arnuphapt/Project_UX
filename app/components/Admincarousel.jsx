@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { db } from "../Shared/firebaseConfig";
 import { collection, getDocs, orderBy, query, limit } from "firebase/firestore";
-import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Avatar, Badge } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Avatar, Badge } from "@heroui/react";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 

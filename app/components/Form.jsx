@@ -9,7 +9,7 @@ import Data from './Data';
 import { HiArrowSmallLeft } from "react-icons/hi2";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Input, CheckboxGroup, Checkbox, Button,Chip } from "@nextui-org/react";
+import { Input, CheckboxGroup, Checkbox, Button,Chip } from "@heroui/react";
 import UserTag from './UserTag';
 import { app } from '../Shared/firebaseConfig';
 

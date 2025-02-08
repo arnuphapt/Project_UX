@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/react";
+import { Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/react";
 import { Filter } from 'lucide-react';
 import FilterSection from './Filter/FilterSection'
 import FilterYears from './Filter/FilterYears'

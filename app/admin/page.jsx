@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '@/app/Shared/firebaseConfig';
 import { useRouter } from 'next/navigation';
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input } from "@heroui/react";
 import { IoIosEye, IoIosEyeOff } from "react-icons/io";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

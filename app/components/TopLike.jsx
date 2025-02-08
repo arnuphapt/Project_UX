@@ -1,5 +1,5 @@
 import React, { useMemo, useState,useEffect } from 'react';
-import { Card, CardBody, Avatar, Button } from "@nextui-org/react";
+import { Card, CardBody, Avatar, Button } from "@heroui/react";
 import { Crown, Trophy, Medal, Award, Eye, Heart, BarChart2, Sparkles, Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { getFirestore, doc, updateDoc, onSnapshot } from 'firebase/firestore';

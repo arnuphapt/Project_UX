@@ -16,7 +16,7 @@ import {
   CardBody,
   CardHeader,
   Spinner
-} from '@nextui-org/react';
+} from "@heroui/react";
 import { db } from '../../Shared/firebaseConfig';
 import { collection, addDoc, getDocs, orderBy, query, doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { MoreVertical, Edit, Trash2 } from 'lucide-react';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Input, useDisclosure } from "@heroui/react";
 import { Search, Tag, Layout, SlidersHorizontal, Clock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 

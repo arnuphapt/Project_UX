@@ -1,5 +1,5 @@
 import React from "react";
-import { Breadcrumbs, BreadcrumbItem } from "@nextui-org/react";
+import { Breadcrumbs, BreadcrumbItem } from "@heroui/react";
 import { useRouter, usePathname } from 'next/navigation';
 
 export default function App() {

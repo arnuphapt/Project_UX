@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, SelectItem } from '@nextui-org/react';
+import { Select, SelectItem } from "@heroui/react";
 
 function FilterSection({ sections, selectedSection, setSelectedSection }) {
     // Sort sections numerically

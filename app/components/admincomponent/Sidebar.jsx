@@ -1,19 +1,34 @@
+import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { Link, Button } from "@nextui-org/react";
+import { Link, Button } from "@heroui/react";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/app/Shared/firebaseConfig';
 import { signOut } from 'firebase/auth';
-import { useEffect, useState } from 'react';
-import { MdOutlineDashboard } from "react-icons/md";
+import { MdOutlineDashboard, MdOutlineManageAccounts } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { AiOutlineDatabase } from "react-icons/ai";
-import { CiLogin, CiMenuFries } from "react-icons/ci";
+import { CiLogin, CiMenuFries, CiFilter } from "react-icons/ci";
 import { GoDatabase } from "react-icons/go";
-import { CiFilter } from "react-icons/ci";
-import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 
-export default function AdminSidebar() {
+// Separate MenuItem component
+const MenuItem = ({ href, icon: Icon, label, isActive }) => {
+  return (
+    <Link
+      href={href}
+      className={`relative flex w-full items-center gap-2 rounded-lg px-4 py-3 text-md font-medium transition-all duration-200 group
+        ${isActive 
+          ? 'bg-primary/10 text-primary before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-primary' 
+          : 'text-muted-foreground hover:bg-gray-100 hover:text-foreground'
+        }`}
+    >
+      <Icon className={`h-5 w-5 transition-colors ${isActive ? 'text-primary' : 'text-gray-500 group-hover:text-gray-700'}`} />
+      <span className={`transition-colors ${isActive ? 'font-semibold' : ''}`}>{label}</span>
+    </Link>
+  );
+};
+
+const AdminSidebar = () => {
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
   const pathname = usePathname();
@@ -49,34 +64,19 @@ export default function AdminSidebar() {
     return pathname.endsWith(path);
   };
 
-  const MenuItem = ({ href, icon: Icon, label, onClick }) => {
-    const isActive = isActiveMenu(href.split('/').pop());
-    
-    return (
-      <Link
-        href={href}
-        onPress={onClick}
-        className={`relative flex w-full items-center gap-2 rounded-lg px-4 py-3 text-md font-medium transition-all duration-200 group
-          ${isActive 
-            ? 'bg-primary/10 text-primary before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-primary' 
-            : 'text-muted-foreground hover:bg-gray-100 hover:text-foreground'
-          }`}
-      >
-        <Icon className={`h-5 w-5 transition-colors ${isActive ? 'text-primary' : 'text-gray-500 group-hover:text-gray-700'}`} />
-        <span className={`transition-colors ${isActive ? 'font-semibold' : ''}`}>{label}</span>
-      </Link>
-    );
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const menuItems = [
+    { href: '/admin/dashboard', icon: MdOutlineDashboard, label: 'Dashboard' },
+    { href: '/admin/userlist', icon: FaRegUser, label: 'Users List' },
+    { href: '/admin/postlist', icon: AiOutlineDatabase, label: 'Posts List' },
+    { href: '/admin/adminlist', icon: GoDatabase, label: 'Admin Posts' },
+    { href: '/admin/filtermanager', icon: CiFilter, label: 'Filter Management' },
+    { href: '/admin/adminmanager', icon: MdOutlineManageAccounts, label: 'Admin Management' }
+  ];
 
   return (
     <>
-      {/* Mobile Menu Button */}
       <button
-        onClick={toggleMobileMenu}
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white shadow-md sm:hidden"
       >
         {isMobileMenuOpen ? (
@@ -86,7 +86,6 @@ export default function AdminSidebar() {
         )}
       </button>
 
-      {/* Overlay */}
       {isMobileMenuOpen && (
         <div 
           className="fixed inset-0 bg-black/50 z-20 sm:hidden"
@@ -94,7 +93,6 @@ export default function AdminSidebar() {
         />
       )}
 
-      {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r bg-background shadow-md transform transition-transform duration-300 ease-in-out ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       } sm:translate-x-0 sm:w-64`}>
@@ -107,36 +105,15 @@ export default function AdminSidebar() {
 
         <div className="flex flex-1 flex-col overflow-y-auto">
           <nav className="flex flex-col gap-1 px-3 py-6">
-            <MenuItem 
-              href="/admin/dashboard"
-              icon={MdOutlineDashboard}
-              label="Dashboard"
-            />
-            <MenuItem 
-              href="/admin/userlist"
-              icon={FaRegUser}
-              label="Users List"
-            />
-            <MenuItem 
-              href="/admin/postlist"
-              icon={AiOutlineDatabase}
-              label="Posts List"
-            />
-            <MenuItem
-              href="/admin/adminlist"
-              icon={GoDatabase}
-              label="Admin Posts"
-            />
-            <MenuItem
-              href="/admin/filtermanager"
-              icon={CiFilter}
-              label="Filter Management"
-            />
-            <MenuItem
-              href="/admin/adminmanager"
-              icon={MdOutlineManageAccounts}
-              label="Admin Management"
-            />
+            {menuItems.map((item) => (
+              <MenuItem
+                key={item.href}
+                href={item.href}
+                icon={item.icon}
+                label={item.label}
+                isActive={isActiveMenu(item.href.split('/').pop())}
+              />
+            ))}
           </nav>
         </div>
 
@@ -154,4 +131,6 @@ export default function AdminSidebar() {
       </aside>
     </>
   );
-}
+};
+
+export default AdminSidebar;

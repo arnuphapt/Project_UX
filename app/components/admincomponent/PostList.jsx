@@ -25,10 +25,8 @@ import {
   ModalHeader, 
   ModalBody, 
   ModalFooter,
-  useDisclosure,
-  Tabs,
-  Tab
-} from "@nextui-org/react";
+  useDisclosure
+} from "@heroui/react";
 import { useAsyncList } from "@react-stately/data";
 import { Search,Trash2,Heart } from "lucide-react";
 import { FaEye } from "react-icons/fa";
@@ -230,7 +228,6 @@ const PostList = () => {
         await deleteDoc(doc(db, "pinterest-post", id));
       }
 
-      const result = await list.reload();
       setSelectedKeys(new Set([]));
       onClose();
       

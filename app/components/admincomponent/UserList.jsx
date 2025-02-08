@@ -26,9 +26,9 @@ import {
   ModalBody, 
   ModalFooter,
   useDisclosure
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { useAsyncList } from "@react-stately/data";
-import { Search, Edit, Trash2 } from "lucide-react";
+import { Search, Trash2 } from "lucide-react";
 import { FaEye } from "react-icons/fa";
 import { RiEdit2Line } from "react-icons/ri";
 
@@ -58,7 +58,7 @@ const UserList = () => {
   ];
 
   const getSelectionText = () => {
-    if (selectedKeys === "all") {
+    if (selectedKeys == "all") {
       return `All ${filteredItems.length} users selected`;
     }
     if (selectedKeys.size === 0) {
@@ -280,7 +280,7 @@ const UserList = () => {
             <>
               <ModalHeader>Confirm Deletion</ModalHeader>
               <ModalBody>
-                Are you sure you want to delete {selectedKeys.size === filteredItems.length ? "all" : selectedKeys.size} selected users? This action cannot be undone.
+                Are you sure you want to delete {selectedKeys.size == filteredItems.length ? "all" : selectedKeys.size} selected users? This action cannot be undone.
               </ModalBody>
               <ModalFooter>
                 <Button variant="flat" onPress={onClose}>

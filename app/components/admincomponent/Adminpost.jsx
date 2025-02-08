@@ -26,7 +26,7 @@ import {
   useDisclosure,
   Spinner,
   Badge
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { MoreVertical, Edit, Trash2, Link as LinkIcon } from 'lucide-react';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';

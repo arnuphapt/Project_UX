@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { db } from "../../Shared/firebaseConfig";
-import { collection, getDocs, query } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import {
   Card,
   CardBody,
   Chip,
   Skeleton
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { Users, FileText, BookOpen, Filter, Mail } from 'lucide-react';
 
 const Dashboard = () => {
@@ -27,7 +27,11 @@ const Dashboard = () => {
       ta: 0
     }
   });
-
+  const extractSectionNumber = (section) => {
+    const regex = /\d+/;
+    const matches = regex.exec(section);
+    return matches ? parseInt(matches[0]) : 0;
+  };
   useEffect(() => {
     fetchStats();
   }, []);
@@ -104,7 +108,13 @@ const Dashboard = () => {
       </CardBody>
     </Card>
   );
-
+  const sortSections = (sections) => {
+    return Object.entries(sections).sort((a, b) => {
+      const numA = extractSectionNumber(a[0]);
+      const numB = extractSectionNumber(b[0]);
+      return numA - numB;
+    });
+  };
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-bold mb-6">Dashboard Overview</h2>
@@ -147,19 +157,12 @@ const Dashboard = () => {
                     <h3 className="text-white text-3xl font-bold">{stats.totalPosts}</h3>
                   </div>
                   <div className="space-y-1">
-                    {Object.entries(stats.sectionStats)
-                      .sort(([secA], [secB]) => {
-                        const numA = parseInt(secA.match(/\d+/)[0]);
-                        const numB = parseInt(secB.match(/\d+/)[0]);
-                        return numA - numB;
-                      })
-                      .map(([section, count]) => (
-                        <div key={section} className="flex items-center gap-2">
-                          <Chip size="sm" className="bg-white/20 text-white">Section {section}</Chip>
-                          <span className="text-white">{count}</span>
-                        </div>
-                      ))
-                    }
+                    {sortSections(stats.sectionStats).map(([section, count]) => (
+                      <div key={section} className="flex items-center gap-2">
+                        <Chip size="sm" className="bg-white/20 text-white">Section {section}</Chip>
+                        <span className="text-white">{count}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 <FileText className="text-white w-8 h-8" />

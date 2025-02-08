@@ -4,7 +4,7 @@ import { GrView } from 'react-icons/gr';
 import { AiOutlineComment } from 'react-icons/ai';
 import { IoHeart } from 'react-icons/io5';
 import { Share2, Heart } from 'lucide-react';
-import { Card, CardHeader, CardFooter, Image } from "@nextui-org/react";
+import { Card, CardHeader, CardFooter, Image } from "@heroui/react";
 import { getFirestore, doc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { app } from '../../Shared/firebaseConfig';
 import { useSession } from 'next-auth/react';

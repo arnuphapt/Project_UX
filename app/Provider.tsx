@@ -2,16 +2,16 @@
 import React from 'react'
 import { SessionProvider } from "next-auth/react"
 import { ReactNode } from 'react';
-import {NextUIProvider} from '@nextui-org/react'
+import {HeroUIProvider} from "@heroui/react"
 
 function Provider({ children }: { children: ReactNode }) {
   return (
-    <NextUIProvider>
+    <HeroUIProvider>
 
     <SessionProvider >
         {children}
     </SessionProvider>
-    </NextUIProvider>
+    </HeroUIProvider>
 
   )
 }

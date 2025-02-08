@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HiArrowUpCircle } from 'react-icons/hi2';
-import { Button, CircularProgress, Chip } from '@nextui-org/react';
+import { Button, CircularProgress, Chip } from "@heroui/react";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { RxCross1 } from "react-icons/rx";
 

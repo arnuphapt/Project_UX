@@ -12,7 +12,7 @@ import {
   Avatar,
   Spinner,
   Badge
-} from "@nextui-org/react";
+} from "@heroui/react";
 
 import Breadcrumbs from "../components/Breadcrumbs";
 const AdminPosts = () => {

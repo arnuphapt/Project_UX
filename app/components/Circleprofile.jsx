@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Avatar, Button, Tooltip, Card, CardHeader,CardBody } from "@nextui-org/react";
+import { Avatar, Button, Tooltip, Card, CardHeader,CardBody } from "@heroui/react";
 import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 

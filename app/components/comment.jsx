@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Image from "next/image";
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai';
 import LikeButton from './LikeButton';
-import { Input, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu } from "@nextui-org/react";
+import { Input, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu } from "@heroui/react";
 import { IoIosMore } from "react-icons/io";
 
 function CommentSection({

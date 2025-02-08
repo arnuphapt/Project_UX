@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 
 const LikeButton = ({ hasLiked, onLikeToggle, likesCount }) => {
   return (

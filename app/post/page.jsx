@@ -3,7 +3,7 @@ import { app } from '../Shared/firebaseConfig';
 import PostList from '../components/Pins/PostList';
 import { getFirestore, collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from 'react';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox } from "@heroui/react";
 
 export default function Home() {
     const db = getFirestore(app);

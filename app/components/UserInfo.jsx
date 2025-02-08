@@ -17,7 +17,7 @@ import {
   CardBody,
   Divider,
   Tooltip
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { app } from '../Shared/firebaseConfig';
 import { ToastContainer, toast } from 'react-toastify';
