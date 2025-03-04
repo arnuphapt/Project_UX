@@ -232,7 +232,7 @@ function UserInfo({ userInfo }) {
               size='lg'
               variant='underlined'
               label="Section"
-              defaultSelectedKeys={section ? [section] : []}
+              selectedKeys={section ? [section] : []}
               onChange={(e) => setSection(e.target.value)}
             >
               <SelectItem key="1" value="1">1</SelectItem>

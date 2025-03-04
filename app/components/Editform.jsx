@@ -106,7 +106,7 @@ const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
                     type="text"
                     variant='underlined'
                     size='lg'
-                    defaultSelectedKeys={section}
+                    selectedKeys={section}
                     onChange={(e) => setsection(e.target.value)}
                     label='Section'
                     className='text-base md:text-lg lg:text-xl outline-none w-full pb-2 mt-4'
