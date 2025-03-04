@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import UploadImage from './UploadImage';
 import { Input, Button, Modal, ModalContent, ModalBody, 
   ModalFooter, ModalHeader, Select, SelectItem, Chip } from "@heroui/react";
+import { toast } from 'react-toastify';
 
 const PinInfoModal = ({ isOpen, onOpenChange, pinDetail, onSave }) => {
   const [title, setTitle] = useState(pinDetail.title);

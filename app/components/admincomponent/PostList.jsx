@@ -248,7 +248,7 @@ const PostList = () => {
           isClearable
           label="Search Bar"
           className="w-full md:w-[44%]"
-          placeholder="Search by title, user, section, or email..."
+          placeholder="Search by title, user, or email..."
           startContent={<Search className="text-default-300" />}
           value={searchQuery}
           onClear={() => setSearchQuery("")}
