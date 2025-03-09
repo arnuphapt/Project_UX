@@ -13,17 +13,15 @@ import {
   SelectItem,
   Badge,
   Avatar,
-  Card,
-  CardBody,
   Divider,
-  Tooltip
-} from "@nextui-org/react";
+  
+} from "@heroui/react";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 import { app } from '../Shared/firebaseConfig';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams } from 'next/navigation';
-import { FaUser, FaEnvelope, FaIdCard, FaCheck, FaPencilAlt, FaSignOutAlt } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaIdCard, FaCheck } from 'react-icons/fa';
 import { getAdminEmails } from '../utils/adminEmail';
 
 function UserInfo({ userInfo }) {
