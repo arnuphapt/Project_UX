@@ -10,7 +10,7 @@ import PinInfoModal from '../Editform';
 import { IoIosMore } from "react-icons/io";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Edit, Trash2 } from 'lucide-react';
+import { Edit, Trash2, CheckCircle } from 'lucide-react';
 import { getAdminEmails } from '../../utils/adminEmail';
 
 import { 
@@ -43,6 +43,11 @@ function PinInfo({ pinDetail: initialPinDetail }) {
     isOpen: isDeleteModalOpen, 
     onOpen: onDeleteModalOpen, 
     onOpenChange: onDeleteModalChange 
+  } = useDisclosure();
+  const {
+    isOpen: isSuccessModalOpen,
+    onOpen: onSuccessModalOpen,
+    onOpenChange: onSuccessModalChange
   } = useDisclosure();
   const [pinDetail, setPinDetail] = useState(initialPinDetail);
   const [adminEmails, setAdminEmails] = useState([]);
@@ -104,7 +109,6 @@ function PinInfo({ pinDetail: initialPinDetail }) {
     };
   }, [db, pinDetail.id, session?.user?.email]);
 
-  // Rest of the component methods remain the same
   const handleDelete = async () => {
     if (!isPostOwner) return;
 
@@ -119,15 +123,27 @@ function PinInfo({ pinDetail: initialPinDetail }) {
       // Delete the main post document
       await deleteDoc(doc(db, 'pinterest-post', pinDetail.id));
 
-      toast.success("Post deleted successfully!");
-      router.push('/post');
+      // Close delete confirmation modal
+      onDeleteModalChange(false);
+      
+      // Show success modal instead of toast
+      onSuccessModalOpen();
+      
+      // We'll navigate after they close the success modal
+      
     } catch (error) {
       toast.error("Error deleting post and comments. Please try again.");
       console.error("Error deleting document and comments: ", error);
-    } finally {
       setIsDeleting(false);
       onDeleteModalChange(false);
+    } finally {
+      setIsDeleting(false);
     }
+  };
+
+  const handleSuccessModalClose = () => {
+    onSuccessModalChange(false);
+    router.push('/post');
   };
 
   const handleCommentSubmit = useCallback(async (event) => {
@@ -229,6 +245,37 @@ function PinInfo({ pinDetail: initialPinDetail }) {
                   isLoading={isDeleting}
                 >
                   Delete
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+
+      {/* Success Modal */}
+      <Modal 
+        isOpen={isSuccessModalOpen} 
+        onOpenChange={handleSuccessModalClose}
+        hideCloseButton
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalBody>
+                <div className='text-center py-4'>
+                <div className="flex justify-center mb-4">
+                  <CheckCircle size={84} className="text-green-500" />
+                </div>
+                 <p className="mt-4 text-3xl font-bold">Success</p>
+                <p className="mt-2 text-sm text-gray-500">You have successfully deleted your post</p>
+                </div>
+                </ModalBody>
+              <ModalFooter className="justify-center">
+                <Button 
+                  color="success" 
+                  onPress={handleSuccessModalClose}
+                >
+                  OK
                 </Button>
               </ModalFooter>
             </>

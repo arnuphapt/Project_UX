@@ -106,10 +106,10 @@ function Header() {
                 <Button variant='light' className='font-semibold text-[16px]' aria-label="Tools button">Tools</Button>
               </DropdownTrigger>
               <DropdownMenu>
+              <DropdownItem href="https://gen.ai.kku.ac.th/chat" color="default">KKU IntelliSphere</DropdownItem>
                 <DropdownItem href="https://www.figma.com/" color="default">figma</DropdownItem>
                 <DropdownItem href="https://www.wix.com/" color="default">wix</DropdownItem>
                 <DropdownItem href="https://padlet.com/" color="default">padlet</DropdownItem>
-                <DropdownItem href="https://claude.ai/new" color="default">claude</DropdownItem>
                 <DropdownItem href="https://miro.com/" color="default">miro</DropdownItem>
               </DropdownMenu>
             </Dropdown>

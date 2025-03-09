@@ -4,6 +4,7 @@ import { Upload, ArrowUpRight, ChevronDown, Award } from 'lucide-react';
 import PinItem from './PinItem';
 import { useRouter } from 'next/navigation';
 import TopLike from '../TopLike';
+import { useSession,signIn } from "next-auth/react";
 
 const LoadingSkeleton = () => (
     <div className="rounded-xl">
@@ -18,11 +19,19 @@ const PinList = ({ listOfPins, isLoading = false }) => {
     const pinsPerPage = 6;
     const router = useRouter();
     const mostLikedSectionRef = useRef(null);
+    const { data: session } = useSession();
 
     const scrollToMostLiked = () => {
         mostLikedSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
-
+    const onCreateClick = () => {
+        if (session) {
+          router.push('/post-builder');
+        } else {
+          signIn();
+        }
+      };
+      
     // Sort all pins by likes count
     const sortedPinsByLikes = useMemo(() => {
         const allPins = [...listOfPins];
@@ -74,7 +83,7 @@ const PinList = ({ listOfPins, isLoading = false }) => {
                     <div className="flex flex-col items-center gap-6 sm:gap-8">
                         <div className="flex flex-col sm:flex-row items-center gap-4">
                             <Button
-                                onPress={() => router.push("/post-builder")}
+                                onPress={onCreateClick}
                                 color="primary"
                                 variant="shadow"
                                 size="lg"

@@ -4,6 +4,7 @@ import PostList from '../components/Pins/PostList';
 import { getFirestore, collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure, Checkbox } from "@heroui/react";
+import Image from "next/image";
 
 export default function Home() {
     const db = getFirestore(app);
@@ -11,6 +12,7 @@ export default function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [showModal, setShowModal] = useState(true);
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    const [Loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Check local storage for modal preference and timestamp
@@ -53,9 +55,25 @@ export default function Home() {
             console.error("Error fetching pins:", error);
         } finally {
             setIsLoading(false);
+            setLoading(false)
         }
     }
-
+  if (Loading) {
+        return (
+          <div className='bg-[#e9e9e9] p-8 px-[10px] md:px-[160px]'>
+            <div className="flex justify-center items-center h-full min-h-screen">
+            <Image
+            src='/image.png'
+            alt='logo'
+            width={160}
+            height={160}
+            className='mb-52 animate-bounce'
+            style={{ maxWidth: "100%", height: "auto" }}
+          />
+            </div>
+          </div>
+        )
+      }
     return (
             <div className="p-4">
                 <PostList 
