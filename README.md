@@ -5,7 +5,7 @@
 ```
 npm i
 # or
-npm install
+bun i
 ```
 
 ### `develop`
@@ -14,7 +14,7 @@ npm install
 ```
 npm run dev
 # or
-yarn dev
+bun run dev
 ```
 
 ### `start`
@@ -22,7 +22,7 @@ yarn dev
 ```
 npm run start
 # or
-yarn start
+bun run start
 ```
 
 ### `build`
@@ -30,7 +30,7 @@ yarn start
 ```
 npm run build
 # or
-yarn build
+bun run build
 ```
 
 ## ⚙️ Deployment
